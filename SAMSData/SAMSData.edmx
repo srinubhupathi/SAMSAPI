@@ -1,0 +1,1830 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SAMSData.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="SAMSDataStoreContainer">
+          <EntitySet Name="Businesses" EntityType="SAMSData.Store.Businesses" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="BusinessSections" EntityType="SAMSData.Store.BusinessSections" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LedgerGroups" EntityType="SAMSData.Store.LedgerGroups" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LedgerJournals" EntityType="SAMSData.Store.LedgerJournals" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Ledgers" EntityType="SAMSData.Store.Ledgers" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Measurements" EntityType="SAMSData.Store.Measurements" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ProductGroups" EntityType="SAMSData.Store.ProductGroups" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Products" EntityType="SAMSData.Store.Products" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ProductTaxMappings" EntityType="SAMSData.Store.ProductTaxMappings" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PurchaseDetails" EntityType="SAMSData.Store.PurchaseDetails" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Purchases" EntityType="SAMSData.Store.Purchases" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SaleDetails" EntityType="SAMSData.Store.SaleDetails" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SaleDetailTrackings" EntityType="SAMSData.Store.SaleDetailTrackings" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Sales" EntityType="SAMSData.Store.Sales" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SAMSUsers" EntityType="SAMSData.Store.SAMSUsers" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Sections" EntityType="SAMSData.Store.Sections" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="sysdiagrams" EntityType="SAMSData.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Taxes" EntityType="SAMSData.Store.Taxes" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_BusinessSections_Businesses" Association="SAMSData.Store.FK_BusinessSections_Businesses">
+            <End Role="Businesses" EntitySet="Businesses" />
+            <End Role="BusinessSections" EntitySet="BusinessSections" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusinessSections_Sections" Association="SAMSData.Store.FK_BusinessSections_Sections">
+            <End Role="Sections" EntitySet="Sections" />
+            <End Role="BusinessSections" EntitySet="BusinessSections" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LedgerJournals_Businesses" Association="SAMSData.Store.FK_LedgerJournals_Businesses">
+            <End Role="Businesses" EntitySet="Businesses" />
+            <End Role="LedgerJournals" EntitySet="LedgerJournals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LedgerJournals_Ledgers" Association="SAMSData.Store.FK_LedgerJournals_Ledgers">
+            <End Role="Ledgers" EntitySet="Ledgers" />
+            <End Role="LedgerJournals" EntitySet="LedgerJournals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ledgers_LedgerGroups" Association="SAMSData.Store.FK_Ledgers_LedgerGroups">
+            <End Role="LedgerGroups" EntitySet="LedgerGroups" />
+            <End Role="Ledgers" EntitySet="Ledgers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductGroups_Sections" Association="SAMSData.Store.FK_ProductGroups_Sections">
+            <End Role="Sections" EntitySet="Sections" />
+            <End Role="ProductGroups" EntitySet="ProductGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_Measurements" Association="SAMSData.Store.FK_Products_Measurements">
+            <End Role="Measurements" EntitySet="Measurements" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_ProductGroups" Association="SAMSData.Store.FK_Products_ProductGroups">
+            <End Role="ProductGroups" EntitySet="ProductGroups" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_Sections" Association="SAMSData.Store.FK_Products_Sections">
+            <End Role="Sections" EntitySet="Sections" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductTaxMappings_Products" Association="SAMSData.Store.FK_ProductTaxMappings_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductTaxMappings" EntitySet="ProductTaxMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductTaxMappings_Taxes" Association="SAMSData.Store.FK_ProductTaxMappings_Taxes">
+            <End Role="Taxes" EntitySet="Taxes" />
+            <End Role="ProductTaxMappings" EntitySet="ProductTaxMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseDetails_Products" Association="SAMSData.Store.FK_PurchaseDetails_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="PurchaseDetails" EntitySet="PurchaseDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseDetails_Products1" Association="SAMSData.Store.FK_PurchaseDetails_Products1">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="PurchaseDetails" EntitySet="PurchaseDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseDetails_Purchases" Association="SAMSData.Store.FK_PurchaseDetails_Purchases">
+            <End Role="Purchases" EntitySet="Purchases" />
+            <End Role="PurchaseDetails" EntitySet="PurchaseDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Purchases_Businesses" Association="SAMSData.Store.FK_Purchases_Businesses">
+            <End Role="Businesses" EntitySet="Businesses" />
+            <End Role="Purchases" EntitySet="Purchases" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Purchases_Ledgers" Association="SAMSData.Store.FK_Purchases_Ledgers">
+            <End Role="Ledgers" EntitySet="Ledgers" />
+            <End Role="Purchases" EntitySet="Purchases" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Purchases_Sections" Association="SAMSData.Store.FK_Purchases_Sections">
+            <End Role="Sections" EntitySet="Sections" />
+            <End Role="Purchases" EntitySet="Purchases" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SaleDetails_Products" Association="SAMSData.Store.FK_SaleDetails_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="SaleDetails" EntitySet="SaleDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SaleDetails_Sales" Association="SAMSData.Store.FK_SaleDetails_Sales">
+            <End Role="Sales" EntitySet="Sales" />
+            <End Role="SaleDetails" EntitySet="SaleDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SaleDetailTrackings_PurchaseDetails" Association="SAMSData.Store.FK_SaleDetailTrackings_PurchaseDetails">
+            <End Role="PurchaseDetails" EntitySet="PurchaseDetails" />
+            <End Role="SaleDetailTrackings" EntitySet="SaleDetailTrackings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SaleDetailTrackings_SaleDetails" Association="SAMSData.Store.FK_SaleDetailTrackings_SaleDetails">
+            <End Role="SaleDetails" EntitySet="SaleDetails" />
+            <End Role="SaleDetailTrackings" EntitySet="SaleDetailTrackings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sales_Businesses" Association="SAMSData.Store.FK_Sales_Businesses">
+            <End Role="Businesses" EntitySet="Businesses" />
+            <End Role="Sales" EntitySet="Sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sales_Ledgers" Association="SAMSData.Store.FK_Sales_Ledgers">
+            <End Role="Ledgers" EntitySet="Ledgers" />
+            <End Role="Sales" EntitySet="Sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sales_Sections" Association="SAMSData.Store.FK_Sales_Sections">
+            <End Role="Sections" EntitySet="Sections" />
+            <End Role="Sales" EntitySet="Sales" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Businesses">
+          <Key>
+            <PropertyRef Name="BusinessID" />
+          </Key>
+          <Property Name="BusinessID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="BusinessName" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="Description" Type="varchar" MaxLength="500" />
+          <Property Name="ManagerName" Type="varchar" MaxLength="100" />
+          <Property Name="Address1" Type="varchar" MaxLength="200" />
+          <Property Name="Address2" Type="varchar" MaxLength="200" />
+          <Property Name="Place" Type="varchar" MaxLength="100" />
+          <Property Name="District" Type="varchar" MaxLength="100" />
+          <Property Name="State" Type="varchar" MaxLength="100" />
+          <Property Name="Country" Type="varchar" MaxLength="100" />
+          <Property Name="ParentID" Type="int" />
+          <Property Name="Phone1" Type="varchar" MaxLength="100" />
+          <Property Name="Phone2" Type="varchar" MaxLength="100" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+          <Property Name="PAN" Type="varchar" MaxLength="50" />
+          <Property Name="TAN" Type="varchar" MaxLength="50" />
+          <Property Name="TIN" Type="varchar" MaxLength="50" />
+          <Property Name="STAX" Type="varchar" MaxLength="50" />
+          <Property Name="CST" Type="varchar" MaxLength="50" />
+          <Property Name="Other1" Type="varchar" MaxLength="100" />
+          <Property Name="Other2" Type="varchar" MaxLength="100" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <EntityType Name="BusinessSections">
+          <Key>
+            <PropertyRef Name="BusinessSectionID" />
+          </Key>
+          <Property Name="BusinessSectionID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="BusinessID" Type="int" Nullable="false" />
+          <Property Name="SectionID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LedgerGroups">
+          <Key>
+            <PropertyRef Name="LedgerGroupID" />
+          </Key>
+          <Property Name="LedgerGroupID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="GroupName" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="GroupType" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <EntityType Name="LedgerJournals">
+          <Key>
+            <PropertyRef Name="LedgerJournalID" />
+          </Key>
+          <Property Name="LedgerJournalID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="BusinessID" Type="int" Nullable="false" />
+          <Property Name="TransactionDate" Type="date" Nullable="false" />
+          <Property Name="LedgerID" Type="int" Nullable="false" />
+          <Property Name="DrAmount" Type="float" Nullable="false" />
+          <Property Name="CrAmount" Type="float" Nullable="false" />
+          <Property Name="Narration" Type="varchar" MaxLength="250" />
+          <Property Name="ChequeNo" Type="varchar" MaxLength="100" />
+          <Property Name="EntryType" Type="varchar" MaxLength="50" />
+          <Property Name="ReferenceID" Type="int" />
+        </EntityType>
+        <EntityType Name="Ledgers">
+          <Key>
+            <PropertyRef Name="LedgerID" />
+          </Key>
+          <Property Name="LedgerID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="LedgerName" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="LedgerGroupID" Type="int" Nullable="false" />
+          <Property Name="Track" Type="varchar" MaxLength="50" />
+          <Property Name="FullName" Type="varchar" MaxLength="100" />
+          <Property Name="Address" Type="varchar" MaxLength="250" />
+          <Property Name="Place" Type="varchar" MaxLength="100" />
+          <Property Name="State" Type="varchar" MaxLength="50" />
+          <Property Name="Country" Type="varchar" MaxLength="50" />
+          <Property Name="Pin" Type="varchar" MaxLength="20" />
+          <Property Name="Phone1" Type="varchar" MaxLength="50" />
+          <Property Name="Phone2" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+          <Property Name="PAN" Type="varchar" MaxLength="50" />
+          <Property Name="TAN" Type="varchar" MaxLength="50" />
+          <Property Name="TIN" Type="varchar" MaxLength="50" />
+          <Property Name="STax" Type="varchar" MaxLength="50" />
+          <Property Name="CST" Type="varchar" MaxLength="50" />
+          <Property Name="Other1" Type="varchar" MaxLength="50" />
+          <Property Name="Other2" Type="varchar" MaxLength="50" />
+          <Property Name="OpenningBalance" Type="float" />
+          <Property Name="OpenningBalanceType" Type="int" />
+          <Property Name="MasterBusinessID" Type="int" />
+        </EntityType>
+        <EntityType Name="Measurements">
+          <Key>
+            <PropertyRef Name="MeasurementID" />
+          </Key>
+          <Property Name="MeasurementID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="MeasurementName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="MeasurementValue" Type="float" />
+          <Property Name="MeasurementMasterValue" Type="float" />
+          <Property Name="Priority" Type="int" />
+        </EntityType>
+        <EntityType Name="ProductGroups">
+          <Key>
+            <PropertyRef Name="ProductGroupID" />
+          </Key>
+          <Property Name="ProductGroupID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="GroupName" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="Description" Type="varchar" MaxLength="200" />
+          <Property Name="ParentID" Type="int" />
+          <Property Name="SectionID" Type="int" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="Description" Type="varchar" MaxLength="500" />
+          <Property Name="ProductGroupID" Type="int" />
+          <Property Name="SectionID" Type="int" />
+          <Property Name="MeasurementID" Type="int" />
+          <Property Name="Accessories" Type="varchar" MaxLength="1000" />
+          <Property Name="ImagePath" Type="varchar" MaxLength="200" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="ProductCode" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ProductTaxMappings">
+          <Key>
+            <PropertyRef Name="ProductTaxMappingID" />
+          </Key>
+          <Property Name="ProductTaxMappingID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="TaxID" Type="int" Nullable="false" />
+          <Property Name="StartDate" Type="date" />
+          <Property Name="EndDate" Type="date" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <EntityType Name="PurchaseDetails">
+          <Key>
+            <PropertyRef Name="PurchaseDetailsID" />
+          </Key>
+          <Property Name="PurchaseDetailsID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PurchaseID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="PurchasePrice" Type="float" Nullable="false" />
+          <Property Name="Quantity" Type="float" />
+          <Property Name="Size" Type="varchar" MaxLength="50" />
+          <Property Name="SerialNumber" Type="varchar" MaxLength="100" />
+          <Property Name="IDNumber" Type="varchar" MaxLength="100" />
+          <Property Name="BatchNumber" Type="varchar" MaxLength="50" />
+          <Property Name="MfgDate" Type="varchar" MaxLength="50" />
+          <Property Name="ExpDate" Type="varchar" MaxLength="50" />
+          <Property Name="Tax" Type="float" />
+          <Property Name="TaxAmount" Type="float" />
+          <Property Name="SalePrice" Type="float" />
+          <Property Name="BarCode" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Purchases">
+          <Key>
+            <PropertyRef Name="PurchaseID" />
+          </Key>
+          <Property Name="PurchaseID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="BusinessID" Type="int" Nullable="false" />
+          <Property Name="SectionID" Type="int" Nullable="false" />
+          <Property Name="TransactionDate" Type="date" Nullable="false" />
+          <Property Name="InvoiceNumber" Type="varchar" MaxLength="50" />
+          <Property Name="InvoiceDate" Type="date" />
+          <Property Name="DCNumber" Type="varchar" MaxLength="50" />
+          <Property Name="DCDate" Type="varchar" MaxLength="50" />
+          <Property Name="DCAmount" Type="float" />
+          <Property Name="InvoiceAmount" Type="float" />
+          <Property Name="VendorID" Type="int" />
+          <Property Name="VendorName" Type="varchar" MaxLength="100" />
+          <Property Name="Address" Type="varchar" MaxLength="250" />
+          <Property Name="Place" Type="varchar" MaxLength="100" />
+          <Property Name="FreightandHamali" Type="float" />
+          <Property Name="TaxAmount" Type="float" />
+          <Property Name="OtherCharges1" Type="float" />
+          <Property Name="OtherCharges2" Type="float" />
+          <Property Name="NetAmount" Type="float" />
+          <Property Name="PurchaseCategory" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="SaleDetails">
+          <Key>
+            <PropertyRef Name="SaleDetailsID" />
+          </Key>
+          <Property Name="SaleDetailsID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SaleID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="SalePrice" Type="float" Nullable="false" />
+          <Property Name="Quantity" Type="float" Nullable="false" />
+          <Property Name="Discount" Type="float" />
+          <Property Name="DiscountAmount" Type="float" />
+          <Property Name="NetAmount" Type="float" />
+          <Property Name="SerialNumber" Type="varchar" MaxLength="100" />
+          <Property Name="IDNumber" Type="varchar" MaxLength="100" />
+          <Property Name="BatchNumber" Type="varchar" MaxLength="50" />
+          <Property Name="MfgDate" Type="varchar" MaxLength="20" />
+          <Property Name="ExpDate" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SaleDetailTrackings">
+          <Key>
+            <PropertyRef Name="SaleDetailTrackingID" />
+          </Key>
+          <Property Name="SaleDetailTrackingID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SaleDetailsID" Type="int" Nullable="false" />
+          <Property Name="PurchaseDetailsID" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sales">
+          <Key>
+            <PropertyRef Name="SalesID" />
+          </Key>
+          <Property Name="SalesID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="BusinessID" Type="int" Nullable="false" />
+          <Property Name="SectionID" Type="int" Nullable="false" />
+          <Property Name="TransactionDate" Type="date" Nullable="false" />
+          <Property Name="BillNumber" Type="int" Nullable="false" />
+          <Property Name="BillNumberPrefix" Type="varchar" MaxLength="20" />
+          <Property Name="ManualBillNumber" Type="varchar" MaxLength="20" />
+          <Property Name="CustomerID" Type="int" />
+          <Property Name="CustomerName" Type="varchar" MaxLength="100" />
+          <Property Name="Address" Type="varchar" MaxLength="200" />
+          <Property Name="Place" Type="varchar" MaxLength="100" />
+          <Property Name="BillAmount" Type="float" />
+          <Property Name="TaxAmount" Type="float" />
+          <Property Name="Discount" Type="float" />
+          <Property Name="DiscountAmount" Type="float" />
+          <Property Name="FrieghtandHamali" Type="float" />
+          <Property Name="OtherCharges1" Type="float" />
+          <Property Name="OtherCharges2" Type="float" />
+          <Property Name="NetAmount" Type="float" />
+          <Property Name="SaleCategory" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="SAMSUsers">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="Password" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="UserLevel" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Sections">
+          <Key>
+            <PropertyRef Name="SectionID" />
+          </Key>
+          <Property Name="SectionID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SectionName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Description" Type="varchar" MaxLength="100" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="Priority" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Taxes">
+          <Key>
+            <PropertyRef Name="TaxID" />
+          </Key>
+          <Property Name="TaxID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Tax" Type="float" />
+          <Property Name="Priority" Type="int" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <Association Name="FK_BusinessSections_Businesses">
+          <End Role="Businesses" Type="SAMSData.Store.Businesses" Multiplicity="1" />
+          <End Role="BusinessSections" Type="SAMSData.Store.BusinessSections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Businesses">
+              <PropertyRef Name="BusinessID" />
+            </Principal>
+            <Dependent Role="BusinessSections">
+              <PropertyRef Name="BusinessID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusinessSections_Sections">
+          <End Role="Sections" Type="SAMSData.Store.Sections" Multiplicity="1" />
+          <End Role="BusinessSections" Type="SAMSData.Store.BusinessSections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sections">
+              <PropertyRef Name="SectionID" />
+            </Principal>
+            <Dependent Role="BusinessSections">
+              <PropertyRef Name="SectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LedgerJournals_Businesses">
+          <End Role="Businesses" Type="SAMSData.Store.Businesses" Multiplicity="1" />
+          <End Role="LedgerJournals" Type="SAMSData.Store.LedgerJournals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Businesses">
+              <PropertyRef Name="BusinessID" />
+            </Principal>
+            <Dependent Role="LedgerJournals">
+              <PropertyRef Name="BusinessID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LedgerJournals_Ledgers">
+          <End Role="Ledgers" Type="SAMSData.Store.Ledgers" Multiplicity="1" />
+          <End Role="LedgerJournals" Type="SAMSData.Store.LedgerJournals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ledgers">
+              <PropertyRef Name="LedgerID" />
+            </Principal>
+            <Dependent Role="LedgerJournals">
+              <PropertyRef Name="LedgerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ledgers_LedgerGroups">
+          <End Role="LedgerGroups" Type="SAMSData.Store.LedgerGroups" Multiplicity="1" />
+          <End Role="Ledgers" Type="SAMSData.Store.Ledgers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LedgerGroups">
+              <PropertyRef Name="LedgerGroupID" />
+            </Principal>
+            <Dependent Role="Ledgers">
+              <PropertyRef Name="LedgerGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductGroups_Sections">
+          <End Role="Sections" Type="SAMSData.Store.Sections" Multiplicity="0..1" />
+          <End Role="ProductGroups" Type="SAMSData.Store.ProductGroups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sections">
+              <PropertyRef Name="SectionID" />
+            </Principal>
+            <Dependent Role="ProductGroups">
+              <PropertyRef Name="SectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_Measurements">
+          <End Role="Measurements" Type="SAMSData.Store.Measurements" Multiplicity="0..1" />
+          <End Role="Products" Type="SAMSData.Store.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Measurements">
+              <PropertyRef Name="MeasurementID" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="MeasurementID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_ProductGroups">
+          <End Role="ProductGroups" Type="SAMSData.Store.ProductGroups" Multiplicity="0..1" />
+          <End Role="Products" Type="SAMSData.Store.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductGroups">
+              <PropertyRef Name="ProductGroupID" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="ProductGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_Sections">
+          <End Role="Sections" Type="SAMSData.Store.Sections" Multiplicity="0..1" />
+          <End Role="Products" Type="SAMSData.Store.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sections">
+              <PropertyRef Name="SectionID" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="SectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductTaxMappings_Products">
+          <End Role="Products" Type="SAMSData.Store.Products" Multiplicity="1" />
+          <End Role="ProductTaxMappings" Type="SAMSData.Store.ProductTaxMappings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="ProductTaxMappings">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductTaxMappings_Taxes">
+          <End Role="Taxes" Type="SAMSData.Store.Taxes" Multiplicity="1" />
+          <End Role="ProductTaxMappings" Type="SAMSData.Store.ProductTaxMappings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Taxes">
+              <PropertyRef Name="TaxID" />
+            </Principal>
+            <Dependent Role="ProductTaxMappings">
+              <PropertyRef Name="TaxID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseDetails_Products">
+          <End Role="Products" Type="SAMSData.Store.Products" Multiplicity="1" />
+          <End Role="PurchaseDetails" Type="SAMSData.Store.PurchaseDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="PurchaseDetails">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseDetails_Products1">
+          <End Role="Products" Type="SAMSData.Store.Products" Multiplicity="1" />
+          <End Role="PurchaseDetails" Type="SAMSData.Store.PurchaseDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="PurchaseDetails">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseDetails_Purchases">
+          <End Role="Purchases" Type="SAMSData.Store.Purchases" Multiplicity="1" />
+          <End Role="PurchaseDetails" Type="SAMSData.Store.PurchaseDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Purchases">
+              <PropertyRef Name="PurchaseID" />
+            </Principal>
+            <Dependent Role="PurchaseDetails">
+              <PropertyRef Name="PurchaseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Purchases_Businesses">
+          <End Role="Businesses" Type="SAMSData.Store.Businesses" Multiplicity="1" />
+          <End Role="Purchases" Type="SAMSData.Store.Purchases" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Businesses">
+              <PropertyRef Name="BusinessID" />
+            </Principal>
+            <Dependent Role="Purchases">
+              <PropertyRef Name="BusinessID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Purchases_Ledgers">
+          <End Role="Ledgers" Type="SAMSData.Store.Ledgers" Multiplicity="0..1" />
+          <End Role="Purchases" Type="SAMSData.Store.Purchases" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ledgers">
+              <PropertyRef Name="LedgerID" />
+            </Principal>
+            <Dependent Role="Purchases">
+              <PropertyRef Name="VendorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Purchases_Sections">
+          <End Role="Sections" Type="SAMSData.Store.Sections" Multiplicity="1" />
+          <End Role="Purchases" Type="SAMSData.Store.Purchases" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sections">
+              <PropertyRef Name="SectionID" />
+            </Principal>
+            <Dependent Role="Purchases">
+              <PropertyRef Name="SectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SaleDetails_Products">
+          <End Role="Products" Type="SAMSData.Store.Products" Multiplicity="1" />
+          <End Role="SaleDetails" Type="SAMSData.Store.SaleDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="SaleDetails">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SaleDetails_Sales">
+          <End Role="Sales" Type="SAMSData.Store.Sales" Multiplicity="1" />
+          <End Role="SaleDetails" Type="SAMSData.Store.SaleDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sales">
+              <PropertyRef Name="SalesID" />
+            </Principal>
+            <Dependent Role="SaleDetails">
+              <PropertyRef Name="SaleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SaleDetailTrackings_PurchaseDetails">
+          <End Role="PurchaseDetails" Type="SAMSData.Store.PurchaseDetails" Multiplicity="1" />
+          <End Role="SaleDetailTrackings" Type="SAMSData.Store.SaleDetailTrackings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PurchaseDetails">
+              <PropertyRef Name="PurchaseDetailsID" />
+            </Principal>
+            <Dependent Role="SaleDetailTrackings">
+              <PropertyRef Name="PurchaseDetailsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SaleDetailTrackings_SaleDetails">
+          <End Role="SaleDetails" Type="SAMSData.Store.SaleDetails" Multiplicity="1" />
+          <End Role="SaleDetailTrackings" Type="SAMSData.Store.SaleDetailTrackings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SaleDetails">
+              <PropertyRef Name="SaleDetailsID" />
+            </Principal>
+            <Dependent Role="SaleDetailTrackings">
+              <PropertyRef Name="SaleDetailsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sales_Businesses">
+          <End Role="Businesses" Type="SAMSData.Store.Businesses" Multiplicity="1" />
+          <End Role="Sales" Type="SAMSData.Store.Sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Businesses">
+              <PropertyRef Name="BusinessID" />
+            </Principal>
+            <Dependent Role="Sales">
+              <PropertyRef Name="BusinessID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sales_Ledgers">
+          <End Role="Ledgers" Type="SAMSData.Store.Ledgers" Multiplicity="0..1" />
+          <End Role="Sales" Type="SAMSData.Store.Sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ledgers">
+              <PropertyRef Name="LedgerID" />
+            </Principal>
+            <Dependent Role="Sales">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sales_Sections">
+          <End Role="Sections" Type="SAMSData.Store.Sections" Multiplicity="1" />
+          <End Role="Sales" Type="SAMSData.Store.Sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sections">
+              <PropertyRef Name="SectionID" />
+            </Principal>
+            <Dependent Role="Sales">
+              <PropertyRef Name="SectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SAMSData" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="SAMSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Businesses" EntityType="SAMSData.Business" />
+          <EntitySet Name="BusinessSections" EntityType="SAMSData.BusinessSection" />
+          <EntitySet Name="LedgerGroups" EntityType="SAMSData.LedgerGroup" />
+          <EntitySet Name="LedgerJournals" EntityType="SAMSData.LedgerJournal" />
+          <EntitySet Name="Ledgers" EntityType="SAMSData.Ledger" />
+          <EntitySet Name="Measurements" EntityType="SAMSData.Measurement" />
+          <EntitySet Name="ProductGroups" EntityType="SAMSData.ProductGroup" />
+          <EntitySet Name="Products" EntityType="SAMSData.Product" />
+          <EntitySet Name="ProductTaxMappings" EntityType="SAMSData.ProductTaxMapping" />
+          <EntitySet Name="PurchaseDetails" EntityType="SAMSData.PurchaseDetail" />
+          <EntitySet Name="Purchases" EntityType="SAMSData.Purchase" />
+          <EntitySet Name="SaleDetails" EntityType="SAMSData.SaleDetail" />
+          <EntitySet Name="SaleDetailTrackings" EntityType="SAMSData.SaleDetailTracking" />
+          <EntitySet Name="Sales" EntityType="SAMSData.Sale" />
+          <EntitySet Name="SAMSUsers" EntityType="SAMSData.SAMSUser" />
+          <EntitySet Name="Sections" EntityType="SAMSData.Section" />
+          <EntitySet Name="sysdiagrams" EntityType="SAMSData.sysdiagram" />
+          <EntitySet Name="Taxes" EntityType="SAMSData.Tax" />
+          <AssociationSet Name="FK_BusinessSections_Businesses" Association="SAMSData.FK_BusinessSections_Businesses">
+            <End Role="Businesses" EntitySet="Businesses" />
+            <End Role="BusinessSections" EntitySet="BusinessSections" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LedgerJournals_Businesses" Association="SAMSData.FK_LedgerJournals_Businesses">
+            <End Role="Businesses" EntitySet="Businesses" />
+            <End Role="LedgerJournals" EntitySet="LedgerJournals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Purchases_Businesses" Association="SAMSData.FK_Purchases_Businesses">
+            <End Role="Businesses" EntitySet="Businesses" />
+            <End Role="Purchases" EntitySet="Purchases" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sales_Businesses" Association="SAMSData.FK_Sales_Businesses">
+            <End Role="Businesses" EntitySet="Businesses" />
+            <End Role="Sales" EntitySet="Sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusinessSections_Sections" Association="SAMSData.FK_BusinessSections_Sections">
+            <End Role="Sections" EntitySet="Sections" />
+            <End Role="BusinessSections" EntitySet="BusinessSections" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ledgers_LedgerGroups" Association="SAMSData.FK_Ledgers_LedgerGroups">
+            <End Role="LedgerGroups" EntitySet="LedgerGroups" />
+            <End Role="Ledgers" EntitySet="Ledgers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LedgerJournals_Ledgers" Association="SAMSData.FK_LedgerJournals_Ledgers">
+            <End Role="Ledgers" EntitySet="Ledgers" />
+            <End Role="LedgerJournals" EntitySet="LedgerJournals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Purchases_Ledgers" Association="SAMSData.FK_Purchases_Ledgers">
+            <End Role="Ledgers" EntitySet="Ledgers" />
+            <End Role="Purchases" EntitySet="Purchases" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sales_Ledgers" Association="SAMSData.FK_Sales_Ledgers">
+            <End Role="Ledgers" EntitySet="Ledgers" />
+            <End Role="Sales" EntitySet="Sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_Measurements" Association="SAMSData.FK_Products_Measurements">
+            <End Role="Measurements" EntitySet="Measurements" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductGroups_Sections" Association="SAMSData.FK_ProductGroups_Sections">
+            <End Role="Sections" EntitySet="Sections" />
+            <End Role="ProductGroups" EntitySet="ProductGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_ProductGroups" Association="SAMSData.FK_Products_ProductGroups">
+            <End Role="ProductGroups" EntitySet="ProductGroups" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_Sections" Association="SAMSData.FK_Products_Sections">
+            <End Role="Sections" EntitySet="Sections" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductTaxMappings_Products" Association="SAMSData.FK_ProductTaxMappings_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductTaxMappings" EntitySet="ProductTaxMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseDetails_Products" Association="SAMSData.FK_PurchaseDetails_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="PurchaseDetails" EntitySet="PurchaseDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseDetails_Products1" Association="SAMSData.FK_PurchaseDetails_Products1">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="PurchaseDetails" EntitySet="PurchaseDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SaleDetails_Products" Association="SAMSData.FK_SaleDetails_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="SaleDetails" EntitySet="SaleDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductTaxMappings_Taxes" Association="SAMSData.FK_ProductTaxMappings_Taxes">
+            <End Role="Taxes" EntitySet="Taxes" />
+            <End Role="ProductTaxMappings" EntitySet="ProductTaxMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseDetails_Purchases" Association="SAMSData.FK_PurchaseDetails_Purchases">
+            <End Role="Purchases" EntitySet="Purchases" />
+            <End Role="PurchaseDetails" EntitySet="PurchaseDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SaleDetailTrackings_PurchaseDetails" Association="SAMSData.FK_SaleDetailTrackings_PurchaseDetails">
+            <End Role="PurchaseDetails" EntitySet="PurchaseDetails" />
+            <End Role="SaleDetailTrackings" EntitySet="SaleDetailTrackings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Purchases_Sections" Association="SAMSData.FK_Purchases_Sections">
+            <End Role="Sections" EntitySet="Sections" />
+            <End Role="Purchases" EntitySet="Purchases" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SaleDetails_Sales" Association="SAMSData.FK_SaleDetails_Sales">
+            <End Role="Sales" EntitySet="Sales" />
+            <End Role="SaleDetails" EntitySet="SaleDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SaleDetailTrackings_SaleDetails" Association="SAMSData.FK_SaleDetailTrackings_SaleDetails">
+            <End Role="SaleDetails" EntitySet="SaleDetails" />
+            <End Role="SaleDetailTrackings" EntitySet="SaleDetailTrackings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sales_Sections" Association="SAMSData.FK_Sales_Sections">
+            <End Role="Sections" EntitySet="Sections" />
+            <End Role="Sales" EntitySet="Sales" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Business">
+          <Key>
+            <PropertyRef Name="BusinessID" />
+          </Key>
+          <Property Name="BusinessID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BusinessName" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+          <Property Name="ManagerName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Address1" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="Address2" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="Place" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="District" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="State" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Country" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="ParentID" Type="Int32" />
+          <Property Name="Phone1" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Phone2" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Email" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="PAN" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="TAN" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="TIN" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="STAX" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="CST" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Other1" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Other2" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Status" Type="Boolean" />
+          <NavigationProperty Name="BusinessSections" Relationship="SAMSData.FK_BusinessSections_Businesses" FromRole="Businesses" ToRole="BusinessSections" />
+          <NavigationProperty Name="LedgerJournals" Relationship="SAMSData.FK_LedgerJournals_Businesses" FromRole="Businesses" ToRole="LedgerJournals" />
+          <NavigationProperty Name="Purchases" Relationship="SAMSData.FK_Purchases_Businesses" FromRole="Businesses" ToRole="Purchases" />
+          <NavigationProperty Name="Sales" Relationship="SAMSData.FK_Sales_Businesses" FromRole="Businesses" ToRole="Sales" />
+        </EntityType>
+        <EntityType Name="BusinessSection">
+          <Key>
+            <PropertyRef Name="BusinessSectionID" />
+          </Key>
+          <Property Name="BusinessSectionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BusinessID" Type="Int32" Nullable="false" />
+          <Property Name="SectionID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Business" Relationship="SAMSData.FK_BusinessSections_Businesses" FromRole="BusinessSections" ToRole="Businesses" />
+          <NavigationProperty Name="Section" Relationship="SAMSData.FK_BusinessSections_Sections" FromRole="BusinessSections" ToRole="Sections" />
+        </EntityType>
+        <EntityType Name="LedgerGroup">
+          <Key>
+            <PropertyRef Name="LedgerGroupID" />
+          </Key>
+          <Property Name="LedgerGroupID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupName" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="GroupType" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Status" Type="Boolean" />
+          <NavigationProperty Name="Ledgers" Relationship="SAMSData.FK_Ledgers_LedgerGroups" FromRole="LedgerGroups" ToRole="Ledgers" />
+        </EntityType>
+        <EntityType Name="LedgerJournal">
+          <Key>
+            <PropertyRef Name="LedgerJournalID" />
+          </Key>
+          <Property Name="LedgerJournalID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BusinessID" Type="Int32" Nullable="false" />
+          <Property Name="TransactionDate" Type="DateTime" Nullable="false" />
+          <Property Name="LedgerID" Type="Int32" Nullable="false" />
+          <Property Name="DrAmount" Type="Double" Nullable="false" />
+          <Property Name="CrAmount" Type="Double" Nullable="false" />
+          <Property Name="Narration" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="ChequeNo" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="EntryType" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="ReferenceID" Type="Int32" />
+          <NavigationProperty Name="Business" Relationship="SAMSData.FK_LedgerJournals_Businesses" FromRole="LedgerJournals" ToRole="Businesses" />
+          <NavigationProperty Name="Ledger" Relationship="SAMSData.FK_LedgerJournals_Ledgers" FromRole="LedgerJournals" ToRole="Ledgers" />
+        </EntityType>
+        <EntityType Name="Ledger">
+          <Key>
+            <PropertyRef Name="LedgerID" />
+          </Key>
+          <Property Name="LedgerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LedgerName" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="LedgerGroupID" Type="Int32" Nullable="false" />
+          <Property Name="Track" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="FullName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Address" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="Place" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="State" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Country" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Pin" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="Phone1" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Phone2" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Email" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="PAN" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="TAN" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="TIN" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="STax" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="CST" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Other1" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Other2" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="OpenningBalance" Type="Double" />
+          <Property Name="OpenningBalanceType" Type="Int32" />
+          <Property Name="MasterBusinessID" Type="Int32" />
+          <NavigationProperty Name="LedgerGroup" Relationship="SAMSData.FK_Ledgers_LedgerGroups" FromRole="Ledgers" ToRole="LedgerGroups" />
+          <NavigationProperty Name="LedgerJournals" Relationship="SAMSData.FK_LedgerJournals_Ledgers" FromRole="Ledgers" ToRole="LedgerJournals" />
+          <NavigationProperty Name="Purchases" Relationship="SAMSData.FK_Purchases_Ledgers" FromRole="Ledgers" ToRole="Purchases" />
+          <NavigationProperty Name="Sales" Relationship="SAMSData.FK_Sales_Ledgers" FromRole="Ledgers" ToRole="Sales" />
+        </EntityType>
+        <EntityType Name="Measurement">
+          <Key>
+            <PropertyRef Name="MeasurementID" />
+          </Key>
+          <Property Name="MeasurementID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MeasurementName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="MeasurementValue" Type="Double" />
+          <Property Name="MeasurementMasterValue" Type="Double" />
+          <Property Name="Priority" Type="Int32" />
+          <NavigationProperty Name="Products" Relationship="SAMSData.FK_Products_Measurements" FromRole="Measurements" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="ProductGroup">
+          <Key>
+            <PropertyRef Name="ProductGroupID" />
+          </Key>
+          <Property Name="ProductGroupID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupName" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="ParentID" Type="Int32" />
+          <Property Name="SectionID" Type="Int32" />
+          <NavigationProperty Name="Section" Relationship="SAMSData.FK_ProductGroups_Sections" FromRole="ProductGroups" ToRole="Sections" />
+          <NavigationProperty Name="Products" Relationship="SAMSData.FK_Products_ProductGroups" FromRole="ProductGroups" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+          <Property Name="ProductGroupID" Type="Int32" />
+          <Property Name="SectionID" Type="Int32" />
+          <Property Name="MeasurementID" Type="Int32" />
+          <Property Name="Accessories" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
+          <Property Name="ImagePath" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="ProductCode" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Measurement" Relationship="SAMSData.FK_Products_Measurements" FromRole="Products" ToRole="Measurements" />
+          <NavigationProperty Name="ProductGroup" Relationship="SAMSData.FK_Products_ProductGroups" FromRole="Products" ToRole="ProductGroups" />
+          <NavigationProperty Name="Section" Relationship="SAMSData.FK_Products_Sections" FromRole="Products" ToRole="Sections" />
+          <NavigationProperty Name="ProductTaxMappings" Relationship="SAMSData.FK_ProductTaxMappings_Products" FromRole="Products" ToRole="ProductTaxMappings" />
+          <NavigationProperty Name="PurchaseDetails" Relationship="SAMSData.FK_PurchaseDetails_Products" FromRole="Products" ToRole="PurchaseDetails" />
+          <NavigationProperty Name="PurchaseDetails1" Relationship="SAMSData.FK_PurchaseDetails_Products1" FromRole="Products" ToRole="PurchaseDetails" />
+          <NavigationProperty Name="SaleDetails" Relationship="SAMSData.FK_SaleDetails_Products" FromRole="Products" ToRole="SaleDetails" />
+        </EntityType>
+        <EntityType Name="ProductTaxMapping">
+          <Key>
+            <PropertyRef Name="ProductTaxMappingID" />
+          </Key>
+          <Property Name="ProductTaxMappingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="TaxID" Type="Int32" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" />
+          <Property Name="EndDate" Type="DateTime" />
+          <Property Name="Status" Type="Boolean" />
+          <NavigationProperty Name="Product" Relationship="SAMSData.FK_ProductTaxMappings_Products" FromRole="ProductTaxMappings" ToRole="Products" />
+          <NavigationProperty Name="Tax" Relationship="SAMSData.FK_ProductTaxMappings_Taxes" FromRole="ProductTaxMappings" ToRole="Taxes" />
+        </EntityType>
+        <EntityType Name="PurchaseDetail">
+          <Key>
+            <PropertyRef Name="PurchaseDetailsID" />
+          </Key>
+          <Property Name="PurchaseDetailsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PurchaseID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="PurchasePrice" Type="Double" Nullable="false" />
+          <Property Name="Quantity" Type="Double" />
+          <Property Name="Size" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="SerialNumber" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="IDNumber" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="BatchNumber" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="MfgDate" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="ExpDate" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Tax" Type="Double" />
+          <Property Name="TaxAmount" Type="Double" />
+          <Property Name="SalePrice" Type="Double" />
+          <Property Name="BarCode" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Product" Relationship="SAMSData.FK_PurchaseDetails_Products" FromRole="PurchaseDetails" ToRole="Products" />
+          <NavigationProperty Name="Product1" Relationship="SAMSData.FK_PurchaseDetails_Products1" FromRole="PurchaseDetails" ToRole="Products" />
+          <NavigationProperty Name="Purchase" Relationship="SAMSData.FK_PurchaseDetails_Purchases" FromRole="PurchaseDetails" ToRole="Purchases" />
+          <NavigationProperty Name="SaleDetailTrackings" Relationship="SAMSData.FK_SaleDetailTrackings_PurchaseDetails" FromRole="PurchaseDetails" ToRole="SaleDetailTrackings" />
+        </EntityType>
+        <EntityType Name="Purchase">
+          <Key>
+            <PropertyRef Name="PurchaseID" />
+          </Key>
+          <Property Name="PurchaseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BusinessID" Type="Int32" Nullable="false" />
+          <Property Name="SectionID" Type="Int32" Nullable="false" />
+          <Property Name="TransactionDate" Type="DateTime" Nullable="false" />
+          <Property Name="InvoiceNumber" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="InvoiceDate" Type="DateTime" />
+          <Property Name="DCNumber" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="DCDate" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="DCAmount" Type="Double" />
+          <Property Name="InvoiceAmount" Type="Double" />
+          <Property Name="VendorID" Type="Int32" />
+          <Property Name="VendorName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Address" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="Place" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="FreightandHamali" Type="Double" />
+          <Property Name="TaxAmount" Type="Double" />
+          <Property Name="OtherCharges1" Type="Double" />
+          <Property Name="OtherCharges2" Type="Double" />
+          <Property Name="NetAmount" Type="Double" />
+          <Property Name="PurchaseCategory" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Business" Relationship="SAMSData.FK_Purchases_Businesses" FromRole="Purchases" ToRole="Businesses" />
+          <NavigationProperty Name="Ledger" Relationship="SAMSData.FK_Purchases_Ledgers" FromRole="Purchases" ToRole="Ledgers" />
+          <NavigationProperty Name="PurchaseDetails" Relationship="SAMSData.FK_PurchaseDetails_Purchases" FromRole="Purchases" ToRole="PurchaseDetails" />
+          <NavigationProperty Name="Section" Relationship="SAMSData.FK_Purchases_Sections" FromRole="Purchases" ToRole="Sections" />
+        </EntityType>
+        <EntityType Name="SaleDetail">
+          <Key>
+            <PropertyRef Name="SaleDetailsID" />
+          </Key>
+          <Property Name="SaleDetailsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SaleID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="SalePrice" Type="Double" Nullable="false" />
+          <Property Name="Quantity" Type="Double" Nullable="false" />
+          <Property Name="Discount" Type="Double" />
+          <Property Name="DiscountAmount" Type="Double" />
+          <Property Name="NetAmount" Type="Double" />
+          <Property Name="SerialNumber" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="IDNumber" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="BatchNumber" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="MfgDate" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="ExpDate" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Product" Relationship="SAMSData.FK_SaleDetails_Products" FromRole="SaleDetails" ToRole="Products" />
+          <NavigationProperty Name="Sale" Relationship="SAMSData.FK_SaleDetails_Sales" FromRole="SaleDetails" ToRole="Sales" />
+          <NavigationProperty Name="SaleDetailTrackings" Relationship="SAMSData.FK_SaleDetailTrackings_SaleDetails" FromRole="SaleDetails" ToRole="SaleDetailTrackings" />
+        </EntityType>
+        <EntityType Name="SaleDetailTracking">
+          <Key>
+            <PropertyRef Name="SaleDetailTrackingID" />
+          </Key>
+          <Property Name="SaleDetailTrackingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SaleDetailsID" Type="Int32" Nullable="false" />
+          <Property Name="PurchaseDetailsID" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Double" Nullable="false" />
+          <NavigationProperty Name="PurchaseDetail" Relationship="SAMSData.FK_SaleDetailTrackings_PurchaseDetails" FromRole="SaleDetailTrackings" ToRole="PurchaseDetails" />
+          <NavigationProperty Name="SaleDetail" Relationship="SAMSData.FK_SaleDetailTrackings_SaleDetails" FromRole="SaleDetailTrackings" ToRole="SaleDetails" />
+        </EntityType>
+        <EntityType Name="Sale">
+          <Key>
+            <PropertyRef Name="SalesID" />
+          </Key>
+          <Property Name="SalesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BusinessID" Type="Int32" Nullable="false" />
+          <Property Name="SectionID" Type="Int32" Nullable="false" />
+          <Property Name="TransactionDate" Type="DateTime" Nullable="false" />
+          <Property Name="BillNumber" Type="Int32" Nullable="false" />
+          <Property Name="BillNumberPrefix" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="ManualBillNumber" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="CustomerID" Type="Int32" />
+          <Property Name="CustomerName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Address" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="Place" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="BillAmount" Type="Double" />
+          <Property Name="TaxAmount" Type="Double" />
+          <Property Name="Discount" Type="Double" />
+          <Property Name="DiscountAmount" Type="Double" />
+          <Property Name="FrieghtandHamali" Type="Double" />
+          <Property Name="OtherCharges1" Type="Double" />
+          <Property Name="OtherCharges2" Type="Double" />
+          <Property Name="NetAmount" Type="Double" />
+          <Property Name="SaleCategory" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Business" Relationship="SAMSData.FK_Sales_Businesses" FromRole="Sales" ToRole="Businesses" />
+          <NavigationProperty Name="Ledger" Relationship="SAMSData.FK_Sales_Ledgers" FromRole="Sales" ToRole="Ledgers" />
+          <NavigationProperty Name="SaleDetails" Relationship="SAMSData.FK_SaleDetails_Sales" FromRole="Sales" ToRole="SaleDetails" />
+          <NavigationProperty Name="Section" Relationship="SAMSData.FK_Sales_Sections" FromRole="Sales" ToRole="Sections" />
+        </EntityType>
+        <EntityType Name="SAMSUser">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="UserLevel" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Section">
+          <Key>
+            <PropertyRef Name="SectionID" />
+          </Key>
+          <Property Name="SectionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SectionName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="Priority" Type="Int32" />
+          <NavigationProperty Name="BusinessSections" Relationship="SAMSData.FK_BusinessSections_Sections" FromRole="Sections" ToRole="BusinessSections" />
+          <NavigationProperty Name="ProductGroups" Relationship="SAMSData.FK_ProductGroups_Sections" FromRole="Sections" ToRole="ProductGroups" />
+          <NavigationProperty Name="Products" Relationship="SAMSData.FK_Products_Sections" FromRole="Sections" ToRole="Products" />
+          <NavigationProperty Name="Purchases" Relationship="SAMSData.FK_Purchases_Sections" FromRole="Sections" ToRole="Purchases" />
+          <NavigationProperty Name="Sales" Relationship="SAMSData.FK_Sales_Sections" FromRole="Sections" ToRole="Sales" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Tax">
+          <Key>
+            <PropertyRef Name="TaxID" />
+          </Key>
+          <Property Name="TaxID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tax1" Type="Double" />
+          <Property Name="Priority" Type="Int32" />
+          <Property Name="Status" Type="Boolean" />
+          <NavigationProperty Name="ProductTaxMappings" Relationship="SAMSData.FK_ProductTaxMappings_Taxes" FromRole="Taxes" ToRole="ProductTaxMappings" />
+        </EntityType>
+        <Association Name="FK_BusinessSections_Businesses">
+          <End Role="Businesses" Type="SAMSData.Business" Multiplicity="1" />
+          <End Role="BusinessSections" Type="SAMSData.BusinessSection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Businesses">
+              <PropertyRef Name="BusinessID" />
+            </Principal>
+            <Dependent Role="BusinessSections">
+              <PropertyRef Name="BusinessID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LedgerJournals_Businesses">
+          <End Role="Businesses" Type="SAMSData.Business" Multiplicity="1" />
+          <End Role="LedgerJournals" Type="SAMSData.LedgerJournal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Businesses">
+              <PropertyRef Name="BusinessID" />
+            </Principal>
+            <Dependent Role="LedgerJournals">
+              <PropertyRef Name="BusinessID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Purchases_Businesses">
+          <End Role="Businesses" Type="SAMSData.Business" Multiplicity="1" />
+          <End Role="Purchases" Type="SAMSData.Purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Businesses">
+              <PropertyRef Name="BusinessID" />
+            </Principal>
+            <Dependent Role="Purchases">
+              <PropertyRef Name="BusinessID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sales_Businesses">
+          <End Role="Businesses" Type="SAMSData.Business" Multiplicity="1" />
+          <End Role="Sales" Type="SAMSData.Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Businesses">
+              <PropertyRef Name="BusinessID" />
+            </Principal>
+            <Dependent Role="Sales">
+              <PropertyRef Name="BusinessID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusinessSections_Sections">
+          <End Role="Sections" Type="SAMSData.Section" Multiplicity="1" />
+          <End Role="BusinessSections" Type="SAMSData.BusinessSection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sections">
+              <PropertyRef Name="SectionID" />
+            </Principal>
+            <Dependent Role="BusinessSections">
+              <PropertyRef Name="SectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ledgers_LedgerGroups">
+          <End Role="LedgerGroups" Type="SAMSData.LedgerGroup" Multiplicity="1" />
+          <End Role="Ledgers" Type="SAMSData.Ledger" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LedgerGroups">
+              <PropertyRef Name="LedgerGroupID" />
+            </Principal>
+            <Dependent Role="Ledgers">
+              <PropertyRef Name="LedgerGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LedgerJournals_Ledgers">
+          <End Role="Ledgers" Type="SAMSData.Ledger" Multiplicity="1" />
+          <End Role="LedgerJournals" Type="SAMSData.LedgerJournal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ledgers">
+              <PropertyRef Name="LedgerID" />
+            </Principal>
+            <Dependent Role="LedgerJournals">
+              <PropertyRef Name="LedgerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Purchases_Ledgers">
+          <End Role="Ledgers" Type="SAMSData.Ledger" Multiplicity="0..1" />
+          <End Role="Purchases" Type="SAMSData.Purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ledgers">
+              <PropertyRef Name="LedgerID" />
+            </Principal>
+            <Dependent Role="Purchases">
+              <PropertyRef Name="VendorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sales_Ledgers">
+          <End Role="Ledgers" Type="SAMSData.Ledger" Multiplicity="0..1" />
+          <End Role="Sales" Type="SAMSData.Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ledgers">
+              <PropertyRef Name="LedgerID" />
+            </Principal>
+            <Dependent Role="Sales">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_Measurements">
+          <End Role="Measurements" Type="SAMSData.Measurement" Multiplicity="0..1" />
+          <End Role="Products" Type="SAMSData.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Measurements">
+              <PropertyRef Name="MeasurementID" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="MeasurementID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductGroups_Sections">
+          <End Role="Sections" Type="SAMSData.Section" Multiplicity="0..1" />
+          <End Role="ProductGroups" Type="SAMSData.ProductGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sections">
+              <PropertyRef Name="SectionID" />
+            </Principal>
+            <Dependent Role="ProductGroups">
+              <PropertyRef Name="SectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_ProductGroups">
+          <End Role="ProductGroups" Type="SAMSData.ProductGroup" Multiplicity="0..1" />
+          <End Role="Products" Type="SAMSData.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductGroups">
+              <PropertyRef Name="ProductGroupID" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="ProductGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_Sections">
+          <End Role="Sections" Type="SAMSData.Section" Multiplicity="0..1" />
+          <End Role="Products" Type="SAMSData.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sections">
+              <PropertyRef Name="SectionID" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="SectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductTaxMappings_Products">
+          <End Role="Products" Type="SAMSData.Product" Multiplicity="1" />
+          <End Role="ProductTaxMappings" Type="SAMSData.ProductTaxMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="ProductTaxMappings">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseDetails_Products">
+          <End Role="Products" Type="SAMSData.Product" Multiplicity="1" />
+          <End Role="PurchaseDetails" Type="SAMSData.PurchaseDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="PurchaseDetails">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseDetails_Products1">
+          <End Role="Products" Type="SAMSData.Product" Multiplicity="1" />
+          <End Role="PurchaseDetails" Type="SAMSData.PurchaseDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="PurchaseDetails">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SaleDetails_Products">
+          <End Role="Products" Type="SAMSData.Product" Multiplicity="1" />
+          <End Role="SaleDetails" Type="SAMSData.SaleDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="SaleDetails">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductTaxMappings_Taxes">
+          <End Role="Taxes" Type="SAMSData.Tax" Multiplicity="1" />
+          <End Role="ProductTaxMappings" Type="SAMSData.ProductTaxMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Taxes">
+              <PropertyRef Name="TaxID" />
+            </Principal>
+            <Dependent Role="ProductTaxMappings">
+              <PropertyRef Name="TaxID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseDetails_Purchases">
+          <End Role="Purchases" Type="SAMSData.Purchase" Multiplicity="1" />
+          <End Role="PurchaseDetails" Type="SAMSData.PurchaseDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Purchases">
+              <PropertyRef Name="PurchaseID" />
+            </Principal>
+            <Dependent Role="PurchaseDetails">
+              <PropertyRef Name="PurchaseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SaleDetailTrackings_PurchaseDetails">
+          <End Role="PurchaseDetails" Type="SAMSData.PurchaseDetail" Multiplicity="1" />
+          <End Role="SaleDetailTrackings" Type="SAMSData.SaleDetailTracking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PurchaseDetails">
+              <PropertyRef Name="PurchaseDetailsID" />
+            </Principal>
+            <Dependent Role="SaleDetailTrackings">
+              <PropertyRef Name="PurchaseDetailsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Purchases_Sections">
+          <End Role="Sections" Type="SAMSData.Section" Multiplicity="1" />
+          <End Role="Purchases" Type="SAMSData.Purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sections">
+              <PropertyRef Name="SectionID" />
+            </Principal>
+            <Dependent Role="Purchases">
+              <PropertyRef Name="SectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SaleDetails_Sales">
+          <End Role="Sales" Type="SAMSData.Sale" Multiplicity="1" />
+          <End Role="SaleDetails" Type="SAMSData.SaleDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sales">
+              <PropertyRef Name="SalesID" />
+            </Principal>
+            <Dependent Role="SaleDetails">
+              <PropertyRef Name="SaleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SaleDetailTrackings_SaleDetails">
+          <End Role="SaleDetails" Type="SAMSData.SaleDetail" Multiplicity="1" />
+          <End Role="SaleDetailTrackings" Type="SAMSData.SaleDetailTracking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SaleDetails">
+              <PropertyRef Name="SaleDetailsID" />
+            </Principal>
+            <Dependent Role="SaleDetailTrackings">
+              <PropertyRef Name="SaleDetailsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sales_Sections">
+          <End Role="Sections" Type="SAMSData.Section" Multiplicity="1" />
+          <End Role="Sales" Type="SAMSData.Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sections">
+              <PropertyRef Name="SectionID" />
+            </Principal>
+            <Dependent Role="Sales">
+              <PropertyRef Name="SectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SAMSDataStoreContainer" CdmEntityContainer="SAMSEntities">
+          <EntitySetMapping Name="Businesses"><EntityTypeMapping TypeName="SAMSData.Business"><MappingFragment StoreEntitySet="Businesses">
+            <ScalarProperty Name="BusinessID" ColumnName="BusinessID" />
+            <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+            <ScalarProperty Name="ManagerName" ColumnName="ManagerName" />
+            <ScalarProperty Name="Address1" ColumnName="Address1" />
+            <ScalarProperty Name="Address2" ColumnName="Address2" />
+            <ScalarProperty Name="Place" ColumnName="Place" />
+            <ScalarProperty Name="District" ColumnName="District" />
+            <ScalarProperty Name="State" ColumnName="State" />
+            <ScalarProperty Name="Country" ColumnName="Country" />
+            <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+            <ScalarProperty Name="Phone1" ColumnName="Phone1" />
+            <ScalarProperty Name="Phone2" ColumnName="Phone2" />
+            <ScalarProperty Name="Email" ColumnName="Email" />
+            <ScalarProperty Name="PAN" ColumnName="PAN" />
+            <ScalarProperty Name="TAN" ColumnName="TAN" />
+            <ScalarProperty Name="TIN" ColumnName="TIN" />
+            <ScalarProperty Name="STAX" ColumnName="STAX" />
+            <ScalarProperty Name="CST" ColumnName="CST" />
+            <ScalarProperty Name="Other1" ColumnName="Other1" />
+            <ScalarProperty Name="Other2" ColumnName="Other2" />
+            <ScalarProperty Name="Status" ColumnName="Status" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="BusinessSections"><EntityTypeMapping TypeName="SAMSData.BusinessSection"><MappingFragment StoreEntitySet="BusinessSections">
+            <ScalarProperty Name="BusinessSectionID" ColumnName="BusinessSectionID" />
+            <ScalarProperty Name="BusinessID" ColumnName="BusinessID" />
+            <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="LedgerGroups"><EntityTypeMapping TypeName="SAMSData.LedgerGroup"><MappingFragment StoreEntitySet="LedgerGroups">
+            <ScalarProperty Name="LedgerGroupID" ColumnName="LedgerGroupID" />
+            <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+            <ScalarProperty Name="GroupType" ColumnName="GroupType" />
+            <ScalarProperty Name="Status" ColumnName="Status" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="LedgerJournals"><EntityTypeMapping TypeName="SAMSData.LedgerJournal"><MappingFragment StoreEntitySet="LedgerJournals">
+            <ScalarProperty Name="LedgerJournalID" ColumnName="LedgerJournalID" />
+            <ScalarProperty Name="BusinessID" ColumnName="BusinessID" />
+            <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+            <ScalarProperty Name="LedgerID" ColumnName="LedgerID" />
+            <ScalarProperty Name="DrAmount" ColumnName="DrAmount" />
+            <ScalarProperty Name="CrAmount" ColumnName="CrAmount" />
+            <ScalarProperty Name="Narration" ColumnName="Narration" />
+            <ScalarProperty Name="ChequeNo" ColumnName="ChequeNo" />
+            <ScalarProperty Name="EntryType" ColumnName="EntryType" />
+            <ScalarProperty Name="ReferenceID" ColumnName="ReferenceID" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Ledgers"><EntityTypeMapping TypeName="SAMSData.Ledger"><MappingFragment StoreEntitySet="Ledgers">
+            <ScalarProperty Name="LedgerID" ColumnName="LedgerID" />
+            <ScalarProperty Name="LedgerName" ColumnName="LedgerName" />
+            <ScalarProperty Name="LedgerGroupID" ColumnName="LedgerGroupID" />
+            <ScalarProperty Name="Track" ColumnName="Track" />
+            <ScalarProperty Name="FullName" ColumnName="FullName" />
+            <ScalarProperty Name="Address" ColumnName="Address" />
+            <ScalarProperty Name="Place" ColumnName="Place" />
+            <ScalarProperty Name="State" ColumnName="State" />
+            <ScalarProperty Name="Country" ColumnName="Country" />
+            <ScalarProperty Name="Pin" ColumnName="Pin" />
+            <ScalarProperty Name="Phone1" ColumnName="Phone1" />
+            <ScalarProperty Name="Phone2" ColumnName="Phone2" />
+            <ScalarProperty Name="Email" ColumnName="Email" />
+            <ScalarProperty Name="PAN" ColumnName="PAN" />
+            <ScalarProperty Name="TAN" ColumnName="TAN" />
+            <ScalarProperty Name="TIN" ColumnName="TIN" />
+            <ScalarProperty Name="STax" ColumnName="STax" />
+            <ScalarProperty Name="CST" ColumnName="CST" />
+            <ScalarProperty Name="Other1" ColumnName="Other1" />
+            <ScalarProperty Name="Other2" ColumnName="Other2" />
+            <ScalarProperty Name="OpenningBalance" ColumnName="OpenningBalance" />
+            <ScalarProperty Name="OpenningBalanceType" ColumnName="OpenningBalanceType" />
+            <ScalarProperty Name="MasterBusinessID" ColumnName="MasterBusinessID" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Measurements"><EntityTypeMapping TypeName="SAMSData.Measurement"><MappingFragment StoreEntitySet="Measurements">
+            <ScalarProperty Name="MeasurementID" ColumnName="MeasurementID" />
+            <ScalarProperty Name="MeasurementName" ColumnName="MeasurementName" />
+            <ScalarProperty Name="MeasurementValue" ColumnName="MeasurementValue" />
+            <ScalarProperty Name="MeasurementMasterValue" ColumnName="MeasurementMasterValue" />
+            <ScalarProperty Name="Priority" ColumnName="Priority" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="ProductGroups"><EntityTypeMapping TypeName="SAMSData.ProductGroup"><MappingFragment StoreEntitySet="ProductGroups">
+            <ScalarProperty Name="ProductGroupID" ColumnName="ProductGroupID" />
+            <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+            <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+            <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Products"><EntityTypeMapping TypeName="SAMSData.Product"><MappingFragment StoreEntitySet="Products">
+            <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+            <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+            <ScalarProperty Name="ProductGroupID" ColumnName="ProductGroupID" />
+            <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+            <ScalarProperty Name="MeasurementID" ColumnName="MeasurementID" />
+            <ScalarProperty Name="Accessories" ColumnName="Accessories" />
+            <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+            <ScalarProperty Name="Status" ColumnName="Status" />
+            <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="ProductTaxMappings"><EntityTypeMapping TypeName="SAMSData.ProductTaxMapping"><MappingFragment StoreEntitySet="ProductTaxMappings">
+            <ScalarProperty Name="ProductTaxMappingID" ColumnName="ProductTaxMappingID" />
+            <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+            <ScalarProperty Name="TaxID" ColumnName="TaxID" />
+            <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+            <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+            <ScalarProperty Name="Status" ColumnName="Status" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="PurchaseDetails"><EntityTypeMapping TypeName="SAMSData.PurchaseDetail"><MappingFragment StoreEntitySet="PurchaseDetails">
+            <ScalarProperty Name="PurchaseDetailsID" ColumnName="PurchaseDetailsID" />
+            <ScalarProperty Name="PurchaseID" ColumnName="PurchaseID" />
+            <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+            <ScalarProperty Name="PurchasePrice" ColumnName="PurchasePrice" />
+            <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+            <ScalarProperty Name="Size" ColumnName="Size" />
+            <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+            <ScalarProperty Name="IDNumber" ColumnName="IDNumber" />
+            <ScalarProperty Name="BatchNumber" ColumnName="BatchNumber" />
+            <ScalarProperty Name="MfgDate" ColumnName="MfgDate" />
+            <ScalarProperty Name="ExpDate" ColumnName="ExpDate" />
+            <ScalarProperty Name="Tax" ColumnName="Tax" />
+            <ScalarProperty Name="TaxAmount" ColumnName="TaxAmount" />
+            <ScalarProperty Name="SalePrice" ColumnName="SalePrice" />
+            <ScalarProperty Name="BarCode" ColumnName="BarCode" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Purchases"><EntityTypeMapping TypeName="SAMSData.Purchase"><MappingFragment StoreEntitySet="Purchases">
+            <ScalarProperty Name="PurchaseID" ColumnName="PurchaseID" />
+            <ScalarProperty Name="BusinessID" ColumnName="BusinessID" />
+            <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+            <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+            <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+            <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+            <ScalarProperty Name="DCNumber" ColumnName="DCNumber" />
+            <ScalarProperty Name="DCDate" ColumnName="DCDate" />
+            <ScalarProperty Name="DCAmount" ColumnName="DCAmount" />
+            <ScalarProperty Name="InvoiceAmount" ColumnName="InvoiceAmount" />
+            <ScalarProperty Name="VendorID" ColumnName="VendorID" />
+            <ScalarProperty Name="VendorName" ColumnName="VendorName" />
+            <ScalarProperty Name="Address" ColumnName="Address" />
+            <ScalarProperty Name="Place" ColumnName="Place" />
+            <ScalarProperty Name="FreightandHamali" ColumnName="FreightandHamali" />
+            <ScalarProperty Name="TaxAmount" ColumnName="TaxAmount" />
+            <ScalarProperty Name="OtherCharges1" ColumnName="OtherCharges1" />
+            <ScalarProperty Name="OtherCharges2" ColumnName="OtherCharges2" />
+            <ScalarProperty Name="NetAmount" ColumnName="NetAmount" />
+            <ScalarProperty Name="PurchaseCategory" ColumnName="PurchaseCategory" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="SaleDetails"><EntityTypeMapping TypeName="SAMSData.SaleDetail"><MappingFragment StoreEntitySet="SaleDetails">
+            <ScalarProperty Name="SaleDetailsID" ColumnName="SaleDetailsID" />
+            <ScalarProperty Name="SaleID" ColumnName="SaleID" />
+            <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+            <ScalarProperty Name="SalePrice" ColumnName="SalePrice" />
+            <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+            <ScalarProperty Name="Discount" ColumnName="Discount" />
+            <ScalarProperty Name="DiscountAmount" ColumnName="DiscountAmount" />
+            <ScalarProperty Name="NetAmount" ColumnName="NetAmount" />
+            <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+            <ScalarProperty Name="IDNumber" ColumnName="IDNumber" />
+            <ScalarProperty Name="BatchNumber" ColumnName="BatchNumber" />
+            <ScalarProperty Name="MfgDate" ColumnName="MfgDate" />
+            <ScalarProperty Name="ExpDate" ColumnName="ExpDate" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="SaleDetailTrackings"><EntityTypeMapping TypeName="SAMSData.SaleDetailTracking"><MappingFragment StoreEntitySet="SaleDetailTrackings">
+            <ScalarProperty Name="SaleDetailTrackingID" ColumnName="SaleDetailTrackingID" />
+            <ScalarProperty Name="SaleDetailsID" ColumnName="SaleDetailsID" />
+            <ScalarProperty Name="PurchaseDetailsID" ColumnName="PurchaseDetailsID" />
+            <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Sales"><EntityTypeMapping TypeName="SAMSData.Sale"><MappingFragment StoreEntitySet="Sales">
+            <ScalarProperty Name="SalesID" ColumnName="SalesID" />
+            <ScalarProperty Name="BusinessID" ColumnName="BusinessID" />
+            <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+            <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+            <ScalarProperty Name="BillNumber" ColumnName="BillNumber" />
+            <ScalarProperty Name="BillNumberPrefix" ColumnName="BillNumberPrefix" />
+            <ScalarProperty Name="ManualBillNumber" ColumnName="ManualBillNumber" />
+            <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+            <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+            <ScalarProperty Name="Address" ColumnName="Address" />
+            <ScalarProperty Name="Place" ColumnName="Place" />
+            <ScalarProperty Name="BillAmount" ColumnName="BillAmount" />
+            <ScalarProperty Name="TaxAmount" ColumnName="TaxAmount" />
+            <ScalarProperty Name="Discount" ColumnName="Discount" />
+            <ScalarProperty Name="DiscountAmount" ColumnName="DiscountAmount" />
+            <ScalarProperty Name="FrieghtandHamali" ColumnName="FrieghtandHamali" />
+            <ScalarProperty Name="OtherCharges1" ColumnName="OtherCharges1" />
+            <ScalarProperty Name="OtherCharges2" ColumnName="OtherCharges2" />
+            <ScalarProperty Name="NetAmount" ColumnName="NetAmount" />
+            <ScalarProperty Name="SaleCategory" ColumnName="SaleCategory" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="SAMSUsers"><EntityTypeMapping TypeName="SAMSData.SAMSUser"><MappingFragment StoreEntitySet="SAMSUsers">
+            <ScalarProperty Name="UserID" ColumnName="UserID" />
+            <ScalarProperty Name="UserName" ColumnName="UserName" />
+            <ScalarProperty Name="Password" ColumnName="Password" />
+            <ScalarProperty Name="Status" ColumnName="Status" />
+            <ScalarProperty Name="UserLevel" ColumnName="UserLevel" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Sections"><EntityTypeMapping TypeName="SAMSData.Section"><MappingFragment StoreEntitySet="Sections">
+            <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+            <ScalarProperty Name="SectionName" ColumnName="SectionName" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+            <ScalarProperty Name="Status" ColumnName="Status" />
+            <ScalarProperty Name="Priority" ColumnName="Priority" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams"><EntityTypeMapping TypeName="SAMSData.sysdiagram"><MappingFragment StoreEntitySet="sysdiagrams">
+            <ScalarProperty Name="name" ColumnName="name" />
+            <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+            <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+            <ScalarProperty Name="version" ColumnName="version" />
+            <ScalarProperty Name="definition" ColumnName="definition" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Taxes"><EntityTypeMapping TypeName="SAMSData.Tax"><MappingFragment StoreEntitySet="Taxes">
+            <ScalarProperty Name="TaxID" ColumnName="TaxID" />
+            <ScalarProperty Name="Tax1" ColumnName="Tax" />
+            <ScalarProperty Name="Priority" ColumnName="Priority" />
+            <ScalarProperty Name="Status" ColumnName="Status" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="SAMSData">
+        <EntityTypeShape EntityType="SAMSData.Business" Width="1.5" PointX="3.75" PointY="5" Height="5.2079475911458317" IsExpanded="true" />
+        <EntityTypeShape EntityType="SAMSData.BusinessSection" Width="1.5" PointX="3" PointY="12.75" Height="1.7566536458333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="SAMSData.LedgerGroup" Width="1.5" PointX="1.5" PointY="21.75" Height="1.7566536458333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="SAMSData.LedgerJournal" Width="1.5" PointX="11" PointY="10.75" Height="2.9070849609374996" IsExpanded="true" />
+        <EntityTypeShape EntityType="SAMSData.Ledger" Width="1.5" PointX="3.75" PointY="20" Height="5.3722949218750031" IsExpanded="true" />
+        <EntityTypeShape EntityType="SAMSData.Measurement" Width="1.5" PointX="3" PointY="26.875" Height="1.9210009765625031" IsExpanded="true" />
+        <EntityTypeShape EntityType="SAMSData.ProductGroup" Width="1.5" PointX="3" PointY="16.125" Height="2.0853483072916674" IsExpanded="true" />
+        <EntityTypeShape EntityType="SAMSData.Product" Width="1.5" PointX="5.25" PointY="13.875" Height="3.7288216145833317" IsExpanded="true" />
+        <EntityTypeShape EntityType="SAMSData.ProductTaxMapping" Width="1.5" PointX="10.5" PointY="14.625" Height="2.2496956380208317" IsExpanded="true" />
+        <EntityTypeShape EntityType="SAMSData.PurchaseDetail" Width="1.5" PointX="8.25" PointY="8.875" Height="4.057516276041671" IsExpanded="true" />
+        <EntityTypeShape EntityType="SAMSData.Purchase" Width="1.5" PointX="6" PointY="8.25" Height="4.8792529296875031" IsExpanded="true" />
+        <EntityTypeShape EntityType="SAMSData.SaleDetail" Width="1.5" PointX="10.25" PointY="17.75" Height="3.5644742838541674" IsExpanded="true" />
+        <EntityTypeShape EntityType="SAMSData.SaleDetailTracking" Width="1.5" PointX="13.5" PointY="14.125" Height="1.921000976562496" IsExpanded="true" />
+        <EntityTypeShape EntityType="SAMSData.Sale" Width="1.5" PointX="8" PointY="14.25" Height="4.8792529296875031" IsExpanded="true" />
+        <EntityTypeShape EntityType="SAMSData.SAMSUser" Width="1.5" PointX="0.75" PointY="0.75" Height="1.7566536458333388" IsExpanded="true" />
+        <EntityTypeShape EntityType="SAMSData.Section" Width="1.5" PointX="0.75" PointY="13.375" Height="2.5783902994791674" IsExpanded="true" />
+        <EntityTypeShape EntityType="SAMSData.sysdiagram" Width="1.5" PointX="2.75" PointY="0.75" Height="1.7566536458333388" IsExpanded="true" />
+        <EntityTypeShape EntityType="SAMSData.Tax" Width="1.5" PointX="8.25" PointY="22.875" Height="1.7566536458333388" IsExpanded="true" />
+        <AssociationConnector Association="SAMSData.FK_BusinessSections_Businesses" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.125" PointY="10.207947591145832" />
+          <ConnectorPoint PointX="4.125" PointY="12.75" />
+        </AssociationConnector>
+        <AssociationConnector Association="SAMSData.FK_LedgerJournals_Businesses" ManuallyRouted="false">
+          <ConnectorPoint PointX="5.25" PointY="6.59375" />
+          <ConnectorPoint PointX="11.75" PointY="6.59375" />
+          <ConnectorPoint PointX="11.75" PointY="10.75" />
+        </AssociationConnector>
+        <AssociationConnector Association="SAMSData.FK_Purchases_Businesses" ManuallyRouted="false">
+          <ConnectorPoint PointX="5.25" PointY="9.2289737955729159" />
+          <ConnectorPoint PointX="6" PointY="9.2289737955729159" />
+        </AssociationConnector>
+        <AssociationConnector Association="SAMSData.FK_Sales_Businesses" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.875" PointY="10.207947591145832" />
+          <ConnectorPoint PointX="4.875" PointY="18.701050618489585" />
+          <ConnectorPoint PointX="5.947916666666667" PointY="18.701050618489585" />
+          <ConnectorPoint PointX="6.114583333333333" PointY="18.701050618489585" />
+          <ConnectorPoint PointX="7.072916666666667" PointY="18.701050618489585" />
+          <ConnectorPoint PointX="7.239583333333333" PointY="18.701050618489585" />
+          <ConnectorPoint PointX="8" PointY="18.701050618489585" />
+        </AssociationConnector>
+        <AssociationConnector Association="SAMSData.FK_BusinessSections_Sections" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="13.940826822916666" />
+          <ConnectorPoint PointX="3" PointY="13.940826822916666" />
+        </AssociationConnector>
+        <AssociationConnector Association="SAMSData.FK_Ledgers_LedgerGroups" ManuallyRouted="false">
+          <ConnectorPoint PointX="3" PointY="22.628326822916666" />
+          <ConnectorPoint PointX="3.75" PointY="22.628326822916666" />
+        </AssociationConnector>
+        <AssociationConnector Association="SAMSData.FK_LedgerJournals_Ledgers" ManuallyRouted="false">
+          <ConnectorPoint PointX="5.25" PointY="22.094737141927084" />
+          <ConnectorPoint PointX="5.947916666666667" PointY="22.094737141927084" />
+          <ConnectorPoint PointX="6.114583333333333" PointY="22.094737141927084" />
+          <ConnectorPoint PointX="7.072916666666667" PointY="22.094737141927084" />
+          <ConnectorPoint PointX="7.239583333333333" PointY="22.094737141927084" />
+          <ConnectorPoint PointX="11.822916666666666" PointY="22.094737141927084" />
+          <ConnectorPoint PointX="11.989583333333334" PointY="22.094737141927084" />
+          <ConnectorPoint PointX="12.28125" PointY="22.094737141927084" />
+          <ConnectorPoint PointX="12.28125" PointY="13.6570849609375" />
+        </AssociationConnector>
+        <AssociationConnector Association="SAMSData.FK_Purchases_Ledgers" ManuallyRouted="false">
+          <ConnectorPoint PointX="5.25" PointY="23.764768531901044" />
+          <ConnectorPoint PointX="5.947916666666667" PointY="23.764768531901044" />
+          <ConnectorPoint PointX="6.114583333333333" PointY="23.764768531901044" />
+          <ConnectorPoint PointX="7.15625" PointY="23.764768531901044" />
+          <ConnectorPoint PointX="7.15625" PointY="13.129252929687503" />
+        </AssociationConnector>
+        <AssociationConnector Association="SAMSData.FK_Sales_Ledgers" ManuallyRouted="false">
+          <ConnectorPoint PointX="5.03125" PointY="20" />
+          <ConnectorPoint PointX="5.03125" PointY="18.946404274088536" />
+          <ConnectorPoint PointX="5.947916666666667" PointY="18.946404274088536" />
+          <ConnectorPoint PointX="6.114583333333333" PointY="18.946404274088536" />
+          <ConnectorPoint PointX="7.072916666666667" PointY="18.946404274088536" />
+          <ConnectorPoint PointX="7.239583333333333" PointY="18.946404274088536" />
+          <ConnectorPoint PointX="8" PointY="18.946404274088536" />
+        </AssociationConnector>
+        <AssociationConnector Association="SAMSData.FK_Products_Measurements" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="27.835500488281252" />
+          <ConnectorPoint PointX="6.03125" PointY="27.835500488281252" />
+          <ConnectorPoint PointX="6.03125" PointY="17.603821614583332" />
+        </AssociationConnector>
+        <AssociationConnector Association="SAMSData.FK_ProductGroups_Sections" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.5" PointY="15.953390299479167" />
+          <ConnectorPoint PointX="1.5" PointY="17.167674153645834" />
+          <ConnectorPoint PointX="1.8229191666666667" PointY="17.167674153645834" />
+          <ConnectorPoint PointX="1.9895858333333332" PointY="17.167674153645834" />
+          <ConnectorPoint PointX="3" PointY="17.167674153645834" />
+        </AssociationConnector>
+        <AssociationConnector Association="SAMSData.FK_Products_ProductGroups" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="16.864410807291666" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="16.864410807291666" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="16.864410807291666" />
+          <ConnectorPoint PointX="5.25" PointY="16.864410807291666" />
+        </AssociationConnector>
+        <AssociationConnector Association="SAMSData.FK_Products_Sections" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="15.26127197265625" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="15.26127197265625" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="15.26127197265625" />
+          <ConnectorPoint PointX="5.25" PointY="15.26127197265625" />
+        </AssociationConnector>
+        <AssociationConnector Association="SAMSData.FK_ProductTaxMappings_Products" ManuallyRouted="false">
+          <ConnectorPoint PointX="6.75" PointY="14.03125" />
+          <ConnectorPoint PointX="7.072916666666667" PointY="14.03125" />
+          <ConnectorPoint PointX="7.239583333333333" PointY="14.03125" />
+          <ConnectorPoint PointX="9.5416641666666653" PointY="14.03125" />
+          <ConnectorPoint PointX="9.7083308333333331" PointY="14.03125" />
+          <ConnectorPoint PointX="11.25" PointY="14.03125" />
+          <ConnectorPoint PointX="11.25" PointY="14.625" />
+        </AssociationConnector>
+        <AssociationConnector Association="SAMSData.FK_PurchaseDetails_Products" ManuallyRouted="false">
+          <ConnectorPoint PointX="6.75" PointY="13.9218725" />
+          <ConnectorPoint PointX="7.072916666666667" PointY="13.9218725" />
+          <ConnectorPoint PointX="7.239583333333333" PointY="13.9218725" />
+          <ConnectorPoint PointX="9.65625" PointY="13.9218725" />
+          <ConnectorPoint PointX="9.65625" PointY="12.932516276041671" />
+        </AssociationConnector>
+        <AssociationConnector Association="SAMSData.FK_PurchaseDetails_Products1" ManuallyRouted="false">
+          <ConnectorPoint PointX="6.75" PointY="14.1406275" />
+          <ConnectorPoint PointX="7.072916666666667" PointY="14.1406275" />
+          <ConnectorPoint PointX="7.239583333333333" PointY="14.1406275" />
+          <ConnectorPoint PointX="9.6249975" PointY="14.1406275" />
+          <ConnectorPoint PointX="9.6249975" PointY="12.932516276041671" />
+        </AssociationConnector>
+        <AssociationConnector Association="SAMSData.FK_SaleDetails_Products" ManuallyRouted="false">
+          <ConnectorPoint PointX="6.75" PointY="14.16406375" />
+          <ConnectorPoint PointX="7.072916666666667" PointY="14.16406375" />
+          <ConnectorPoint PointX="7.239583333333333" PointY="14.16406375" />
+          <ConnectorPoint PointX="10.34375" PointY="14.16406375" />
+          <ConnectorPoint PointX="10.34375" PointY="17.75" />
+        </AssociationConnector>
+        <AssociationConnector Association="SAMSData.FK_ProductTaxMappings_Taxes" ManuallyRouted="false">
+          <ConnectorPoint PointX="9.75" PointY="23.753326822916669" />
+          <ConnectorPoint PointX="11.90625" PointY="23.753326822916669" />
+          <ConnectorPoint PointX="11.90625" PointY="16.874695638020832" />
+        </AssociationConnector>
+        <AssociationConnector Association="SAMSData.FK_PurchaseDetails_Purchases" ManuallyRouted="false">
+          <ConnectorPoint PointX="7.5" PointY="10.903758138020836" />
+          <ConnectorPoint PointX="8.25" PointY="10.903758138020836" />
+        </AssociationConnector>
+        <AssociationConnector Association="SAMSData.FK_SaleDetailTrackings_PurchaseDetails" ManuallyRouted="false">
+          <ConnectorPoint PointX="9.75" PointY="9.78125" />
+          <ConnectorPoint PointX="11.666666666666666" PointY="9.78125" />
+          <ConnectorPoint PointX="11.833333333333334" PointY="9.78125" />
+          <ConnectorPoint PointX="14.25" PointY="9.78125" />
+          <ConnectorPoint PointX="14.25" PointY="14.125" />
+        </AssociationConnector>
+        <AssociationConnector Association="SAMSData.FK_Purchases_Sections" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.5" PointY="13.375" />
+          <ConnectorPoint PointX="1.5" PointY="11.478973795572916" />
+          <ConnectorPoint PointX="4.041666666666667" PointY="11.478973795572916" />
+          <ConnectorPoint PointX="4.208333333333333" PointY="11.478973795572916" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="11.478973795572916" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="11.478973795572916" />
+          <ConnectorPoint PointX="6" PointY="11.478973795572916" />
+        </AssociationConnector>
+        <AssociationConnector Association="SAMSData.FK_SaleDetails_Sales" ManuallyRouted="false">
+          <ConnectorPoint PointX="9.5" PointY="18.439626464843752" />
+          <ConnectorPoint PointX="10.25" PointY="18.439626464843752" />
+        </AssociationConnector>
+        <AssociationConnector Association="SAMSData.FK_SaleDetailTrackings_SaleDetails" ManuallyRouted="false">
+          <ConnectorPoint PointX="10.3750025" PointY="17.75" />
+          <ConnectorPoint PointX="10.3750025" PointY="14.363281875" />
+          <ConnectorPoint PointX="11.166666666666666" PointY="14.363281875" />
+          <ConnectorPoint PointX="11.333333333333334" PointY="14.363281875" />
+          <ConnectorPoint PointX="12.197916666666666" PointY="14.363281875" />
+          <ConnectorPoint PointX="12.364583333333334" PointY="14.363281875" />
+          <ConnectorPoint PointX="13.5" PointY="14.363281875" />
+        </AssociationConnector>
+        <AssociationConnector Association="SAMSData.FK_Sales_Sections" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.9062525" PointY="15.953390299479167" />
+          <ConnectorPoint PointX="1.9062525" PointY="18.455696962890634" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="18.455696962890634" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="18.455696962890634" />
+          <ConnectorPoint PointX="5.947916666666667" PointY="18.455696962890634" />
+          <ConnectorPoint PointX="6.114583333333333" PointY="18.455696962890634" />
+          <ConnectorPoint PointX="7.072916666666667" PointY="18.455696962890634" />
+          <ConnectorPoint PointX="7.239583333333333" PointY="18.455696962890634" />
+          <ConnectorPoint PointX="8" PointY="18.455696962890634" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

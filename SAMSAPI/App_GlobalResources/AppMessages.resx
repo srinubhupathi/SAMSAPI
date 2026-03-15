@@ -1,0 +1,356 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="String1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ERROR_TITLE" xml:space="preserve">
+    <value>Error -fr</value>
+  </data>
+  <data name="REQUIRED_PARAMETER_MISSING" xml:space="preserve">
+    <value>Required parameter missing -fr</value>
+  </data>
+  <data name="USER_LOGIN_EMAIL_NOT_VERIFIED" xml:space="preserve">
+    <value>Email not verified</value>
+  </data>
+  <data name="USER_LOGIN_PERMISSION_DENIED" xml:space="preserve">
+    <value>Permission denied</value>
+  </data>
+  <data name="USER_LOGIN_INACTIVE_USER" xml:space="preserve">
+    <value>User is inactive, please contact your administrator</value>
+  </data>
+  <data name="USER_LOGIN_EMAIL_NOT_MATCHED" xml:space="preserve">
+    <value>User does not exist</value>
+  </data>
+  <data name="SUCCESS_TITLE" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="NOTIFICATION_MARK_AS_READ_SUCCESS" xml:space="preserve">
+    <value>Successfully marked as read</value>
+  </data>
+  <data name="USER_LOGIN_PASSWORD_NOT_MATCHED" xml:space="preserve">
+    <value>Incorrect password</value>
+  </data>
+  <data name="USER_LOGIN_MAX_ATTEMPT_RITCHED" xml:space="preserve">
+    <value>You have tried maximum attempt for login, please contact you administrator</value>
+  </data>
+  <data name="LOGOUT_SUCCESS" xml:space="preserve">
+    <value>You have been logged out successfully</value>
+  </data>
+  <data name="USER_INVITE_EMAIL_BODY" xml:space="preserve">
+    <value>&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+    &lt;title&gt;&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div style="background:#083069;padding:10px;"&gt;
+    &lt;img src="{logoUrl}" /&gt;&lt;/div&gt;&lt;br /&gt;&lt;br /&gt;
+    &lt;div style="border-top:3px solid #22BCE5"&gt;&amp;nbsp;&lt;/div&gt;
+    &lt;span style="font-family:Arial;font-size:10pt"&gt;
+        Dear &lt;b&gt;{UserName}&lt;/b&gt;,&lt;br /&gt;&lt;br /&gt;
+        You have been added as a user to the Bradken Inspect application. 
+&lt;br/&gt;&lt;br/&gt;
+
+Please click the link below to set your password.&lt;br/&gt;
+ &lt;a style="color:#22BCE5" href="{Url}"&gt;Set Password&lt;/a&gt;&lt;br /&gt;
+        &lt;br /&gt;&lt;br /&gt;
+        Thank you,&lt;br /&gt; Bradken
+    &lt;/span&gt;
+&lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="USER_INVITE_EMAIL_SUBJECT" xml:space="preserve">
+    <value>Bradken Inspect - App Invitation</value>
+  </data>
+
+  <data name="USER_FORGOT_PASSWORD_BODY" xml:space="preserve">
+    <value>&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+    &lt;title&gt;&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div style="background:#083069;padding:10px;"&gt;
+    &lt;img src="{logoUrl}" /&gt;&lt;/div&gt;&lt;br /&gt;&lt;br /&gt;
+    &lt;div style="border-top:3px solid #22BCE5"&gt;&amp;nbsp;&lt;/div&gt;
+    &lt;span style="font-family:Arial;font-size:10pt"&gt;
+        Dear &lt;b&gt;{UserName}&lt;/b&gt;,&lt;br /&gt;&lt;br /&gt;
+       You have indicated that you must reset your password.  Please click below to reset your password.
+&lt;br/&gt;&lt;br/&gt;
+ &lt;a style="color:#22BCE5" href="{Url}"&gt;Reset Password&lt;/a&gt;&lt;br /&gt;
+        &lt;br /&gt;&lt;br /&gt;
+        Thank you,&lt;br /&gt;  Bradken
+    &lt;/span&gt;
+&lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="USER_FORGOT_PASSWORD_SUBJECT" xml:space="preserve">
+    <value>Bradken Inspect - Forgot password</value>
+  </data>
+  <data name="FORGOT_PASSWORD_MESSAGE_ERROR" xml:space="preserve">
+    <value>Email not found, please contact your administrator</value>
+  </data>
+  <data name="FORGOT_PASSWORD_MESSAGE_SUCCESS" xml:space="preserve">
+    <value>Reset password link sent to your email. </value>
+  </data>
+  <data name="USER_EMAIL_EXIST_ERROR" xml:space="preserve">
+    <value>Email already exists</value>
+  </data>
+  <data name="USER_ADDED_FAIL" xml:space="preserve">
+    <value>Unable to add user, please try again</value>
+  </data>
+  <data name="USER_ADD_SUCCESS" xml:space="preserve">
+    <value>User added successfully</value>
+  </data>
+  <data name="USER_UPDATE_SUCCESS" xml:space="preserve">
+    <value>User updated successfully</value>
+  </data>
+  <data name="USER_CHANGE_PASSWORD_SUCCESS" xml:space="preserve">
+    <value>Password changed successfully</value>
+  </data>
+  <data name="PASSWORD_RESET_ERROR" xml:space="preserve">
+    <value>Unable to update password</value>
+  </data>
+  <data name="PASSWORD_RESET_SUCCESS" xml:space="preserve">
+    <value>Password updated successfully</value>
+  </data>
+  <data name="USER_DELETE_SUCCESS" xml:space="preserve">
+    <value>User deleted successfully</value>
+  </data>
+  <data name="INVALID_FILE_TYPE" xml:space="preserve">
+    <value>Invalid file type</value>
+  </data>
+  <data name="PROFILE_PICTURE_UPDATE_SUCCESS" xml:space="preserve">
+    <value>Profile picture updated successfully</value>
+  </data>
+  <data name="CUSTOMER_ADDED_FAIL" xml:space="preserve">
+    <value>Unable to add customer, please try again</value>
+  </data>
+  <data name="CUSTOMER_ADD_SUCCESS" xml:space="preserve">
+    <value>Customer added successfully</value>
+  </data>
+  <data name="CUSTOMER_EXIST_ERROR" xml:space="preserve">
+    <value>Customer already Exists</value>
+  </data>
+  <data name="CUSTOMER_UPDATE_SUCCESS" xml:space="preserve">
+    <value>Customer updated successfully</value>
+  </data>
+  <data name="CUSTOMER_DELETE_SUCCESS" xml:space="preserve">
+    <value>Customer deleted successfully</value>
+  </data>
+  <data name="CUSTOMER_NAME_EXIST_ERROR" xml:space="preserve">
+    <value>Customer name already exists</value>
+  </data>
+  <data name="SITE_ADD_SUCCESS" xml:space="preserve">
+    <value>Site added successfully</value>
+  </data>
+  <data name="SITE_ADDING_FAIL" xml:space="preserve">
+    <value>Unable to add Site, please try again</value>
+  </data>
+  <data name="SITE_EXIST_ERROR" xml:space="preserve">
+    <value>Site already Exists</value>
+  </data>
+  <data name="SITE_DELETE_SUCCESS" xml:space="preserve">
+    <value>Site deleted Successfully</value>
+  </data>
+  <data name="SITE_NAME_EXIST_ERROR" xml:space="preserve">
+    <value>Site name already exists</value>
+  </data>
+  <data name="SITE_UPDATE_SUCCESS" xml:space="preserve">
+    <value>Site updated successfully</value>
+  </data>
+  <data name="MACHINE_ADDED_SUCCESS" xml:space="preserve">
+    <value>Machine added successfully</value>
+  </data>
+  <data name="MACHINE_ADDING_FAIL" xml:space="preserve">
+    <value>Machine to add Site, please try again</value>
+  </data>
+  <data name="MACHINE_EXIST_ERROR" xml:space="preserve">
+    <value>Machine already Exists</value>
+  </data>
+  <data name="MACHINE_DELETE_SUCCESS" xml:space="preserve">
+    <value>Machine deleted successfully</value>
+  </data>
+  <data name="MACHINE_NAME_EXIST_ERROR" xml:space="preserve">
+    <value>Machine name already exists</value>
+  </data>
+  <data name="MACHINE_UPDATE_SUCCESS" xml:space="preserve">
+    <value>Machine updated successfully</value>
+  </data>
+  <data name="EQUIPMENT_ADD_SUCCESS" xml:space="preserve">
+    <value>Equipment added successfully</value>
+  </data>
+  <data name="EQUIPMENT_ADDING_FAIL" xml:space="preserve">
+    <value>Unable to add Equipment, please try again</value>
+  </data>
+  <data name="EQUIPMENT_EXIST_ERROR" xml:space="preserve">
+    <value>Equipment already Exists</value>
+  </data>
+  <data name="EQUIPMENT_DELETE_SUCCESS" xml:space="preserve">
+    <value>Equipment deleted successfully</value>
+  </data>
+  <data name="EQUIPMENT_NAME_EXIST_ERROR" xml:space="preserve">
+    <value>Equipment Name already exists</value>
+  </data>
+  <data name="EQUIPMENT_UPDATE_SUCCESS" xml:space="preserve">
+    <value>Equipment updated successfully</value>
+  </data>
+  <data name="INSPECTION_ADD_SUCCESS" xml:space="preserve">
+    <value>Inspection added successfully</value>
+  </data>
+  <data name="INSPECTION_ADDING_FAIL" xml:space="preserve">
+    <value>Unable to create Inspection, please try again</value>
+  </data>
+  <data name="INSPECTION_EXIST_ERROR" xml:space="preserve">
+    <value>Inspection already Exists</value>
+  </data>
+  <data name="INSPECTION_DELETE_SUCCESS" xml:space="preserve">
+    <value>Inspection Deleted Successfully</value>
+  </data>
+   <data name="INSPECTION_UPDATE_SUCCESS" xml:space="preserve">
+    <value>Inspection updated successfully</value>
+  </data>
+  <data name="PARTMEASUREMENTS_UPDATE_SUCCESS" xml:space="preserve">
+    <value>Part measurements updated successfully</value>
+  </data>
+  <data name="PARTMEASUREMENTS_UPDATE_FAIL" xml:space="preserve">
+    <value>Part measurements updated Fails</value>
+  </data>
+  <data name="INSPECTION_SAMPLE_ADDING_FAIL" xml:space="preserve">
+    <value>Unable to add Sample, please try again</value>
+  </data>
+  <data name="INSPECTION_SAMPLE_ADD_SUCCESS" xml:space="preserve">
+    <value>Sample added successfully</value>
+  </data>
+  <data name="INSPECTION_SAMPLE_UPDATION_FAIL" xml:space="preserve">
+    <value>Sample updation fails</value>
+  </data>
+  <data name="INSPECTION_SAMPLE_UPDATION_SUCCESS" xml:space="preserve">
+    <value>Sample updated successfully</value>
+  </data>
+  <data name="INSPECTION_SAMPLE_DELETE_SUCCESS" xml:space="preserve">
+    <value>Inspection sample deleted successfully</value>
+  </data>
+
+  <data name="APPDATA_SYNC_SUCCESS" xml:space="preserve">
+    <value>App data sync to server sucessfully</value>
+  </data>
+  <data name="APPDATA_SYNC_FAIL" xml:space="preserve">
+    <value>App data sync fails</value>
+  </data>
+</root>
