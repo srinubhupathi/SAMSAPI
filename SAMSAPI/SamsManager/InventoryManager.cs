@@ -1,188 +1,131 @@
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
+using System.Data.Objects;
+using System.Linq;
+using SAMSData;
 using SAMSAPI.Models.Inventory;
 
 namespace SAMSAPI.Manager
 {
     /// <summary>
     /// Handles all database operations for the Inventory module.
-    /// Uses raw ADO.NET (SqlConnection) because the new inventory tables
-    /// are not part of the existing Entity Framework model.
-    /// Connection string is read from the same SAMSEntities entry in Web.config.
+    /// Uses the existing SAMSEntities EF ObjectContext (EF 4 / ObjectContext pattern).
+    ///
+    /// Simple CRUD operations use ObjectSet&lt;T&gt; (StockItems, InventoryPurchases, etc.).
+    /// Complex cross-table queries (views / stored procedures) use
+    /// ObjectContext.ExecuteStoreQuery&lt;T&gt;() which maps a raw SQL result set to a POCO.
     /// </summary>
     public class InventoryManager
     {
-        // ─── Connection helper ────────────────────────────────────────────────────
-
-        private SqlConnection GetConnection()
-        {
-            // Extract the raw SQL Server connection string from the EF connection string
-            string efConnStr = ConfigurationManager.ConnectionStrings["SAMSEntities"].ConnectionString;
-
-            // The EF connection string wraps the SQL provider connection string inside
-            // provider connection string="...".  Extract it.
-            var builder = new System.Data.EntityClient.EntityConnectionStringBuilder(efConnStr);
-            string sqlConnStr = builder.ProviderConnectionString;
-
-            return new SqlConnection(sqlConnStr);
-        }
-
         // ═════════════════════════════════════════════════════════════════════════
         // 1. STOCK ITEMS
         // ═════════════════════════════════════════════════════════════════════════
 
         public List<StockItemDto> GetStockItems()
         {
-            var list = new List<StockItemDto>();
-            using (var con = GetConnection())
+            // vw_StockAvailability already filters IsActive = 1 and computes AvailableStock
+            using (var se = new SAMSEntities())
             {
-                con.Open();
-                var cmd = new SqlCommand(
-                    @"SELECT StockItemId, ItemName, Category, Unit AS UnitOfMeasurement,
-                             ReorderLevel, AvailableStock AS CurrentStock
+                return se.ExecuteStoreQuery<StockItemDto>(
+                    @"SELECT StockItemId, ItemName, Category,
+                             Unit          AS UnitOfMeasurement,
+                             ReorderLevel,
+                             CAST(1 AS BIT) AS IsActive,
+                             AvailableStock AS CurrentStock,
+                             NULL           AS Description
                       FROM   vw_StockAvailability
-                      ORDER  BY Category, ItemName", con);
-
-                using (var dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        list.Add(new StockItemDto
-                        {
-                            StockItemId       = (int)dr["StockItemId"],
-                            ItemName          = dr["ItemName"].ToString(),
-                            Category          = dr["Category"] == DBNull.Value ? null : dr["Category"].ToString(),
-                            UnitOfMeasurement = dr["UnitOfMeasurement"].ToString(),
-                            ReorderLevel      = dr["ReorderLevel"] == DBNull.Value ? 0 : Convert.ToDouble(dr["ReorderLevel"]),
-                            CurrentStock      = dr["CurrentStock"] == DBNull.Value ? 0 : Convert.ToDouble(dr["CurrentStock"]),
-                            IsActive          = true
-                        });
-                    }
-                }
+                      ORDER  BY Category, ItemName").ToList();
             }
-            return list;
         }
 
         public StockItemDto GetStockItem(int id)
         {
-            using (var con = GetConnection())
+            using (var se = new SAMSEntities())
             {
-                con.Open();
-                var cmd = new SqlCommand(
-                    @"SELECT si.StockItemId, si.ItemName, si.Category, si.UnitOfMeasurement,
-                             si.ReorderLevel, si.Description, si.IsActive,
-                             ISNULL(v.AvailableStock, 0) AS CurrentStock
-                      FROM   StockItems si
-                      LEFT   JOIN vw_StockAvailability v ON v.StockItemId = si.StockItemId
-                      WHERE  si.StockItemId = @id", con);
-                cmd.Parameters.AddWithValue("@id", id);
+                var item = se.StockItems.FirstOrDefault(s => s.StockItemId == id);
+                if (item == null) return null;
 
-                using (var dr = cmd.ExecuteReader())
+                // Get current computed stock from view
+                double currentStock = se.ExecuteStoreQuery<double>(
+                    "SELECT ISNULL(AvailableStock, 0) FROM vw_StockAvailability WHERE StockItemId = @p0",
+                    id).FirstOrDefault();
+
+                return new StockItemDto
                 {
-                    if (dr.Read())
-                    {
-                        return new StockItemDto
-                        {
-                            StockItemId       = (int)dr["StockItemId"],
-                            ItemName          = dr["ItemName"].ToString(),
-                            Category          = dr["Category"] == DBNull.Value ? null : dr["Category"].ToString(),
-                            UnitOfMeasurement = dr["UnitOfMeasurement"].ToString(),
-                            ReorderLevel      = dr["ReorderLevel"] == DBNull.Value ? 0 : Convert.ToDouble(dr["ReorderLevel"]),
-                            Description       = dr["Description"] == DBNull.Value ? null : dr["Description"].ToString(),
-                            IsActive          = (bool)dr["IsActive"],
-                            CurrentStock      = Convert.ToDouble(dr["CurrentStock"])
-                        };
-                    }
-                }
+                    StockItemId       = item.StockItemId,
+                    ItemName          = item.ItemName,
+                    Category          = item.Category,
+                    UnitOfMeasurement = item.UnitOfMeasurement,
+                    ReorderLevel      = item.ReorderLevel ?? 0,
+                    Description       = item.Description,
+                    IsActive          = item.IsActive,
+                    CurrentStock      = currentStock
+                };
             }
-            return null;
         }
 
-        public StockItemDto SaveStockItem(StockItemDto item, int userId)
+        public StockItemDto SaveStockItem(StockItemDto dto, int userId)
         {
-            using (var con = GetConnection())
+            using (var se = new SAMSEntities())
             {
-                con.Open();
-                if (item.StockItemId == 0)
+                if (dto.StockItemId == 0)
                 {
-                    var cmd = new SqlCommand(
-                        @"INSERT INTO StockItems
-                            (ItemName, Category, UnitOfMeasurement, ReorderLevel, Description, IsActive, CreatedBy, CreatedOn)
-                          OUTPUT INSERTED.StockItemId
-                          VALUES
-                            (@ItemName, @Category, @UOM, @ReorderLevel, @Description, @IsActive, @CreatedBy, GETDATE())", con);
-                    cmd.Parameters.AddWithValue("@ItemName",    item.ItemName);
-                    cmd.Parameters.AddWithValue("@Category",    (object)item.Category    ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("@UOM",         item.UnitOfMeasurement);
-                    cmd.Parameters.AddWithValue("@ReorderLevel",item.ReorderLevel);
-                    cmd.Parameters.AddWithValue("@Description", (object)item.Description ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("@IsActive",    item.IsActive);
-                    cmd.Parameters.AddWithValue("@CreatedBy",   userId);
-                    item.StockItemId = (int)cmd.ExecuteScalar();
+                    var item = new StockItem
+                    {
+                        ItemName          = dto.ItemName,
+                        Category          = dto.Category,
+                        UnitOfMeasurement = dto.UnitOfMeasurement,
+                        ReorderLevel      = dto.ReorderLevel,
+                        Description       = dto.Description,
+                        IsActive          = dto.IsActive,
+                        CreatedBy         = userId,
+                        CreatedOn         = DateTime.Now
+                    };
+                    se.StockItems.AddObject(item);
+                    se.SaveChanges();
+                    dto.StockItemId = item.StockItemId;
                 }
                 else
                 {
-                    var cmd = new SqlCommand(
-                        @"UPDATE StockItems
-                          SET    ItemName          = @ItemName,
-                                 Category          = @Category,
-                                 UnitOfMeasurement = @UOM,
-                                 ReorderLevel      = @ReorderLevel,
-                                 Description       = @Description,
-                                 IsActive          = @IsActive,
-                                 UpdatedBy         = @UpdatedBy,
-                                 UpdatedOn         = GETDATE()
-                          WHERE  StockItemId = @StockItemId", con);
-                    cmd.Parameters.AddWithValue("@ItemName",    item.ItemName);
-                    cmd.Parameters.AddWithValue("@Category",    (object)item.Category    ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("@UOM",         item.UnitOfMeasurement);
-                    cmd.Parameters.AddWithValue("@ReorderLevel",item.ReorderLevel);
-                    cmd.Parameters.AddWithValue("@Description", (object)item.Description ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("@IsActive",    item.IsActive);
-                    cmd.Parameters.AddWithValue("@UpdatedBy",   userId);
-                    cmd.Parameters.AddWithValue("@StockItemId", item.StockItemId);
-                    cmd.ExecuteNonQuery();
+                    var item = se.StockItems.FirstOrDefault(s => s.StockItemId == dto.StockItemId);
+                    if (item == null) return null;
+
+                    item.ItemName          = dto.ItemName;
+                    item.Category          = dto.Category;
+                    item.UnitOfMeasurement = dto.UnitOfMeasurement;
+                    item.ReorderLevel      = dto.ReorderLevel;
+                    item.Description       = dto.Description;
+                    item.IsActive          = dto.IsActive;
+                    item.UpdatedBy         = userId;
+                    item.UpdatedOn         = DateTime.Now;
+                    se.SaveChanges();
                 }
             }
-            return GetStockItem(item.StockItemId);
+            return GetStockItem(dto.StockItemId);
         }
 
         public string DeleteStockItem(int id)
         {
-            using (var con = GetConnection())
+            using (var se = new SAMSEntities())
             {
-                con.Open();
-                // Check if item has been used in any transactions
-                var checkCmd = new SqlCommand(
-                    @"SELECT COUNT(*) FROM RoomStockTransactions WHERE StockItemId = @id
-                      UNION ALL
-                      SELECT COUNT(*) FROM InventoryPurchaseDetails WHERE StockItemId = @id", con);
-                checkCmd.Parameters.AddWithValue("@id", id);
+                bool hasTransactions = se.RoomStockTransactions.Any(r => r.StockItemId == id);
+                bool hasPurchases    = se.InventoryPurchaseDetails.Any(p => p.StockItemId == id);
 
-                int usageCount = 0;
-                using (var dr = checkCmd.ExecuteReader())
-                {
-                    while (dr.Read()) usageCount += (int)dr[0];
-                }
+                var item = se.StockItems.FirstOrDefault(s => s.StockItemId == id);
+                if (item == null) return "Item not found.";
 
-                if (usageCount > 0)
+                if (hasTransactions || hasPurchases)
                 {
-                    // Soft delete
-                    var softCmd = new SqlCommand(
-                        "UPDATE StockItems SET IsActive = 0 WHERE StockItemId = @id", con);
-                    softCmd.Parameters.AddWithValue("@id", id);
-                    softCmd.ExecuteNonQuery();
+                    // Soft delete — item is in use
+                    item.IsActive  = false;
+                    item.UpdatedOn = DateTime.Now;
+                    se.SaveChanges();
                     return "Item deactivated (soft-deleted) as it has existing transactions.";
                 }
                 else
                 {
-                    var hardCmd = new SqlCommand(
-                        "DELETE FROM StockItems WHERE StockItemId = @id", con);
-                    hardCmd.Parameters.AddWithValue("@id", id);
-                    hardCmd.ExecuteNonQuery();
+                    se.StockItems.DeleteObject(item);
+                    se.SaveChanges();
                     return "Item deleted successfully.";
                 }
             }
@@ -194,92 +137,75 @@ namespace SAMSAPI.Manager
 
         public List<RoomTypeStockConfigDto> GetRoomTypeStockConfigs()
         {
-            var list = new List<RoomTypeStockConfigDto>();
-            using (var con = GetConnection())
+            using (var se = new SAMSEntities())
             {
-                con.Open();
-                var cmd = new SqlCommand(
-                    @"SELECT rtsc.RoomTypeStockConfigId, rtsc.TariffId, t.TariffName,
-                             rtsc.StockItemId, si.ItemName, si.UnitOfMeasurement AS Unit,
-                             rtsc.Quantity, rtsc.DailyReplenishQty
-                      FROM   RoomTypeStockConfigs rtsc
-                      INNER  JOIN Tariffs t  ON t.TariffId    = rtsc.TariffId
-                      INNER  JOIN StockItems si ON si.StockItemId = rtsc.StockItemId
-                      ORDER  BY t.TariffName, si.ItemName", con);
-
-                using (var dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        list.Add(new RoomTypeStockConfigDto
+                // Join with Tariffs and StockItems to return names
+                return (from rtsc in se.RoomTypeStockConfigs
+                        join t  in se.Tariffs    on rtsc.TariffId    equals t.TariffId
+                        join si in se.StockItems  on rtsc.StockItemId equals si.StockItemId
+                        orderby t.TariffName, si.ItemName
+                        select new RoomTypeStockConfigDto
                         {
-                            RoomTypeStockConfigId = (int)dr["RoomTypeStockConfigId"],
-                            TariffId              = (int)dr["TariffId"],
-                            TariffName            = dr["TariffName"].ToString(),
-                            StockItemId           = (int)dr["StockItemId"],
-                            ItemName              = dr["ItemName"].ToString(),
-                            Unit                  = dr["Unit"].ToString(),
-                            Quantity              = Convert.ToDouble(dr["Quantity"]),
-                            DailyReplenishQty     = dr["DailyReplenishQty"] == DBNull.Value ? 0 : Convert.ToDouble(dr["DailyReplenishQty"])
-                        });
-                    }
-                }
+                            RoomTypeStockConfigId = rtsc.RoomTypeStockConfigId,
+                            TariffId              = rtsc.TariffId,
+                            TariffName            = t.TariffName,
+                            StockItemId           = rtsc.StockItemId,
+                            ItemName              = si.ItemName,
+                            Unit                  = si.UnitOfMeasurement,
+                            Quantity              = rtsc.Quantity,
+                            DailyReplenishQty     = rtsc.DailyReplenishQty ?? 0
+                        }).ToList();
             }
-            return list;
         }
 
         public RoomTypeStockConfigDto SaveRoomTypeStockConfig(SaveRoomTypeStockConfigRequest req)
         {
-            using (var con = GetConnection())
+            using (var se = new SAMSEntities())
             {
-                con.Open();
                 if (req.RoomTypeStockConfigId == 0)
                 {
-                    var cmd = new SqlCommand(
-                        @"INSERT INTO RoomTypeStockConfigs
-                            (TariffId, StockItemId, Quantity, DailyReplenishQty, CreatedBy, CreatedOn)
-                          OUTPUT INSERTED.RoomTypeStockConfigId
-                          VALUES
-                            (@TariffId, @StockItemId, @Quantity, @DailyReplenishQty, @CreatedBy, GETDATE())", con);
-                    cmd.Parameters.AddWithValue("@TariffId",          req.TariffId);
-                    cmd.Parameters.AddWithValue("@StockItemId",        req.StockItemId);
-                    cmd.Parameters.AddWithValue("@Quantity",           req.Quantity);
-                    cmd.Parameters.AddWithValue("@DailyReplenishQty",  req.DailyReplenishQty);
-                    cmd.Parameters.AddWithValue("@CreatedBy",          req.CreatedBy);
-                    req.RoomTypeStockConfigId = (int)cmd.ExecuteScalar();
+                    var config = new RoomTypeStockConfig
+                    {
+                        TariffId          = req.TariffId,
+                        StockItemId       = req.StockItemId,
+                        Quantity          = req.Quantity,
+                        DailyReplenishQty = req.DailyReplenishQty,
+                        CreatedBy         = req.CreatedBy,
+                        CreatedOn         = DateTime.Now
+                    };
+                    se.RoomTypeStockConfigs.AddObject(config);
+                    se.SaveChanges();
+                    req.RoomTypeStockConfigId = config.RoomTypeStockConfigId;
                 }
                 else
                 {
-                    var cmd = new SqlCommand(
-                        @"UPDATE RoomTypeStockConfigs
-                          SET    TariffId         = @TariffId,
-                                 StockItemId      = @StockItemId,
-                                 Quantity         = @Quantity,
-                                 DailyReplenishQty= @DailyReplenishQty
-                          WHERE  RoomTypeStockConfigId = @Id", con);
-                    cmd.Parameters.AddWithValue("@TariffId",          req.TariffId);
-                    cmd.Parameters.AddWithValue("@StockItemId",        req.StockItemId);
-                    cmd.Parameters.AddWithValue("@Quantity",           req.Quantity);
-                    cmd.Parameters.AddWithValue("@DailyReplenishQty",  req.DailyReplenishQty);
-                    cmd.Parameters.AddWithValue("@Id",                 req.RoomTypeStockConfigId);
-                    cmd.ExecuteNonQuery();
+                    var config = se.RoomTypeStockConfigs
+                        .FirstOrDefault(c => c.RoomTypeStockConfigId == req.RoomTypeStockConfigId);
+                    if (config == null) return null;
+
+                    config.TariffId          = req.TariffId;
+                    config.StockItemId       = req.StockItemId;
+                    config.Quantity          = req.Quantity;
+                    config.DailyReplenishQty = req.DailyReplenishQty;
+                    se.SaveChanges();
                 }
             }
 
-            // Return the saved row with lookup names
-            var all = GetRoomTypeStockConfigs();
-            return all.Find(x => x.RoomTypeStockConfigId == req.RoomTypeStockConfigId);
+            return GetRoomTypeStockConfigs()
+                .FirstOrDefault(c => c.RoomTypeStockConfigId == req.RoomTypeStockConfigId);
         }
 
         public void DeleteRoomTypeStockConfig(int id)
         {
-            using (var con = GetConnection())
+            using (var se = new SAMSEntities())
             {
-                con.Open();
-                var cmd = new SqlCommand(
-                    "DELETE FROM RoomTypeStockConfigs WHERE RoomTypeStockConfigId = @id", con);
-                cmd.Parameters.AddWithValue("@id", id);
-                cmd.ExecuteNonQuery();
+                var config = se.RoomTypeStockConfigs
+                    .FirstOrDefault(c => c.RoomTypeStockConfigId == id);
+                if (config != null)
+                {
+                    se.RoomTypeStockConfigs.DeleteObject(config);
+                    se.SaveChanges();
+                }
             }
         }
 
@@ -289,230 +215,157 @@ namespace SAMSAPI.Manager
 
         public List<PurchaseSummaryDto> GetPurchases(DateTime fromDate, DateTime toDate)
         {
-            var list = new List<PurchaseSummaryDto>();
-            using (var con = GetConnection())
+            using (var se = new SAMSEntities())
             {
-                con.Open();
-                var cmd = new SqlCommand(
-                    @"SELECT ip.PurchaseId, ip.PurchaseDate, ip.InvoiceNumber, ip.VendorName,
-                             ip.TotalAmount, ip.Remarks,
-                             COUNT(ipd.PurchaseDetailId) AS ItemCount
-                      FROM   InventoryPurchases ip
-                      LEFT   JOIN InventoryPurchaseDetails ipd ON ipd.PurchaseId = ip.PurchaseId
-                      WHERE  ip.PurchaseDate BETWEEN @fromDate AND @toDate
-                      GROUP  BY ip.PurchaseId, ip.PurchaseDate, ip.InvoiceNumber,
-                               ip.VendorName, ip.TotalAmount, ip.Remarks
-                      ORDER  BY ip.PurchaseDate DESC", con);
-                cmd.Parameters.AddWithValue("@fromDate", fromDate.Date);
-                cmd.Parameters.AddWithValue("@toDate",   toDate.Date);
+                DateTime from = fromDate.Date;
+                DateTime to   = toDate.Date;
 
-                using (var dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        list.Add(new PurchaseSummaryDto
+                return (from ip in se.InventoryPurchases
+                        where ip.PurchaseDate >= from && ip.PurchaseDate <= to
+                        orderby ip.PurchaseDate descending
+                        let itemCount = se.InventoryPurchaseDetails
+                            .Count(d => d.PurchaseId == ip.PurchaseId)
+                        select new PurchaseSummaryDto
                         {
-                            PurchaseId    = (int)dr["PurchaseId"],
-                            PurchaseDate  = Convert.ToDateTime(dr["PurchaseDate"]),
-                            InvoiceNumber = dr["InvoiceNumber"] == DBNull.Value ? null : dr["InvoiceNumber"].ToString(),
-                            VendorName    = dr["VendorName"]    == DBNull.Value ? null : dr["VendorName"].ToString(),
-                            TotalAmount   = dr["TotalAmount"]   == DBNull.Value ? 0    : Convert.ToDouble(dr["TotalAmount"]),
-                            Remarks       = dr["Remarks"]       == DBNull.Value ? null : dr["Remarks"].ToString(),
-                            ItemCount     = (int)dr["ItemCount"]
-                        });
-                    }
-                }
+                            PurchaseId    = ip.PurchaseId,
+                            PurchaseDate  = ip.PurchaseDate,
+                            InvoiceNumber = ip.InvoiceNumber,
+                            VendorName    = ip.VendorName,
+                            TotalAmount   = ip.TotalAmount ?? 0,
+                            Remarks       = ip.Remarks,
+                            ItemCount     = itemCount
+                        }).ToList();
             }
-            return list;
         }
 
         public PurchaseDto GetPurchase(int id)
         {
-            PurchaseDto purchase = null;
-            using (var con = GetConnection())
+            using (var se = new SAMSEntities())
             {
-                con.Open();
-                // Header
-                var headerCmd = new SqlCommand(
-                    @"SELECT PurchaseId, PurchaseDate, InvoiceNumber, VendorName, TotalAmount, Remarks
-                      FROM   InventoryPurchases
-                      WHERE  PurchaseId = @id", con);
-                headerCmd.Parameters.AddWithValue("@id", id);
-                using (var dr = headerCmd.ExecuteReader())
-                {
-                    if (dr.Read())
-                    {
-                        purchase = new PurchaseDto
-                        {
-                            PurchaseId    = (int)dr["PurchaseId"],
-                            PurchaseDate  = Convert.ToDateTime(dr["PurchaseDate"]),
-                            InvoiceNumber = dr["InvoiceNumber"] == DBNull.Value ? null : dr["InvoiceNumber"].ToString(),
-                            VendorName    = dr["VendorName"]    == DBNull.Value ? null : dr["VendorName"].ToString(),
-                            TotalAmount   = dr["TotalAmount"]   == DBNull.Value ? 0    : Convert.ToDouble(dr["TotalAmount"]),
-                            Remarks       = dr["Remarks"]       == DBNull.Value ? null : dr["Remarks"].ToString(),
-                            Details       = new List<PurchaseLineDto>()
-                        };
-                    }
-                }
+                var ip = se.InventoryPurchases.FirstOrDefault(p => p.PurchaseId == id);
+                if (ip == null) return null;
 
-                if (purchase == null) return null;
+                var lines = (from d  in se.InventoryPurchaseDetails
+                             join si in se.StockItems on d.StockItemId equals si.StockItemId
+                             where d.PurchaseId == id
+                             select new PurchaseLineDto
+                             {
+                                 PurchaseDetailId = d.PurchaseDetailId,
+                                 StockItemId      = d.StockItemId,
+                                 ItemName         = si.ItemName,
+                                 Unit             = si.UnitOfMeasurement,
+                                 Quantity         = d.Quantity,
+                                 UnitPrice        = d.UnitPrice  ?? 0,
+                                 TotalAmount      = d.TotalAmount ?? 0
+                             }).ToList();
 
-                // Lines
-                var lineCmd = new SqlCommand(
-                    @"SELECT ipd.PurchaseDetailId, ipd.StockItemId, si.ItemName,
-                             si.UnitOfMeasurement AS Unit,
-                             ipd.Quantity, ipd.UnitPrice, ipd.TotalAmount
-                      FROM   InventoryPurchaseDetails ipd
-                      INNER  JOIN StockItems si ON si.StockItemId = ipd.StockItemId
-                      WHERE  ipd.PurchaseId = @id", con);
-                lineCmd.Parameters.AddWithValue("@id", id);
-                using (var dr = lineCmd.ExecuteReader())
+                return new PurchaseDto
                 {
-                    while (dr.Read())
-                    {
-                        purchase.Details.Add(new PurchaseLineDto
-                        {
-                            PurchaseDetailId = (int)dr["PurchaseDetailId"],
-                            StockItemId      = (int)dr["StockItemId"],
-                            ItemName         = dr["ItemName"].ToString(),
-                            Unit             = dr["Unit"].ToString(),
-                            Quantity         = Convert.ToDouble(dr["Quantity"]),
-                            UnitPrice        = dr["UnitPrice"]   == DBNull.Value ? 0 : Convert.ToDouble(dr["UnitPrice"]),
-                            TotalAmount      = dr["TotalAmount"] == DBNull.Value ? 0 : Convert.ToDouble(dr["TotalAmount"])
-                        });
-                    }
-                }
+                    PurchaseId    = ip.PurchaseId,
+                    PurchaseDate  = ip.PurchaseDate,
+                    InvoiceNumber = ip.InvoiceNumber,
+                    VendorName    = ip.VendorName,
+                    TotalAmount   = ip.TotalAmount ?? 0,
+                    Remarks       = ip.Remarks,
+                    Details       = lines
+                };
             }
-            return purchase;
         }
 
-        public PurchaseDto SavePurchase(PurchaseDto purchase, int userId)
+        public PurchaseDto SavePurchase(PurchaseDto dto, int userId)
         {
-            using (var con = GetConnection())
+            using (var se = new SAMSEntities())
             {
-                con.Open();
-                using (var tran = con.BeginTransaction())
+                int purchaseId;
+
+                if (dto.PurchaseId == 0)
                 {
-                    try
+                    var ip = new InventoryPurchase
                     {
-                        int purchaseId;
-                        if (purchase.PurchaseId == 0)
-                        {
-                            var headerCmd = new SqlCommand(
-                                @"INSERT INTO InventoryPurchases
-                                    (PurchaseDate, InvoiceNumber, VendorName, TotalAmount, Remarks, CreatedBy, CreatedOn)
-                                  OUTPUT INSERTED.PurchaseId
-                                  VALUES
-                                    (@PurchaseDate, @InvoiceNumber, @VendorName, @TotalAmount, @Remarks, @CreatedBy, GETDATE())", con, tran);
-                            headerCmd.Parameters.AddWithValue("@PurchaseDate",   purchase.PurchaseDate.Date);
-                            headerCmd.Parameters.AddWithValue("@InvoiceNumber",  (object)purchase.InvoiceNumber ?? DBNull.Value);
-                            headerCmd.Parameters.AddWithValue("@VendorName",     (object)purchase.VendorName    ?? DBNull.Value);
-                            headerCmd.Parameters.AddWithValue("@TotalAmount",    purchase.TotalAmount);
-                            headerCmd.Parameters.AddWithValue("@Remarks",        (object)purchase.Remarks       ?? DBNull.Value);
-                            headerCmd.Parameters.AddWithValue("@CreatedBy",      userId);
-                            purchaseId = (int)headerCmd.ExecuteScalar();
-                        }
-                        else
-                        {
-                            purchaseId = purchase.PurchaseId;
-                            var headerCmd = new SqlCommand(
-                                @"UPDATE InventoryPurchases
-                                  SET    PurchaseDate  = @PurchaseDate,
-                                         InvoiceNumber = @InvoiceNumber,
-                                         VendorName    = @VendorName,
-                                         TotalAmount   = @TotalAmount,
-                                         Remarks       = @Remarks,
-                                         UpdatedBy     = @UpdatedBy,
-                                         UpdatedOn     = GETDATE()
-                                  WHERE  PurchaseId    = @PurchaseId", con, tran);
-                            headerCmd.Parameters.AddWithValue("@PurchaseDate",   purchase.PurchaseDate.Date);
-                            headerCmd.Parameters.AddWithValue("@InvoiceNumber",  (object)purchase.InvoiceNumber ?? DBNull.Value);
-                            headerCmd.Parameters.AddWithValue("@VendorName",     (object)purchase.VendorName    ?? DBNull.Value);
-                            headerCmd.Parameters.AddWithValue("@TotalAmount",    purchase.TotalAmount);
-                            headerCmd.Parameters.AddWithValue("@Remarks",        (object)purchase.Remarks       ?? DBNull.Value);
-                            headerCmd.Parameters.AddWithValue("@UpdatedBy",      userId);
-                            headerCmd.Parameters.AddWithValue("@PurchaseId",     purchaseId);
-                            headerCmd.ExecuteNonQuery();
-
-                            // Remove existing lines before re-inserting
-                            var delLines = new SqlCommand(
-                                "DELETE FROM InventoryPurchaseDetails WHERE PurchaseId = @PurchaseId", con, tran);
-                            delLines.Parameters.AddWithValue("@PurchaseId", purchaseId);
-                            delLines.ExecuteNonQuery();
-                        }
-
-                        // Insert lines
-                        if (purchase.Details != null)
-                        {
-                            foreach (var line in purchase.Details)
-                            {
-                                var lineCmd = new SqlCommand(
-                                    @"INSERT INTO InventoryPurchaseDetails
-                                        (PurchaseId, StockItemId, Quantity, UnitPrice, TotalAmount)
-                                      VALUES
-                                        (@PurchaseId, @StockItemId, @Quantity, @UnitPrice, @TotalAmount)", con, tran);
-                                lineCmd.Parameters.AddWithValue("@PurchaseId",  purchaseId);
-                                lineCmd.Parameters.AddWithValue("@StockItemId", line.StockItemId);
-                                lineCmd.Parameters.AddWithValue("@Quantity",    line.Quantity);
-                                lineCmd.Parameters.AddWithValue("@UnitPrice",   line.UnitPrice);
-                                lineCmd.Parameters.AddWithValue("@TotalAmount", line.TotalAmount);
-                                lineCmd.ExecuteNonQuery();
-                            }
-                        }
-
-                        tran.Commit();
-                        purchase.PurchaseId = purchaseId;
-                    }
-                    catch
-                    {
-                        tran.Rollback();
-                        throw;
-                    }
+                        PurchaseDate  = dto.PurchaseDate.Date,
+                        InvoiceNumber = dto.InvoiceNumber,
+                        VendorName    = dto.VendorName,
+                        TotalAmount   = dto.TotalAmount,
+                        Remarks       = dto.Remarks,
+                        CreatedBy     = userId,
+                        CreatedOn     = DateTime.Now
+                    };
+                    se.InventoryPurchases.AddObject(ip);
+                    se.SaveChanges();
+                    purchaseId = ip.PurchaseId;
                 }
+                else
+                {
+                    purchaseId = dto.PurchaseId;
+                    var ip = se.InventoryPurchases.FirstOrDefault(p => p.PurchaseId == purchaseId);
+                    if (ip == null) return null;
+
+                    ip.PurchaseDate  = dto.PurchaseDate.Date;
+                    ip.InvoiceNumber = dto.InvoiceNumber;
+                    ip.VendorName    = dto.VendorName;
+                    ip.TotalAmount   = dto.TotalAmount;
+                    ip.Remarks       = dto.Remarks;
+                    ip.UpdatedBy     = userId;
+                    ip.UpdatedOn     = DateTime.Now;
+
+                    // Remove and re-insert lines
+                    var existingLines = se.InventoryPurchaseDetails
+                        .Where(d => d.PurchaseId == purchaseId).ToList();
+                    foreach (var line in existingLines)
+                        se.InventoryPurchaseDetails.DeleteObject(line);
+
+                    se.SaveChanges();
+                }
+
+                // Insert lines
+                if (dto.Details != null)
+                {
+                    foreach (var line in dto.Details)
+                    {
+                        se.InventoryPurchaseDetails.AddObject(new InventoryPurchaseDetail
+                        {
+                            PurchaseId  = purchaseId,
+                            StockItemId = line.StockItemId,
+                            Quantity    = line.Quantity,
+                            UnitPrice   = line.UnitPrice,
+                            TotalAmount = line.TotalAmount
+                        });
+                    }
+                    se.SaveChanges();
+                }
+
+                dto.PurchaseId = purchaseId;
             }
-            return GetPurchase(purchase.PurchaseId);
+            return GetPurchase(dto.PurchaseId);
         }
 
         public string DeletePurchase(int id)
         {
-            using (var con = GetConnection())
+            using (var se = new SAMSEntities())
             {
-                con.Open();
-                // Validate: no stock from this purchase can have been issued
-                var checkCmd = new SqlCommand(
-                    @"SELECT COUNT(*)
-                      FROM   RoomStockTransactions rst
-                      INNER  JOIN InventoryPurchaseDetails ipd ON ipd.StockItemId = rst.StockItemId
-                      WHERE  ipd.PurchaseId = @id", con);
-                checkCmd.Parameters.AddWithValue("@id", id);
-                int usedCount = (int)checkCmd.ExecuteScalar();
+                // Check: if any stock item from this purchase has been issued to rooms
+                var purchasedItems = se.InventoryPurchaseDetails
+                    .Where(d => d.PurchaseId == id)
+                    .Select(d => d.StockItemId)
+                    .Distinct().ToList();
 
-                if (usedCount > 0)
+                bool anyIssued = se.RoomStockTransactions
+                    .Any(r => purchasedItems.Contains(r.StockItemId));
+
+                if (anyIssued)
                     return "Cannot delete: stock from this purchase has already been issued to rooms.";
 
-                using (var tran = con.BeginTransaction())
-                {
-                    try
-                    {
-                        var delLines = new SqlCommand(
-                            "DELETE FROM InventoryPurchaseDetails WHERE PurchaseId = @id", con, tran);
-                        delLines.Parameters.AddWithValue("@id", id);
-                        delLines.ExecuteNonQuery();
+                var lines = se.InventoryPurchaseDetails
+                    .Where(d => d.PurchaseId == id).ToList();
+                foreach (var line in lines)
+                    se.InventoryPurchaseDetails.DeleteObject(line);
 
-                        var delHeader = new SqlCommand(
-                            "DELETE FROM InventoryPurchases WHERE PurchaseId = @id", con, tran);
-                        delHeader.Parameters.AddWithValue("@id", id);
-                        delHeader.ExecuteNonQuery();
+                var ip = se.InventoryPurchases.FirstOrDefault(p => p.PurchaseId == id);
+                if (ip != null)
+                    se.InventoryPurchases.DeleteObject(ip);
 
-                        tran.Commit();
-                        return "Purchase deleted successfully.";
-                    }
-                    catch
-                    {
-                        tran.Rollback();
-                        throw;
-                    }
-                }
+                se.SaveChanges();
+                return "Purchase deleted successfully.";
             }
         }
 
@@ -522,154 +375,114 @@ namespace SAMSAPI.Manager
 
         public List<RoomStockDto> GetRoomStock(int bookingDetailId)
         {
-            var list = new List<RoomStockDto>();
-            using (var con = GetConnection())
+            // Delegate to SP which calculates ReturnedQuantity and BalanceQuantity
+            using (var se = new SAMSEntities())
             {
-                con.Open();
-                var cmd = new SqlCommand("usp_GetRoomStockBalance", con)
-                {
-                    CommandType = CommandType.StoredProcedure
-                };
-                cmd.Parameters.AddWithValue("@BookingDetailId", bookingDetailId);
-
-                using (var dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        list.Add(new RoomStockDto
-                        {
-                            RoomStockId      = (int)dr["RoomStockId"],
-                            StockItemId      = (int)dr["StockItemId"],
-                            ItemName         = dr["ItemName"].ToString(),
-                            Category         = dr["Category"] == DBNull.Value ? null : dr["Category"].ToString(),
-                            Unit             = dr["Unit"].ToString(),
-                            StockType        = dr["StockType"].ToString(),
-                            IssuedQuantity   = Convert.ToDouble(dr["IssuedQuantity"]),
-                            ReturnedQuantity = Convert.ToDouble(dr["ReturnedQuantity"]),
-                            BalanceQuantity  = Convert.ToDouble(dr["BalanceQuantity"]),
-                            IssueDate        = Convert.ToDateTime(dr["IssueDate"])
-                        });
-                    }
-                }
+                return se.ExecuteStoreQuery<RoomStockDto>(
+                    "EXEC usp_GetRoomStockBalance @BookingDetailId = {0}",
+                    bookingDetailId).ToList();
             }
-            return list;
         }
 
         public string AddRoomStock(AddRoomStockRequest req)
         {
-            using (var con = GetConnection())
+            using (var se = new SAMSEntities())
             {
-                con.Open();
-
                 // Resolve BookingId and RoomId from BookingDetailId
-                int bookingId = 0, roomId = 0;
-                var resolveCmd = new SqlCommand(
-                    "SELECT BookingId, RoomId FROM BookingDetails WHERE BookingDetailId = @id", con);
-                resolveCmd.Parameters.AddWithValue("@id", req.BookingDetailId);
-                using (var dr = resolveCmd.ExecuteReader())
-                {
-                    if (dr.Read())
-                    {
-                        bookingId = (int)dr["BookingId"];
-                        roomId    = (int)dr["RoomId"];
-                    }
-                    else
-                    {
-                        return "Error: BookingDetail not found.";
-                    }
-                }
+                var bd = se.BookingDetails.FirstOrDefault(b => b.BookingDetailId == req.BookingDetailId);
+                if (bd == null) return "Error: BookingDetail not found.";
 
-                // Validate available stock for each item
+                int bookingId = (int)(bd.BookingId ?? 0);
+                int roomId    = (int)(bd.RoomId    ?? 0);
+
+                // Validate available stock per item using the view
                 foreach (var item in req.Items)
                 {
-                    var stockCmd = new SqlCommand(
-                        "SELECT ISNULL(AvailableStock, 0) FROM vw_StockAvailability WHERE StockItemId = @id", con);
-                    stockCmd.Parameters.AddWithValue("@id", item.StockItemId);
-                    var available = stockCmd.ExecuteScalar();
-                    double avail  = available == null || available == DBNull.Value ? 0 : Convert.ToDouble(available);
-                    if (item.Quantity > avail)
-                        return string.Format("Insufficient stock for StockItemId {0}. Available: {1}, Requested: {2}",
-                            item.StockItemId, avail, item.Quantity);
+                    double available = se.ExecuteStoreQuery<double>(
+                        "SELECT ISNULL(AvailableStock, 0) FROM vw_StockAvailability WHERE StockItemId = {0}",
+                        item.StockItemId).FirstOrDefault();
+
+                    if (item.Quantity > available)
+                        return string.Format(
+                            "Insufficient stock for StockItemId {0}. Available: {1}, Requested: {2}",
+                            item.StockItemId, available, item.Quantity);
                 }
 
-                using (var tran = con.BeginTransaction())
+                // Insert transactions
+                foreach (var item in req.Items)
                 {
-                    try
+                    se.RoomStockTransactions.AddObject(new RoomStockTransaction
                     {
-                        foreach (var item in req.Items)
-                        {
-                            var insertCmd = new SqlCommand(
-                                @"INSERT INTO RoomStockTransactions
-                                    (BookingDetailId, BookingId, RoomId, StockItemId,
-                                     StockType, IssuedQuantity, Remarks, CreatedBy, CreatedOn)
-                                  VALUES
-                                    (@BookingDetailId, @BookingId, @RoomId, @StockItemId,
-                                     'Additional', @Qty, @Remarks, @CreatedBy, GETDATE())", con, tran);
-                            insertCmd.Parameters.AddWithValue("@BookingDetailId", req.BookingDetailId);
-                            insertCmd.Parameters.AddWithValue("@BookingId",       bookingId);
-                            insertCmd.Parameters.AddWithValue("@RoomId",          roomId);
-                            insertCmd.Parameters.AddWithValue("@StockItemId",     item.StockItemId);
-                            insertCmd.Parameters.AddWithValue("@Qty",             item.Quantity);
-                            insertCmd.Parameters.AddWithValue("@Remarks",         (object)req.Remarks ?? DBNull.Value);
-                            insertCmd.Parameters.AddWithValue("@CreatedBy",       req.CreatedBy);
-                            insertCmd.ExecuteNonQuery();
-                        }
-                        tran.Commit();
-                        return "Stock added successfully.";
-                    }
-                    catch
-                    {
-                        tran.Rollback();
-                        throw;
-                    }
+                        BookingDetailId  = req.BookingDetailId,
+                        BookingId        = bookingId,
+                        RoomId           = roomId,
+                        StockItemId      = item.StockItemId,
+                        StockType        = "Additional",
+                        IssuedQuantity   = item.Quantity,
+                        ReturnedQuantity = 0,
+                        Remarks          = req.Remarks,
+                        CreatedBy        = req.CreatedBy,
+                        CreatedOn        = DateTime.Now,
+                        IssueDate        = DateTime.Now
+                    });
                 }
+                se.SaveChanges();
+                return "Stock added successfully.";
             }
         }
 
         public string ReturnRoomStock(ReturnRoomStockRequest req)
         {
-            using (var con = GetConnection())
+            using (var se = new SAMSEntities())
             {
-                con.Open();
-                var cmd = new SqlCommand("usp_ReturnRoomStock", con)
-                {
-                    CommandType = CommandType.StoredProcedure
-                };
-                cmd.Parameters.AddWithValue("@RoomStockId",    req.RoomStockId);
-                cmd.Parameters.AddWithValue("@ReturnQuantity", req.ReturnQuantity);
-                cmd.Parameters.AddWithValue("@Reason",         (object)req.Reason     ?? DBNull.Value);
-                cmd.Parameters.AddWithValue("@CreatedBy",      req.CreatedBy);
+                var rst = se.RoomStockTransactions
+                    .FirstOrDefault(r => r.RoomStockId == req.RoomStockId);
+                if (rst == null) return "Error: RoomStockTransaction not found.";
 
-                try
+                // Calculate current balance
+                double returned = se.RoomStockReturns
+                    .Where(r => r.RoomStockId == req.RoomStockId)
+                    .Sum(r => (double?)r.ReturnQuantity) ?? 0;
+                double balance = rst.IssuedQuantity - returned;
+
+                if (req.ReturnQuantity > balance)
+                    return string.Format(
+                        "Error: Return quantity ({0}) exceeds balance ({1}).",
+                        req.ReturnQuantity, balance);
+
+                // Insert return record
+                se.RoomStockReturns.AddObject(new RoomStockReturn
                 {
-                    cmd.ExecuteNonQuery();
-                    return "Stock returned successfully.";
-                }
-                catch (SqlException ex)
-                {
-                    return "Error: " + ex.Message;
-                }
+                    RoomStockId     = req.RoomStockId,
+                    BookingDetailId = req.BookingDetailId,
+                    StockItemId     = req.StockItemId,
+                    ReturnQuantity  = req.ReturnQuantity,
+                    Reason          = req.Reason,
+                    CreatedBy       = req.CreatedBy,
+                    CreatedOn       = DateTime.Now,
+                    ReturnDate      = DateTime.Now
+                });
+
+                // Update running total on parent transaction
+                rst.ReturnedQuantity = rst.ReturnedQuantity + req.ReturnQuantity;
+
+                se.SaveChanges();
+                return "Stock returned successfully.";
             }
         }
 
         public string AssignCheckinStock(int bookingDetailId, int createdBy)
         {
-            using (var con = GetConnection())
+            // Use the stored procedure which handles all the join/insert logic atomically
+            // SP returns: SELECT @@ROWCOUNT AS ItemsAssigned
+            using (var se = new SAMSEntities())
             {
-                con.Open();
-                var cmd = new SqlCommand("usp_AssignCheckinStock", con)
-                {
-                    CommandType = CommandType.StoredProcedure
-                };
-                cmd.Parameters.AddWithValue("@BookingDetailId", bookingDetailId);
-                cmd.Parameters.AddWithValue("@CreatedBy",       createdBy);
+                var result = se.ExecuteStoreQuery<AssignCheckinStockResult>(
+                    "EXEC usp_AssignCheckinStock @BookingDetailId = {0}, @CreatedBy = {1}",
+                    bookingDetailId, createdBy).FirstOrDefault();
 
-                int itemsAssigned = 0;
-                using (var dr = cmd.ExecuteReader())
-                {
-                    if (dr.Read()) itemsAssigned = (int)dr["ItemsAssigned"];
-                }
-                return string.Format("{0} stock item(s) assigned for check-in.", itemsAssigned);
+                int assigned = result != null ? result.ItemsAssigned : 0;
+                return string.Format("{0} stock item(s) assigned for check-in.", assigned);
             }
         }
 
@@ -679,134 +492,45 @@ namespace SAMSAPI.Manager
 
         public List<StockAvailabilityDto> GetAvailableStockReport()
         {
-            var list = new List<StockAvailabilityDto>();
-            using (var con = GetConnection())
+            using (var se = new SAMSEntities())
             {
-                con.Open();
-                var cmd = new SqlCommand(
-                    "SELECT * FROM vw_StockAvailability ORDER BY Category, ItemName", con);
-
-                using (var dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        list.Add(new StockAvailabilityDto
-                        {
-                            StockItemId    = (int)dr["StockItemId"],
-                            ItemName       = dr["ItemName"].ToString(),
-                            Category       = dr["Category"] == DBNull.Value ? null : dr["Category"].ToString(),
-                            Unit           = dr["Unit"].ToString(),
-                            ReorderLevel   = dr["ReorderLevel"] == DBNull.Value ? 0 : Convert.ToDouble(dr["ReorderLevel"]),
-                            TotalPurchased = Convert.ToDouble(dr["TotalPurchased"]),
-                            TotalIssued    = Convert.ToDouble(dr["TotalIssued"]),
-                            TotalReturned  = Convert.ToDouble(dr["TotalReturned"]),
-                            AvailableStock = Convert.ToDouble(dr["AvailableStock"])
-                        });
-                    }
-                }
+                return se.ExecuteStoreQuery<StockAvailabilityDto>(
+                    "SELECT StockItemId, ItemName, Category, Unit, ReorderLevel, " +
+                    "TotalPurchased, TotalIssued, TotalReturned, AvailableStock " +
+                    "FROM vw_StockAvailability ORDER BY Category, ItemName").ToList();
             }
-            return list;
         }
 
         public List<LowStockDto> GetLowStockReport()
         {
-            var list = new List<LowStockDto>();
-            using (var con = GetConnection())
+            using (var se = new SAMSEntities())
             {
-                con.Open();
-                var cmd = new SqlCommand(
-                    "SELECT * FROM vw_LowStockItems ORDER BY AvailableStock ASC", con);
-
-                using (var dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        list.Add(new LowStockDto
-                        {
-                            StockItemId      = (int)dr["StockItemId"],
-                            ItemName         = dr["ItemName"].ToString(),
-                            Category         = dr["Category"] == DBNull.Value ? null : dr["Category"].ToString(),
-                            Unit             = dr["Unit"].ToString(),
-                            ReorderLevel     = dr["ReorderLevel"] == DBNull.Value ? 0 : Convert.ToDouble(dr["ReorderLevel"]),
-                            TotalPurchased   = Convert.ToDouble(dr["TotalPurchased"]),
-                            TotalIssued      = Convert.ToDouble(dr["TotalIssued"]),
-                            TotalReturned    = Convert.ToDouble(dr["TotalReturned"]),
-                            AvailableStock   = Convert.ToDouble(dr["AvailableStock"]),
-                            LastPurchaseId   = dr["LastPurchaseId"]   == DBNull.Value ? (int?)null      : (int)dr["LastPurchaseId"],
-                            LastPurchaseDate = dr["LastPurchaseDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["LastPurchaseDate"])
-                        });
-                    }
-                }
+                return se.ExecuteStoreQuery<LowStockDto>(
+                    "SELECT StockItemId, ItemName, Category, Unit, ReorderLevel, " +
+                    "TotalPurchased, TotalIssued, TotalReturned, AvailableStock, " +
+                    "LastPurchaseId, LastPurchaseDate " +
+                    "FROM vw_LowStockItems ORDER BY AvailableStock ASC").ToList();
             }
-            return list;
         }
 
         public List<StockMovementDto> GetStockMovementReport(DateTime fromDate, DateTime toDate)
         {
-            var list = new List<StockMovementDto>();
-            using (var con = GetConnection())
+            using (var se = new SAMSEntities())
             {
-                con.Open();
-                var cmd = new SqlCommand("usp_GetStockMovementReport", con)
-                {
-                    CommandType = CommandType.StoredProcedure
-                };
-                cmd.Parameters.AddWithValue("@FromDate", fromDate.Date);
-                cmd.Parameters.AddWithValue("@ToDate",   toDate.Date);
-
-                using (var dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        list.Add(new StockMovementDto
-                        {
-                            TransactionDate = Convert.ToDateTime(dr["TransactionDate"]),
-                            ItemName        = dr["ItemName"].ToString(),
-                            Category        = dr["Category"] == DBNull.Value ? null : dr["Category"].ToString(),
-                            TransactionType = dr["TransactionType"].ToString(),
-                            RoomNo          = dr["RoomNo"]    == DBNull.Value ? null : dr["RoomNo"].ToString(),
-                            InQty           = Convert.ToDouble(dr["InQty"]),
-                            OutQty          = Convert.ToDouble(dr["OutQty"]),
-                            Balance         = Convert.ToDouble(dr["Balance"]),
-                            Reference       = dr["Reference"].ToString()
-                        });
-                    }
-                }
+                return se.ExecuteStoreQuery<StockMovementDto>(
+                    "EXEC usp_GetStockMovementReport @FromDate = {0}, @ToDate = {1}",
+                    fromDate.Date, toDate.Date).ToList();
             }
-            return list;
         }
 
         public List<RoomStockSummaryDto> GetRoomStockSummaryReport(DateTime fromDate, DateTime toDate)
         {
-            var list = new List<RoomStockSummaryDto>();
-            using (var con = GetConnection())
+            using (var se = new SAMSEntities())
             {
-                con.Open();
-                var cmd = new SqlCommand("usp_GetRoomStockSummaryReport", con)
-                {
-                    CommandType = CommandType.StoredProcedure
-                };
-                cmd.Parameters.AddWithValue("@FromDate", fromDate.Date);
-                cmd.Parameters.AddWithValue("@ToDate",   toDate.Date);
-
-                using (var dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        list.Add(new RoomStockSummaryDto
-                        {
-                            RoomNo        = dr["RoomNo"].ToString(),
-                            GuestName     = dr["GuestName"]    == DBNull.Value ? null             : dr["GuestName"].ToString(),
-                            CheckInDate   = dr["CheckInDate"]  == DBNull.Value ? (DateTime?)null  : Convert.ToDateTime(dr["CheckInDate"]),
-                            CheckOutDate  = dr["CheckOutDate"] == DBNull.Value ? (DateTime?)null  : Convert.ToDateTime(dr["CheckOutDate"]),
-                            TotalIssued   = Convert.ToDouble(dr["TotalIssued"]),
-                            TotalReturned = Convert.ToDouble(dr["TotalReturned"]),
-                            NetConsumed   = Convert.ToDouble(dr["NetConsumed"])
-                        });
-                    }
-                }
+                return se.ExecuteStoreQuery<RoomStockSummaryDto>(
+                    "EXEC usp_GetRoomStockSummaryReport @FromDate = {0}, @ToDate = {1}",
+                    fromDate.Date, toDate.Date).ToList();
             }
-            return list;
         }
     }
 }

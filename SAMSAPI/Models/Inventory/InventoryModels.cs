@@ -122,6 +122,12 @@ namespace SAMSAPI.Models.Inventory
         public int CreatedBy       { get; set; }
     }
 
+    // Internal POCO for reading SP output: usp_AssignCheckinStock
+    public class AssignCheckinStockResult
+    {
+        public int ItemsAssigned { get; set; }
+    }
+
     // ─── Reports ─────────────────────────────────────────────────────────────────
 
     public class StockAvailabilityDto
