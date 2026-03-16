@@ -161,6 +161,7 @@
     <Compile Include="Areas\Interface\IDatabaseOperation.cs" />
     <Compile Include="Controllers\BookingsController.cs" />
     <Compile Include="Controllers\CommonResponse.cs" />
+    <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -175,11 +176,13 @@
     </Compile>
     <Compile Include="Models\Bookings\booking.cs" />
     <Compile Include="Models\Dashboard\DashboardModel.cs" />
+    <Compile Include="Models\Inventory\InventoryModels.cs" />
     <Compile Include="Models\Role\Role.cs" />
     <Compile Include="Models\User\UserDBHandler.cs" />
     <Compile Include="Models\User\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SamsManager\SAMSManager.cs" />
+    <Compile Include="SamsManager\InventoryManager.cs" />
     <Compile Include="SamsManager\SAMSSecurity.cs" />
     <Compile Include="SamsManager\SMSService.cs" />
     <Compile Include="SamsManager\UIObjects.cs" />

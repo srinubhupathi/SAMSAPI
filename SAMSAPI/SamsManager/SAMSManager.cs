@@ -1379,6 +1379,19 @@ namespace SAMSAPI.Manager
                         pitem.CouponCode = p.CouponCode;
                         se1.BookingDetails.AddObject(pitem);
                         se1.SaveChanges();
+
+                        // ── Inventory integration ────────────────────────────────────────
+                        // Auto-assign configured stock items on check-in
+                        if (pitem.Status == "CheckIn" && pitem.RoomCheckIn != null)
+                        {
+                            try
+                            {
+                                new InventoryManager().AssignCheckinStock(
+                                    pitem.BookingDetailId, 0);
+                            }
+                            catch { /* Non-blocking: log and continue */ }
+                        }
+                        // ─────────────────────────────────────────────────────────────────
                     }
 
                 }
