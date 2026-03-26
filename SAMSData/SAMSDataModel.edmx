@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
   <!-- EF Runtime content -->
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="SAMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="SAMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BookingDetails">
           <Key>
             <PropertyRef Name="BookingDetailId" />
@@ -157,6 +157,34 @@
           <Property Name="Comments" Type="varchar" MaxLength="500" />
           <Property Name="StartCoupon" Type="int" />
           <Property Name="EndCoupon" Type="int" />
+        </EntityType>
+        <EntityType Name="InventoryPurchaseDetails">
+          <Key>
+            <PropertyRef Name="PurchaseDetailId" />
+          </Key>
+          <Property Name="PurchaseDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PurchaseId" Type="int" Nullable="false" />
+          <Property Name="StockItemId" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="float" Nullable="false" />
+          <Property Name="UnitPrice" Type="float" />
+          <Property Name="TotalAmount" Type="float" />
+        </EntityType>
+        <EntityType Name="InventoryPurchases">
+          <Key>
+            <PropertyRef Name="PurchaseId" />
+          </Key>
+          <Property Name="PurchaseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PurchaseDate" Type="date" Nullable="false" />
+          <Property Name="InvoiceNumber" Type="varchar" MaxLength="100" />
+          <Property Name="InvoiceDate" Type="date" />
+          <Property Name="VendorName" Type="varchar" MaxLength="200" />
+          <Property Name="VendorAddress" Type="varchar" MaxLength="500" />
+          <Property Name="TotalAmount" Type="float" />
+          <Property Name="Remarks" Type="varchar" MaxLength="500" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="UpdatedOn" Type="datetime" />
         </EntityType>
         <EntityType Name="LedgerGroups">
           <Key>
@@ -526,6 +554,49 @@
           <Property Name="UpdatedBy" Type="int" />
           <Property Name="UpdatedOn" Type="datetime" />
         </EntityType>
+        <EntityType Name="RoomStockReturns">
+          <Key>
+            <PropertyRef Name="ReturnId" />
+          </Key>
+          <Property Name="ReturnId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoomStockId" Type="int" Nullable="false" />
+          <Property Name="BookingDetailId" Type="int" Nullable="false" />
+          <Property Name="StockItemId" Type="int" Nullable="false" />
+          <Property Name="ReturnQuantity" Type="float" Nullable="false" />
+          <Property Name="ReturnDate" Type="datetime" />
+          <Property Name="Reason" Type="varchar" MaxLength="500" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="RoomStockTransactions">
+          <Key>
+            <PropertyRef Name="RoomStockId" />
+          </Key>
+          <Property Name="RoomStockId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookingDetailId" Type="int" Nullable="false" />
+          <Property Name="BookingId" Type="int" Nullable="false" />
+          <Property Name="RoomId" Type="int" Nullable="false" />
+          <Property Name="StockItemId" Type="int" Nullable="false" />
+          <Property Name="StockType" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="IssuedQuantity" Type="float" Nullable="false" />
+          <Property Name="ReturnedQuantity" Type="float" Nullable="false" />
+          <Property Name="IssueDate" Type="datetime" />
+          <Property Name="Remarks" Type="varchar" MaxLength="500" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="RoomTypeStockConfigs">
+          <Key>
+            <PropertyRef Name="RoomTypeStockConfigId" />
+          </Key>
+          <Property Name="RoomTypeStockConfigId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TariffId" Type="int" Nullable="false" />
+          <Property Name="StockItemId" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="float" Nullable="false" />
+          <Property Name="DailyReplenishQty" Type="float" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedOn" Type="datetime" />
+        </EntityType>
         <EntityType Name="SaleDetails">
           <Key>
             <PropertyRef Name="SaleDetailsID" />
@@ -660,6 +731,22 @@
           <Property Name="MemberDetails" Type="varchar" MaxLength="2000" />
           <Property Name="Status" Type="int" />
         </EntityType>
+        <EntityType Name="StockItems">
+          <Key>
+            <PropertyRef Name="StockItemId" />
+          </Key>
+          <Property Name="StockItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemName" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Category" Type="varchar" MaxLength="100" />
+          <Property Name="UnitOfMeasurement" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ReorderLevel" Type="float" />
+          <Property Name="Description" Type="varchar" MaxLength="500" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="UpdatedOn" Type="datetime" />
+        </EntityType>
         <EntityType Name="Tariffs">
           <Key>
             <PropertyRef Name="TariffId" />
@@ -712,6 +799,71 @@
           <Property Name="ChqNo" Type="varchar" MaxLength="50" />
           <Property Name="Narration" Type="varchar" MaxLength="300" />
           <Property Name="BusinessID" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'cosmobvrm.dbo.vw_LowStockItems' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_LowStockItems">
+          <Key>
+            <PropertyRef Name="StockItemId" />
+            <PropertyRef Name="ItemName" />
+            <PropertyRef Name="Unit" />
+            <PropertyRef Name="TotalPurchased" />
+            <PropertyRef Name="TotalIssued" />
+            <PropertyRef Name="TotalReturned" />
+            <PropertyRef Name="AvailableStock" />
+          </Key>
+          <Property Name="StockItemId" Type="int" Nullable="false" />
+          <Property Name="ItemName" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Category" Type="varchar" MaxLength="100" />
+          <Property Name="Unit" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ReorderLevel" Type="float" />
+          <Property Name="TotalPurchased" Type="float" Nullable="false" />
+          <Property Name="TotalIssued" Type="float" Nullable="false" />
+          <Property Name="TotalReturned" Type="float" Nullable="false" />
+          <Property Name="AvailableStock" Type="float" Nullable="false" />
+          <Property Name="LastPurchaseId" Type="int" />
+          <Property Name="LastPurchaseDate" Type="date" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'cosmobvrm.dbo.vw_StockAvailability' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_StockAvailability">
+          <Key>
+            <PropertyRef Name="StockItemId" />
+            <PropertyRef Name="ItemName" />
+            <PropertyRef Name="Unit" />
+            <PropertyRef Name="TotalPurchased" />
+            <PropertyRef Name="TotalIssued" />
+            <PropertyRef Name="TotalReturned" />
+            <PropertyRef Name="AvailableStock" />
+          </Key>
+          <Property Name="StockItemId" Type="int" Nullable="false" />
+          <Property Name="ItemName" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Category" Type="varchar" MaxLength="100" />
+          <Property Name="Unit" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ReorderLevel" Type="float" />
+          <Property Name="TotalPurchased" Type="float" Nullable="false" />
+          <Property Name="TotalIssued" Type="float" Nullable="false" />
+          <Property Name="TotalReturned" Type="float" Nullable="false" />
+          <Property Name="AvailableStock" Type="float" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'cosmobvrm.dbo.vw_StockMovement' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_StockMovement">
+          <Key>
+            <PropertyRef Name="ItemName" />
+            <PropertyRef Name="TransactionType" />
+            <PropertyRef Name="InQty" />
+            <PropertyRef Name="OutQty" />
+            <PropertyRef Name="Reference" />
+          </Key>
+          <Property Name="TransactionDate" Type="date" />
+          <Property Name="ItemName" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Category" Type="varchar" MaxLength="100" />
+          <Property Name="TransactionType" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="RoomNo" Type="varchar" MaxLength="20" />
+          <Property Name="InQty" Type="float" Nullable="false" />
+          <Property Name="OutQty" Type="float" Nullable="false" />
+          <Property Name="Reference" Type="varchar" MaxLength="18" Nullable="false" />
         </EntityType>
         <Association Name="FK_BookingDetails_Bookings">
           <End Role="Bookings" Type="Self.Bookings" Multiplicity="0..1" />
@@ -794,6 +946,30 @@
             </Principal>
             <Dependent Role="DonorCoupons">
               <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvPurchDetails_Purchases">
+          <End Role="InventoryPurchases" Type="Self.InventoryPurchases" Multiplicity="1" />
+          <End Role="InventoryPurchaseDetails" Type="Self.InventoryPurchaseDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InventoryPurchases">
+              <PropertyRef Name="PurchaseId" />
+            </Principal>
+            <Dependent Role="InventoryPurchaseDetails">
+              <PropertyRef Name="PurchaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvPurchDetails_StockItems">
+          <End Role="StockItems" Type="Self.StockItems" Multiplicity="1" />
+          <End Role="InventoryPurchaseDetails" Type="Self.InventoryPurchaseDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StockItems">
+              <PropertyRef Name="StockItemId" />
+            </Principal>
+            <Dependent Role="InventoryPurchaseDetails">
+              <PropertyRef Name="StockItemId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1097,6 +1273,78 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RoomStock_BookingDetails">
+          <End Role="BookingDetails" Type="Self.BookingDetails" Multiplicity="1" />
+          <End Role="RoomStockTransactions" Type="Self.RoomStockTransactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookingDetails">
+              <PropertyRef Name="BookingDetailId" />
+            </Principal>
+            <Dependent Role="RoomStockTransactions">
+              <PropertyRef Name="BookingDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoomStock_Rooms">
+          <End Role="Rooms" Type="Self.Rooms" Multiplicity="1" />
+          <End Role="RoomStockTransactions" Type="Self.RoomStockTransactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rooms">
+              <PropertyRef Name="RoomId" />
+            </Principal>
+            <Dependent Role="RoomStockTransactions">
+              <PropertyRef Name="RoomId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoomStock_StockItems">
+          <End Role="StockItems" Type="Self.StockItems" Multiplicity="1" />
+          <End Role="RoomStockTransactions" Type="Self.RoomStockTransactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StockItems">
+              <PropertyRef Name="StockItemId" />
+            </Principal>
+            <Dependent Role="RoomStockTransactions">
+              <PropertyRef Name="StockItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoomStockReturns_RoomStock">
+          <End Role="RoomStockTransactions" Type="Self.RoomStockTransactions" Multiplicity="1" />
+          <End Role="RoomStockReturns" Type="Self.RoomStockReturns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoomStockTransactions">
+              <PropertyRef Name="RoomStockId" />
+            </Principal>
+            <Dependent Role="RoomStockReturns">
+              <PropertyRef Name="RoomStockId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoomTypeStockConfigs_StockItems">
+          <End Role="StockItems" Type="Self.StockItems" Multiplicity="1" />
+          <End Role="RoomTypeStockConfigs" Type="Self.RoomTypeStockConfigs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StockItems">
+              <PropertyRef Name="StockItemId" />
+            </Principal>
+            <Dependent Role="RoomTypeStockConfigs">
+              <PropertyRef Name="StockItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoomTypeStockConfigs_Tariffs">
+          <End Role="Tariffs" Type="Self.Tariffs" Multiplicity="1" />
+          <End Role="RoomTypeStockConfigs" Type="Self.RoomTypeStockConfigs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tariffs">
+              <PropertyRef Name="TariffId" />
+            </Principal>
+            <Dependent Role="RoomTypeStockConfigs">
+              <PropertyRef Name="TariffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SaleDetails_Products">
           <End Role="Products" Type="Self.Products" Multiplicity="1" />
           <End Role="SaleDetails" Type="Self.SaleDetails" Multiplicity="*" />
@@ -1217,6 +1465,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        
+        
+        
+        
+        
         <EntityContainer Name="SAMSModelStoreContainer">
           <EntitySet Name="BookingDetails" EntityType="Self.BookingDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BookingPayments" EntityType="Self.BookingPayments" Schema="dbo" store:Type="Tables" />
@@ -1224,6 +1477,8 @@
           <EntitySet Name="Businesses" EntityType="Self.Businesses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BusinessSections" EntityType="Self.BusinessSections" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DonorCoupons" EntityType="Self.DonorCoupons" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InventoryPurchaseDetails" EntityType="Self.InventoryPurchaseDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InventoryPurchases" EntityType="Self.InventoryPurchases" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LedgerGroups" EntityType="Self.LedgerGroups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LedgerJournals" EntityType="Self.LedgerJournals" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ledgers" EntityType="Self.Ledgers" Schema="dbo" store:Type="Tables" />
@@ -1242,6 +1497,9 @@
           <EntitySet Name="Purchases" EntityType="Self.Purchases" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rooms" EntityType="Self.Rooms" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RoomServices" EntityType="Self.RoomServices" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoomStockReturns" EntityType="Self.RoomStockReturns" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoomStockTransactions" EntityType="Self.RoomStockTransactions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoomTypeStockConfigs" EntityType="Self.RoomTypeStockConfigs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SaleDetails" EntityType="Self.SaleDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SaleDetailTrackings" EntityType="Self.SaleDetailTrackings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sales" EntityType="Self.Sales" Schema="dbo" store:Type="Tables" />
@@ -1250,10 +1508,51 @@
           <EntitySet Name="Sections" EntityType="Self.Sections" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SMSAlerts" EntityType="Self.SMSAlerts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SMSAlertSchedules" EntityType="Self.SMSAlertSchedules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StockItems" EntityType="Self.StockItems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tariffs" EntityType="Self.Tariffs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Taxes" EntityType="Self.Taxes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TempDataValues" EntityType="Self.TempDataValues" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vouchers" EntityType="Self.Vouchers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vw_LowStockItems" EntityType="Self.vw_LowStockItems" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[vw_LowStockItems].[StockItemId] AS [StockItemId], 
+[vw_LowStockItems].[ItemName] AS [ItemName], 
+[vw_LowStockItems].[Category] AS [Category], 
+[vw_LowStockItems].[Unit] AS [Unit], 
+[vw_LowStockItems].[ReorderLevel] AS [ReorderLevel], 
+[vw_LowStockItems].[TotalPurchased] AS [TotalPurchased], 
+[vw_LowStockItems].[TotalIssued] AS [TotalIssued], 
+[vw_LowStockItems].[TotalReturned] AS [TotalReturned], 
+[vw_LowStockItems].[AvailableStock] AS [AvailableStock], 
+[vw_LowStockItems].[LastPurchaseId] AS [LastPurchaseId], 
+[vw_LowStockItems].[LastPurchaseDate] AS [LastPurchaseDate]
+FROM [dbo].[vw_LowStockItems] AS [vw_LowStockItems]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_StockAvailability" EntityType="Self.vw_StockAvailability" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[vw_StockAvailability].[StockItemId] AS [StockItemId], 
+[vw_StockAvailability].[ItemName] AS [ItemName], 
+[vw_StockAvailability].[Category] AS [Category], 
+[vw_StockAvailability].[Unit] AS [Unit], 
+[vw_StockAvailability].[ReorderLevel] AS [ReorderLevel], 
+[vw_StockAvailability].[TotalPurchased] AS [TotalPurchased], 
+[vw_StockAvailability].[TotalIssued] AS [TotalIssued], 
+[vw_StockAvailability].[TotalReturned] AS [TotalReturned], 
+[vw_StockAvailability].[AvailableStock] AS [AvailableStock]
+FROM [dbo].[vw_StockAvailability] AS [vw_StockAvailability]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_StockMovement" EntityType="Self.vw_StockMovement" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[vw_StockMovement].[TransactionDate] AS [TransactionDate], 
+[vw_StockMovement].[ItemName] AS [ItemName], 
+[vw_StockMovement].[Category] AS [Category], 
+[vw_StockMovement].[TransactionType] AS [TransactionType], 
+[vw_StockMovement].[RoomNo] AS [RoomNo], 
+[vw_StockMovement].[InQty] AS [InQty], 
+[vw_StockMovement].[OutQty] AS [OutQty], 
+[vw_StockMovement].[Reference] AS [Reference]
+FROM [dbo].[vw_StockMovement] AS [vw_StockMovement]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_BookingDetails_Bookings" Association="Self.FK_BookingDetails_Bookings">
             <End Role="Bookings" EntitySet="Bookings" />
             <End Role="BookingDetails" EntitySet="BookingDetails" />
@@ -1281,6 +1580,14 @@
           <AssociationSet Name="FK_DonorCoupons_Members" Association="Self.FK_DonorCoupons_Members">
             <End Role="Members" EntitySet="Members" />
             <End Role="DonorCoupons" EntitySet="DonorCoupons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvPurchDetails_Purchases" Association="Self.FK_InvPurchDetails_Purchases">
+            <End Role="InventoryPurchases" EntitySet="InventoryPurchases" />
+            <End Role="InventoryPurchaseDetails" EntitySet="InventoryPurchaseDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvPurchDetails_StockItems" Association="Self.FK_InvPurchDetails_StockItems">
+            <End Role="StockItems" EntitySet="StockItems" />
+            <End Role="InventoryPurchaseDetails" EntitySet="InventoryPurchaseDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_LedgerJournals_Businesses" Association="Self.FK_LedgerJournals_Businesses">
             <End Role="Businesses" EntitySet="Businesses" />
@@ -1382,6 +1689,30 @@
             <End Role="Rooms" EntitySet="Rooms" />
             <End Role="RoomServices" EntitySet="RoomServices" />
           </AssociationSet>
+          <AssociationSet Name="FK_RoomStock_BookingDetails" Association="Self.FK_RoomStock_BookingDetails">
+            <End Role="BookingDetails" EntitySet="BookingDetails" />
+            <End Role="RoomStockTransactions" EntitySet="RoomStockTransactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoomStock_Rooms" Association="Self.FK_RoomStock_Rooms">
+            <End Role="Rooms" EntitySet="Rooms" />
+            <End Role="RoomStockTransactions" EntitySet="RoomStockTransactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoomStock_StockItems" Association="Self.FK_RoomStock_StockItems">
+            <End Role="StockItems" EntitySet="StockItems" />
+            <End Role="RoomStockTransactions" EntitySet="RoomStockTransactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoomStockReturns_RoomStock" Association="Self.FK_RoomStockReturns_RoomStock">
+            <End Role="RoomStockTransactions" EntitySet="RoomStockTransactions" />
+            <End Role="RoomStockReturns" EntitySet="RoomStockReturns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoomTypeStockConfigs_StockItems" Association="Self.FK_RoomTypeStockConfigs_StockItems">
+            <End Role="StockItems" EntitySet="StockItems" />
+            <End Role="RoomTypeStockConfigs" EntitySet="RoomTypeStockConfigs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoomTypeStockConfigs_Tariffs" Association="Self.FK_RoomTypeStockConfigs_Tariffs">
+            <End Role="Tariffs" EntitySet="Tariffs" />
+            <End Role="RoomTypeStockConfigs" EntitySet="RoomTypeStockConfigs" />
+          </AssociationSet>
           <AssociationSet Name="FK_SaleDetails_Products" Association="Self.FK_SaleDetails_Products">
             <End Role="Products" EntitySet="Products" />
             <End Role="SaleDetails" EntitySet="SaleDetails" />
@@ -1426,7 +1757,7 @@
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="SAMSModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+      <Schema Namespace="SAMSModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
         <EntityContainer Name="SAMSEntities">
           <EntitySet Name="Businesses" EntityType="SAMSModel.Business" />
           <EntitySet Name="BusinessSections" EntityType="SAMSModel.BusinessSection" />
@@ -1631,6 +1962,47 @@
           <AssociationSet Name="FK_SMSAlerts_Members" Association="SAMSModel.FK_SMSAlerts_Members">
             <End Role="Member" EntitySet="Members" />
             <End Role="SMSAlert" EntitySet="SMSAlerts" />
+          </AssociationSet>
+          <EntitySet Name="InventoryPurchaseDetails" EntityType="SAMSModel.InventoryPurchaseDetail" />
+          <EntitySet Name="InventoryPurchases" EntityType="SAMSModel.InventoryPurchas" />
+          <EntitySet Name="RoomStockReturns" EntityType="SAMSModel.RoomStockReturn" />
+          <EntitySet Name="RoomStockTransactions" EntityType="SAMSModel.RoomStockTransaction" />
+          <EntitySet Name="RoomTypeStockConfigs" EntityType="SAMSModel.RoomTypeStockConfig" />
+          <EntitySet Name="StockItems" EntityType="SAMSModel.StockItem" />
+          <EntitySet Name="vw_LowStockItems" EntityType="SAMSModel.vw_LowStockItems" />
+          <EntitySet Name="vw_StockAvailability" EntityType="SAMSModel.vw_StockAvailability" />
+          <EntitySet Name="vw_StockMovement" EntityType="SAMSModel.vw_StockMovement" />
+          <AssociationSet Name="FK_RoomStock_BookingDetails" Association="SAMSModel.FK_RoomStock_BookingDetails">
+            <End Role="BookingDetail" EntitySet="BookingDetails" />
+            <End Role="RoomStockTransaction" EntitySet="RoomStockTransactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvPurchDetails_Purchases" Association="SAMSModel.FK_InvPurchDetails_Purchases">
+            <End Role="InventoryPurchas" EntitySet="InventoryPurchases" />
+            <End Role="InventoryPurchaseDetail" EntitySet="InventoryPurchaseDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvPurchDetails_StockItems" Association="SAMSModel.FK_InvPurchDetails_StockItems">
+            <End Role="StockItem" EntitySet="StockItems" />
+            <End Role="InventoryPurchaseDetail" EntitySet="InventoryPurchaseDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoomStock_Rooms" Association="SAMSModel.FK_RoomStock_Rooms">
+            <End Role="Room" EntitySet="Rooms" />
+            <End Role="RoomStockTransaction" EntitySet="RoomStockTransactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoomStockReturns_RoomStock" Association="SAMSModel.FK_RoomStockReturns_RoomStock">
+            <End Role="RoomStockTransaction" EntitySet="RoomStockTransactions" />
+            <End Role="RoomStockReturn" EntitySet="RoomStockReturns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoomStock_StockItems" Association="SAMSModel.FK_RoomStock_StockItems">
+            <End Role="StockItem" EntitySet="StockItems" />
+            <End Role="RoomStockTransaction" EntitySet="RoomStockTransactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoomTypeStockConfigs_StockItems" Association="SAMSModel.FK_RoomTypeStockConfigs_StockItems">
+            <End Role="StockItem" EntitySet="StockItems" />
+            <End Role="RoomTypeStockConfig" EntitySet="RoomTypeStockConfigs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoomTypeStockConfigs_Tariffs" Association="SAMSModel.FK_RoomTypeStockConfigs_Tariffs">
+            <End Role="Tariff" EntitySet="Tariffs" />
+            <End Role="RoomTypeStockConfig" EntitySet="RoomTypeStockConfigs" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Business">
@@ -2431,6 +2803,7 @@
           <Property Name="Tax" Type="Double" />
           <Property Name="TaxAmount" Type="Double" />
           <Property Name="CouponCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="RoomStockTransactions" Relationship="SAMSModel.FK_RoomStock_BookingDetails" FromRole="BookingDetail" ToRole="RoomStockTransaction" />
         </EntityType>
         <EntityType Name="Booking">
           <Key>
@@ -2502,6 +2875,7 @@
           <NavigationProperty Name="Tariff" Relationship="SAMSModel.FK_Rooms_Tariffs" FromRole="Room" ToRole="Tariff" />
           <NavigationProperty Name="RoomServices" Relationship="SAMSModel.FK_RoomServices_Rooms" FromRole="Room" ToRole="RoomService" />
           <NavigationProperty Name="BookingPayments" Relationship="SAMSModel.FK_BookingPayments_Rooms" FromRole="Room" ToRole="BookingPayment" />
+          <NavigationProperty Name="RoomStockTransactions" Relationship="SAMSModel.FK_RoomStock_Rooms" FromRole="Room" ToRole="RoomStockTransaction" />
         </EntityType>
         <EntityType Name="RoomService">
           <Key>
@@ -2543,6 +2917,7 @@
           <Property Name="PlanPrice" Type="Double" />
           <Property Name="PlanExtraBedPrice" Type="Double" />
           <Property Name="PlanTax" Type="Double" />
+          <NavigationProperty Name="RoomTypeStockConfigs" Relationship="SAMSModel.FK_RoomTypeStockConfigs_Tariffs" FromRole="Tariff" ToRole="RoomTypeStockConfig" />
         </EntityType>
         <Association Name="FK_BookingDetails_Bookings">
           <End Type="SAMSModel.Booking" Role="Booking" Multiplicity="0..1" />
@@ -2929,11 +3304,266 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="InventoryPurchaseDetail">
+          <Key>
+            <PropertyRef Name="PurchaseDetailId" />
+          </Key>
+          <Property Name="PurchaseDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PurchaseId" Type="Int32" Nullable="false" />
+          <Property Name="StockItemId" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Double" Nullable="false" />
+          <Property Name="UnitPrice" Type="Double" />
+          <Property Name="TotalAmount" Type="Double" />
+          <NavigationProperty Name="InventoryPurchas" Relationship="SAMSModel.FK_InvPurchDetails_Purchases" FromRole="InventoryPurchaseDetail" ToRole="InventoryPurchas" />
+          <NavigationProperty Name="StockItem" Relationship="SAMSModel.FK_InvPurchDetails_StockItems" FromRole="InventoryPurchaseDetail" ToRole="StockItem" />
+        </EntityType>
+        <EntityType Name="InventoryPurchas">
+          <Key>
+            <PropertyRef Name="PurchaseId" />
+          </Key>
+          <Property Name="PurchaseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PurchaseDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="InvoiceNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="InvoiceDate" Type="DateTime" Precision="0" />
+          <Property Name="VendorName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="VendorAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="TotalAmount" Type="Double" />
+          <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="InventoryPurchaseDetails" Relationship="SAMSModel.FK_InvPurchDetails_Purchases" FromRole="InventoryPurchas" ToRole="InventoryPurchaseDetail" />
+        </EntityType>
+        <EntityType Name="RoomStockReturn">
+          <Key>
+            <PropertyRef Name="ReturnId" />
+          </Key>
+          <Property Name="ReturnId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoomStockId" Type="Int32" Nullable="false" />
+          <Property Name="BookingDetailId" Type="Int32" Nullable="false" />
+          <Property Name="StockItemId" Type="Int32" Nullable="false" />
+          <Property Name="ReturnQuantity" Type="Double" Nullable="false" />
+          <Property Name="ReturnDate" Type="DateTime" Precision="3" />
+          <Property Name="Reason" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="RoomStockTransaction" Relationship="SAMSModel.FK_RoomStockReturns_RoomStock" FromRole="RoomStockReturn" ToRole="RoomStockTransaction" />
+        </EntityType>
+        <EntityType Name="RoomStockTransaction">
+          <Key>
+            <PropertyRef Name="RoomStockId" />
+          </Key>
+          <Property Name="RoomStockId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookingDetailId" Type="Int32" Nullable="false" />
+          <Property Name="BookingId" Type="Int32" Nullable="false" />
+          <Property Name="RoomId" Type="Int32" Nullable="false" />
+          <Property Name="StockItemId" Type="Int32" Nullable="false" />
+          <Property Name="StockType" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="IssuedQuantity" Type="Double" Nullable="false" />
+          <Property Name="ReturnedQuantity" Type="Double" Nullable="false" />
+          <Property Name="IssueDate" Type="DateTime" Precision="3" />
+          <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="BookingDetail" Relationship="SAMSModel.FK_RoomStock_BookingDetails" FromRole="RoomStockTransaction" ToRole="BookingDetail" />
+          <NavigationProperty Name="Room" Relationship="SAMSModel.FK_RoomStock_Rooms" FromRole="RoomStockTransaction" ToRole="Room" />
+          <NavigationProperty Name="RoomStockReturns" Relationship="SAMSModel.FK_RoomStockReturns_RoomStock" FromRole="RoomStockTransaction" ToRole="RoomStockReturn" />
+          <NavigationProperty Name="StockItem" Relationship="SAMSModel.FK_RoomStock_StockItems" FromRole="RoomStockTransaction" ToRole="StockItem" />
+        </EntityType>
+        <EntityType Name="RoomTypeStockConfig">
+          <Key>
+            <PropertyRef Name="RoomTypeStockConfigId" />
+          </Key>
+          <Property Name="RoomTypeStockConfigId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TariffId" Type="Int32" Nullable="false" />
+          <Property Name="StockItemId" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Double" Nullable="false" />
+          <Property Name="DailyReplenishQty" Type="Double" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="StockItem" Relationship="SAMSModel.FK_RoomTypeStockConfigs_StockItems" FromRole="RoomTypeStockConfig" ToRole="StockItem" />
+          <NavigationProperty Name="Tariff" Relationship="SAMSModel.FK_RoomTypeStockConfigs_Tariffs" FromRole="RoomTypeStockConfig" ToRole="Tariff" />
+        </EntityType>
+        <EntityType Name="StockItem">
+          <Key>
+            <PropertyRef Name="StockItemId" />
+          </Key>
+          <Property Name="StockItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Category" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UnitOfMeasurement" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ReorderLevel" Type="Double" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="InventoryPurchaseDetails" Relationship="SAMSModel.FK_InvPurchDetails_StockItems" FromRole="StockItem" ToRole="InventoryPurchaseDetail" />
+          <NavigationProperty Name="RoomStockTransactions" Relationship="SAMSModel.FK_RoomStock_StockItems" FromRole="StockItem" ToRole="RoomStockTransaction" />
+          <NavigationProperty Name="RoomTypeStockConfigs" Relationship="SAMSModel.FK_RoomTypeStockConfigs_StockItems" FromRole="StockItem" ToRole="RoomTypeStockConfig" />
+        </EntityType>
+        <EntityType Name="vw_LowStockItems">
+          <Key>
+            <PropertyRef Name="StockItemId" />
+            <PropertyRef Name="ItemName" />
+            <PropertyRef Name="Unit" />
+            <PropertyRef Name="TotalPurchased" />
+            <PropertyRef Name="TotalIssued" />
+            <PropertyRef Name="TotalReturned" />
+            <PropertyRef Name="AvailableStock" />
+          </Key>
+          <Property Name="StockItemId" Type="Int32" Nullable="false" />
+          <Property Name="ItemName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Category" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Unit" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ReorderLevel" Type="Double" />
+          <Property Name="TotalPurchased" Type="Double" Nullable="false" />
+          <Property Name="TotalIssued" Type="Double" Nullable="false" />
+          <Property Name="TotalReturned" Type="Double" Nullable="false" />
+          <Property Name="AvailableStock" Type="Double" Nullable="false" />
+          <Property Name="LastPurchaseId" Type="Int32" />
+          <Property Name="LastPurchaseDate" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="vw_StockAvailability">
+          <Key>
+            <PropertyRef Name="StockItemId" />
+            <PropertyRef Name="ItemName" />
+            <PropertyRef Name="Unit" />
+            <PropertyRef Name="TotalPurchased" />
+            <PropertyRef Name="TotalIssued" />
+            <PropertyRef Name="TotalReturned" />
+            <PropertyRef Name="AvailableStock" />
+          </Key>
+          <Property Name="StockItemId" Type="Int32" Nullable="false" />
+          <Property Name="ItemName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Category" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Unit" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ReorderLevel" Type="Double" />
+          <Property Name="TotalPurchased" Type="Double" Nullable="false" />
+          <Property Name="TotalIssued" Type="Double" Nullable="false" />
+          <Property Name="TotalReturned" Type="Double" Nullable="false" />
+          <Property Name="AvailableStock" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vw_StockMovement">
+          <Key>
+            <PropertyRef Name="ItemName" />
+            <PropertyRef Name="TransactionType" />
+            <PropertyRef Name="InQty" />
+            <PropertyRef Name="OutQty" />
+            <PropertyRef Name="Reference" />
+          </Key>
+          <Property Name="TransactionDate" Type="DateTime" Precision="0" />
+          <Property Name="ItemName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Category" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TransactionType" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="RoomNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="InQty" Type="Double" Nullable="false" />
+          <Property Name="OutQty" Type="Double" Nullable="false" />
+          <Property Name="Reference" Type="String" Nullable="false" MaxLength="18" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_RoomStock_BookingDetails">
+          <End Type="SAMSModel.BookingDetail" Role="BookingDetail" Multiplicity="1" />
+          <End Type="SAMSModel.RoomStockTransaction" Role="RoomStockTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookingDetail">
+              <PropertyRef Name="BookingDetailId" />
+            </Principal>
+            <Dependent Role="RoomStockTransaction">
+              <PropertyRef Name="BookingDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvPurchDetails_Purchases">
+          <End Type="SAMSModel.InventoryPurchas" Role="InventoryPurchas" Multiplicity="1" />
+          <End Type="SAMSModel.InventoryPurchaseDetail" Role="InventoryPurchaseDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InventoryPurchas">
+              <PropertyRef Name="PurchaseId" />
+            </Principal>
+            <Dependent Role="InventoryPurchaseDetail">
+              <PropertyRef Name="PurchaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvPurchDetails_StockItems">
+          <End Type="SAMSModel.StockItem" Role="StockItem" Multiplicity="1" />
+          <End Type="SAMSModel.InventoryPurchaseDetail" Role="InventoryPurchaseDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StockItem">
+              <PropertyRef Name="StockItemId" />
+            </Principal>
+            <Dependent Role="InventoryPurchaseDetail">
+              <PropertyRef Name="StockItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoomStock_Rooms">
+          <End Type="SAMSModel.Room" Role="Room" Multiplicity="1" />
+          <End Type="SAMSModel.RoomStockTransaction" Role="RoomStockTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="RoomId" />
+            </Principal>
+            <Dependent Role="RoomStockTransaction">
+              <PropertyRef Name="RoomId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoomStockReturns_RoomStock">
+          <End Type="SAMSModel.RoomStockTransaction" Role="RoomStockTransaction" Multiplicity="1" />
+          <End Type="SAMSModel.RoomStockReturn" Role="RoomStockReturn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoomStockTransaction">
+              <PropertyRef Name="RoomStockId" />
+            </Principal>
+            <Dependent Role="RoomStockReturn">
+              <PropertyRef Name="RoomStockId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoomStock_StockItems">
+          <End Type="SAMSModel.StockItem" Role="StockItem" Multiplicity="1" />
+          <End Type="SAMSModel.RoomStockTransaction" Role="RoomStockTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StockItem">
+              <PropertyRef Name="StockItemId" />
+            </Principal>
+            <Dependent Role="RoomStockTransaction">
+              <PropertyRef Name="StockItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoomTypeStockConfigs_StockItems">
+          <End Type="SAMSModel.StockItem" Role="StockItem" Multiplicity="1" />
+          <End Type="SAMSModel.RoomTypeStockConfig" Role="RoomTypeStockConfig" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StockItem">
+              <PropertyRef Name="StockItemId" />
+            </Principal>
+            <Dependent Role="RoomTypeStockConfig">
+              <PropertyRef Name="StockItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoomTypeStockConfigs_Tariffs">
+          <End Type="SAMSModel.Tariff" Role="Tariff" Multiplicity="1" />
+          <End Type="SAMSModel.RoomTypeStockConfig" Role="RoomTypeStockConfig" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tariff">
+              <PropertyRef Name="TariffId" />
+            </Principal>
+            <Dependent Role="RoomTypeStockConfig">
+              <PropertyRef Name="TariffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="SAMSModelStoreContainer" CdmEntityContainer="SAMSEntities">
           <EntitySetMapping Name="Businesses">
             <EntityTypeMapping TypeName="SAMSModel.Business">
@@ -3679,272 +4309,428 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="InventoryPurchaseDetails">
+            <EntityTypeMapping TypeName="SAMSModel.InventoryPurchaseDetail">
+              <MappingFragment StoreEntitySet="InventoryPurchaseDetails">
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="StockItemId" ColumnName="StockItemId" />
+                <ScalarProperty Name="PurchaseId" ColumnName="PurchaseId" />
+                <ScalarProperty Name="PurchaseDetailId" ColumnName="PurchaseDetailId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InventoryPurchases">
+            <EntityTypeMapping TypeName="SAMSModel.InventoryPurchas">
+              <MappingFragment StoreEntitySet="InventoryPurchases">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="VendorAddress" ColumnName="VendorAddress" />
+                <ScalarProperty Name="VendorName" ColumnName="VendorName" />
+                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+                <ScalarProperty Name="PurchaseDate" ColumnName="PurchaseDate" />
+                <ScalarProperty Name="PurchaseId" ColumnName="PurchaseId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoomStockReturns">
+            <EntityTypeMapping TypeName="SAMSModel.RoomStockReturn">
+              <MappingFragment StoreEntitySet="RoomStockReturns">
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+                <ScalarProperty Name="ReturnDate" ColumnName="ReturnDate" />
+                <ScalarProperty Name="ReturnQuantity" ColumnName="ReturnQuantity" />
+                <ScalarProperty Name="StockItemId" ColumnName="StockItemId" />
+                <ScalarProperty Name="BookingDetailId" ColumnName="BookingDetailId" />
+                <ScalarProperty Name="RoomStockId" ColumnName="RoomStockId" />
+                <ScalarProperty Name="ReturnId" ColumnName="ReturnId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoomStockTransactions">
+            <EntityTypeMapping TypeName="SAMSModel.RoomStockTransaction">
+              <MappingFragment StoreEntitySet="RoomStockTransactions">
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="IssueDate" ColumnName="IssueDate" />
+                <ScalarProperty Name="ReturnedQuantity" ColumnName="ReturnedQuantity" />
+                <ScalarProperty Name="IssuedQuantity" ColumnName="IssuedQuantity" />
+                <ScalarProperty Name="StockType" ColumnName="StockType" />
+                <ScalarProperty Name="StockItemId" ColumnName="StockItemId" />
+                <ScalarProperty Name="RoomId" ColumnName="RoomId" />
+                <ScalarProperty Name="BookingId" ColumnName="BookingId" />
+                <ScalarProperty Name="BookingDetailId" ColumnName="BookingDetailId" />
+                <ScalarProperty Name="RoomStockId" ColumnName="RoomStockId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoomTypeStockConfigs">
+            <EntityTypeMapping TypeName="SAMSModel.RoomTypeStockConfig">
+              <MappingFragment StoreEntitySet="RoomTypeStockConfigs">
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DailyReplenishQty" ColumnName="DailyReplenishQty" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="StockItemId" ColumnName="StockItemId" />
+                <ScalarProperty Name="TariffId" ColumnName="TariffId" />
+                <ScalarProperty Name="RoomTypeStockConfigId" ColumnName="RoomTypeStockConfigId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StockItems">
+            <EntityTypeMapping TypeName="SAMSModel.StockItem">
+              <MappingFragment StoreEntitySet="StockItems">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ReorderLevel" ColumnName="ReorderLevel" />
+                <ScalarProperty Name="UnitOfMeasurement" ColumnName="UnitOfMeasurement" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="StockItemId" ColumnName="StockItemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_LowStockItems">
+            <EntityTypeMapping TypeName="SAMSModel.vw_LowStockItems">
+              <MappingFragment StoreEntitySet="vw_LowStockItems">
+                <ScalarProperty Name="LastPurchaseDate" ColumnName="LastPurchaseDate" />
+                <ScalarProperty Name="LastPurchaseId" ColumnName="LastPurchaseId" />
+                <ScalarProperty Name="AvailableStock" ColumnName="AvailableStock" />
+                <ScalarProperty Name="TotalReturned" ColumnName="TotalReturned" />
+                <ScalarProperty Name="TotalIssued" ColumnName="TotalIssued" />
+                <ScalarProperty Name="TotalPurchased" ColumnName="TotalPurchased" />
+                <ScalarProperty Name="ReorderLevel" ColumnName="ReorderLevel" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="StockItemId" ColumnName="StockItemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_StockAvailability">
+            <EntityTypeMapping TypeName="SAMSModel.vw_StockAvailability">
+              <MappingFragment StoreEntitySet="vw_StockAvailability">
+                <ScalarProperty Name="AvailableStock" ColumnName="AvailableStock" />
+                <ScalarProperty Name="TotalReturned" ColumnName="TotalReturned" />
+                <ScalarProperty Name="TotalIssued" ColumnName="TotalIssued" />
+                <ScalarProperty Name="TotalPurchased" ColumnName="TotalPurchased" />
+                <ScalarProperty Name="ReorderLevel" ColumnName="ReorderLevel" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="StockItemId" ColumnName="StockItemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_StockMovement">
+            <EntityTypeMapping TypeName="SAMSModel.vw_StockMovement">
+              <MappingFragment StoreEntitySet="vw_StockMovement">
+                <ScalarProperty Name="Reference" ColumnName="Reference" />
+                <ScalarProperty Name="OutQty" ColumnName="OutQty" />
+                <ScalarProperty Name="InQty" ColumnName="InQty" />
+                <ScalarProperty Name="RoomNo" ColumnName="RoomNo" />
+                <ScalarProperty Name="TransactionType" ColumnName="TransactionType" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
-  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
-    <Connection>
-      <DesignerInfoPropertySet>
-        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
-      </DesignerInfoPropertySet>
-    </Connection>
-    <Options>
-      <DesignerInfoPropertySet>
-        <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="True" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
-        <DesignerProperty Name="UseLegacyProvider" Value="True" />
-      </DesignerInfoPropertySet>
-    </Options>
+  <edmx:Designer>
+    <edmx:Connection>
+      <edmx:DesignerInfoPropertySet>
+        <edmx:DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </edmx:DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <edmx:DesignerInfoPropertySet>
+        <edmx:DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <edmx:DesignerProperty Name="EnablePluralization" Value="True" />
+        <edmx:DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <edmx:DesignerProperty Name="UseLegacyProvider" Value="True" />
+      </edmx:DesignerInfoPropertySet>
+    </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->
-    <Diagrams>
-      <Diagram Name="SAMSDataModel" ZoomLevel="65">
-        <EntityTypeShape EntityType="SAMSModel.Business" Width="1.5" PointX="3.75" PointY="5" Height="5.2079475911458317" />
-        <EntityTypeShape EntityType="SAMSModel.BusinessSection" Width="1.5" PointX="3" PointY="12.75" Height="1.7566536458333388" />
-        <EntityTypeShape EntityType="SAMSModel.LedgerGroup" Width="1.5" PointX="1.5" PointY="21.75" Height="1.7566536458333388" />
-        <EntityTypeShape EntityType="SAMSModel.LedgerJournal" Width="1.5" PointX="11" PointY="10.75" Height="2.9070849609375067" />
-        <EntityTypeShape EntityType="SAMSModel.Ledger" Width="1.5" PointX="3.75" PointY="20" Height="5.372294921874996" />
-        <EntityTypeShape EntityType="SAMSModel.Measurement" Width="1.5" PointX="3" PointY="26.875" Height="1.921000976562496" />
-        <EntityTypeShape EntityType="SAMSModel.ProductGroup" Width="1.5" PointX="3" PointY="16.125" Height="2.0853483072916674" />
-        <EntityTypeShape EntityType="SAMSModel.Product" Width="1.5" PointX="5.25" PointY="13.875" Height="4.0575162760416674" />
-        <EntityTypeShape EntityType="SAMSModel.ProductTaxMapping" Width="1.5" PointX="10.5" PointY="14.625" Height="2.2496956380208388" />
-        <EntityTypeShape EntityType="SAMSModel.PurchaseDetail" Width="1.5" PointX="8.25" PointY="8.875" Height="4.0575162760416674" />
-        <EntityTypeShape EntityType="SAMSModel.Purchase" Width="1.5" PointX="6" PointY="8.25" Height="4.879252929687496" />
-        <EntityTypeShape EntityType="SAMSModel.SaleDetail" Width="1.5" PointX="10.25" PointY="17.75" Height="3.5644742838541674" />
-        <EntityTypeShape EntityType="SAMSModel.SaleDetailTracking" Width="1.5" PointX="13.5" PointY="14.125" Height="1.9210009765625102" />
-        <EntityTypeShape EntityType="SAMSModel.Sale" Width="1.5" PointX="8" PointY="14.25" Height="4.879252929687496" />
-        <EntityTypeShape EntityType="SAMSModel.SAMSUser" Width="1.5" PointX="0.75" PointY="0.75" Height="1.7566536458333246" />
-        <EntityTypeShape EntityType="SAMSModel.Section" Width="1.5" PointX="0.75" PointY="13.375" Height="2.5783902994791674" />
-        <EntityTypeShape EntityType="SAMSModel.Tax" Width="1.5" PointX="8.25" PointY="22.875" Height="1.7566536458333353" />
-        <AssociationConnector Association="SAMSModel.FK_BusinessSections_Businesses" >
-          <ConnectorPoint PointX="4.125" PointY="11.403219401041666" />
-          <ConnectorPoint PointX="4.125" PointY="12.75" />
-        </AssociationConnector>
-        <AssociationConnector Association="SAMSModel.FK_LedgerJournals_Businesses" >
-          <ConnectorPoint PointX="5.25" PointY="5.7368236928971665" />
-          <ConnectorPoint PointX="12.28125" PointY="5.7368236928971665" />
-          <ConnectorPoint PointX="12.28125" PointY="10.75" />
-        </AssociationConnector>
-        <AssociationConnector Association="SAMSModel.FK_Purchases_Businesses" >
-          <ConnectorPoint PointX="5.25" PointY="9.5142671712239579" />
-          <ConnectorPoint PointX="5.635416666666667" PointY="9.5142671712239579" />
-          <ConnectorPoint PointX="5.802083333333333" PointY="9.5142671712239579" />
-          <ConnectorPoint PointX="6" PointY="9.5142671712239579" />
-        </AssociationConnector>
-        <AssociationConnector Association="SAMSModel.FK_Sales_Businesses" >
-          <ConnectorPoint PointX="5.25" PointY="6.6251475638428854" />
-          <ConnectorPoint PointX="8.09375" PointY="6.6251475638428854" />
-          <ConnectorPoint PointX="8.09375" PointY="14.25" />
-        </AssociationConnector>
-        <AssociationConnector Association="SAMSModel.FK_BusinessSections_Sections" >
-          <ConnectorPoint PointX="2.25" PointY="13.940826822916669" />
-          <ConnectorPoint PointX="3" PointY="13.940826822916669" />
-        </AssociationConnector>
-        <AssociationConnector Association="SAMSModel.FK_Ledgers_LedgerGroups" >
-          <ConnectorPoint PointX="3" PointY="22.628326822916669" />
-          <ConnectorPoint PointX="3.75" PointY="22.628326822916669" />
-        </AssociationConnector>
-        <AssociationConnector Association="SAMSModel.FK_LedgerJournals_Ledgers" >
-          <ConnectorPoint PointX="5.25" PointY="25.696848958333334" />
-          <ConnectorPoint PointX="5.416666666666667" PointY="25.696848958333334" />
-          <ConnectorPoint PointX="5.583333333333333" PointY="25.696848958333334" />
-          <ConnectorPoint PointX="5.666666666666667" PointY="25.696848958333334" />
-          <ConnectorPoint PointX="5.833333333333333" PointY="25.696848958333334" />
-          <ConnectorPoint PointX="12.28125" PointY="25.696848958333334" />
-          <ConnectorPoint PointX="12.28125" PointY="14.076396484375" />
-        </AssociationConnector>
-        <AssociationConnector Association="SAMSModel.FK_Purchases_Ledgers" >
-          <ConnectorPoint PointX="4.5" PointY="20" />
-          <ConnectorPoint PointX="4.5" PointY="18.739889322916667" />
-          <ConnectorPoint PointX="4.75" PointY="18.739889322916667" />
-          <ConnectorPoint PointX="4.75" PointY="11.460917968749996" />
-          <ConnectorPoint PointX="5.5" PointY="11.460917968749996" />
-          <ConnectorPoint PointX="5.5" PointY="10.903534342447916" />
-          <ConnectorPoint PointX="5.635416666666667" PointY="10.903534342447916" />
-          <ConnectorPoint PointX="5.802083333333333" PointY="10.903534342447916" />
-          <ConnectorPoint PointX="6" PointY="10.903534342447916" />
-        </AssociationConnector>
-        <AssociationConnector Association="SAMSModel.FK_Sales_Ledgers" >
-          <ConnectorPoint PointX="5.25" PointY="20.915558768229168" />
-          <ConnectorPoint PointX="5.416666666666667" PointY="20.915558768229168" />
-          <ConnectorPoint PointX="5.583333333333333" PointY="20.915558768229168" />
-          <ConnectorPoint PointX="5.635416666666667" PointY="20.915558768229168" />
-          <ConnectorPoint PointX="5.833333333333333" PointY="20.915558768229168" />
-          <ConnectorPoint PointX="8.09375" PointY="20.915558768229168" />
-          <ConnectorPoint PointX="8.09375" PointY="20.268616536458332" />
-        </AssociationConnector>
-        <AssociationConnector Association="SAMSModel.FK_Products_Measurements" >
-          <ConnectorPoint PointX="4.5" PointY="28.141256010416669" />
-          <ConnectorPoint PointX="5.75" PointY="28.141256010416669" />
-          <ConnectorPoint PointX="5.75" PointY="18.922506510416667" />
-          <ConnectorPoint PointX="6.265627" PointY="18.922506510416667" />
-          <ConnectorPoint PointX="6.265627" PointY="18.547506510416667" />
-        </AssociationConnector>
-        <AssociationConnector Association="SAMSModel.FK_ProductGroups_Sections" >
-          <ConnectorPoint PointX="1.5" PointY="15.953390299479167" />
-          <ConnectorPoint PointX="1.5" PointY="17.167674153645834" />
-          <ConnectorPoint PointX="1.8229191666666667" PointY="17.167674153645834" />
-          <ConnectorPoint PointX="1.9895858333333332" PointY="17.167674153645834" />
-          <ConnectorPoint PointX="3" PointY="17.167674153645834" />
-        </AssociationConnector>
-        <AssociationConnector Association="SAMSModel.FK_Products_ProductGroups" >
-          <ConnectorPoint PointX="4.5" PointY="17.307444661458334" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="17.307444661458334" />
-          <ConnectorPoint PointX="4.833333333333333" PointY="17.307444661458334" />
-          <ConnectorPoint PointX="5.25" PointY="17.307444661458334" />
-        </AssociationConnector>
-        <AssociationConnector Association="SAMSModel.FK_Products_Sections" >
-          <ConnectorPoint PointX="2.25" PointY="15.427643229166666" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="15.427643229166666" />
-          <ConnectorPoint PointX="4.833333333333333" PointY="15.427643229166666" />
-          <ConnectorPoint PointX="5.25" PointY="15.427643229166666" />
-        </AssociationConnector>
-        <AssociationConnector Association="SAMSModel.FK_ProductTaxMappings_Products" >
-          <ConnectorPoint PointX="6.75" PointY="14.1631982421875" />
-          <ConnectorPoint PointX="8.0104166666666661" PointY="14.1631982421875" />
-          <ConnectorPoint PointX="8.1770833333333339" PointY="14.1631982421875" />
-          <ConnectorPoint PointX="10.71875" PointY="14.1631982421875" />
-          <ConnectorPoint PointX="10.71875" PointY="14.625" />
-        </AssociationConnector>
-        <AssociationConnector Association="SAMSModel.FK_PurchaseDetails_Products" >
-          <ConnectorPoint PointX="6.75" PointY="14.024333073435823" />
-          <ConnectorPoint PointX="8.0104166666666661" PointY="14.024333073435823" />
-          <ConnectorPoint PointX="8.1770833333333339" PointY="14.024333073435823" />
-          <ConnectorPoint PointX="9.68749875" PointY="14.024333073435823" />
-          <ConnectorPoint PointX="9.68749875" PointY="13.739807942708332" />
-        </AssociationConnector>
-        <AssociationConnector Association="SAMSModel.FK_PurchaseDetails_Products1" >
-          <ConnectorPoint PointX="6.75" PointY="14.055585573435824" />
-          <ConnectorPoint PointX="8.0104166666666661" PointY="14.055585573435824" />
-          <ConnectorPoint PointX="8.1770833333333339" PointY="14.055585573435824" />
-          <ConnectorPoint PointX="9.6562462499999988" PointY="14.055585573435824" />
-          <ConnectorPoint PointX="9.6562462499999988" PointY="13.739807942708332" />
-        </AssociationConnector>
-        <AssociationConnector Association="SAMSModel.FK_SaleDetails_Products" >
-          <ConnectorPoint PointX="5.71875" PointY="18.547506510416667" />
-          <ConnectorPoint PointX="5.71875" PointY="21.270281884114585" />
-          <ConnectorPoint PointX="10.25" PointY="21.270281884114585" />
-        </AssociationConnector>
-        <AssociationConnector Association="SAMSModel.FK_ProductTaxMappings_Taxes" >
-          <ConnectorPoint PointX="9.75" PointY="23.753326822916669" />
-          <ConnectorPoint PointX="11.90625" PointY="23.753326822916669" />
-          <ConnectorPoint PointX="11.90625" PointY="16.874695638020839" />
-        </AssociationConnector>
-        <AssociationConnector Association="SAMSModel.FK_PurchaseDetails_Purchases" >
-          <ConnectorPoint PointX="7.5" PointY="11.307403971354166" />
-          <ConnectorPoint PointX="8.0104166666666661" PointY="11.307403971354166" />
-          <ConnectorPoint PointX="8.1770833333333339" PointY="11.307403971354166" />
-          <ConnectorPoint PointX="8.25" PointY="11.307403971354166" />
-        </AssociationConnector>
-        <AssociationConnector Association="SAMSModel.FK_SaleDetailTrackings_PurchaseDetails" >
-          <ConnectorPoint PointX="9.75" PointY="10.571848958333334" />
-          <ConnectorPoint PointX="12.197916666666666" PointY="10.571848958333334" />
-          <ConnectorPoint PointX="12.364583333333334" PointY="10.571848958333334" />
-          <ConnectorPoint PointX="14.25" PointY="10.571848958333334" />
-          <ConnectorPoint PointX="14.25" PointY="14.125" />
-        </AssociationConnector>
-        <AssociationConnector Association="SAMSModel.FK_Purchases_Sections" >
-          <ConnectorPoint PointX="1.5" PointY="13.375" />
-          <ConnectorPoint PointX="1.5" PointY="12.076609700520834" />
-          <ConnectorPoint PointX="4.041666666666667" PointY="12.076609700520834" />
-          <ConnectorPoint PointX="4.208333333333333" PointY="12.076609700520834" />
-          <ConnectorPoint PointX="4.3854191666666669" PointY="12.076609700520834" />
-          <ConnectorPoint PointX="4.5520858333333329" PointY="12.076609700520834" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="12.076609700520834" />
-          <ConnectorPoint PointX="4.833333333333333" PointY="12.076609700520834" />
-          <ConnectorPoint PointX="5.635416666666667" PointY="12.076609700520834" />
-          <ConnectorPoint PointX="5.802083333333333" PointY="12.076609700520834" />
-          <ConnectorPoint PointX="6" PointY="12.076609700520834" />
-        </AssociationConnector>
-        <AssociationConnector Association="SAMSModel.FK_SaleDetails_Sales" >
-          <ConnectorPoint PointX="9.5" PointY="18.439626464843748" />
-          <ConnectorPoint PointX="10.25" PointY="18.439626464843748" />
-        </AssociationConnector>
-        <AssociationConnector Association="SAMSModel.FK_SaleDetailTrackings_SaleDetails" >
-          <ConnectorPoint PointX="10.34375" PointY="17.75" />
-          <ConnectorPoint PointX="10.34375" PointY="14.362849121093749" />
-          <ConnectorPoint PointX="10.635416666666666" PointY="14.362849121093749" />
-          <ConnectorPoint PointX="10.802083333333334" PointY="14.362849121093749" />
-          <ConnectorPoint PointX="12.197916666666666" PointY="14.362849121093749" />
-          <ConnectorPoint PointX="12.364583333333334" PointY="14.362849121093749" />
-          <ConnectorPoint PointX="13.5" PointY="14.362849121093749" />
-        </AssociationConnector>
-        <AssociationConnector Association="SAMSModel.FK_Sales_Sections" >
-          <ConnectorPoint PointX="1.5" PointY="16.509095052083335" />
-          <ConnectorPoint PointX="1.5" PointY="19.244944661458334" />
-          <ConnectorPoint PointX="4.416666666666667" PointY="19.244944661458334" />
-          <ConnectorPoint PointX="4.583333333333333" PointY="19.244944661458334" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="19.244944661458334" />
-          <ConnectorPoint PointX="4.833333333333333" PointY="19.244944661458334" />
-          <ConnectorPoint PointX="5.635416666666667" PointY="19.244944661458334" />
-          <ConnectorPoint PointX="5.833333333333333" PointY="19.244944661458334" />
-          <ConnectorPoint PointX="8" PointY="19.244944661458334" />
-        </AssociationConnector>
-        <EntityTypeShape EntityType="SAMSModel.Voucher" Width="1.5" PointX="6" PointY="21.625" Height="2.907084960937496" />
-        <AssociationConnector Association="SAMSModel.FK_Vouchers_Ledgers" >
-          <ConnectorPoint PointX="5.25" PointY="23.935437625249229" />
-          <ConnectorPoint PointX="5.416666666666667" PointY="23.935437625249229" />
-          <ConnectorPoint PointX="5.583333333333333" PointY="23.935437625249229" />
-          <ConnectorPoint PointX="5.666666666666667" PointY="23.935437625249229" />
-          <ConnectorPoint PointX="5.833333333333333" PointY="23.935437625249229" />
-          <ConnectorPoint PointX="6" PointY="23.935437625249229" />
-        </AssociationConnector>
-        <AssociationConnector Association="SAMSModel.FK_Vouchers_Ledgers1" >
-          <ConnectorPoint PointX="5.25" PointY="22.717718812624614" />
-          <ConnectorPoint PointX="5.416666666666667" PointY="22.717718812624614" />
-          <ConnectorPoint PointX="5.583333333333333" PointY="22.717718812624614" />
-          <ConnectorPoint PointX="5.666666666666667" PointY="22.717718812624614" />
-          <ConnectorPoint PointX="5.833333333333333" PointY="22.717718812624614" />
-          <ConnectorPoint PointX="6" PointY="22.717718812624614" />
-        </AssociationConnector>
-        <EntityTypeShape EntityType="SAMSModel.SAMSConfiguration" Width="1.5" PointX="5.125" PointY="1" Height="1.4279589843750031" />
-        <EntityTypeShape EntityType="SAMSModel.TempDataValue" Width="1.5" PointX="7.75" PointY="0.875" Height="1.4279589843750031" />
-        <EntityTypeShape EntityType="SAMSModel.OBStockItem" Width="1.5" PointX="10.5" PointY="6.875" Height="3.0714322916666674" />
-        <AssociationConnector Association="SAMSModel.FK_OBStockItems_Businesses" >
-          <ConnectorPoint PointX="5.25" PointY="7.32031375" />
-          <ConnectorPoint PointX="8.0104166666666661" PointY="7.3203137499999995" />
-          <ConnectorPoint PointX="8.1770833333333339" PointY="7.32031375" />
-          <ConnectorPoint PointX="10.5" PointY="7.32031375" />
-        </AssociationConnector>
-        <AssociationConnector Association="SAMSModel.FK_OBStockItems_Products" >
-          <ConnectorPoint PointX="5.71875" PointY="13.875" />
-          <ConnectorPoint PointX="5.71875" PointY="7.8906275000000008" />
-          <ConnectorPoint PointX="8.0104166666666661" PointY="7.8906275" />
-          <ConnectorPoint PointX="8.1770833333333339" PointY="7.8906275000000008" />
-          <ConnectorPoint PointX="10.5" PointY="7.8906275000000008" />
-        </AssociationConnector>
-        <EntityTypeShape EntityType="SAMSModel.BookingDetail" Width="1.5" PointX="13.75" PointY="0.75" />
-        <EntityTypeShape EntityType="SAMSModel.Booking" Width="1.5" PointX="15.75" PointY="0.75" />
-        <EntityTypeShape EntityType="SAMSModel.Room" Width="1.5" PointX="0.75" PointY="6.75" />
-        <EntityTypeShape EntityType="SAMSModel.RoomService" Width="1.5" PointX="8.125" PointY="3" />
-        <EntityTypeShape EntityType="SAMSModel.Tariff" Width="1.5" PointX="10.75" PointY="0.75" />
-        <AssociationConnector Association="SAMSModel.FK_BookingDetails_Bookings" />
-        <AssociationConnector Association="SAMSModel.FK_BookingDetails_Rooms" />
-        <AssociationConnector Association="SAMSModel.FK_RoomServices_Bookings" />
-        <AssociationConnector Association="SAMSModel.FK_Rooms_Tariffs" />
-        <AssociationConnector Association="SAMSModel.FK_RoomServices_Rooms" />
-        <EntityTypeShape EntityType="SAMSModel.BookingPayment" Width="1.5" PointX="18" PointY="4.125" />
-        <AssociationConnector Association="SAMSModel.FK_BookingPayments_Bookings" />
-        <AssociationConnector Association="SAMSModel.FK_BookingPayments_Rooms" />
-        <EntityTypeShape EntityType="SAMSModel.DonorCoupon" Width="1.5" PointX="20.875" PointY="28.875" />
-        <EntityTypeShape EntityType="SAMSModel.MemberJournal" Width="1.5" PointX="20.875" PointY="17.75" />
-        <EntityTypeShape EntityType="SAMSModel.MemberPayment" Width="1.5" PointX="20.875" PointY="21.5" />
-        <EntityTypeShape EntityType="SAMSModel.Member" Width="1.5" PointX="18.625" PointY="17.375" />
-        <EntityTypeShape EntityType="SAMSModel.MembershipFeeTransaction" Width="1.5" PointX="20.875" PointY="32.125" />
-        <EntityTypeShape EntityType="SAMSModel.MembershipType" Width="1.5" PointX="16.375" PointY="23.25" />
-        <EntityTypeShape EntityType="SAMSModel.MembershipVoucher" Width="1.5" PointX="20.875" PointY="13.5" />
-        <EntityTypeShape EntityType="SAMSModel.SMSAlert" Width="1.5" PointX="20.875" PointY="25.75" />
-        <EntityTypeShape EntityType="SAMSModel.SMSAlertSchedule" Width="1.5" PointX="16.375" PointY="12.375" />
-        <AssociationConnector Association="SAMSModel.FK_DonorCoupons_Members" />
-        <AssociationConnector Association="SAMSModel.FK_MemberJournals_Members" />
-        <AssociationConnector Association="SAMSModel.FK_MemberPayments_Members" />
-        <AssociationConnector Association="SAMSModel.FK_Members_MembershipTypes" />
-        <AssociationConnector Association="SAMSModel.FK_MembershipFeeTransactions_Members" />
-        <AssociationConnector Association="SAMSModel.FK_MembershipVouchers_Members" />
-        <AssociationConnector Association="SAMSModel.FK_SMSAlerts_Members" />
-      </Diagram>
-    </Diagrams>
-  </Designer>
+    <edmx:Diagrams>
+      <edmx:Diagram Name="SAMSDataModel" ZoomLevel="65">
+        <edmx:EntityTypeShape EntityType="SAMSModel.Business" Width="1.5" PointX="3.75" PointY="5" Height="5.2079475911458317" />
+        <edmx:EntityTypeShape EntityType="SAMSModel.BusinessSection" Width="1.5" PointX="3" PointY="12.75" Height="1.7566536458333388" />
+        <edmx:EntityTypeShape EntityType="SAMSModel.LedgerGroup" Width="1.5" PointX="1.5" PointY="21.75" Height="1.7566536458333388" />
+        <edmx:EntityTypeShape EntityType="SAMSModel.LedgerJournal" Width="1.5" PointX="11" PointY="10.75" Height="2.9070849609375067" />
+        <edmx:EntityTypeShape EntityType="SAMSModel.Ledger" Width="1.5" PointX="3.75" PointY="20" Height="5.372294921874996" />
+        <edmx:EntityTypeShape EntityType="SAMSModel.Measurement" Width="1.5" PointX="3" PointY="26.875" Height="1.921000976562496" />
+        <edmx:EntityTypeShape EntityType="SAMSModel.ProductGroup" Width="1.5" PointX="3" PointY="16.125" Height="2.0853483072916674" />
+        <edmx:EntityTypeShape EntityType="SAMSModel.Product" Width="1.5" PointX="5.25" PointY="13.875" Height="4.0575162760416674" />
+        <edmx:EntityTypeShape EntityType="SAMSModel.ProductTaxMapping" Width="1.5" PointX="10.5" PointY="14.625" Height="2.2496956380208388" />
+        <edmx:EntityTypeShape EntityType="SAMSModel.PurchaseDetail" Width="1.5" PointX="8.25" PointY="8.875" Height="4.0575162760416674" />
+        <edmx:EntityTypeShape EntityType="SAMSModel.Purchase" Width="1.5" PointX="6" PointY="8.25" Height="4.879252929687496" />
+        <edmx:EntityTypeShape EntityType="SAMSModel.SaleDetail" Width="1.5" PointX="10.25" PointY="17.75" Height="3.5644742838541674" />
+        <edmx:EntityTypeShape EntityType="SAMSModel.SaleDetailTracking" Width="1.5" PointX="13.5" PointY="14.125" Height="1.9210009765625102" />
+        <edmx:EntityTypeShape EntityType="SAMSModel.Sale" Width="1.5" PointX="8" PointY="14.25" Height="4.879252929687496" />
+        <edmx:EntityTypeShape EntityType="SAMSModel.SAMSUser" Width="1.5" PointX="0.75" PointY="0.75" Height="1.7566536458333246" />
+        <edmx:EntityTypeShape EntityType="SAMSModel.Section" Width="1.5" PointX="0.75" PointY="13.375" Height="2.5783902994791674" />
+        <edmx:EntityTypeShape EntityType="SAMSModel.Tax" Width="1.5" PointX="8.25" PointY="22.875" Height="1.7566536458333353" />
+        <edmx:AssociationConnector Association="SAMSModel.FK_BusinessSections_Businesses">
+          <edmx:ConnectorPoint PointX="4.125" PointY="11.403219401041666" />
+          <edmx:ConnectorPoint PointX="4.125" PointY="12.75" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="SAMSModel.FK_LedgerJournals_Businesses">
+          <edmx:ConnectorPoint PointX="5.25" PointY="5.7368236928971665" />
+          <edmx:ConnectorPoint PointX="12.28125" PointY="5.7368236928971665" />
+          <edmx:ConnectorPoint PointX="12.28125" PointY="10.75" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="SAMSModel.FK_Purchases_Businesses">
+          <edmx:ConnectorPoint PointX="5.25" PointY="9.5142671712239579" />
+          <edmx:ConnectorPoint PointX="5.635416666666667" PointY="9.5142671712239579" />
+          <edmx:ConnectorPoint PointX="5.802083333333333" PointY="9.5142671712239579" />
+          <edmx:ConnectorPoint PointX="6" PointY="9.5142671712239579" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="SAMSModel.FK_Sales_Businesses">
+          <edmx:ConnectorPoint PointX="5.25" PointY="6.6251475638428854" />
+          <edmx:ConnectorPoint PointX="8.09375" PointY="6.6251475638428854" />
+          <edmx:ConnectorPoint PointX="8.09375" PointY="14.25" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="SAMSModel.FK_BusinessSections_Sections">
+          <edmx:ConnectorPoint PointX="2.25" PointY="13.940826822916669" />
+          <edmx:ConnectorPoint PointX="3" PointY="13.940826822916669" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="SAMSModel.FK_Ledgers_LedgerGroups">
+          <edmx:ConnectorPoint PointX="3" PointY="22.628326822916669" />
+          <edmx:ConnectorPoint PointX="3.75" PointY="22.628326822916669" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="SAMSModel.FK_LedgerJournals_Ledgers">
+          <edmx:ConnectorPoint PointX="5.25" PointY="25.696848958333334" />
+          <edmx:ConnectorPoint PointX="5.416666666666667" PointY="25.696848958333334" />
+          <edmx:ConnectorPoint PointX="5.583333333333333" PointY="25.696848958333334" />
+          <edmx:ConnectorPoint PointX="5.666666666666667" PointY="25.696848958333334" />
+          <edmx:ConnectorPoint PointX="5.833333333333333" PointY="25.696848958333334" />
+          <edmx:ConnectorPoint PointX="12.28125" PointY="25.696848958333334" />
+          <edmx:ConnectorPoint PointX="12.28125" PointY="14.076396484375" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="SAMSModel.FK_Purchases_Ledgers">
+          <edmx:ConnectorPoint PointX="4.5" PointY="20" />
+          <edmx:ConnectorPoint PointX="4.5" PointY="18.739889322916667" />
+          <edmx:ConnectorPoint PointX="4.75" PointY="18.739889322916667" />
+          <edmx:ConnectorPoint PointX="4.75" PointY="11.460917968749996" />
+          <edmx:ConnectorPoint PointX="5.5" PointY="11.460917968749996" />
+          <edmx:ConnectorPoint PointX="5.5" PointY="10.903534342447916" />
+          <edmx:ConnectorPoint PointX="5.635416666666667" PointY="10.903534342447916" />
+          <edmx:ConnectorPoint PointX="5.802083333333333" PointY="10.903534342447916" />
+          <edmx:ConnectorPoint PointX="6" PointY="10.903534342447916" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="SAMSModel.FK_Sales_Ledgers">
+          <edmx:ConnectorPoint PointX="5.25" PointY="20.915558768229168" />
+          <edmx:ConnectorPoint PointX="5.416666666666667" PointY="20.915558768229168" />
+          <edmx:ConnectorPoint PointX="5.583333333333333" PointY="20.915558768229168" />
+          <edmx:ConnectorPoint PointX="5.635416666666667" PointY="20.915558768229168" />
+          <edmx:ConnectorPoint PointX="5.833333333333333" PointY="20.915558768229168" />
+          <edmx:ConnectorPoint PointX="8.09375" PointY="20.915558768229168" />
+          <edmx:ConnectorPoint PointX="8.09375" PointY="20.268616536458332" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="SAMSModel.FK_Products_Measurements">
+          <edmx:ConnectorPoint PointX="4.5" PointY="28.141256010416669" />
+          <edmx:ConnectorPoint PointX="5.75" PointY="28.141256010416669" />
+          <edmx:ConnectorPoint PointX="5.75" PointY="18.922506510416667" />
+          <edmx:ConnectorPoint PointX="6.265627" PointY="18.922506510416667" />
+          <edmx:ConnectorPoint PointX="6.265627" PointY="18.547506510416667" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="SAMSModel.FK_ProductGroups_Sections">
+          <edmx:ConnectorPoint PointX="1.5" PointY="15.953390299479167" />
+          <edmx:ConnectorPoint PointX="1.5" PointY="17.167674153645834" />
+          <edmx:ConnectorPoint PointX="1.8229191666666667" PointY="17.167674153645834" />
+          <edmx:ConnectorPoint PointX="1.9895858333333332" PointY="17.167674153645834" />
+          <edmx:ConnectorPoint PointX="3" PointY="17.167674153645834" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="SAMSModel.FK_Products_ProductGroups">
+          <edmx:ConnectorPoint PointX="4.5" PointY="17.307444661458334" />
+          <edmx:ConnectorPoint PointX="4.666666666666667" PointY="17.307444661458334" />
+          <edmx:ConnectorPoint PointX="4.833333333333333" PointY="17.307444661458334" />
+          <edmx:ConnectorPoint PointX="5.25" PointY="17.307444661458334" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="SAMSModel.FK_Products_Sections">
+          <edmx:ConnectorPoint PointX="2.25" PointY="15.427643229166666" />
+          <edmx:ConnectorPoint PointX="4.666666666666667" PointY="15.427643229166666" />
+          <edmx:ConnectorPoint PointX="4.833333333333333" PointY="15.427643229166666" />
+          <edmx:ConnectorPoint PointX="5.25" PointY="15.427643229166666" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="SAMSModel.FK_ProductTaxMappings_Products">
+          <edmx:ConnectorPoint PointX="6.75" PointY="14.1631982421875" />
+          <edmx:ConnectorPoint PointX="8.0104166666666661" PointY="14.1631982421875" />
+          <edmx:ConnectorPoint PointX="8.1770833333333339" PointY="14.1631982421875" />
+          <edmx:ConnectorPoint PointX="10.71875" PointY="14.1631982421875" />
+          <edmx:ConnectorPoint PointX="10.71875" PointY="14.625" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="SAMSModel.FK_PurchaseDetails_Products">
+          <edmx:ConnectorPoint PointX="6.75" PointY="14.024333073435823" />
+          <edmx:ConnectorPoint PointX="8.0104166666666661" PointY="14.024333073435823" />
+          <edmx:ConnectorPoint PointX="8.1770833333333339" PointY="14.024333073435823" />
+          <edmx:ConnectorPoint PointX="9.68749875" PointY="14.024333073435823" />
+          <edmx:ConnectorPoint PointX="9.68749875" PointY="13.739807942708332" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="SAMSModel.FK_PurchaseDetails_Products1">
+          <edmx:ConnectorPoint PointX="6.75" PointY="14.055585573435824" />
+          <edmx:ConnectorPoint PointX="8.0104166666666661" PointY="14.055585573435824" />
+          <edmx:ConnectorPoint PointX="8.1770833333333339" PointY="14.055585573435824" />
+          <edmx:ConnectorPoint PointX="9.6562462499999988" PointY="14.055585573435824" />
+          <edmx:ConnectorPoint PointX="9.6562462499999988" PointY="13.739807942708332" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="SAMSModel.FK_SaleDetails_Products">
+          <edmx:ConnectorPoint PointX="5.71875" PointY="18.547506510416667" />
+          <edmx:ConnectorPoint PointX="5.71875" PointY="21.270281884114585" />
+          <edmx:ConnectorPoint PointX="10.25" PointY="21.270281884114585" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="SAMSModel.FK_ProductTaxMappings_Taxes">
+          <edmx:ConnectorPoint PointX="9.75" PointY="23.753326822916669" />
+          <edmx:ConnectorPoint PointX="11.90625" PointY="23.753326822916669" />
+          <edmx:ConnectorPoint PointX="11.90625" PointY="16.874695638020839" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="SAMSModel.FK_PurchaseDetails_Purchases">
+          <edmx:ConnectorPoint PointX="7.5" PointY="11.307403971354166" />
+          <edmx:ConnectorPoint PointX="8.0104166666666661" PointY="11.307403971354166" />
+          <edmx:ConnectorPoint PointX="8.1770833333333339" PointY="11.307403971354166" />
+          <edmx:ConnectorPoint PointX="8.25" PointY="11.307403971354166" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="SAMSModel.FK_SaleDetailTrackings_PurchaseDetails">
+          <edmx:ConnectorPoint PointX="9.75" PointY="10.571848958333334" />
+          <edmx:ConnectorPoint PointX="12.197916666666666" PointY="10.571848958333334" />
+          <edmx:ConnectorPoint PointX="12.364583333333334" PointY="10.571848958333334" />
+          <edmx:ConnectorPoint PointX="14.25" PointY="10.571848958333334" />
+          <edmx:ConnectorPoint PointX="14.25" PointY="14.125" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="SAMSModel.FK_Purchases_Sections">
+          <edmx:ConnectorPoint PointX="1.5" PointY="13.375" />
+          <edmx:ConnectorPoint PointX="1.5" PointY="12.076609700520834" />
+          <edmx:ConnectorPoint PointX="4.041666666666667" PointY="12.076609700520834" />
+          <edmx:ConnectorPoint PointX="4.208333333333333" PointY="12.076609700520834" />
+          <edmx:ConnectorPoint PointX="4.3854191666666669" PointY="12.076609700520834" />
+          <edmx:ConnectorPoint PointX="4.5520858333333329" PointY="12.076609700520834" />
+          <edmx:ConnectorPoint PointX="4.666666666666667" PointY="12.076609700520834" />
+          <edmx:ConnectorPoint PointX="4.833333333333333" PointY="12.076609700520834" />
+          <edmx:ConnectorPoint PointX="5.635416666666667" PointY="12.076609700520834" />
+          <edmx:ConnectorPoint PointX="5.802083333333333" PointY="12.076609700520834" />
+          <edmx:ConnectorPoint PointX="6" PointY="12.076609700520834" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="SAMSModel.FK_SaleDetails_Sales">
+          <edmx:ConnectorPoint PointX="9.5" PointY="18.439626464843748" />
+          <edmx:ConnectorPoint PointX="10.25" PointY="18.439626464843748" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="SAMSModel.FK_SaleDetailTrackings_SaleDetails">
+          <edmx:ConnectorPoint PointX="10.34375" PointY="17.75" />
+          <edmx:ConnectorPoint PointX="10.34375" PointY="14.362849121093749" />
+          <edmx:ConnectorPoint PointX="10.635416666666666" PointY="14.362849121093749" />
+          <edmx:ConnectorPoint PointX="10.802083333333334" PointY="14.362849121093749" />
+          <edmx:ConnectorPoint PointX="12.197916666666666" PointY="14.362849121093749" />
+          <edmx:ConnectorPoint PointX="12.364583333333334" PointY="14.362849121093749" />
+          <edmx:ConnectorPoint PointX="13.5" PointY="14.362849121093749" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="SAMSModel.FK_Sales_Sections">
+          <edmx:ConnectorPoint PointX="1.5" PointY="16.509095052083335" />
+          <edmx:ConnectorPoint PointX="1.5" PointY="19.244944661458334" />
+          <edmx:ConnectorPoint PointX="4.416666666666667" PointY="19.244944661458334" />
+          <edmx:ConnectorPoint PointX="4.583333333333333" PointY="19.244944661458334" />
+          <edmx:ConnectorPoint PointX="4.666666666666667" PointY="19.244944661458334" />
+          <edmx:ConnectorPoint PointX="4.833333333333333" PointY="19.244944661458334" />
+          <edmx:ConnectorPoint PointX="5.635416666666667" PointY="19.244944661458334" />
+          <edmx:ConnectorPoint PointX="5.833333333333333" PointY="19.244944661458334" />
+          <edmx:ConnectorPoint PointX="8" PointY="19.244944661458334" />
+        </edmx:AssociationConnector>
+        <edmx:EntityTypeShape EntityType="SAMSModel.Voucher" Width="1.5" PointX="6" PointY="21.625" Height="2.907084960937496" />
+        <edmx:AssociationConnector Association="SAMSModel.FK_Vouchers_Ledgers">
+          <edmx:ConnectorPoint PointX="5.25" PointY="23.935437625249229" />
+          <edmx:ConnectorPoint PointX="5.416666666666667" PointY="23.935437625249229" />
+          <edmx:ConnectorPoint PointX="5.583333333333333" PointY="23.935437625249229" />
+          <edmx:ConnectorPoint PointX="5.666666666666667" PointY="23.935437625249229" />
+          <edmx:ConnectorPoint PointX="5.833333333333333" PointY="23.935437625249229" />
+          <edmx:ConnectorPoint PointX="6" PointY="23.935437625249229" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="SAMSModel.FK_Vouchers_Ledgers1">
+          <edmx:ConnectorPoint PointX="5.25" PointY="22.717718812624614" />
+          <edmx:ConnectorPoint PointX="5.416666666666667" PointY="22.717718812624614" />
+          <edmx:ConnectorPoint PointX="5.583333333333333" PointY="22.717718812624614" />
+          <edmx:ConnectorPoint PointX="5.666666666666667" PointY="22.717718812624614" />
+          <edmx:ConnectorPoint PointX="5.833333333333333" PointY="22.717718812624614" />
+          <edmx:ConnectorPoint PointX="6" PointY="22.717718812624614" />
+        </edmx:AssociationConnector>
+        <edmx:EntityTypeShape EntityType="SAMSModel.SAMSConfiguration" Width="1.5" PointX="5.125" PointY="1" Height="1.4279589843750031" />
+        <edmx:EntityTypeShape EntityType="SAMSModel.TempDataValue" Width="1.5" PointX="7.75" PointY="0.875" Height="1.4279589843750031" />
+        <edmx:EntityTypeShape EntityType="SAMSModel.OBStockItem" Width="1.5" PointX="10.5" PointY="6.875" Height="3.0714322916666674" />
+        <edmx:AssociationConnector Association="SAMSModel.FK_OBStockItems_Businesses">
+          <edmx:ConnectorPoint PointX="5.25" PointY="7.32031375" />
+          <edmx:ConnectorPoint PointX="8.0104166666666661" PointY="7.3203137499999995" />
+          <edmx:ConnectorPoint PointX="8.1770833333333339" PointY="7.32031375" />
+          <edmx:ConnectorPoint PointX="10.5" PointY="7.32031375" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="SAMSModel.FK_OBStockItems_Products">
+          <edmx:ConnectorPoint PointX="5.71875" PointY="13.875" />
+          <edmx:ConnectorPoint PointX="5.71875" PointY="7.8906275000000008" />
+          <edmx:ConnectorPoint PointX="8.0104166666666661" PointY="7.8906275" />
+          <edmx:ConnectorPoint PointX="8.1770833333333339" PointY="7.8906275000000008" />
+          <edmx:ConnectorPoint PointX="10.5" PointY="7.8906275000000008" />
+        </edmx:AssociationConnector>
+        <edmx:EntityTypeShape EntityType="SAMSModel.BookingDetail" Width="1.5" PointX="13.75" PointY="0.75" />
+        <edmx:EntityTypeShape EntityType="SAMSModel.Booking" Width="1.5" PointX="15.75" PointY="0.75" />
+        <edmx:EntityTypeShape EntityType="SAMSModel.Room" Width="1.5" PointX="0.75" PointY="6.75" />
+        <edmx:EntityTypeShape EntityType="SAMSModel.RoomService" Width="1.5" PointX="8.125" PointY="3" />
+        <edmx:EntityTypeShape EntityType="SAMSModel.Tariff" Width="1.5" PointX="10.75" PointY="0.75" />
+        <edmx:AssociationConnector Association="SAMSModel.FK_BookingDetails_Bookings" />
+        <edmx:AssociationConnector Association="SAMSModel.FK_BookingDetails_Rooms" />
+        <edmx:AssociationConnector Association="SAMSModel.FK_RoomServices_Bookings" />
+        <edmx:AssociationConnector Association="SAMSModel.FK_Rooms_Tariffs" />
+        <edmx:AssociationConnector Association="SAMSModel.FK_RoomServices_Rooms" />
+        <edmx:EntityTypeShape EntityType="SAMSModel.BookingPayment" Width="1.5" PointX="18" PointY="4.125" />
+        <edmx:AssociationConnector Association="SAMSModel.FK_BookingPayments_Bookings" />
+        <edmx:AssociationConnector Association="SAMSModel.FK_BookingPayments_Rooms" />
+        <edmx:EntityTypeShape EntityType="SAMSModel.DonorCoupon" Width="1.5" PointX="20.875" PointY="28.875" />
+        <edmx:EntityTypeShape EntityType="SAMSModel.MemberJournal" Width="1.5" PointX="20.875" PointY="17.75" />
+        <edmx:EntityTypeShape EntityType="SAMSModel.MemberPayment" Width="1.5" PointX="20.875" PointY="21.5" />
+        <edmx:EntityTypeShape EntityType="SAMSModel.Member" Width="1.5" PointX="18.625" PointY="17.375" />
+        <edmx:EntityTypeShape EntityType="SAMSModel.MembershipFeeTransaction" Width="1.5" PointX="20.875" PointY="32.125" />
+        <edmx:EntityTypeShape EntityType="SAMSModel.MembershipType" Width="1.5" PointX="16.375" PointY="23.25" />
+        <edmx:EntityTypeShape EntityType="SAMSModel.MembershipVoucher" Width="1.5" PointX="20.875" PointY="13.5" />
+        <edmx:EntityTypeShape EntityType="SAMSModel.SMSAlert" Width="1.5" PointX="20.875" PointY="25.75" />
+        <edmx:EntityTypeShape EntityType="SAMSModel.SMSAlertSchedule" Width="1.5" PointX="16.375" PointY="12.375" />
+        <edmx:AssociationConnector Association="SAMSModel.FK_DonorCoupons_Members" />
+        <edmx:AssociationConnector Association="SAMSModel.FK_MemberJournals_Members" />
+        <edmx:AssociationConnector Association="SAMSModel.FK_MemberPayments_Members" />
+        <edmx:AssociationConnector Association="SAMSModel.FK_Members_MembershipTypes" />
+        <edmx:AssociationConnector Association="SAMSModel.FK_MembershipFeeTransactions_Members" />
+        <edmx:AssociationConnector Association="SAMSModel.FK_MembershipVouchers_Members" />
+        <edmx:AssociationConnector Association="SAMSModel.FK_SMSAlerts_Members" />
+        <edmx:EntityTypeShape EntityType="SAMSModel.InventoryPurchaseDetail" Width="1.5" PointX="24" PointY="17.875" />
+        <edmx:EntityTypeShape EntityType="SAMSModel.InventoryPurchas" Width="1.5" PointX="21.75" PointY="10.375" />
+        <edmx:EntityTypeShape EntityType="SAMSModel.RoomStockReturn" Width="1.5" PointX="20.25" PointY="6.5" />
+        <edmx:EntityTypeShape EntityType="SAMSModel.RoomStockTransaction" Width="1.5" PointX="18" PointY="0.75" />
+        <edmx:EntityTypeShape EntityType="SAMSModel.RoomTypeStockConfig" Width="1.5" PointX="19" PointY="11.5" />
+        <edmx:EntityTypeShape EntityType="SAMSModel.StockItem" Width="1.5" PointX="15.75" PointY="17.25" />
+        <edmx:EntityTypeShape EntityType="SAMSModel.vw_LowStockItems" Width="1.5" PointX="12.375" PointY="20.875" />
+        <edmx:EntityTypeShape EntityType="SAMSModel.vw_StockAvailability" Width="1.5" PointX="14.375" PointY="21.875" />
+        <edmx:EntityTypeShape EntityType="SAMSModel.vw_StockMovement" Width="1.5" PointX="20.375" PointY="2.875" />
+        <edmx:AssociationConnector Association="SAMSModel.FK_RoomStock_BookingDetails" />
+        <edmx:AssociationConnector Association="SAMSModel.FK_InvPurchDetails_Purchases" />
+        <edmx:AssociationConnector Association="SAMSModel.FK_InvPurchDetails_StockItems" />
+        <edmx:AssociationConnector Association="SAMSModel.FK_RoomStock_Rooms" />
+        <edmx:AssociationConnector Association="SAMSModel.FK_RoomStockReturns_RoomStock" />
+        <edmx:AssociationConnector Association="SAMSModel.FK_RoomStock_StockItems" />
+        <edmx:AssociationConnector Association="SAMSModel.FK_RoomTypeStockConfigs_StockItems" />
+        <edmx:AssociationConnector Association="SAMSModel.FK_RoomTypeStockConfigs_Tariffs" />
+      </edmx:Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
 </edmx:Edmx>

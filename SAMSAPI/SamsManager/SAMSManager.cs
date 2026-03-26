@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Data.Entity;
-using SAMSData;
-using System.Data;
+﻿using SAMSAPI.Models.Bookings;
 using SAMSAPI.Models.Dashboard;
+using SAMSData;
+using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
+using System.Data.Entity;
+using System.Linq;
+using System.Security.Policy;
+using System.Text;
 
 namespace SAMSAPI.Manager
 {
@@ -14,7 +16,7 @@ namespace SAMSAPI.Manager
     {
 
         SAMSData.SAMSEntities se = new SAMSData.SAMSEntities();
-        
+
         public SAMSManager()
         {
         }
@@ -25,7 +27,7 @@ namespace SAMSAPI.Manager
         public IQueryable<MembershipType> GetMembershipTypes()
         {
             IQueryable<MembershipType> msList = from c in se.MembershipTypes
-                                                where c.MembershipTypeId<6
+                                                where c.MembershipTypeId < 6
                                                 select c;
 
             return msList;
@@ -34,24 +36,24 @@ namespace SAMSAPI.Manager
         public MembershipType GetMembershipType(int id)
         {
             MembershipType mem = (from c in se.MembershipTypes
-                                                where c.MembershipTypeId ==id
-                                                select c).FirstOrDefault();
+                                  where c.MembershipTypeId == id
+                                  select c).FirstOrDefault();
 
             return mem;
         }
 
         public List<MembershipFeeTransaction> GetMemberFees()
         {
-            IQueryable<MembershipFeeTransaction> feeList = from c in se.MembershipFeeTransactions                                                                                                       
+            IQueryable<MembershipFeeTransaction> feeList = from c in se.MembershipFeeTransactions
                                                            select c;
             return feeList.ToList();
         }
 
         public List<MembershipFeeTransaction> GetMemberFees(DateTime fromDate, DateTime toDate)
         {
-            IQueryable<MembershipFeeTransaction> feeList = from c in se.MembershipFeeTransactions                                                   
-                                                      where c.PaidDate >=fromDate && c.PaidDate <=toDate
-                                                     select c;
+            IQueryable<MembershipFeeTransaction> feeList = from c in se.MembershipFeeTransactions
+                                                           where c.PaidDate >= fromDate && c.PaidDate <= toDate
+                                                           select c;
             return feeList.ToList();
         }
 
@@ -59,7 +61,7 @@ namespace SAMSAPI.Manager
         {
             IQueryable<MembershipFeeTransaction> feeList = from c in se.MembershipFeeTransactions
                                                       .Include("Members")
-                                                      where c.MemberId == memberId
+                                                           where c.MemberId == memberId
                                                            select c;
             return feeList.ToList();
         }
@@ -75,11 +77,11 @@ namespace SAMSAPI.Manager
 
         public void UpdatePassword(string userId, string password)
         {
-            var member = (from c in se.Members where c.MemberCode == userId  select c).FirstOrDefault();
+            var member = (from c in se.Members where c.MemberCode == userId select c).FirstOrDefault();
 
             if (member != null)
             {
-                member.OtherDetails1  = password;
+                member.OtherDetails1 = password;
                 se.SaveChanges();
             }
         }
@@ -87,8 +89,8 @@ namespace SAMSAPI.Manager
         public Member VaidateUser(string userId, string password)
         {
             var member = (from c in se.Members where c.MemberCode == userId && c.OtherDetails1 == password select c).FirstOrDefault();
-          
-            if (member!=null)
+
+            if (member != null)
             {
                 member.MembershipType = GetMembershipType((int)member.MembershipTypeId);
             }
@@ -107,7 +109,7 @@ namespace SAMSAPI.Manager
             member.InterestedGames = GetMemberSportsDetails(member);
             member.ResidentialAddress3 = "";
             return member;
-        
+
         }
 
         public List<Member> GetMembersList(string status)
@@ -129,7 +131,7 @@ namespace SAMSAPI.Manager
         }
 
 
-       
+
         public List<Member> GetActiveMembersList(string status)
         {
             IQueryable<Member> membersList;
@@ -137,13 +139,13 @@ namespace SAMSAPI.Manager
 
             {
                 membersList = from c in se.Members
-                              where   (c.MembershipStatus != 3 && c.MembershipStatus !=4 && c.MembershipTypeId!=6 ) 
+                              where (c.MembershipStatus != 3 && c.MembershipStatus != 4 && c.MembershipTypeId != 6)
                               select c;
             }
             else
             {
                 membersList = from c in se.Members
-                              where (c.MembershipStatus != 3 && c.MembershipStatus != 4 && c.MembershipTypeId != 6 )
+                              where (c.MembershipStatus != 3 && c.MembershipStatus != 4 && c.MembershipTypeId != 6)
                               select c;
             }
 
@@ -152,8 +154,8 @@ namespace SAMSAPI.Manager
         public List<Member> GetSportsMembers(int feeType)
         {
             var sportsMembers = (from c in se.MembershipFeeTransactions
-                          where c.FeeType == feeType
-                                 select  c.MemberId).Distinct();
+                                 where c.FeeType == feeType
+                                 select c.MemberId).Distinct();
 
             var members = from m in se.Members
                           where sportsMembers.Contains(m.MemberId)
@@ -163,18 +165,18 @@ namespace SAMSAPI.Manager
         }
 
 
-         public List<Member> GetLockerMembers()
+        public List<Member> GetLockerMembers()
         {
-          
+
 
             var members = (from m in se.Members
-                          where m.Address3 != "" 
-                          select m);
+                           where m.Address3 != ""
+                           select m);
 
             return members.ToList();
         }
 
-            public int SavePassword(int memberId, string password)
+        public int SavePassword(int memberId, string password)
         {
             if (password != null && password != "")
             {
@@ -234,7 +236,7 @@ namespace SAMSAPI.Manager
         public List<MembershipFeeTransaction> GetMembershipFeeTransactions(int memberId)
         {
             var data = from s in se.MembershipFeeTransactions
-                       where s.MemberId == memberId && s.FeeType ==1
+                       where s.MemberId == memberId && s.FeeType == 1
                        select s;
             return data.ToList();
         }
@@ -260,15 +262,15 @@ namespace SAMSAPI.Manager
             {
                 try
                 {
-                   
+
                     mFee.MembershipYear = Convert.ToDateTime(mFee.StartDate).Year.ToString() + "-" + Convert.ToDateTime(mFee.EndtDate).Year.ToString();
                     se.MembershipFeeTransactions.AddObject(mFee);
                     se.SaveChanges();
-                }catch(Exception ex)
+                } catch (Exception ex)
                 {
 
                 }
-                    MembershipFeeTransaction selMember = se.MembershipFeeTransactions.FirstOrDefault(r => r.MemershipFeeId == mFee.MemershipFeeId);
+                MembershipFeeTransaction selMember = se.MembershipFeeTransactions.FirstOrDefault(r => r.MemershipFeeId == mFee.MemershipFeeId);
                 if (selMember != null)
                     mFee = selMember;
             }
@@ -287,7 +289,7 @@ namespace SAMSAPI.Manager
                 selMember.FeeReceiptNo = mFee.FeeReceiptNo;
                 selMember.FeeType = mFee.FeeType;
                 selMember.FeePrefix = mFee.FeePrefix;
-            
+
                 se.SaveChanges();
             }
 
@@ -326,7 +328,7 @@ namespace SAMSAPI.Manager
                 memberFeeList.Add(GetMemberFeeDetailsSummary(member));
             }
 
-           return memberFeeList;
+            return memberFeeList;
         }
 
         public MembeFeeDueSummary GetMemberFeeDetailsSummary(Member member)
@@ -372,7 +374,7 @@ namespace SAMSAPI.Manager
                     }
                 }
 
-             
+
                 feeStartYear = configStartYear;
                 if (dojYear > feeStartYear)
                 {
@@ -425,7 +427,7 @@ namespace SAMSAPI.Manager
         {
             List<MembeFeeStatus> memberFeeList = new List<MembeFeeStatus>();
             var memberList = GetActiveMembersList("");
-            foreach(var member in memberList)
+            foreach (var member in memberList)
             {
                 var mFee = GetMemberFeeDetails(member);
 
@@ -440,21 +442,21 @@ namespace SAMSAPI.Manager
         {
             MembeFeeStatus membeFeeStatus = new MembeFeeStatus();
 
-           // Member member = GetMember(memberId);
-            List < MembershipFeeTransaction > feeList = GetMembershipFeeTransactions(member.MemberId);
+            // Member member = GetMember(memberId);
+            List<MembershipFeeTransaction> feeList = GetMembershipFeeTransactions(member.MemberId);
 
-            int configStartYear = Convert.ToInt32( ConfigurationManager.AppSettings["FeeStartYear"]);
+            int configStartYear = Convert.ToInt32(ConfigurationManager.AppSettings["FeeStartYear"]);
             float fee = Convert.ToInt32(ConfigurationManager.AppSettings["AnnualMaintenanceFee"]);
             int configNewStartYear = Convert.ToInt32(ConfigurationManager.AppSettings["NewFeeStartYear"]);
             float newFee = Convert.ToInt32(ConfigurationManager.AppSettings["AnnualMaintenanceFeeNew"]);
             if (member != null)
             {
-                int feeStartYear=0;
+                int feeStartYear = 0;
                 int dojYear = 0;
-                DateTime startDate,endDate;
+                DateTime startDate, endDate;
                 DateTime currenDate = DateTime.Now;
                 int currentYear;
-             
+
                 if (currenDate.Month > 3)
                 {
                     currentYear = currenDate.Year + 1;
@@ -478,16 +480,16 @@ namespace SAMSAPI.Manager
                     //    dojYear = tdate.Year - 1;
                     //}
                 }
-              
+
 
                 var feeStatusList = new List<FeeStaus>();
                 feeStartYear = configStartYear;
-             
-             
-                for (int year=feeStartYear; year<currentYear;year++)
+
+
+                for (int year = feeStartYear; year < currentYear; year++)
                 {
                     startDate = new DateTime(year, 4, 1);
-                    endDate = new DateTime(year+1, 3, 31);
+                    endDate = new DateTime(year + 1, 3, 31);
                     FeeStaus feeStatus = new FeeStaus();
                     feeStatus.Year = year.ToString() + " - " + (year + 1).ToString();
                     if (year < dojYear)
@@ -500,7 +502,7 @@ namespace SAMSAPI.Manager
                     }
 
                     var cnt = feeList.Where(x => x.StartDate <= startDate && x.EndtDate >= endDate).Count();
-                    if(cnt >0)
+                    if (cnt > 0)
                     {
                         feeStatus.Status = "Paid";
                     }
@@ -536,18 +538,18 @@ namespace SAMSAPI.Manager
                     float oldFee = (configNewStartYear - feeStartYear) * fee;
                     if (oldFee < 0) {
                         oldFee = 0;
-                            }
+                    }
 
                     var newFeeDueStartYear = configNewStartYear > feeStartYear ? configNewStartYear : feeStartYear;
-                    membeFeeStatus.DueAmount =oldFee+ ((currentYear - newFeeDueStartYear) * newFee);
+                    membeFeeStatus.DueAmount = oldFee + ((currentYear - newFeeDueStartYear) * newFee);
                     membeFeeStatus.FeeDueStatus = "Pending";
-                   
+
                 }
 
                 membeFeeStatus.CurrentYear = currentYear;
                 membeFeeStatus.CurrentYearDue = newFee;
-               membeFeeStatus.Member = member;
-                membeFeeStatus.FeeStatusList = feeStatusList;               
+                membeFeeStatus.Member = member;
+                membeFeeStatus.FeeStatusList = feeStatusList;
             }
 
             return membeFeeStatus;
@@ -562,14 +564,14 @@ namespace SAMSAPI.Manager
             foreach (var member in memberList)
             {
                 var data = GetSportstMemberFeeDetailsNew(member);
-                if (data !=null)
-                   memberFeeList.Add(data);
+                if (data != null)
+                    memberFeeList.Add(data);
             }
 
 
 
             var memberList1 = GetLockerMembers();
-            var memberList2= memberList1.OrderBy(x => Convert.ToInt32(x.Address3));
+            var memberList2 = memberList1.OrderBy(x => Convert.ToInt32(x.Address3));
             foreach (var member in memberList2)
             {
                 var data = GetLockerDetails(member);
@@ -591,7 +593,7 @@ namespace SAMSAPI.Manager
             se.SaveChanges();
         }
 
-        public  int DeleteSMSAlert(SMSAlert item)
+        public int DeleteSMSAlert(SMSAlert item)
         {
             var alert = se.SMSAlerts.Where(x => x.SMSAlertId == item.SMSAlertId).FirstOrDefault();
             if (alert.SMSAlertId > 0)
@@ -604,8 +606,8 @@ namespace SAMSAPI.Manager
         public int SendSMSAlert(SMSAlert item)
         {
             SMSService sms = new SMSService();
-            Member member= GetMember((int) item.MemberId);
-           var res =  sms.SendSMS(member.Phone, item.MessageText);
+            Member member = GetMember((int)item.MemberId);
+            var res = sms.SendSMS(member.Phone, item.MessageText);
 
             if (item.SMSAlertId > 0)
             {
@@ -617,7 +619,7 @@ namespace SAMSAPI.Manager
                 }
                 else
                 {
-                    alert.AlertStatus = 4;                 
+                    alert.AlertStatus = 4;
                 }
                 se.SaveChanges();
             }
@@ -641,7 +643,7 @@ namespace SAMSAPI.Manager
         public List<SMSAlert> GetMemberSMSAlerts(string alertType, string alertStatus)
         {
             List<SMSAlert> memberSMSAlertList = new List<SMSAlert>();
-            
+
             if (alertStatus == "Sent")
             {
                 memberSMSAlertList = (from s in se.SMSAlerts
@@ -651,7 +653,7 @@ namespace SAMSAPI.Manager
             else
             {
                 memberSMSAlertList = (from s in se.SMSAlerts
-                                      where s.AlertType == alertType && (s.AlertStatus !=3)
+                                      where s.AlertType == alertType && (s.AlertStatus != 3)
                                       select s).ToList();
             }
 
@@ -659,7 +661,7 @@ namespace SAMSAPI.Manager
         }
 
         public string GetMemberSportsDetails(Member member)
-        {            
+        {
             DateTime currenDate = DateTime.Now;
             int currentYear;
 
@@ -677,7 +679,7 @@ namespace SAMSAPI.Manager
             List<MembershipFeeTransaction> feeList = GetSportsFeeTransactions(member.MemberId);
 
             var item = feeList.Where(x => x.MembershipYear == feeYear).FirstOrDefault();
-            if (item !=null)
+            if (item != null)
             {
                 return "Sports(" + item.Comments + ") : Paid " + item.MembershipFee + "/- for " + feeYear;
             }
@@ -735,7 +737,7 @@ namespace SAMSAPI.Manager
             //string feeYear = configStartYear.ToString() + "-" + currentYear.ToString();
             //string previousYear = (configStartYear-1).ToString() + "-" + (currentYear-1).ToString();
             List<MembershipFeeTransaction> feeList = GetLockerFeeTransactions(member.MemberId);
-           // List<MembershipFeeTransaction> list = new List<MembershipFeeTransaction>();
+            // List<MembershipFeeTransaction> list = new List<MembershipFeeTransaction>();
             var item = feeList.Where(x => x.MembershipYear == year).FirstOrDefault();
             if (item != null)
             {
@@ -761,7 +763,7 @@ namespace SAMSAPI.Manager
                 FeeStaus feeStatus = new FeeStaus();
                 feeStatus.Year = feeDetails.MembershipYear;
                 feeStatus.Status = " Paid " + feeDetails.MembershipFee + "/- (" + feeDetails.Comments + ")";
-                
+
                 feeStatusList.Add(feeStatus);
                 memberFeeStatus.Member = member;
                 memberFeeStatus.FeeType = 2;
@@ -790,16 +792,16 @@ namespace SAMSAPI.Manager
 
             // int configStartYear = currentYear - 1;
             List<string> years = new List<string>(); //{ previousYear, feeYear };
-            for(int year=configStartYear; year<currentYear; year++)
+            for (int year = configStartYear; year < currentYear; year++)
             {
-                string feeYear = year.ToString() + "-" + (year+1).ToString();
+                string feeYear = year.ToString() + "-" + (year + 1).ToString();
                 years.Add(feeYear);
             }
-           // string feeYear = configStartYear.ToString() + "-" + currentYear.ToString();
+            // string feeYear = configStartYear.ToString() + "-" + currentYear.ToString();
             //string previousYear = (configStartYear - 1).ToString() + "-" + (currentYear - 1).ToString();
-           
-                
-             var feeStatusList = new List<FeeStaus>();
+
+
+            var feeStatusList = new List<FeeStaus>();
             foreach (var year in years)
             {
                 var feeDetails = GetMemberLockerDetails(member, year);
@@ -860,7 +862,7 @@ namespace SAMSAPI.Manager
                         dojYear = tdate.Year;
                     }
                 }
-            
+
 
                 var feeStatusList = new List<FeeStaus>();
                 feeStartYear = configStartYear;
@@ -917,12 +919,12 @@ namespace SAMSAPI.Manager
             md.MembershipSummary = ms;
 
             MembershipSummary ems = new MembershipSummary();
-            ems.TotalMembers = GetMembersCount(0,3);
-            ems.DonorsCount = GetMembersCount(1,3);
-            ems.LifeCount = GetMembersCount(2,3);
-            ems.SrCitizenCount = GetMembersCount(3,3);
-            ems.CorporateCount = GetMembersCount(4,3);
-            ems.HonorCount = GetMembersCount(5,3);
+            ems.TotalMembers = GetMembersCount(0, 3);
+            ems.DonorsCount = GetMembersCount(1, 3);
+            ems.LifeCount = GetMembersCount(2, 3);
+            ems.SrCitizenCount = GetMembersCount(3, 3);
+            ems.CorporateCount = GetMembersCount(4, 3);
+            ems.HonorCount = GetMembersCount(5, 3);
             md.ExpiredMembersSummary = ems;
             return md;
         }
@@ -930,10 +932,10 @@ namespace SAMSAPI.Manager
         public int GetMembersCount(int membershipTypeId)
         {
             int cnt = 0;
-            if (membershipTypeId>0)
+            if (membershipTypeId > 0)
                 cnt = se.Members.Where(x => x.MembershipTypeId == membershipTypeId).Count();
             else
-                cnt = se.Members.Where(x => x.MembershipTypeId <6).Count();
+                cnt = se.Members.Where(x => x.MembershipTypeId < 6).Count();
             return cnt;
         }
 
@@ -943,7 +945,7 @@ namespace SAMSAPI.Manager
             if (membershipTypeId > 0)
                 cnt = se.Members.Where(x => x.MembershipTypeId == membershipTypeId && x.MembershipStatus == status).Count();
             else
-                cnt = se.Members.Where(x => x.MembershipTypeId < 6 &&  x.MembershipStatus == status).Count();
+                cnt = se.Members.Where(x => x.MembershipTypeId < 6 && x.MembershipStatus == status).Count();
             return cnt;
         }
 
@@ -975,9 +977,9 @@ namespace SAMSAPI.Manager
 
                 if (donorCoupons != null)
                 {
-                    rdt.StartCoupon = (int) donorCoupons.StartCoupon;
-                    rdt.EndCoupon = (int) donorCoupons.EndCoupon;
-                    rdt.TotalCoupons = (int) donorCoupons.CouponsCount;
+                    rdt.StartCoupon = (int)donorCoupons.StartCoupon;
+                    rdt.EndCoupon = (int)donorCoupons.EndCoupon;
+                    rdt.TotalCoupons = (int)donorCoupons.CouponsCount;
                 }
 
                 var bklist = from p in se.BookingDetails
@@ -989,12 +991,12 @@ namespace SAMSAPI.Manager
 
                 int cnt = 0;
                 string details = "";
-                foreach(var bd in bklist)
+                foreach (var bd in bklist)
                 {
                     if (bd.RoomDays != null)
                     {
-                        cnt += (int) bd.RoomDays;
-                        details += bd.CouponCode + ",";                        
+                        cnt += (int)bd.RoomDays;
+                        details += bd.CouponCode + ",";
                     }
                 }
                 rdt.Details = details.TrimEnd(',');
@@ -1002,18 +1004,84 @@ namespace SAMSAPI.Manager
                 list.Add(rdt);
             }
 
-            return list.OrderBy(x=>x.StartCoupon).ToList();
+            return list.OrderBy(x => x.StartCoupon).ToList();
         }
 
-        public List<Booking> GetBookingsList()
+        public List<Booking> GetBookingsList(DateTime fromDate, DateTime toDate, string status = "")
         {
-            IQueryable<Booking> bookingsList = from c in se.Bookings
-                                               .Include("BookingDetails")
-                                               orderby c.BookingStatus 
-                                        select c;
+            IQueryable<Booking> bookingsList;
+
+            if (status == null || status == "")
+            {
+                bookingsList = from c in se.Bookings
+                                                   .Include("BookingDetails")
+                                                     .Where(x => x.BookingDateTime >=fromDate && x.BookingDateTime <= toDate)
+                               orderby c.BookingStatus
+                               select c;
+            }
+            else
+            {
+                bookingsList = from c in se.Bookings
+                                                   .Include("BookingDetails")
+                                                   .Where(x => x.BookingDateTime >= fromDate && x.BookingDateTime <= toDate && x.BookingStatus == status)
+                               orderby c.BookingStatus
+                               select c;
+            }
 
             return bookingsList.ToList(); ;
         }
+
+        public List<Booking> GetBookingsList(string status = "")
+        {
+            IQueryable<Booking> bookingsList;
+
+            if (status == null || status == "")
+            {
+                bookingsList = from c in se.Bookings
+                                                   .Include("BookingDetails")
+                               orderby c.BookingStatus
+                               select c;
+            }
+            else
+            {
+                bookingsList = from c in se.Bookings
+                                                   .Include("BookingDetails")
+                                                   .Where(x=>x.BookingStatus==status)
+                               orderby c.BookingStatus
+                               select c;
+            }
+
+            return bookingsList.ToList(); ;
+        }
+
+
+
+        public List<CheckedInRoomDetails> GetCheckedInRoomsDetails()
+        {
+            var checkedInRooms = se.Bookings
+                .Where(b => b.BookingStatus == "CheckIn")
+                .Join(se.BookingDetails,
+                      b => b.BookingId,
+                      bd => bd.BookingId,
+                      (b, bd) => new { Booking = b, BookingDetails = bd })
+                .Join(se.Rooms,
+                      x => x.BookingDetails.RoomId,
+                      r => r.RoomId,
+                      (x, r) => new CheckedInRoomDetails
+                      {
+                          BookingId = x.Booking.BookingId,
+                          BookingDetailId = x.BookingDetails.BookingDetailId,
+                          RoomId = r.RoomId,
+                          RoomNo = r.RoomNo,
+                          Guest = x.Booking.GuestName,
+                          CheckInDate = (DateTime)x.Booking.CheckInTime
+                      })
+                .ToList();
+
+            return checkedInRooms;
+        }
+
+
         public Room SaveRoom(Room nRoom)
         {
             if (nRoom.RoomId == 0)
@@ -1380,18 +1448,7 @@ namespace SAMSAPI.Manager
                         se1.BookingDetails.AddObject(pitem);
                         se1.SaveChanges();
 
-                        // ── Inventory integration ────────────────────────────────────────
-                        // Auto-assign configured stock items on check-in
-                        if (pitem.Status == "CheckIn" && pitem.RoomCheckIn != null)
-                        {
-                            try
-                            {
-                                new InventoryManager().AssignCheckinStock(
-                                    pitem.BookingDetailId, 0);
-                            }
-                            catch { /* Non-blocking: log and continue */ }
-                        }
-                        // ─────────────────────────────────────────────────────────────────
+                      
                     }
 
                 }
@@ -1623,6 +1680,22 @@ namespace SAMSAPI.Manager
                         booking.CreatedOn = DateTime.Now;
                         se.Bookings.AddObject(booking);
                         se.SaveChanges();
+
+                        foreach (var bd in booking.BookingDetails)
+                        {
+                            if (bd.Status == "CheckIn" && bd.RoomCheckIn != null)
+                            {
+                                // ── Inventory integration ────────────────────────────────────────
+                                try
+                                {
+                                    new InventoryManager().AssignCheckinStock(
+                                        bd.BookingDetailId, 0);
+                                }
+                                catch { /* Non-blocking: log and continue */ }
+
+                                // ─────────────────────────────────────────────────────────────────
+                            }
+                        }
                     }
                     else
                     {

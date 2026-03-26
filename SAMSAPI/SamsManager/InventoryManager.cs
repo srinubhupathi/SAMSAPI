@@ -221,7 +221,7 @@ namespace SAMSAPI.Manager
                 DateTime to   = toDate.Date;
 
                 return (from ip in se.InventoryPurchases
-                        where ip.PurchaseDate >= from && ip.PurchaseDate <= to
+                        where ip.PurchaseDate >= fromDate && ip.PurchaseDate <= to
                         orderby ip.PurchaseDate descending
                         let itemCount = se.InventoryPurchaseDetails
                             .Count(d => d.PurchaseId == ip.PurchaseId)
@@ -280,7 +280,7 @@ namespace SAMSAPI.Manager
 
                 if (dto.PurchaseId == 0)
                 {
-                    var ip = new InventoryPurchase
+                    var ip = new InventoryPurchas
                     {
                         PurchaseDate  = dto.PurchaseDate.Date,
                         InvoiceNumber = dto.InvoiceNumber,
