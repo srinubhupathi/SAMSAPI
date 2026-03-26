@@ -1,12 +1,13 @@
-﻿using System;
+﻿using SAMSAPI.Manager;
+using SAMSAPI.Models.Bookings;
+using SAMSData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
-using SAMSAPI.Manager;
-using SAMSData;
 
 namespace SAMSAPI.Controllers
 {
@@ -29,6 +30,32 @@ namespace SAMSAPI.Controllers
         {
             return new SAMSManager().GetBooking(id);
         }
+
+
+        // GET: api/Bookings?status=pending
+        [HttpGet]
+        [ActionName("GetActiveCheckins")]
+        public List<Booking> GetActiveCheckIns(string status = "")
+        {
+            return new SAMSManager().GetBookingsList("CheckIn");
+        }
+
+        // GET: api/Bookings?status=pending
+        [HttpGet]
+        [ActionName("GetCheckedInRooms")]
+        public List<CheckedInRoomDetails> GetCheckedInRoomsDetails()
+        {
+            return new SAMSManager().GetCheckedInRoomsDetails();
+        }
+
+
+        [HttpGet]
+        [ActionName("GetBookingList")]
+        public List<Booking> GetBookingList(DateTime fromDate, DateTime toDate,string status = "")
+        {
+            return new SAMSManager().GetBookingsList(fromDate,toDate, status);
+        }
+
 
         // GET: api/Bookings/5
         [HttpGet]

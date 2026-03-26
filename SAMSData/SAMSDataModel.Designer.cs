@@ -61,6 +61,14 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("SAMSModel", "FK_MembershipFeeTransactions_Members", "Member", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SAMSData.Member), "MembershipFeeTransaction", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SAMSData.MembershipFeeTransaction), true)]
 [assembly: EdmRelationshipAttribute("SAMSModel", "FK_MembershipVouchers_Members", "Member", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SAMSData.Member), "MembershipVoucher", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SAMSData.MembershipVoucher), true)]
 [assembly: EdmRelationshipAttribute("SAMSModel", "FK_SMSAlerts_Members", "Member", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SAMSData.Member), "SMSAlert", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SAMSData.SMSAlert), true)]
+[assembly: EdmRelationshipAttribute("SAMSModel", "FK_RoomStock_BookingDetails", "BookingDetail", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SAMSData.BookingDetail), "RoomStockTransaction", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SAMSData.RoomStockTransaction), true)]
+[assembly: EdmRelationshipAttribute("SAMSModel", "FK_InvPurchDetails_Purchases", "InventoryPurchas", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SAMSData.InventoryPurchas), "InventoryPurchaseDetail", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SAMSData.InventoryPurchaseDetail), true)]
+[assembly: EdmRelationshipAttribute("SAMSModel", "FK_InvPurchDetails_StockItems", "StockItem", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SAMSData.StockItem), "InventoryPurchaseDetail", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SAMSData.InventoryPurchaseDetail), true)]
+[assembly: EdmRelationshipAttribute("SAMSModel", "FK_RoomStock_Rooms", "Room", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SAMSData.Room), "RoomStockTransaction", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SAMSData.RoomStockTransaction), true)]
+[assembly: EdmRelationshipAttribute("SAMSModel", "FK_RoomStockReturns_RoomStock", "RoomStockTransaction", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SAMSData.RoomStockTransaction), "RoomStockReturn", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SAMSData.RoomStockReturn), true)]
+[assembly: EdmRelationshipAttribute("SAMSModel", "FK_RoomStock_StockItems", "StockItem", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SAMSData.StockItem), "RoomStockTransaction", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SAMSData.RoomStockTransaction), true)]
+[assembly: EdmRelationshipAttribute("SAMSModel", "FK_RoomTypeStockConfigs_StockItems", "StockItem", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SAMSData.StockItem), "RoomTypeStockConfig", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SAMSData.RoomTypeStockConfig), true)]
+[assembly: EdmRelationshipAttribute("SAMSModel", "FK_RoomTypeStockConfigs_Tariffs", "Tariff", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SAMSData.Tariff), "RoomTypeStockConfig", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SAMSData.RoomTypeStockConfig), true)]
 
 #endregion
 
@@ -684,6 +692,150 @@ namespace SAMSData
             }
         }
         private ObjectSet<SMSAlertSchedule> _SMSAlertSchedules;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<InventoryPurchaseDetail> InventoryPurchaseDetails
+        {
+            get
+            {
+                if ((_InventoryPurchaseDetails == null))
+                {
+                    _InventoryPurchaseDetails = base.CreateObjectSet<InventoryPurchaseDetail>("InventoryPurchaseDetails");
+                }
+                return _InventoryPurchaseDetails;
+            }
+        }
+        private ObjectSet<InventoryPurchaseDetail> _InventoryPurchaseDetails;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<InventoryPurchas> InventoryPurchases
+        {
+            get
+            {
+                if ((_InventoryPurchases == null))
+                {
+                    _InventoryPurchases = base.CreateObjectSet<InventoryPurchas>("InventoryPurchases");
+                }
+                return _InventoryPurchases;
+            }
+        }
+        private ObjectSet<InventoryPurchas> _InventoryPurchases;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<RoomStockReturn> RoomStockReturns
+        {
+            get
+            {
+                if ((_RoomStockReturns == null))
+                {
+                    _RoomStockReturns = base.CreateObjectSet<RoomStockReturn>("RoomStockReturns");
+                }
+                return _RoomStockReturns;
+            }
+        }
+        private ObjectSet<RoomStockReturn> _RoomStockReturns;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<RoomStockTransaction> RoomStockTransactions
+        {
+            get
+            {
+                if ((_RoomStockTransactions == null))
+                {
+                    _RoomStockTransactions = base.CreateObjectSet<RoomStockTransaction>("RoomStockTransactions");
+                }
+                return _RoomStockTransactions;
+            }
+        }
+        private ObjectSet<RoomStockTransaction> _RoomStockTransactions;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<RoomTypeStockConfig> RoomTypeStockConfigs
+        {
+            get
+            {
+                if ((_RoomTypeStockConfigs == null))
+                {
+                    _RoomTypeStockConfigs = base.CreateObjectSet<RoomTypeStockConfig>("RoomTypeStockConfigs");
+                }
+                return _RoomTypeStockConfigs;
+            }
+        }
+        private ObjectSet<RoomTypeStockConfig> _RoomTypeStockConfigs;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<StockItem> StockItems
+        {
+            get
+            {
+                if ((_StockItems == null))
+                {
+                    _StockItems = base.CreateObjectSet<StockItem>("StockItems");
+                }
+                return _StockItems;
+            }
+        }
+        private ObjectSet<StockItem> _StockItems;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<vw_LowStockItems> vw_LowStockItems
+        {
+            get
+            {
+                if ((_vw_LowStockItems == null))
+                {
+                    _vw_LowStockItems = base.CreateObjectSet<vw_LowStockItems>("vw_LowStockItems");
+                }
+                return _vw_LowStockItems;
+            }
+        }
+        private ObjectSet<vw_LowStockItems> _vw_LowStockItems;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<vw_StockAvailability> vw_StockAvailability
+        {
+            get
+            {
+                if ((_vw_StockAvailability == null))
+                {
+                    _vw_StockAvailability = base.CreateObjectSet<vw_StockAvailability>("vw_StockAvailability");
+                }
+                return _vw_StockAvailability;
+            }
+        }
+        private ObjectSet<vw_StockAvailability> _vw_StockAvailability;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<vw_StockMovement> vw_StockMovement
+        {
+            get
+            {
+                if ((_vw_StockMovement == null))
+                {
+                    _vw_StockMovement = base.CreateObjectSet<vw_StockMovement>("vw_StockMovement");
+                }
+                return _vw_StockMovement;
+            }
+        }
+        private ObjectSet<vw_StockMovement> _vw_StockMovement;
 
         #endregion
 
@@ -976,6 +1128,78 @@ namespace SAMSData
         {
             base.AddObject("SMSAlertSchedules", sMSAlertSchedule);
         }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the InventoryPurchaseDetails EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToInventoryPurchaseDetails(InventoryPurchaseDetail inventoryPurchaseDetail)
+        {
+            base.AddObject("InventoryPurchaseDetails", inventoryPurchaseDetail);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the InventoryPurchases EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToInventoryPurchases(InventoryPurchas inventoryPurchas)
+        {
+            base.AddObject("InventoryPurchases", inventoryPurchas);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the RoomStockReturns EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToRoomStockReturns(RoomStockReturn roomStockReturn)
+        {
+            base.AddObject("RoomStockReturns", roomStockReturn);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the RoomStockTransactions EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToRoomStockTransactions(RoomStockTransaction roomStockTransaction)
+        {
+            base.AddObject("RoomStockTransactions", roomStockTransaction);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the RoomTypeStockConfigs EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToRoomTypeStockConfigs(RoomTypeStockConfig roomTypeStockConfig)
+        {
+            base.AddObject("RoomTypeStockConfigs", roomTypeStockConfig);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the StockItems EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToStockItems(StockItem stockItem)
+        {
+            base.AddObject("StockItems", stockItem);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the vw_LowStockItems EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTovw_LowStockItems(vw_LowStockItems vw_LowStockItems)
+        {
+            base.AddObject("vw_LowStockItems", vw_LowStockItems);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the vw_StockAvailability EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTovw_StockAvailability(vw_StockAvailability vw_StockAvailability)
+        {
+            base.AddObject("vw_StockAvailability", vw_StockAvailability);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the vw_StockMovement EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTovw_StockMovement(vw_StockMovement vw_StockMovement)
+        {
+            base.AddObject("vw_StockMovement", vw_StockMovement);
+        }
 
         #endregion
 
@@ -1008,7 +1232,7 @@ namespace SAMSData
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1027,7 +1251,7 @@ namespace SAMSData
                 {
                     OnBookingIdChanging(value);
                     ReportPropertyChanging("BookingId");
-                    _BookingId = StructuralObject.SetValidValue(value);
+                    _BookingId = StructuralObject.SetValidValue(value, "BookingId");
                     ReportPropertyChanged("BookingId");
                     OnBookingIdChanged();
                 }
@@ -1052,7 +1276,7 @@ namespace SAMSData
             {
                 OnBookingNoChanging(value);
                 ReportPropertyChanging("BookingNo");
-                _BookingNo = StructuralObject.SetValidValue(value);
+                _BookingNo = StructuralObject.SetValidValue(value, "BookingNo");
                 ReportPropertyChanged("BookingNo");
                 OnBookingNoChanged();
             }
@@ -1076,7 +1300,7 @@ namespace SAMSData
             {
                 OnBookingNoPrefixChanging(value);
                 ReportPropertyChanging("BookingNoPrefix");
-                _BookingNoPrefix = StructuralObject.SetValidValue(value, true);
+                _BookingNoPrefix = StructuralObject.SetValidValue(value, true, "BookingNoPrefix");
                 ReportPropertyChanged("BookingNoPrefix");
                 OnBookingNoPrefixChanged();
             }
@@ -1100,7 +1324,7 @@ namespace SAMSData
             {
                 OnBookingDateTimeChanging(value);
                 ReportPropertyChanging("BookingDateTime");
-                _BookingDateTime = StructuralObject.SetValidValue(value);
+                _BookingDateTime = StructuralObject.SetValidValue(value, "BookingDateTime");
                 ReportPropertyChanged("BookingDateTime");
                 OnBookingDateTimeChanged();
             }
@@ -1124,7 +1348,7 @@ namespace SAMSData
             {
                 OnBookingReferenceTypeChanging(value);
                 ReportPropertyChanging("BookingReferenceType");
-                _BookingReferenceType = StructuralObject.SetValidValue(value, true);
+                _BookingReferenceType = StructuralObject.SetValidValue(value, true, "BookingReferenceType");
                 ReportPropertyChanged("BookingReferenceType");
                 OnBookingReferenceTypeChanged();
             }
@@ -1148,7 +1372,7 @@ namespace SAMSData
             {
                 OnReferenceDetailsChanging(value);
                 ReportPropertyChanging("ReferenceDetails");
-                _ReferenceDetails = StructuralObject.SetValidValue(value, true);
+                _ReferenceDetails = StructuralObject.SetValidValue(value, true, "ReferenceDetails");
                 ReportPropertyChanged("ReferenceDetails");
                 OnReferenceDetailsChanged();
             }
@@ -1172,7 +1396,7 @@ namespace SAMSData
             {
                 OnCheckInTimeChanging(value);
                 ReportPropertyChanging("CheckInTime");
-                _CheckInTime = StructuralObject.SetValidValue(value);
+                _CheckInTime = StructuralObject.SetValidValue(value, "CheckInTime");
                 ReportPropertyChanged("CheckInTime");
                 OnCheckInTimeChanged();
             }
@@ -1196,7 +1420,7 @@ namespace SAMSData
             {
                 OnGuestNameChanging(value);
                 ReportPropertyChanging("GuestName");
-                _GuestName = StructuralObject.SetValidValue(value, true);
+                _GuestName = StructuralObject.SetValidValue(value, true, "GuestName");
                 ReportPropertyChanged("GuestName");
                 OnGuestNameChanged();
             }
@@ -1220,7 +1444,7 @@ namespace SAMSData
             {
                 OnGuestPlaceChanging(value);
                 ReportPropertyChanging("GuestPlace");
-                _GuestPlace = StructuralObject.SetValidValue(value, true);
+                _GuestPlace = StructuralObject.SetValidValue(value, true, "GuestPlace");
                 ReportPropertyChanged("GuestPlace");
                 OnGuestPlaceChanged();
             }
@@ -1244,7 +1468,7 @@ namespace SAMSData
             {
                 OnGuestPhoneChanging(value);
                 ReportPropertyChanging("GuestPhone");
-                _GuestPhone = StructuralObject.SetValidValue(value, true);
+                _GuestPhone = StructuralObject.SetValidValue(value, true, "GuestPhone");
                 ReportPropertyChanged("GuestPhone");
                 OnGuestPhoneChanged();
             }
@@ -1268,7 +1492,7 @@ namespace SAMSData
             {
                 OnGuestAddressChanging(value);
                 ReportPropertyChanging("GuestAddress");
-                _GuestAddress = StructuralObject.SetValidValue(value, true);
+                _GuestAddress = StructuralObject.SetValidValue(value, true, "GuestAddress");
                 ReportPropertyChanged("GuestAddress");
                 OnGuestAddressChanged();
             }
@@ -1292,7 +1516,7 @@ namespace SAMSData
             {
                 OnGuestAlternatePhoneChanging(value);
                 ReportPropertyChanging("GuestAlternatePhone");
-                _GuestAlternatePhone = StructuralObject.SetValidValue(value, true);
+                _GuestAlternatePhone = StructuralObject.SetValidValue(value, true, "GuestAlternatePhone");
                 ReportPropertyChanged("GuestAlternatePhone");
                 OnGuestAlternatePhoneChanged();
             }
@@ -1316,7 +1540,7 @@ namespace SAMSData
             {
                 OnGuestEmailChanging(value);
                 ReportPropertyChanging("GuestEmail");
-                _GuestEmail = StructuralObject.SetValidValue(value, true);
+                _GuestEmail = StructuralObject.SetValidValue(value, true, "GuestEmail");
                 ReportPropertyChanged("GuestEmail");
                 OnGuestEmailChanged();
             }
@@ -1340,7 +1564,7 @@ namespace SAMSData
             {
                 OnVisitPurposeChanging(value);
                 ReportPropertyChanging("VisitPurpose");
-                _VisitPurpose = StructuralObject.SetValidValue(value, true);
+                _VisitPurpose = StructuralObject.SetValidValue(value, true, "VisitPurpose");
                 ReportPropertyChanged("VisitPurpose");
                 OnVisitPurposeChanged();
             }
@@ -1364,7 +1588,7 @@ namespace SAMSData
             {
                 OnIdProofTypeChanging(value);
                 ReportPropertyChanging("IdProofType");
-                _IdProofType = StructuralObject.SetValidValue(value, true);
+                _IdProofType = StructuralObject.SetValidValue(value, true, "IdProofType");
                 ReportPropertyChanged("IdProofType");
                 OnIdProofTypeChanged();
             }
@@ -1388,7 +1612,7 @@ namespace SAMSData
             {
                 OnIdProofNoChanging(value);
                 ReportPropertyChanging("IdProofNo");
-                _IdProofNo = StructuralObject.SetValidValue(value, true);
+                _IdProofNo = StructuralObject.SetValidValue(value, true, "IdProofNo");
                 ReportPropertyChanged("IdProofNo");
                 OnIdProofNoChanged();
             }
@@ -1412,7 +1636,7 @@ namespace SAMSData
             {
                 OnRemarksChanging(value);
                 ReportPropertyChanging("Remarks");
-                _Remarks = StructuralObject.SetValidValue(value, true);
+                _Remarks = StructuralObject.SetValidValue(value, true, "Remarks");
                 ReportPropertyChanged("Remarks");
                 OnRemarksChanged();
             }
@@ -1436,7 +1660,7 @@ namespace SAMSData
             {
                 OnTotalAmountChanging(value);
                 ReportPropertyChanging("TotalAmount");
-                _TotalAmount = StructuralObject.SetValidValue(value);
+                _TotalAmount = StructuralObject.SetValidValue(value, "TotalAmount");
                 ReportPropertyChanged("TotalAmount");
                 OnTotalAmountChanged();
             }
@@ -1460,7 +1684,7 @@ namespace SAMSData
             {
                 OnTotalServiceAmountChanging(value);
                 ReportPropertyChanging("TotalServiceAmount");
-                _TotalServiceAmount = StructuralObject.SetValidValue(value);
+                _TotalServiceAmount = StructuralObject.SetValidValue(value, "TotalServiceAmount");
                 ReportPropertyChanged("TotalServiceAmount");
                 OnTotalServiceAmountChanged();
             }
@@ -1484,7 +1708,7 @@ namespace SAMSData
             {
                 OnTotalFoodAmountChanging(value);
                 ReportPropertyChanging("TotalFoodAmount");
-                _TotalFoodAmount = StructuralObject.SetValidValue(value);
+                _TotalFoodAmount = StructuralObject.SetValidValue(value, "TotalFoodAmount");
                 ReportPropertyChanged("TotalFoodAmount");
                 OnTotalFoodAmountChanged();
             }
@@ -1508,7 +1732,7 @@ namespace SAMSData
             {
                 OnTotalOtherAmountChanging(value);
                 ReportPropertyChanging("TotalOtherAmount");
-                _TotalOtherAmount = StructuralObject.SetValidValue(value);
+                _TotalOtherAmount = StructuralObject.SetValidValue(value, "TotalOtherAmount");
                 ReportPropertyChanged("TotalOtherAmount");
                 OnTotalOtherAmountChanged();
             }
@@ -1532,7 +1756,7 @@ namespace SAMSData
             {
                 OnNetAmountChanging(value);
                 ReportPropertyChanging("NetAmount");
-                _NetAmount = StructuralObject.SetValidValue(value);
+                _NetAmount = StructuralObject.SetValidValue(value, "NetAmount");
                 ReportPropertyChanged("NetAmount");
                 OnNetAmountChanged();
             }
@@ -1556,7 +1780,7 @@ namespace SAMSData
             {
                 OnAdvanceAmountChanging(value);
                 ReportPropertyChanging("AdvanceAmount");
-                _AdvanceAmount = StructuralObject.SetValidValue(value);
+                _AdvanceAmount = StructuralObject.SetValidValue(value, "AdvanceAmount");
                 ReportPropertyChanged("AdvanceAmount");
                 OnAdvanceAmountChanged();
             }
@@ -1580,7 +1804,7 @@ namespace SAMSData
             {
                 OnAdvancePaymentTypeChanging(value);
                 ReportPropertyChanging("AdvancePaymentType");
-                _AdvancePaymentType = StructuralObject.SetValidValue(value, true);
+                _AdvancePaymentType = StructuralObject.SetValidValue(value, true, "AdvancePaymentType");
                 ReportPropertyChanged("AdvancePaymentType");
                 OnAdvancePaymentTypeChanged();
             }
@@ -1604,7 +1828,7 @@ namespace SAMSData
             {
                 OnAdvancePaymentDetailsChanging(value);
                 ReportPropertyChanging("AdvancePaymentDetails");
-                _AdvancePaymentDetails = StructuralObject.SetValidValue(value, true);
+                _AdvancePaymentDetails = StructuralObject.SetValidValue(value, true, "AdvancePaymentDetails");
                 ReportPropertyChanged("AdvancePaymentDetails");
                 OnAdvancePaymentDetailsChanged();
             }
@@ -1628,7 +1852,7 @@ namespace SAMSData
             {
                 OnBookingStatusChanging(value);
                 ReportPropertyChanging("BookingStatus");
-                _BookingStatus = StructuralObject.SetValidValue(value, true);
+                _BookingStatus = StructuralObject.SetValidValue(value, true, "BookingStatus");
                 ReportPropertyChanged("BookingStatus");
                 OnBookingStatusChanged();
             }
@@ -1652,7 +1876,7 @@ namespace SAMSData
             {
                 OnCheckoutTimeChanging(value);
                 ReportPropertyChanging("CheckoutTime");
-                _CheckoutTime = StructuralObject.SetValidValue(value);
+                _CheckoutTime = StructuralObject.SetValidValue(value, "CheckoutTime");
                 ReportPropertyChanged("CheckoutTime");
                 OnCheckoutTimeChanged();
             }
@@ -1676,7 +1900,7 @@ namespace SAMSData
             {
                 OnBookingReferenceIdChanging(value);
                 ReportPropertyChanging("BookingReferenceId");
-                _BookingReferenceId = StructuralObject.SetValidValue(value);
+                _BookingReferenceId = StructuralObject.SetValidValue(value, "BookingReferenceId");
                 ReportPropertyChanged("BookingReferenceId");
                 OnBookingReferenceIdChanged();
             }
@@ -1700,7 +1924,7 @@ namespace SAMSData
             {
                 OnCreatedByChanging(value);
                 ReportPropertyChanging("CreatedBy");
-                _CreatedBy = StructuralObject.SetValidValue(value);
+                _CreatedBy = StructuralObject.SetValidValue(value, "CreatedBy");
                 ReportPropertyChanged("CreatedBy");
                 OnCreatedByChanged();
             }
@@ -1724,7 +1948,7 @@ namespace SAMSData
             {
                 OnCreatedOnChanging(value);
                 ReportPropertyChanging("CreatedOn");
-                _CreatedOn = StructuralObject.SetValidValue(value);
+                _CreatedOn = StructuralObject.SetValidValue(value, "CreatedOn");
                 ReportPropertyChanged("CreatedOn");
                 OnCreatedOnChanged();
             }
@@ -1748,7 +1972,7 @@ namespace SAMSData
             {
                 OnUpdatedOnChanging(value);
                 ReportPropertyChanging("UpdatedOn");
-                _UpdatedOn = StructuralObject.SetValidValue(value);
+                _UpdatedOn = StructuralObject.SetValidValue(value, "UpdatedOn");
                 ReportPropertyChanged("UpdatedOn");
                 OnUpdatedOnChanged();
             }
@@ -1772,7 +1996,7 @@ namespace SAMSData
             {
                 OnUpdatedByChanging(value);
                 ReportPropertyChanging("UpdatedBy");
-                _UpdatedBy = StructuralObject.SetValidValue(value);
+                _UpdatedBy = StructuralObject.SetValidValue(value, "UpdatedBy");
                 ReportPropertyChanged("UpdatedBy");
                 OnUpdatedByChanged();
             }
@@ -1796,7 +2020,7 @@ namespace SAMSData
             {
                 OnAgeChanging(value);
                 ReportPropertyChanging("Age");
-                _Age = StructuralObject.SetValidValue(value);
+                _Age = StructuralObject.SetValidValue(value, "Age");
                 ReportPropertyChanged("Age");
                 OnAgeChanged();
             }
@@ -1820,7 +2044,7 @@ namespace SAMSData
             {
                 OnBookingTypeChanging(value);
                 ReportPropertyChanging("BookingType");
-                _BookingType = StructuralObject.SetValidValue(value, true);
+                _BookingType = StructuralObject.SetValidValue(value, true, "BookingType");
                 ReportPropertyChanged("BookingType");
                 OnBookingTypeChanged();
             }
@@ -1844,7 +2068,7 @@ namespace SAMSData
             {
                 OnNoOfRoomsChanging(value);
                 ReportPropertyChanging("NoOfRooms");
-                _NoOfRooms = StructuralObject.SetValidValue(value);
+                _NoOfRooms = StructuralObject.SetValidValue(value, "NoOfRooms");
                 ReportPropertyChanged("NoOfRooms");
                 OnNoOfRoomsChanged();
             }
@@ -1868,7 +2092,7 @@ namespace SAMSData
             {
                 OnPlannedCheckInChanging(value);
                 ReportPropertyChanging("PlannedCheckIn");
-                _PlannedCheckIn = StructuralObject.SetValidValue(value);
+                _PlannedCheckIn = StructuralObject.SetValidValue(value, "PlannedCheckIn");
                 ReportPropertyChanged("PlannedCheckIn");
                 OnPlannedCheckInChanged();
             }
@@ -1892,7 +2116,7 @@ namespace SAMSData
             {
                 OnPlannedCheckOutChanging(value);
                 ReportPropertyChanging("PlannedCheckOut");
-                _PlannedCheckOut = StructuralObject.SetValidValue(value);
+                _PlannedCheckOut = StructuralObject.SetValidValue(value, "PlannedCheckOut");
                 ReportPropertyChanged("PlannedCheckOut");
                 OnPlannedCheckOutChanged();
             }
@@ -1916,7 +2140,7 @@ namespace SAMSData
             {
                 OnLedgerIdChanging(value);
                 ReportPropertyChanging("LedgerId");
-                _LedgerId = StructuralObject.SetValidValue(value);
+                _LedgerId = StructuralObject.SetValidValue(value, "LedgerId");
                 ReportPropertyChanged("LedgerId");
                 OnLedgerIdChanged();
             }
@@ -1940,7 +2164,7 @@ namespace SAMSData
             {
                 OnMemberNameChanging(value);
                 ReportPropertyChanging("MemberName");
-                _MemberName = StructuralObject.SetValidValue(value, true);
+                _MemberName = StructuralObject.SetValidValue(value, true, "MemberName");
                 ReportPropertyChanged("MemberName");
                 OnMemberNameChanged();
             }
@@ -1964,7 +2188,7 @@ namespace SAMSData
             {
                 OnMemberCodeChanging(value);
                 ReportPropertyChanging("MemberCode");
-                _MemberCode = StructuralObject.SetValidValue(value, true);
+                _MemberCode = StructuralObject.SetValidValue(value, true, "MemberCode");
                 ReportPropertyChanged("MemberCode");
                 OnMemberCodeChanged();
             }
@@ -1988,7 +2212,7 @@ namespace SAMSData
             {
                 OnMemberIdChanging(value);
                 ReportPropertyChanging("MemberId");
-                _MemberId = StructuralObject.SetValidValue(value);
+                _MemberId = StructuralObject.SetValidValue(value, "MemberId");
                 ReportPropertyChanged("MemberId");
                 OnMemberIdChanged();
             }
@@ -2012,7 +2236,7 @@ namespace SAMSData
             {
                 OnCompanyNameChanging(value);
                 ReportPropertyChanging("CompanyName");
-                _CompanyName = StructuralObject.SetValidValue(value, true);
+                _CompanyName = StructuralObject.SetValidValue(value, true, "CompanyName");
                 ReportPropertyChanged("CompanyName");
                 OnCompanyNameChanged();
             }
@@ -2036,7 +2260,7 @@ namespace SAMSData
             {
                 OnCompanyAddressChanging(value);
                 ReportPropertyChanging("CompanyAddress");
-                _CompanyAddress = StructuralObject.SetValidValue(value, true);
+                _CompanyAddress = StructuralObject.SetValidValue(value, true, "CompanyAddress");
                 ReportPropertyChanged("CompanyAddress");
                 OnCompanyAddressChanged();
             }
@@ -2060,7 +2284,7 @@ namespace SAMSData
             {
                 OnGSTNoChanging(value);
                 ReportPropertyChanging("GSTNo");
-                _GSTNo = StructuralObject.SetValidValue(value, true);
+                _GSTNo = StructuralObject.SetValidValue(value, true, "GSTNo");
                 ReportPropertyChanged("GSTNo");
                 OnGSTNoChanged();
             }
@@ -2071,7 +2295,6 @@ namespace SAMSData
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -2167,7 +2390,7 @@ namespace SAMSData
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -2186,7 +2409,7 @@ namespace SAMSData
                 {
                     OnBookingDetailIdChanging(value);
                     ReportPropertyChanging("BookingDetailId");
-                    _BookingDetailId = StructuralObject.SetValidValue(value);
+                    _BookingDetailId = StructuralObject.SetValidValue(value, "BookingDetailId");
                     ReportPropertyChanged("BookingDetailId");
                     OnBookingDetailIdChanged();
                 }
@@ -2211,7 +2434,7 @@ namespace SAMSData
             {
                 OnBookingIdChanging(value);
                 ReportPropertyChanging("BookingId");
-                _BookingId = StructuralObject.SetValidValue(value);
+                _BookingId = StructuralObject.SetValidValue(value, "BookingId");
                 ReportPropertyChanged("BookingId");
                 OnBookingIdChanged();
             }
@@ -2235,7 +2458,7 @@ namespace SAMSData
             {
                 OnRoomIdChanging(value);
                 ReportPropertyChanging("RoomId");
-                _RoomId = StructuralObject.SetValidValue(value);
+                _RoomId = StructuralObject.SetValidValue(value, "RoomId");
                 ReportPropertyChanged("RoomId");
                 OnRoomIdChanged();
             }
@@ -2259,7 +2482,7 @@ namespace SAMSData
             {
                 OnRoomRentChanging(value);
                 ReportPropertyChanging("RoomRent");
-                _RoomRent = StructuralObject.SetValidValue(value);
+                _RoomRent = StructuralObject.SetValidValue(value, "RoomRent");
                 ReportPropertyChanged("RoomRent");
                 OnRoomRentChanged();
             }
@@ -2283,7 +2506,7 @@ namespace SAMSData
             {
                 OnExtraBedAmountChanging(value);
                 ReportPropertyChanging("ExtraBedAmount");
-                _ExtraBedAmount = StructuralObject.SetValidValue(value);
+                _ExtraBedAmount = StructuralObject.SetValidValue(value, "ExtraBedAmount");
                 ReportPropertyChanged("ExtraBedAmount");
                 OnExtraBedAmountChanged();
             }
@@ -2307,7 +2530,7 @@ namespace SAMSData
             {
                 OnNoOfAdultsChanging(value);
                 ReportPropertyChanging("NoOfAdults");
-                _NoOfAdults = StructuralObject.SetValidValue(value);
+                _NoOfAdults = StructuralObject.SetValidValue(value, "NoOfAdults");
                 ReportPropertyChanged("NoOfAdults");
                 OnNoOfAdultsChanged();
             }
@@ -2331,7 +2554,7 @@ namespace SAMSData
             {
                 OnNoOfChildrenChanging(value);
                 ReportPropertyChanging("NoOfChildren");
-                _NoOfChildren = StructuralObject.SetValidValue(value);
+                _NoOfChildren = StructuralObject.SetValidValue(value, "NoOfChildren");
                 ReportPropertyChanged("NoOfChildren");
                 OnNoOfChildrenChanged();
             }
@@ -2355,7 +2578,7 @@ namespace SAMSData
             {
                 OnGuestDetailsChanging(value);
                 ReportPropertyChanging("GuestDetails");
-                _GuestDetails = StructuralObject.SetValidValue(value, true);
+                _GuestDetails = StructuralObject.SetValidValue(value, true, "GuestDetails");
                 ReportPropertyChanged("GuestDetails");
                 OnGuestDetailsChanged();
             }
@@ -2379,7 +2602,7 @@ namespace SAMSData
             {
                 OnRoomCheckInChanging(value);
                 ReportPropertyChanging("RoomCheckIn");
-                _RoomCheckIn = StructuralObject.SetValidValue(value);
+                _RoomCheckIn = StructuralObject.SetValidValue(value, "RoomCheckIn");
                 ReportPropertyChanged("RoomCheckIn");
                 OnRoomCheckInChanged();
             }
@@ -2403,7 +2626,7 @@ namespace SAMSData
             {
                 OnRoomCheckOutChanging(value);
                 ReportPropertyChanging("RoomCheckOut");
-                _RoomCheckOut = StructuralObject.SetValidValue(value);
+                _RoomCheckOut = StructuralObject.SetValidValue(value, "RoomCheckOut");
                 ReportPropertyChanged("RoomCheckOut");
                 OnRoomCheckOutChanged();
             }
@@ -2427,7 +2650,7 @@ namespace SAMSData
             {
                 OnRemarksChanging(value);
                 ReportPropertyChanging("Remarks");
-                _Remarks = StructuralObject.SetValidValue(value, true);
+                _Remarks = StructuralObject.SetValidValue(value, true, "Remarks");
                 ReportPropertyChanged("Remarks");
                 OnRemarksChanged();
             }
@@ -2451,7 +2674,7 @@ namespace SAMSData
             {
                 OnRoomDaysChanging(value);
                 ReportPropertyChanging("RoomDays");
-                _RoomDays = StructuralObject.SetValidValue(value);
+                _RoomDays = StructuralObject.SetValidValue(value, "RoomDays");
                 ReportPropertyChanged("RoomDays");
                 OnRoomDaysChanged();
             }
@@ -2475,7 +2698,7 @@ namespace SAMSData
             {
                 OnTotalRoomRentChanging(value);
                 ReportPropertyChanging("TotalRoomRent");
-                _TotalRoomRent = StructuralObject.SetValidValue(value);
+                _TotalRoomRent = StructuralObject.SetValidValue(value, "TotalRoomRent");
                 ReportPropertyChanged("TotalRoomRent");
                 OnTotalRoomRentChanged();
             }
@@ -2499,7 +2722,7 @@ namespace SAMSData
             {
                 OnTotalExtraBedAmountChanging(value);
                 ReportPropertyChanging("TotalExtraBedAmount");
-                _TotalExtraBedAmount = StructuralObject.SetValidValue(value);
+                _TotalExtraBedAmount = StructuralObject.SetValidValue(value, "TotalExtraBedAmount");
                 ReportPropertyChanged("TotalExtraBedAmount");
                 OnTotalExtraBedAmountChanged();
             }
@@ -2523,7 +2746,7 @@ namespace SAMSData
             {
                 OnTotalAmountChanging(value);
                 ReportPropertyChanging("TotalAmount");
-                _TotalAmount = StructuralObject.SetValidValue(value);
+                _TotalAmount = StructuralObject.SetValidValue(value, "TotalAmount");
                 ReportPropertyChanged("TotalAmount");
                 OnTotalAmountChanged();
             }
@@ -2547,7 +2770,7 @@ namespace SAMSData
             {
                 OnServiceAmountChanging(value);
                 ReportPropertyChanging("ServiceAmount");
-                _ServiceAmount = StructuralObject.SetValidValue(value);
+                _ServiceAmount = StructuralObject.SetValidValue(value, "ServiceAmount");
                 ReportPropertyChanged("ServiceAmount");
                 OnServiceAmountChanged();
             }
@@ -2571,7 +2794,7 @@ namespace SAMSData
             {
                 OnFoodAmountChanging(value);
                 ReportPropertyChanging("FoodAmount");
-                _FoodAmount = StructuralObject.SetValidValue(value);
+                _FoodAmount = StructuralObject.SetValidValue(value, "FoodAmount");
                 ReportPropertyChanged("FoodAmount");
                 OnFoodAmountChanged();
             }
@@ -2595,7 +2818,7 @@ namespace SAMSData
             {
                 OnOtherAmountChanging(value);
                 ReportPropertyChanging("OtherAmount");
-                _OtherAmount = StructuralObject.SetValidValue(value);
+                _OtherAmount = StructuralObject.SetValidValue(value, "OtherAmount");
                 ReportPropertyChanged("OtherAmount");
                 OnOtherAmountChanged();
             }
@@ -2619,7 +2842,7 @@ namespace SAMSData
             {
                 OnOtherDetailsChanging(value);
                 ReportPropertyChanging("OtherDetails");
-                _OtherDetails = StructuralObject.SetValidValue(value, true);
+                _OtherDetails = StructuralObject.SetValidValue(value, true, "OtherDetails");
                 ReportPropertyChanged("OtherDetails");
                 OnOtherDetailsChanged();
             }
@@ -2643,7 +2866,7 @@ namespace SAMSData
             {
                 OnDiscountChanging(value);
                 ReportPropertyChanging("Discount");
-                _Discount = StructuralObject.SetValidValue(value);
+                _Discount = StructuralObject.SetValidValue(value, "Discount");
                 ReportPropertyChanged("Discount");
                 OnDiscountChanged();
             }
@@ -2667,7 +2890,7 @@ namespace SAMSData
             {
                 OnNetAmountChanging(value);
                 ReportPropertyChanging("NetAmount");
-                _NetAmount = StructuralObject.SetValidValue(value);
+                _NetAmount = StructuralObject.SetValidValue(value, "NetAmount");
                 ReportPropertyChanged("NetAmount");
                 OnNetAmountChanged();
             }
@@ -2691,7 +2914,7 @@ namespace SAMSData
             {
                 OnPaymentModeChanging(value);
                 ReportPropertyChanging("PaymentMode");
-                _PaymentMode = StructuralObject.SetValidValue(value, true);
+                _PaymentMode = StructuralObject.SetValidValue(value, true, "PaymentMode");
                 ReportPropertyChanged("PaymentMode");
                 OnPaymentModeChanged();
             }
@@ -2715,7 +2938,7 @@ namespace SAMSData
             {
                 OnPaymentDetailsChanging(value);
                 ReportPropertyChanging("PaymentDetails");
-                _PaymentDetails = StructuralObject.SetValidValue(value, true);
+                _PaymentDetails = StructuralObject.SetValidValue(value, true, "PaymentDetails");
                 ReportPropertyChanged("PaymentDetails");
                 OnPaymentDetailsChanged();
             }
@@ -2739,7 +2962,7 @@ namespace SAMSData
             {
                 OnStatusChanging(value);
                 ReportPropertyChanging("Status");
-                _Status = StructuralObject.SetValidValue(value, true);
+                _Status = StructuralObject.SetValidValue(value, true, "Status");
                 ReportPropertyChanged("Status");
                 OnStatusChanged();
             }
@@ -2763,7 +2986,7 @@ namespace SAMSData
             {
                 OnBookingTypeChanging(value);
                 ReportPropertyChanging("BookingType");
-                _BookingType = StructuralObject.SetValidValue(value, true);
+                _BookingType = StructuralObject.SetValidValue(value, true, "BookingType");
                 ReportPropertyChanged("BookingType");
                 OnBookingTypeChanged();
             }
@@ -2787,7 +3010,7 @@ namespace SAMSData
             {
                 OnPlannedCheckInChanging(value);
                 ReportPropertyChanging("PlannedCheckIn");
-                _PlannedCheckIn = StructuralObject.SetValidValue(value);
+                _PlannedCheckIn = StructuralObject.SetValidValue(value, "PlannedCheckIn");
                 ReportPropertyChanged("PlannedCheckIn");
                 OnPlannedCheckInChanged();
             }
@@ -2811,7 +3034,7 @@ namespace SAMSData
             {
                 OnPlannedCheckOutChanging(value);
                 ReportPropertyChanging("PlannedCheckOut");
-                _PlannedCheckOut = StructuralObject.SetValidValue(value);
+                _PlannedCheckOut = StructuralObject.SetValidValue(value, "PlannedCheckOut");
                 ReportPropertyChanged("PlannedCheckOut");
                 OnPlannedCheckOutChanged();
             }
@@ -2835,7 +3058,7 @@ namespace SAMSData
             {
                 OnPlanCodeChanging(value);
                 ReportPropertyChanging("PlanCode");
-                _PlanCode = StructuralObject.SetValidValue(value, true);
+                _PlanCode = StructuralObject.SetValidValue(value, true, "PlanCode");
                 ReportPropertyChanged("PlanCode");
                 OnPlanCodeChanged();
             }
@@ -2859,7 +3082,7 @@ namespace SAMSData
             {
                 OnTaxChanging(value);
                 ReportPropertyChanging("Tax");
-                _Tax = StructuralObject.SetValidValue(value);
+                _Tax = StructuralObject.SetValidValue(value, "Tax");
                 ReportPropertyChanged("Tax");
                 OnTaxChanged();
             }
@@ -2883,7 +3106,7 @@ namespace SAMSData
             {
                 OnTaxAmountChanging(value);
                 ReportPropertyChanging("TaxAmount");
-                _TaxAmount = StructuralObject.SetValidValue(value);
+                _TaxAmount = StructuralObject.SetValidValue(value, "TaxAmount");
                 ReportPropertyChanged("TaxAmount");
                 OnTaxAmountChanged();
             }
@@ -2907,7 +3130,7 @@ namespace SAMSData
             {
                 OnCouponCodeChanging(value);
                 ReportPropertyChanging("CouponCode");
-                _CouponCode = StructuralObject.SetValidValue(value, true);
+                _CouponCode = StructuralObject.SetValidValue(value, true, "CouponCode");
                 ReportPropertyChanged("CouponCode");
                 OnCouponCodeChanged();
             }
@@ -2918,7 +3141,6 @@ namespace SAMSData
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -2996,6 +3218,28 @@ namespace SAMSData
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMSModel", "FK_RoomStock_BookingDetails", "RoomStockTransaction")]
+        public EntityCollection<RoomStockTransaction> RoomStockTransactions
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<RoomStockTransaction>("SAMSModel.FK_RoomStock_BookingDetails", "RoomStockTransaction");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<RoomStockTransaction>("SAMSModel.FK_RoomStock_BookingDetails", "RoomStockTransaction", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -3024,7 +3268,7 @@ namespace SAMSData
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -3043,7 +3287,7 @@ namespace SAMSData
                 {
                     OnBookingPaymentIdChanging(value);
                     ReportPropertyChanging("BookingPaymentId");
-                    _BookingPaymentId = StructuralObject.SetValidValue(value);
+                    _BookingPaymentId = StructuralObject.SetValidValue(value, "BookingPaymentId");
                     ReportPropertyChanged("BookingPaymentId");
                     OnBookingPaymentIdChanged();
                 }
@@ -3068,7 +3312,7 @@ namespace SAMSData
             {
                 OnBookingIdChanging(value);
                 ReportPropertyChanging("BookingId");
-                _BookingId = StructuralObject.SetValidValue(value);
+                _BookingId = StructuralObject.SetValidValue(value, "BookingId");
                 ReportPropertyChanged("BookingId");
                 OnBookingIdChanged();
             }
@@ -3092,7 +3336,7 @@ namespace SAMSData
             {
                 OnRoomIdChanging(value);
                 ReportPropertyChanging("RoomId");
-                _RoomId = StructuralObject.SetValidValue(value);
+                _RoomId = StructuralObject.SetValidValue(value, "RoomId");
                 ReportPropertyChanged("RoomId");
                 OnRoomIdChanged();
             }
@@ -3116,7 +3360,7 @@ namespace SAMSData
             {
                 OnPaymentDateChanging(value);
                 ReportPropertyChanging("PaymentDate");
-                _PaymentDate = StructuralObject.SetValidValue(value);
+                _PaymentDate = StructuralObject.SetValidValue(value, "PaymentDate");
                 ReportPropertyChanged("PaymentDate");
                 OnPaymentDateChanged();
             }
@@ -3140,7 +3384,7 @@ namespace SAMSData
             {
                 OnPaymentNoChanging(value);
                 ReportPropertyChanging("PaymentNo");
-                _PaymentNo = StructuralObject.SetValidValue(value);
+                _PaymentNo = StructuralObject.SetValidValue(value, "PaymentNo");
                 ReportPropertyChanged("PaymentNo");
                 OnPaymentNoChanged();
             }
@@ -3164,7 +3408,7 @@ namespace SAMSData
             {
                 OnReceiptNoChanging(value);
                 ReportPropertyChanging("ReceiptNo");
-                _ReceiptNo = StructuralObject.SetValidValue(value, true);
+                _ReceiptNo = StructuralObject.SetValidValue(value, true, "ReceiptNo");
                 ReportPropertyChanged("ReceiptNo");
                 OnReceiptNoChanged();
             }
@@ -3188,7 +3432,7 @@ namespace SAMSData
             {
                 OnAmountChanging(value);
                 ReportPropertyChanging("Amount");
-                _Amount = StructuralObject.SetValidValue(value);
+                _Amount = StructuralObject.SetValidValue(value, "Amount");
                 ReportPropertyChanged("Amount");
                 OnAmountChanged();
             }
@@ -3212,7 +3456,7 @@ namespace SAMSData
             {
                 OnPaymentTypeChanging(value);
                 ReportPropertyChanging("PaymentType");
-                _PaymentType = StructuralObject.SetValidValue(value, true);
+                _PaymentType = StructuralObject.SetValidValue(value, true, "PaymentType");
                 ReportPropertyChanged("PaymentType");
                 OnPaymentTypeChanged();
             }
@@ -3236,7 +3480,7 @@ namespace SAMSData
             {
                 OnPaymentModeChanging(value);
                 ReportPropertyChanging("PaymentMode");
-                _PaymentMode = StructuralObject.SetValidValue(value, true);
+                _PaymentMode = StructuralObject.SetValidValue(value, true, "PaymentMode");
                 ReportPropertyChanged("PaymentMode");
                 OnPaymentModeChanged();
             }
@@ -3260,7 +3504,7 @@ namespace SAMSData
             {
                 OnPaymentDetailsChanging(value);
                 ReportPropertyChanging("PaymentDetails");
-                _PaymentDetails = StructuralObject.SetValidValue(value, true);
+                _PaymentDetails = StructuralObject.SetValidValue(value, true, "PaymentDetails");
                 ReportPropertyChanged("PaymentDetails");
                 OnPaymentDetailsChanged();
             }
@@ -3284,7 +3528,7 @@ namespace SAMSData
             {
                 OnCreatedByChanging(value);
                 ReportPropertyChanging("CreatedBy");
-                _CreatedBy = StructuralObject.SetValidValue(value);
+                _CreatedBy = StructuralObject.SetValidValue(value, "CreatedBy");
                 ReportPropertyChanged("CreatedBy");
                 OnCreatedByChanged();
             }
@@ -3308,7 +3552,7 @@ namespace SAMSData
             {
                 OnCreatedOnChanging(value);
                 ReportPropertyChanging("CreatedOn");
-                _CreatedOn = StructuralObject.SetValidValue(value);
+                _CreatedOn = StructuralObject.SetValidValue(value, "CreatedOn");
                 ReportPropertyChanged("CreatedOn");
                 OnCreatedOnChanged();
             }
@@ -3332,7 +3576,7 @@ namespace SAMSData
             {
                 OnUpdatedByChanging(value);
                 ReportPropertyChanging("UpdatedBy");
-                _UpdatedBy = StructuralObject.SetValidValue(value);
+                _UpdatedBy = StructuralObject.SetValidValue(value, "UpdatedBy");
                 ReportPropertyChanged("UpdatedBy");
                 OnUpdatedByChanged();
             }
@@ -3356,7 +3600,7 @@ namespace SAMSData
             {
                 OnUpdatedOnChanging(value);
                 ReportPropertyChanging("UpdatedOn");
-                _UpdatedOn = StructuralObject.SetValidValue(value);
+                _UpdatedOn = StructuralObject.SetValidValue(value, "UpdatedOn");
                 ReportPropertyChanged("UpdatedOn");
                 OnUpdatedOnChanged();
             }
@@ -3367,7 +3611,6 @@ namespace SAMSData
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -3475,7 +3718,7 @@ namespace SAMSData
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -3494,7 +3737,7 @@ namespace SAMSData
                 {
                     OnBusinessIDChanging(value);
                     ReportPropertyChanging("BusinessID");
-                    _BusinessID = StructuralObject.SetValidValue(value);
+                    _BusinessID = StructuralObject.SetValidValue(value, "BusinessID");
                     ReportPropertyChanged("BusinessID");
                     OnBusinessIDChanged();
                 }
@@ -3519,7 +3762,7 @@ namespace SAMSData
             {
                 OnBusinessNameChanging(value);
                 ReportPropertyChanging("BusinessName");
-                _BusinessName = StructuralObject.SetValidValue(value, false);
+                _BusinessName = StructuralObject.SetValidValue(value, false, "BusinessName");
                 ReportPropertyChanged("BusinessName");
                 OnBusinessNameChanged();
             }
@@ -3543,7 +3786,7 @@ namespace SAMSData
             {
                 OnDescriptionChanging(value);
                 ReportPropertyChanging("Description");
-                _Description = StructuralObject.SetValidValue(value, true);
+                _Description = StructuralObject.SetValidValue(value, true, "Description");
                 ReportPropertyChanged("Description");
                 OnDescriptionChanged();
             }
@@ -3567,7 +3810,7 @@ namespace SAMSData
             {
                 OnManagerNameChanging(value);
                 ReportPropertyChanging("ManagerName");
-                _ManagerName = StructuralObject.SetValidValue(value, true);
+                _ManagerName = StructuralObject.SetValidValue(value, true, "ManagerName");
                 ReportPropertyChanged("ManagerName");
                 OnManagerNameChanged();
             }
@@ -3591,7 +3834,7 @@ namespace SAMSData
             {
                 OnAddress1Changing(value);
                 ReportPropertyChanging("Address1");
-                _Address1 = StructuralObject.SetValidValue(value, true);
+                _Address1 = StructuralObject.SetValidValue(value, true, "Address1");
                 ReportPropertyChanged("Address1");
                 OnAddress1Changed();
             }
@@ -3615,7 +3858,7 @@ namespace SAMSData
             {
                 OnAddress2Changing(value);
                 ReportPropertyChanging("Address2");
-                _Address2 = StructuralObject.SetValidValue(value, true);
+                _Address2 = StructuralObject.SetValidValue(value, true, "Address2");
                 ReportPropertyChanged("Address2");
                 OnAddress2Changed();
             }
@@ -3639,7 +3882,7 @@ namespace SAMSData
             {
                 OnPlaceChanging(value);
                 ReportPropertyChanging("Place");
-                _Place = StructuralObject.SetValidValue(value, true);
+                _Place = StructuralObject.SetValidValue(value, true, "Place");
                 ReportPropertyChanged("Place");
                 OnPlaceChanged();
             }
@@ -3663,7 +3906,7 @@ namespace SAMSData
             {
                 OnDistrictChanging(value);
                 ReportPropertyChanging("District");
-                _District = StructuralObject.SetValidValue(value, true);
+                _District = StructuralObject.SetValidValue(value, true, "District");
                 ReportPropertyChanged("District");
                 OnDistrictChanged();
             }
@@ -3687,7 +3930,7 @@ namespace SAMSData
             {
                 OnStateChanging(value);
                 ReportPropertyChanging("State");
-                _State = StructuralObject.SetValidValue(value, true);
+                _State = StructuralObject.SetValidValue(value, true, "State");
                 ReportPropertyChanged("State");
                 OnStateChanged();
             }
@@ -3711,7 +3954,7 @@ namespace SAMSData
             {
                 OnCountryChanging(value);
                 ReportPropertyChanging("Country");
-                _Country = StructuralObject.SetValidValue(value, true);
+                _Country = StructuralObject.SetValidValue(value, true, "Country");
                 ReportPropertyChanged("Country");
                 OnCountryChanged();
             }
@@ -3735,7 +3978,7 @@ namespace SAMSData
             {
                 OnParentIDChanging(value);
                 ReportPropertyChanging("ParentID");
-                _ParentID = StructuralObject.SetValidValue(value);
+                _ParentID = StructuralObject.SetValidValue(value, "ParentID");
                 ReportPropertyChanged("ParentID");
                 OnParentIDChanged();
             }
@@ -3759,7 +4002,7 @@ namespace SAMSData
             {
                 OnPhone1Changing(value);
                 ReportPropertyChanging("Phone1");
-                _Phone1 = StructuralObject.SetValidValue(value, true);
+                _Phone1 = StructuralObject.SetValidValue(value, true, "Phone1");
                 ReportPropertyChanged("Phone1");
                 OnPhone1Changed();
             }
@@ -3783,7 +4026,7 @@ namespace SAMSData
             {
                 OnPhone2Changing(value);
                 ReportPropertyChanging("Phone2");
-                _Phone2 = StructuralObject.SetValidValue(value, true);
+                _Phone2 = StructuralObject.SetValidValue(value, true, "Phone2");
                 ReportPropertyChanged("Phone2");
                 OnPhone2Changed();
             }
@@ -3807,7 +4050,7 @@ namespace SAMSData
             {
                 OnEmailChanging(value);
                 ReportPropertyChanging("Email");
-                _Email = StructuralObject.SetValidValue(value, true);
+                _Email = StructuralObject.SetValidValue(value, true, "Email");
                 ReportPropertyChanged("Email");
                 OnEmailChanged();
             }
@@ -3831,7 +4074,7 @@ namespace SAMSData
             {
                 OnPANChanging(value);
                 ReportPropertyChanging("PAN");
-                _PAN = StructuralObject.SetValidValue(value, true);
+                _PAN = StructuralObject.SetValidValue(value, true, "PAN");
                 ReportPropertyChanged("PAN");
                 OnPANChanged();
             }
@@ -3855,7 +4098,7 @@ namespace SAMSData
             {
                 OnTANChanging(value);
                 ReportPropertyChanging("TAN");
-                _TAN = StructuralObject.SetValidValue(value, true);
+                _TAN = StructuralObject.SetValidValue(value, true, "TAN");
                 ReportPropertyChanged("TAN");
                 OnTANChanged();
             }
@@ -3879,7 +4122,7 @@ namespace SAMSData
             {
                 OnTINChanging(value);
                 ReportPropertyChanging("TIN");
-                _TIN = StructuralObject.SetValidValue(value, true);
+                _TIN = StructuralObject.SetValidValue(value, true, "TIN");
                 ReportPropertyChanged("TIN");
                 OnTINChanged();
             }
@@ -3903,7 +4146,7 @@ namespace SAMSData
             {
                 OnSTAXChanging(value);
                 ReportPropertyChanging("STAX");
-                _STAX = StructuralObject.SetValidValue(value, true);
+                _STAX = StructuralObject.SetValidValue(value, true, "STAX");
                 ReportPropertyChanged("STAX");
                 OnSTAXChanged();
             }
@@ -3927,7 +4170,7 @@ namespace SAMSData
             {
                 OnCSTChanging(value);
                 ReportPropertyChanging("CST");
-                _CST = StructuralObject.SetValidValue(value, true);
+                _CST = StructuralObject.SetValidValue(value, true, "CST");
                 ReportPropertyChanged("CST");
                 OnCSTChanged();
             }
@@ -3951,7 +4194,7 @@ namespace SAMSData
             {
                 OnOther1Changing(value);
                 ReportPropertyChanging("Other1");
-                _Other1 = StructuralObject.SetValidValue(value, true);
+                _Other1 = StructuralObject.SetValidValue(value, true, "Other1");
                 ReportPropertyChanged("Other1");
                 OnOther1Changed();
             }
@@ -3975,7 +4218,7 @@ namespace SAMSData
             {
                 OnOther2Changing(value);
                 ReportPropertyChanging("Other2");
-                _Other2 = StructuralObject.SetValidValue(value, true);
+                _Other2 = StructuralObject.SetValidValue(value, true, "Other2");
                 ReportPropertyChanged("Other2");
                 OnOther2Changed();
             }
@@ -3999,7 +4242,7 @@ namespace SAMSData
             {
                 OnStatusChanging(value);
                 ReportPropertyChanging("Status");
-                _Status = StructuralObject.SetValidValue(value);
+                _Status = StructuralObject.SetValidValue(value, "Status");
                 ReportPropertyChanged("Status");
                 OnStatusChanged();
             }
@@ -4010,7 +4253,6 @@ namespace SAMSData
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -4154,7 +4396,7 @@ namespace SAMSData
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -4173,7 +4415,7 @@ namespace SAMSData
                 {
                     OnBusinessSectionIDChanging(value);
                     ReportPropertyChanging("BusinessSectionID");
-                    _BusinessSectionID = StructuralObject.SetValidValue(value);
+                    _BusinessSectionID = StructuralObject.SetValidValue(value, "BusinessSectionID");
                     ReportPropertyChanged("BusinessSectionID");
                     OnBusinessSectionIDChanged();
                 }
@@ -4198,7 +4440,7 @@ namespace SAMSData
             {
                 OnBusinessIDChanging(value);
                 ReportPropertyChanging("BusinessID");
-                _BusinessID = StructuralObject.SetValidValue(value);
+                _BusinessID = StructuralObject.SetValidValue(value, "BusinessID");
                 ReportPropertyChanged("BusinessID");
                 OnBusinessIDChanged();
             }
@@ -4222,7 +4464,7 @@ namespace SAMSData
             {
                 OnSectionIDChanging(value);
                 ReportPropertyChanging("SectionID");
-                _SectionID = StructuralObject.SetValidValue(value);
+                _SectionID = StructuralObject.SetValidValue(value, "SectionID");
                 ReportPropertyChanged("SectionID");
                 OnSectionIDChanged();
             }
@@ -4233,7 +4475,6 @@ namespace SAMSData
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -4339,7 +4580,7 @@ namespace SAMSData
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -4358,7 +4599,7 @@ namespace SAMSData
                 {
                     OnDonorCouponIdChanging(value);
                     ReportPropertyChanging("DonorCouponId");
-                    _DonorCouponId = StructuralObject.SetValidValue(value);
+                    _DonorCouponId = StructuralObject.SetValidValue(value, "DonorCouponId");
                     ReportPropertyChanged("DonorCouponId");
                     OnDonorCouponIdChanged();
                 }
@@ -4383,7 +4624,7 @@ namespace SAMSData
             {
                 OnMemberIdChanging(value);
                 ReportPropertyChanging("MemberId");
-                _MemberId = StructuralObject.SetValidValue(value);
+                _MemberId = StructuralObject.SetValidValue(value, "MemberId");
                 ReportPropertyChanged("MemberId");
                 OnMemberIdChanged();
             }
@@ -4407,7 +4648,7 @@ namespace SAMSData
             {
                 OnCouponStartdateChanging(value);
                 ReportPropertyChanging("CouponStartdate");
-                _CouponStartdate = StructuralObject.SetValidValue(value);
+                _CouponStartdate = StructuralObject.SetValidValue(value, "CouponStartdate");
                 ReportPropertyChanged("CouponStartdate");
                 OnCouponStartdateChanged();
             }
@@ -4431,7 +4672,7 @@ namespace SAMSData
             {
                 OnCouponEndDateChanging(value);
                 ReportPropertyChanging("CouponEndDate");
-                _CouponEndDate = StructuralObject.SetValidValue(value);
+                _CouponEndDate = StructuralObject.SetValidValue(value, "CouponEndDate");
                 ReportPropertyChanged("CouponEndDate");
                 OnCouponEndDateChanged();
             }
@@ -4455,7 +4696,7 @@ namespace SAMSData
             {
                 OnCouponsCountChanging(value);
                 ReportPropertyChanging("CouponsCount");
-                _CouponsCount = StructuralObject.SetValidValue(value);
+                _CouponsCount = StructuralObject.SetValidValue(value, "CouponsCount");
                 ReportPropertyChanged("CouponsCount");
                 OnCouponsCountChanged();
             }
@@ -4479,7 +4720,7 @@ namespace SAMSData
             {
                 OnCouponsChanging(value);
                 ReportPropertyChanging("Coupons");
-                _Coupons = StructuralObject.SetValidValue(value, true);
+                _Coupons = StructuralObject.SetValidValue(value, true, "Coupons");
                 ReportPropertyChanged("Coupons");
                 OnCouponsChanged();
             }
@@ -4503,7 +4744,7 @@ namespace SAMSData
             {
                 OnCommentsChanging(value);
                 ReportPropertyChanging("Comments");
-                _Comments = StructuralObject.SetValidValue(value, true);
+                _Comments = StructuralObject.SetValidValue(value, true, "Comments");
                 ReportPropertyChanged("Comments");
                 OnCommentsChanged();
             }
@@ -4527,7 +4768,7 @@ namespace SAMSData
             {
                 OnStartCouponChanging(value);
                 ReportPropertyChanging("StartCoupon");
-                _StartCoupon = StructuralObject.SetValidValue(value);
+                _StartCoupon = StructuralObject.SetValidValue(value, "StartCoupon");
                 ReportPropertyChanged("StartCoupon");
                 OnStartCouponChanged();
             }
@@ -4551,7 +4792,7 @@ namespace SAMSData
             {
                 OnEndCouponChanging(value);
                 ReportPropertyChanging("EndCoupon");
-                _EndCoupon = StructuralObject.SetValidValue(value);
+                _EndCoupon = StructuralObject.SetValidValue(value, "EndCoupon");
                 ReportPropertyChanged("EndCoupon");
                 OnEndCouponChanged();
             }
@@ -4562,7 +4803,6 @@ namespace SAMSData
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -4610,6 +4850,616 @@ namespace SAMSData
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SAMSModel", Name="InventoryPurchas")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class InventoryPurchas : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new InventoryPurchas object.
+        /// </summary>
+        /// <param name="purchaseId">Initial value of the PurchaseId property.</param>
+        /// <param name="purchaseDate">Initial value of the PurchaseDate property.</param>
+        public static InventoryPurchas CreateInventoryPurchas(global::System.Int32 purchaseId, global::System.DateTime purchaseDate)
+        {
+            InventoryPurchas inventoryPurchas = new InventoryPurchas();
+            inventoryPurchas.PurchaseId = purchaseId;
+            inventoryPurchas.PurchaseDate = purchaseDate;
+            return inventoryPurchas;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 PurchaseId
+        {
+            get
+            {
+                return _PurchaseId;
+            }
+            set
+            {
+                if (_PurchaseId != value)
+                {
+                    OnPurchaseIdChanging(value);
+                    ReportPropertyChanging("PurchaseId");
+                    _PurchaseId = StructuralObject.SetValidValue(value, "PurchaseId");
+                    ReportPropertyChanged("PurchaseId");
+                    OnPurchaseIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _PurchaseId;
+        partial void OnPurchaseIdChanging(global::System.Int32 value);
+        partial void OnPurchaseIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime PurchaseDate
+        {
+            get
+            {
+                return _PurchaseDate;
+            }
+            set
+            {
+                OnPurchaseDateChanging(value);
+                ReportPropertyChanging("PurchaseDate");
+                _PurchaseDate = StructuralObject.SetValidValue(value, "PurchaseDate");
+                ReportPropertyChanged("PurchaseDate");
+                OnPurchaseDateChanged();
+            }
+        }
+        private global::System.DateTime _PurchaseDate;
+        partial void OnPurchaseDateChanging(global::System.DateTime value);
+        partial void OnPurchaseDateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String InvoiceNumber
+        {
+            get
+            {
+                return _InvoiceNumber;
+            }
+            set
+            {
+                OnInvoiceNumberChanging(value);
+                ReportPropertyChanging("InvoiceNumber");
+                _InvoiceNumber = StructuralObject.SetValidValue(value, true, "InvoiceNumber");
+                ReportPropertyChanged("InvoiceNumber");
+                OnInvoiceNumberChanged();
+            }
+        }
+        private global::System.String _InvoiceNumber;
+        partial void OnInvoiceNumberChanging(global::System.String value);
+        partial void OnInvoiceNumberChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> InvoiceDate
+        {
+            get
+            {
+                return _InvoiceDate;
+            }
+            set
+            {
+                OnInvoiceDateChanging(value);
+                ReportPropertyChanging("InvoiceDate");
+                _InvoiceDate = StructuralObject.SetValidValue(value, "InvoiceDate");
+                ReportPropertyChanged("InvoiceDate");
+                OnInvoiceDateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _InvoiceDate;
+        partial void OnInvoiceDateChanging(Nullable<global::System.DateTime> value);
+        partial void OnInvoiceDateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String VendorName
+        {
+            get
+            {
+                return _VendorName;
+            }
+            set
+            {
+                OnVendorNameChanging(value);
+                ReportPropertyChanging("VendorName");
+                _VendorName = StructuralObject.SetValidValue(value, true, "VendorName");
+                ReportPropertyChanged("VendorName");
+                OnVendorNameChanged();
+            }
+        }
+        private global::System.String _VendorName;
+        partial void OnVendorNameChanging(global::System.String value);
+        partial void OnVendorNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String VendorAddress
+        {
+            get
+            {
+                return _VendorAddress;
+            }
+            set
+            {
+                OnVendorAddressChanging(value);
+                ReportPropertyChanging("VendorAddress");
+                _VendorAddress = StructuralObject.SetValidValue(value, true, "VendorAddress");
+                ReportPropertyChanged("VendorAddress");
+                OnVendorAddressChanged();
+            }
+        }
+        private global::System.String _VendorAddress;
+        partial void OnVendorAddressChanging(global::System.String value);
+        partial void OnVendorAddressChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> TotalAmount
+        {
+            get
+            {
+                return _TotalAmount;
+            }
+            set
+            {
+                OnTotalAmountChanging(value);
+                ReportPropertyChanging("TotalAmount");
+                _TotalAmount = StructuralObject.SetValidValue(value, "TotalAmount");
+                ReportPropertyChanged("TotalAmount");
+                OnTotalAmountChanged();
+            }
+        }
+        private Nullable<global::System.Double> _TotalAmount;
+        partial void OnTotalAmountChanging(Nullable<global::System.Double> value);
+        partial void OnTotalAmountChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Remarks
+        {
+            get
+            {
+                return _Remarks;
+            }
+            set
+            {
+                OnRemarksChanging(value);
+                ReportPropertyChanging("Remarks");
+                _Remarks = StructuralObject.SetValidValue(value, true, "Remarks");
+                ReportPropertyChanged("Remarks");
+                OnRemarksChanged();
+            }
+        }
+        private global::System.String _Remarks;
+        partial void OnRemarksChanging(global::System.String value);
+        partial void OnRemarksChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> CreatedBy
+        {
+            get
+            {
+                return _CreatedBy;
+            }
+            set
+            {
+                OnCreatedByChanging(value);
+                ReportPropertyChanging("CreatedBy");
+                _CreatedBy = StructuralObject.SetValidValue(value, "CreatedBy");
+                ReportPropertyChanged("CreatedBy");
+                OnCreatedByChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _CreatedBy;
+        partial void OnCreatedByChanging(Nullable<global::System.Int32> value);
+        partial void OnCreatedByChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> CreatedOn
+        {
+            get
+            {
+                return _CreatedOn;
+            }
+            set
+            {
+                OnCreatedOnChanging(value);
+                ReportPropertyChanging("CreatedOn");
+                _CreatedOn = StructuralObject.SetValidValue(value, "CreatedOn");
+                ReportPropertyChanged("CreatedOn");
+                OnCreatedOnChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _CreatedOn;
+        partial void OnCreatedOnChanging(Nullable<global::System.DateTime> value);
+        partial void OnCreatedOnChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> UpdatedBy
+        {
+            get
+            {
+                return _UpdatedBy;
+            }
+            set
+            {
+                OnUpdatedByChanging(value);
+                ReportPropertyChanging("UpdatedBy");
+                _UpdatedBy = StructuralObject.SetValidValue(value, "UpdatedBy");
+                ReportPropertyChanged("UpdatedBy");
+                OnUpdatedByChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _UpdatedBy;
+        partial void OnUpdatedByChanging(Nullable<global::System.Int32> value);
+        partial void OnUpdatedByChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> UpdatedOn
+        {
+            get
+            {
+                return _UpdatedOn;
+            }
+            set
+            {
+                OnUpdatedOnChanging(value);
+                ReportPropertyChanging("UpdatedOn");
+                _UpdatedOn = StructuralObject.SetValidValue(value, "UpdatedOn");
+                ReportPropertyChanged("UpdatedOn");
+                OnUpdatedOnChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _UpdatedOn;
+        partial void OnUpdatedOnChanging(Nullable<global::System.DateTime> value);
+        partial void OnUpdatedOnChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMSModel", "FK_InvPurchDetails_Purchases", "InventoryPurchaseDetail")]
+        public EntityCollection<InventoryPurchaseDetail> InventoryPurchaseDetails
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<InventoryPurchaseDetail>("SAMSModel.FK_InvPurchDetails_Purchases", "InventoryPurchaseDetail");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<InventoryPurchaseDetail>("SAMSModel.FK_InvPurchDetails_Purchases", "InventoryPurchaseDetail", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SAMSModel", Name="InventoryPurchaseDetail")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class InventoryPurchaseDetail : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new InventoryPurchaseDetail object.
+        /// </summary>
+        /// <param name="purchaseDetailId">Initial value of the PurchaseDetailId property.</param>
+        /// <param name="purchaseId">Initial value of the PurchaseId property.</param>
+        /// <param name="stockItemId">Initial value of the StockItemId property.</param>
+        /// <param name="quantity">Initial value of the Quantity property.</param>
+        public static InventoryPurchaseDetail CreateInventoryPurchaseDetail(global::System.Int32 purchaseDetailId, global::System.Int32 purchaseId, global::System.Int32 stockItemId, global::System.Double quantity)
+        {
+            InventoryPurchaseDetail inventoryPurchaseDetail = new InventoryPurchaseDetail();
+            inventoryPurchaseDetail.PurchaseDetailId = purchaseDetailId;
+            inventoryPurchaseDetail.PurchaseId = purchaseId;
+            inventoryPurchaseDetail.StockItemId = stockItemId;
+            inventoryPurchaseDetail.Quantity = quantity;
+            return inventoryPurchaseDetail;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 PurchaseDetailId
+        {
+            get
+            {
+                return _PurchaseDetailId;
+            }
+            set
+            {
+                if (_PurchaseDetailId != value)
+                {
+                    OnPurchaseDetailIdChanging(value);
+                    ReportPropertyChanging("PurchaseDetailId");
+                    _PurchaseDetailId = StructuralObject.SetValidValue(value, "PurchaseDetailId");
+                    ReportPropertyChanged("PurchaseDetailId");
+                    OnPurchaseDetailIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _PurchaseDetailId;
+        partial void OnPurchaseDetailIdChanging(global::System.Int32 value);
+        partial void OnPurchaseDetailIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 PurchaseId
+        {
+            get
+            {
+                return _PurchaseId;
+            }
+            set
+            {
+                OnPurchaseIdChanging(value);
+                ReportPropertyChanging("PurchaseId");
+                _PurchaseId = StructuralObject.SetValidValue(value, "PurchaseId");
+                ReportPropertyChanged("PurchaseId");
+                OnPurchaseIdChanged();
+            }
+        }
+        private global::System.Int32 _PurchaseId;
+        partial void OnPurchaseIdChanging(global::System.Int32 value);
+        partial void OnPurchaseIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 StockItemId
+        {
+            get
+            {
+                return _StockItemId;
+            }
+            set
+            {
+                OnStockItemIdChanging(value);
+                ReportPropertyChanging("StockItemId");
+                _StockItemId = StructuralObject.SetValidValue(value, "StockItemId");
+                ReportPropertyChanged("StockItemId");
+                OnStockItemIdChanged();
+            }
+        }
+        private global::System.Int32 _StockItemId;
+        partial void OnStockItemIdChanging(global::System.Int32 value);
+        partial void OnStockItemIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Double Quantity
+        {
+            get
+            {
+                return _Quantity;
+            }
+            set
+            {
+                OnQuantityChanging(value);
+                ReportPropertyChanging("Quantity");
+                _Quantity = StructuralObject.SetValidValue(value, "Quantity");
+                ReportPropertyChanged("Quantity");
+                OnQuantityChanged();
+            }
+        }
+        private global::System.Double _Quantity;
+        partial void OnQuantityChanging(global::System.Double value);
+        partial void OnQuantityChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> UnitPrice
+        {
+            get
+            {
+                return _UnitPrice;
+            }
+            set
+            {
+                OnUnitPriceChanging(value);
+                ReportPropertyChanging("UnitPrice");
+                _UnitPrice = StructuralObject.SetValidValue(value, "UnitPrice");
+                ReportPropertyChanged("UnitPrice");
+                OnUnitPriceChanged();
+            }
+        }
+        private Nullable<global::System.Double> _UnitPrice;
+        partial void OnUnitPriceChanging(Nullable<global::System.Double> value);
+        partial void OnUnitPriceChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> TotalAmount
+        {
+            get
+            {
+                return _TotalAmount;
+            }
+            set
+            {
+                OnTotalAmountChanging(value);
+                ReportPropertyChanging("TotalAmount");
+                _TotalAmount = StructuralObject.SetValidValue(value, "TotalAmount");
+                ReportPropertyChanged("TotalAmount");
+                OnTotalAmountChanged();
+            }
+        }
+        private Nullable<global::System.Double> _TotalAmount;
+        partial void OnTotalAmountChanging(Nullable<global::System.Double> value);
+        partial void OnTotalAmountChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMSModel", "FK_InvPurchDetails_Purchases", "InventoryPurchas")]
+        public InventoryPurchas InventoryPurchas
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<InventoryPurchas>("SAMSModel.FK_InvPurchDetails_Purchases", "InventoryPurchas").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<InventoryPurchas>("SAMSModel.FK_InvPurchDetails_Purchases", "InventoryPurchas").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<InventoryPurchas> InventoryPurchasReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<InventoryPurchas>("SAMSModel.FK_InvPurchDetails_Purchases", "InventoryPurchas");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<InventoryPurchas>("SAMSModel.FK_InvPurchDetails_Purchases", "InventoryPurchas", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMSModel", "FK_InvPurchDetails_StockItems", "StockItem")]
+        public StockItem StockItem
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<StockItem>("SAMSModel.FK_InvPurchDetails_StockItems", "StockItem").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<StockItem>("SAMSModel.FK_InvPurchDetails_StockItems", "StockItem").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<StockItem> StockItemReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<StockItem>("SAMSModel.FK_InvPurchDetails_StockItems", "StockItem");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<StockItem>("SAMSModel.FK_InvPurchDetails_StockItems", "StockItem", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="SAMSModel", Name="Ledger")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -4634,7 +5484,7 @@ namespace SAMSData
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -4653,7 +5503,7 @@ namespace SAMSData
                 {
                     OnLedgerIDChanging(value);
                     ReportPropertyChanging("LedgerID");
-                    _LedgerID = StructuralObject.SetValidValue(value);
+                    _LedgerID = StructuralObject.SetValidValue(value, "LedgerID");
                     ReportPropertyChanged("LedgerID");
                     OnLedgerIDChanged();
                 }
@@ -4678,7 +5528,7 @@ namespace SAMSData
             {
                 OnLedgerNameChanging(value);
                 ReportPropertyChanging("LedgerName");
-                _LedgerName = StructuralObject.SetValidValue(value, false);
+                _LedgerName = StructuralObject.SetValidValue(value, false, "LedgerName");
                 ReportPropertyChanged("LedgerName");
                 OnLedgerNameChanged();
             }
@@ -4702,7 +5552,7 @@ namespace SAMSData
             {
                 OnLedgerGroupIDChanging(value);
                 ReportPropertyChanging("LedgerGroupID");
-                _LedgerGroupID = StructuralObject.SetValidValue(value);
+                _LedgerGroupID = StructuralObject.SetValidValue(value, "LedgerGroupID");
                 ReportPropertyChanged("LedgerGroupID");
                 OnLedgerGroupIDChanged();
             }
@@ -4726,7 +5576,7 @@ namespace SAMSData
             {
                 OnTrackChanging(value);
                 ReportPropertyChanging("Track");
-                _Track = StructuralObject.SetValidValue(value, true);
+                _Track = StructuralObject.SetValidValue(value, true, "Track");
                 ReportPropertyChanged("Track");
                 OnTrackChanged();
             }
@@ -4750,7 +5600,7 @@ namespace SAMSData
             {
                 OnFullNameChanging(value);
                 ReportPropertyChanging("FullName");
-                _FullName = StructuralObject.SetValidValue(value, true);
+                _FullName = StructuralObject.SetValidValue(value, true, "FullName");
                 ReportPropertyChanged("FullName");
                 OnFullNameChanged();
             }
@@ -4774,7 +5624,7 @@ namespace SAMSData
             {
                 OnAddressChanging(value);
                 ReportPropertyChanging("Address");
-                _Address = StructuralObject.SetValidValue(value, true);
+                _Address = StructuralObject.SetValidValue(value, true, "Address");
                 ReportPropertyChanged("Address");
                 OnAddressChanged();
             }
@@ -4798,7 +5648,7 @@ namespace SAMSData
             {
                 OnPlaceChanging(value);
                 ReportPropertyChanging("Place");
-                _Place = StructuralObject.SetValidValue(value, true);
+                _Place = StructuralObject.SetValidValue(value, true, "Place");
                 ReportPropertyChanged("Place");
                 OnPlaceChanged();
             }
@@ -4822,7 +5672,7 @@ namespace SAMSData
             {
                 OnStateChanging(value);
                 ReportPropertyChanging("State");
-                _State = StructuralObject.SetValidValue(value, true);
+                _State = StructuralObject.SetValidValue(value, true, "State");
                 ReportPropertyChanged("State");
                 OnStateChanged();
             }
@@ -4846,7 +5696,7 @@ namespace SAMSData
             {
                 OnCountryChanging(value);
                 ReportPropertyChanging("Country");
-                _Country = StructuralObject.SetValidValue(value, true);
+                _Country = StructuralObject.SetValidValue(value, true, "Country");
                 ReportPropertyChanged("Country");
                 OnCountryChanged();
             }
@@ -4870,7 +5720,7 @@ namespace SAMSData
             {
                 OnPinChanging(value);
                 ReportPropertyChanging("Pin");
-                _Pin = StructuralObject.SetValidValue(value, true);
+                _Pin = StructuralObject.SetValidValue(value, true, "Pin");
                 ReportPropertyChanged("Pin");
                 OnPinChanged();
             }
@@ -4894,7 +5744,7 @@ namespace SAMSData
             {
                 OnPhone1Changing(value);
                 ReportPropertyChanging("Phone1");
-                _Phone1 = StructuralObject.SetValidValue(value, true);
+                _Phone1 = StructuralObject.SetValidValue(value, true, "Phone1");
                 ReportPropertyChanged("Phone1");
                 OnPhone1Changed();
             }
@@ -4918,7 +5768,7 @@ namespace SAMSData
             {
                 OnPhone2Changing(value);
                 ReportPropertyChanging("Phone2");
-                _Phone2 = StructuralObject.SetValidValue(value, true);
+                _Phone2 = StructuralObject.SetValidValue(value, true, "Phone2");
                 ReportPropertyChanged("Phone2");
                 OnPhone2Changed();
             }
@@ -4942,7 +5792,7 @@ namespace SAMSData
             {
                 OnEmailChanging(value);
                 ReportPropertyChanging("Email");
-                _Email = StructuralObject.SetValidValue(value, true);
+                _Email = StructuralObject.SetValidValue(value, true, "Email");
                 ReportPropertyChanged("Email");
                 OnEmailChanged();
             }
@@ -4966,7 +5816,7 @@ namespace SAMSData
             {
                 OnPANChanging(value);
                 ReportPropertyChanging("PAN");
-                _PAN = StructuralObject.SetValidValue(value, true);
+                _PAN = StructuralObject.SetValidValue(value, true, "PAN");
                 ReportPropertyChanged("PAN");
                 OnPANChanged();
             }
@@ -4990,7 +5840,7 @@ namespace SAMSData
             {
                 OnTANChanging(value);
                 ReportPropertyChanging("TAN");
-                _TAN = StructuralObject.SetValidValue(value, true);
+                _TAN = StructuralObject.SetValidValue(value, true, "TAN");
                 ReportPropertyChanged("TAN");
                 OnTANChanged();
             }
@@ -5014,7 +5864,7 @@ namespace SAMSData
             {
                 OnTINChanging(value);
                 ReportPropertyChanging("TIN");
-                _TIN = StructuralObject.SetValidValue(value, true);
+                _TIN = StructuralObject.SetValidValue(value, true, "TIN");
                 ReportPropertyChanged("TIN");
                 OnTINChanged();
             }
@@ -5038,7 +5888,7 @@ namespace SAMSData
             {
                 OnSTaxChanging(value);
                 ReportPropertyChanging("STax");
-                _STax = StructuralObject.SetValidValue(value, true);
+                _STax = StructuralObject.SetValidValue(value, true, "STax");
                 ReportPropertyChanged("STax");
                 OnSTaxChanged();
             }
@@ -5062,7 +5912,7 @@ namespace SAMSData
             {
                 OnCSTChanging(value);
                 ReportPropertyChanging("CST");
-                _CST = StructuralObject.SetValidValue(value, true);
+                _CST = StructuralObject.SetValidValue(value, true, "CST");
                 ReportPropertyChanged("CST");
                 OnCSTChanged();
             }
@@ -5086,7 +5936,7 @@ namespace SAMSData
             {
                 OnOther1Changing(value);
                 ReportPropertyChanging("Other1");
-                _Other1 = StructuralObject.SetValidValue(value, true);
+                _Other1 = StructuralObject.SetValidValue(value, true, "Other1");
                 ReportPropertyChanged("Other1");
                 OnOther1Changed();
             }
@@ -5110,7 +5960,7 @@ namespace SAMSData
             {
                 OnOther2Changing(value);
                 ReportPropertyChanging("Other2");
-                _Other2 = StructuralObject.SetValidValue(value, true);
+                _Other2 = StructuralObject.SetValidValue(value, true, "Other2");
                 ReportPropertyChanged("Other2");
                 OnOther2Changed();
             }
@@ -5134,7 +5984,7 @@ namespace SAMSData
             {
                 OnOpenningBalanceChanging(value);
                 ReportPropertyChanging("OpenningBalance");
-                _OpenningBalance = StructuralObject.SetValidValue(value);
+                _OpenningBalance = StructuralObject.SetValidValue(value, "OpenningBalance");
                 ReportPropertyChanged("OpenningBalance");
                 OnOpenningBalanceChanged();
             }
@@ -5158,7 +6008,7 @@ namespace SAMSData
             {
                 OnOpenningBalanceTypeChanging(value);
                 ReportPropertyChanging("OpenningBalanceType");
-                _OpenningBalanceType = StructuralObject.SetValidValue(value);
+                _OpenningBalanceType = StructuralObject.SetValidValue(value, "OpenningBalanceType");
                 ReportPropertyChanged("OpenningBalanceType");
                 OnOpenningBalanceTypeChanged();
             }
@@ -5182,7 +6032,7 @@ namespace SAMSData
             {
                 OnMasterBusinessIDChanging(value);
                 ReportPropertyChanging("MasterBusinessID");
-                _MasterBusinessID = StructuralObject.SetValidValue(value);
+                _MasterBusinessID = StructuralObject.SetValidValue(value, "MasterBusinessID");
                 ReportPropertyChanged("MasterBusinessID");
                 OnMasterBusinessIDChanged();
             }
@@ -5206,7 +6056,7 @@ namespace SAMSData
             {
                 OnStatusChanging(value);
                 ReportPropertyChanging("Status");
-                _Status = StructuralObject.SetValidValue(value);
+                _Status = StructuralObject.SetValidValue(value, "Status");
                 ReportPropertyChanged("Status");
                 OnStatusChanged();
             }
@@ -5230,7 +6080,7 @@ namespace SAMSData
             {
                 OnCreatedDateChanging(value);
                 ReportPropertyChanging("CreatedDate");
-                _CreatedDate = StructuralObject.SetValidValue(value);
+                _CreatedDate = StructuralObject.SetValidValue(value, "CreatedDate");
                 ReportPropertyChanged("CreatedDate");
                 OnCreatedDateChanged();
             }
@@ -5254,7 +6104,7 @@ namespace SAMSData
             {
                 OnModifiedDateChanging(value);
                 ReportPropertyChanging("ModifiedDate");
-                _ModifiedDate = StructuralObject.SetValidValue(value);
+                _ModifiedDate = StructuralObject.SetValidValue(value, "ModifiedDate");
                 ReportPropertyChanged("ModifiedDate");
                 OnModifiedDateChanged();
             }
@@ -5278,7 +6128,7 @@ namespace SAMSData
             {
                 OnGSTINChanging(value);
                 ReportPropertyChanging("GSTIN");
-                _GSTIN = StructuralObject.SetValidValue(value, true);
+                _GSTIN = StructuralObject.SetValidValue(value, true, "GSTIN");
                 ReportPropertyChanged("GSTIN");
                 OnGSTINChanged();
             }
@@ -5302,7 +6152,7 @@ namespace SAMSData
             {
                 OnAdharChanging(value);
                 ReportPropertyChanging("Adhar");
-                _Adhar = StructuralObject.SetValidValue(value, true);
+                _Adhar = StructuralObject.SetValidValue(value, true, "Adhar");
                 ReportPropertyChanged("Adhar");
                 OnAdharChanged();
             }
@@ -5313,7 +6163,6 @@ namespace SAMSData
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -5495,7 +6344,7 @@ namespace SAMSData
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -5514,7 +6363,7 @@ namespace SAMSData
                 {
                     OnLedgerGroupIDChanging(value);
                     ReportPropertyChanging("LedgerGroupID");
-                    _LedgerGroupID = StructuralObject.SetValidValue(value);
+                    _LedgerGroupID = StructuralObject.SetValidValue(value, "LedgerGroupID");
                     ReportPropertyChanged("LedgerGroupID");
                     OnLedgerGroupIDChanged();
                 }
@@ -5539,7 +6388,7 @@ namespace SAMSData
             {
                 OnGroupNameChanging(value);
                 ReportPropertyChanging("GroupName");
-                _GroupName = StructuralObject.SetValidValue(value, false);
+                _GroupName = StructuralObject.SetValidValue(value, false, "GroupName");
                 ReportPropertyChanged("GroupName");
                 OnGroupNameChanged();
             }
@@ -5563,7 +6412,7 @@ namespace SAMSData
             {
                 OnGroupTypeChanging(value);
                 ReportPropertyChanging("GroupType");
-                _GroupType = StructuralObject.SetValidValue(value, false);
+                _GroupType = StructuralObject.SetValidValue(value, false, "GroupType");
                 ReportPropertyChanged("GroupType");
                 OnGroupTypeChanged();
             }
@@ -5587,7 +6436,7 @@ namespace SAMSData
             {
                 OnStatusChanging(value);
                 ReportPropertyChanging("Status");
-                _Status = StructuralObject.SetValidValue(value);
+                _Status = StructuralObject.SetValidValue(value, "Status");
                 ReportPropertyChanged("Status");
                 OnStatusChanged();
             }
@@ -5598,7 +6447,6 @@ namespace SAMSData
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -5660,7 +6508,7 @@ namespace SAMSData
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -5679,7 +6527,7 @@ namespace SAMSData
                 {
                     OnLedgerJournalIDChanging(value);
                     ReportPropertyChanging("LedgerJournalID");
-                    _LedgerJournalID = StructuralObject.SetValidValue(value);
+                    _LedgerJournalID = StructuralObject.SetValidValue(value, "LedgerJournalID");
                     ReportPropertyChanged("LedgerJournalID");
                     OnLedgerJournalIDChanged();
                 }
@@ -5704,7 +6552,7 @@ namespace SAMSData
             {
                 OnBusinessIDChanging(value);
                 ReportPropertyChanging("BusinessID");
-                _BusinessID = StructuralObject.SetValidValue(value);
+                _BusinessID = StructuralObject.SetValidValue(value, "BusinessID");
                 ReportPropertyChanged("BusinessID");
                 OnBusinessIDChanged();
             }
@@ -5728,7 +6576,7 @@ namespace SAMSData
             {
                 OnTransactionDateChanging(value);
                 ReportPropertyChanging("TransactionDate");
-                _TransactionDate = StructuralObject.SetValidValue(value);
+                _TransactionDate = StructuralObject.SetValidValue(value, "TransactionDate");
                 ReportPropertyChanged("TransactionDate");
                 OnTransactionDateChanged();
             }
@@ -5752,7 +6600,7 @@ namespace SAMSData
             {
                 OnLedgerIDChanging(value);
                 ReportPropertyChanging("LedgerID");
-                _LedgerID = StructuralObject.SetValidValue(value);
+                _LedgerID = StructuralObject.SetValidValue(value, "LedgerID");
                 ReportPropertyChanged("LedgerID");
                 OnLedgerIDChanged();
             }
@@ -5776,7 +6624,7 @@ namespace SAMSData
             {
                 OnDrAmountChanging(value);
                 ReportPropertyChanging("DrAmount");
-                _DrAmount = StructuralObject.SetValidValue(value);
+                _DrAmount = StructuralObject.SetValidValue(value, "DrAmount");
                 ReportPropertyChanged("DrAmount");
                 OnDrAmountChanged();
             }
@@ -5800,7 +6648,7 @@ namespace SAMSData
             {
                 OnCrAmountChanging(value);
                 ReportPropertyChanging("CrAmount");
-                _CrAmount = StructuralObject.SetValidValue(value);
+                _CrAmount = StructuralObject.SetValidValue(value, "CrAmount");
                 ReportPropertyChanged("CrAmount");
                 OnCrAmountChanged();
             }
@@ -5824,7 +6672,7 @@ namespace SAMSData
             {
                 OnNarrationChanging(value);
                 ReportPropertyChanging("Narration");
-                _Narration = StructuralObject.SetValidValue(value, true);
+                _Narration = StructuralObject.SetValidValue(value, true, "Narration");
                 ReportPropertyChanged("Narration");
                 OnNarrationChanged();
             }
@@ -5848,7 +6696,7 @@ namespace SAMSData
             {
                 OnChequeNoChanging(value);
                 ReportPropertyChanging("ChequeNo");
-                _ChequeNo = StructuralObject.SetValidValue(value, true);
+                _ChequeNo = StructuralObject.SetValidValue(value, true, "ChequeNo");
                 ReportPropertyChanged("ChequeNo");
                 OnChequeNoChanged();
             }
@@ -5872,7 +6720,7 @@ namespace SAMSData
             {
                 OnEntryTypeChanging(value);
                 ReportPropertyChanging("EntryType");
-                _EntryType = StructuralObject.SetValidValue(value, true);
+                _EntryType = StructuralObject.SetValidValue(value, true, "EntryType");
                 ReportPropertyChanged("EntryType");
                 OnEntryTypeChanged();
             }
@@ -5896,7 +6744,7 @@ namespace SAMSData
             {
                 OnReferenceIDChanging(value);
                 ReportPropertyChanging("ReferenceID");
-                _ReferenceID = StructuralObject.SetValidValue(value);
+                _ReferenceID = StructuralObject.SetValidValue(value, "ReferenceID");
                 ReportPropertyChanged("ReferenceID");
                 OnReferenceIDChanged();
             }
@@ -5920,7 +6768,7 @@ namespace SAMSData
             {
                 OnDBEntryTypeChanging(value);
                 ReportPropertyChanging("DBEntryType");
-                _DBEntryType = StructuralObject.SetValidValue(value, true);
+                _DBEntryType = StructuralObject.SetValidValue(value, true, "DBEntryType");
                 ReportPropertyChanged("DBEntryType");
                 OnDBEntryTypeChanged();
             }
@@ -5931,7 +6779,6 @@ namespace SAMSData
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -6039,7 +6886,7 @@ namespace SAMSData
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -6058,7 +6905,7 @@ namespace SAMSData
                 {
                     OnMeasurementIDChanging(value);
                     ReportPropertyChanging("MeasurementID");
-                    _MeasurementID = StructuralObject.SetValidValue(value);
+                    _MeasurementID = StructuralObject.SetValidValue(value, "MeasurementID");
                     ReportPropertyChanged("MeasurementID");
                     OnMeasurementIDChanged();
                 }
@@ -6083,7 +6930,7 @@ namespace SAMSData
             {
                 OnMeasurementNameChanging(value);
                 ReportPropertyChanging("MeasurementName");
-                _MeasurementName = StructuralObject.SetValidValue(value, false);
+                _MeasurementName = StructuralObject.SetValidValue(value, false, "MeasurementName");
                 ReportPropertyChanged("MeasurementName");
                 OnMeasurementNameChanged();
             }
@@ -6107,7 +6954,7 @@ namespace SAMSData
             {
                 OnMeasurementValueChanging(value);
                 ReportPropertyChanging("MeasurementValue");
-                _MeasurementValue = StructuralObject.SetValidValue(value);
+                _MeasurementValue = StructuralObject.SetValidValue(value, "MeasurementValue");
                 ReportPropertyChanged("MeasurementValue");
                 OnMeasurementValueChanged();
             }
@@ -6131,7 +6978,7 @@ namespace SAMSData
             {
                 OnMeasurementMasterValueChanging(value);
                 ReportPropertyChanging("MeasurementMasterValue");
-                _MeasurementMasterValue = StructuralObject.SetValidValue(value);
+                _MeasurementMasterValue = StructuralObject.SetValidValue(value, "MeasurementMasterValue");
                 ReportPropertyChanged("MeasurementMasterValue");
                 OnMeasurementMasterValueChanged();
             }
@@ -6155,7 +7002,7 @@ namespace SAMSData
             {
                 OnPriorityChanging(value);
                 ReportPropertyChanging("Priority");
-                _Priority = StructuralObject.SetValidValue(value);
+                _Priority = StructuralObject.SetValidValue(value, "Priority");
                 ReportPropertyChanged("Priority");
                 OnPriorityChanged();
             }
@@ -6166,7 +7013,6 @@ namespace SAMSData
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -6218,7 +7064,7 @@ namespace SAMSData
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -6237,7 +7083,7 @@ namespace SAMSData
                 {
                     OnMemberIdChanging(value);
                     ReportPropertyChanging("MemberId");
-                    _MemberId = StructuralObject.SetValidValue(value);
+                    _MemberId = StructuralObject.SetValidValue(value, "MemberId");
                     ReportPropertyChanged("MemberId");
                     OnMemberIdChanged();
                 }
@@ -6262,7 +7108,7 @@ namespace SAMSData
             {
                 OnMembershipTypeIdChanging(value);
                 ReportPropertyChanging("MembershipTypeId");
-                _MembershipTypeId = StructuralObject.SetValidValue(value);
+                _MembershipTypeId = StructuralObject.SetValidValue(value, "MembershipTypeId");
                 ReportPropertyChanged("MembershipTypeId");
                 OnMembershipTypeIdChanged();
             }
@@ -6286,7 +7132,7 @@ namespace SAMSData
             {
                 OnMemberCodeChanging(value);
                 ReportPropertyChanging("MemberCode");
-                _MemberCode = StructuralObject.SetValidValue(value, true);
+                _MemberCode = StructuralObject.SetValidValue(value, true, "MemberCode");
                 ReportPropertyChanged("MemberCode");
                 OnMemberCodeChanged();
             }
@@ -6310,7 +7156,7 @@ namespace SAMSData
             {
                 OnICNOChanging(value);
                 ReportPropertyChanging("ICNO");
-                _ICNO = StructuralObject.SetValidValue(value, true);
+                _ICNO = StructuralObject.SetValidValue(value, true, "ICNO");
                 ReportPropertyChanged("ICNO");
                 OnICNOChanged();
             }
@@ -6334,7 +7180,7 @@ namespace SAMSData
             {
                 OnMemberQRCodeChanging(value);
                 ReportPropertyChanging("MemberQRCode");
-                _MemberQRCode = StructuralObject.SetValidValue(value, true);
+                _MemberQRCode = StructuralObject.SetValidValue(value, true, "MemberQRCode");
                 ReportPropertyChanged("MemberQRCode");
                 OnMemberQRCodeChanged();
             }
@@ -6358,7 +7204,7 @@ namespace SAMSData
             {
                 OnDOJChanging(value);
                 ReportPropertyChanging("DOJ");
-                _DOJ = StructuralObject.SetValidValue(value);
+                _DOJ = StructuralObject.SetValidValue(value, "DOJ");
                 ReportPropertyChanged("DOJ");
                 OnDOJChanged();
             }
@@ -6382,7 +7228,7 @@ namespace SAMSData
             {
                 OnFirstNameChanging(value);
                 ReportPropertyChanging("FirstName");
-                _FirstName = StructuralObject.SetValidValue(value, true);
+                _FirstName = StructuralObject.SetValidValue(value, true, "FirstName");
                 ReportPropertyChanged("FirstName");
                 OnFirstNameChanged();
             }
@@ -6406,7 +7252,7 @@ namespace SAMSData
             {
                 OnLastNameChanging(value);
                 ReportPropertyChanging("LastName");
-                _LastName = StructuralObject.SetValidValue(value, true);
+                _LastName = StructuralObject.SetValidValue(value, true, "LastName");
                 ReportPropertyChanged("LastName");
                 OnLastNameChanged();
             }
@@ -6430,7 +7276,7 @@ namespace SAMSData
             {
                 OnFatherNameChanging(value);
                 ReportPropertyChanging("FatherName");
-                _FatherName = StructuralObject.SetValidValue(value, true);
+                _FatherName = StructuralObject.SetValidValue(value, true, "FatherName");
                 ReportPropertyChanged("FatherName");
                 OnFatherNameChanged();
             }
@@ -6454,7 +7300,7 @@ namespace SAMSData
             {
                 OnDOBChanging(value);
                 ReportPropertyChanging("DOB");
-                _DOB = StructuralObject.SetValidValue(value);
+                _DOB = StructuralObject.SetValidValue(value, "DOB");
                 ReportPropertyChanged("DOB");
                 OnDOBChanged();
             }
@@ -6478,7 +7324,7 @@ namespace SAMSData
             {
                 OnGenderChanging(value);
                 ReportPropertyChanging("Gender");
-                _Gender = StructuralObject.SetValidValue(value, true);
+                _Gender = StructuralObject.SetValidValue(value, true, "Gender");
                 ReportPropertyChanged("Gender");
                 OnGenderChanged();
             }
@@ -6502,7 +7348,7 @@ namespace SAMSData
             {
                 OnEducationalQualificationChanging(value);
                 ReportPropertyChanging("EducationalQualification");
-                _EducationalQualification = StructuralObject.SetValidValue(value, true);
+                _EducationalQualification = StructuralObject.SetValidValue(value, true, "EducationalQualification");
                 ReportPropertyChanged("EducationalQualification");
                 OnEducationalQualificationChanged();
             }
@@ -6526,7 +7372,7 @@ namespace SAMSData
             {
                 OnProfessionChanging(value);
                 ReportPropertyChanging("Profession");
-                _Profession = StructuralObject.SetValidValue(value, true);
+                _Profession = StructuralObject.SetValidValue(value, true, "Profession");
                 ReportPropertyChanged("Profession");
                 OnProfessionChanged();
             }
@@ -6550,7 +7396,7 @@ namespace SAMSData
             {
                 OnAnnualIncomeChanging(value);
                 ReportPropertyChanging("AnnualIncome");
-                _AnnualIncome = StructuralObject.SetValidValue(value, true);
+                _AnnualIncome = StructuralObject.SetValidValue(value, true, "AnnualIncome");
                 ReportPropertyChanged("AnnualIncome");
                 OnAnnualIncomeChanged();
             }
@@ -6574,7 +7420,7 @@ namespace SAMSData
             {
                 OnITAssesseeChanging(value);
                 ReportPropertyChanging("ITAssessee");
-                _ITAssessee = StructuralObject.SetValidValue(value);
+                _ITAssessee = StructuralObject.SetValidValue(value, "ITAssessee");
                 ReportPropertyChanged("ITAssessee");
                 OnITAssesseeChanged();
             }
@@ -6598,7 +7444,7 @@ namespace SAMSData
             {
                 OnPANNoChanging(value);
                 ReportPropertyChanging("PANNo");
-                _PANNo = StructuralObject.SetValidValue(value, true);
+                _PANNo = StructuralObject.SetValidValue(value, true, "PANNo");
                 ReportPropertyChanged("PANNo");
                 OnPANNoChanged();
             }
@@ -6622,7 +7468,7 @@ namespace SAMSData
             {
                 OnPhoneChanging(value);
                 ReportPropertyChanging("Phone");
-                _Phone = StructuralObject.SetValidValue(value, true);
+                _Phone = StructuralObject.SetValidValue(value, true, "Phone");
                 ReportPropertyChanged("Phone");
                 OnPhoneChanged();
             }
@@ -6646,7 +7492,7 @@ namespace SAMSData
             {
                 OnAlternatePhoneChanging(value);
                 ReportPropertyChanging("AlternatePhone");
-                _AlternatePhone = StructuralObject.SetValidValue(value, true);
+                _AlternatePhone = StructuralObject.SetValidValue(value, true, "AlternatePhone");
                 ReportPropertyChanged("AlternatePhone");
                 OnAlternatePhoneChanged();
             }
@@ -6670,7 +7516,7 @@ namespace SAMSData
             {
                 OnEmailChanging(value);
                 ReportPropertyChanging("Email");
-                _Email = StructuralObject.SetValidValue(value, true);
+                _Email = StructuralObject.SetValidValue(value, true, "Email");
                 ReportPropertyChanged("Email");
                 OnEmailChanged();
             }
@@ -6694,7 +7540,7 @@ namespace SAMSData
             {
                 OnMembershipStatusChanging(value);
                 ReportPropertyChanging("MembershipStatus");
-                _MembershipStatus = StructuralObject.SetValidValue(value);
+                _MembershipStatus = StructuralObject.SetValidValue(value, "MembershipStatus");
                 ReportPropertyChanged("MembershipStatus");
                 OnMembershipStatusChanged();
             }
@@ -6718,7 +7564,7 @@ namespace SAMSData
             {
                 OnTransferredFromChanging(value);
                 ReportPropertyChanging("TransferredFrom");
-                _TransferredFrom = StructuralObject.SetValidValue(value, true);
+                _TransferredFrom = StructuralObject.SetValidValue(value, true, "TransferredFrom");
                 ReportPropertyChanged("TransferredFrom");
                 OnTransferredFromChanged();
             }
@@ -6742,7 +7588,7 @@ namespace SAMSData
             {
                 OnTransferredDateChanging(value);
                 ReportPropertyChanging("TransferredDate");
-                _TransferredDate = StructuralObject.SetValidValue(value);
+                _TransferredDate = StructuralObject.SetValidValue(value, "TransferredDate");
                 ReportPropertyChanged("TransferredDate");
                 OnTransferredDateChanged();
             }
@@ -6766,7 +7612,7 @@ namespace SAMSData
             {
                 OnCommentsChanging(value);
                 ReportPropertyChanging("Comments");
-                _Comments = StructuralObject.SetValidValue(value, true);
+                _Comments = StructuralObject.SetValidValue(value, true, "Comments");
                 ReportPropertyChanged("Comments");
                 OnCommentsChanged();
             }
@@ -6790,7 +7636,7 @@ namespace SAMSData
             {
                 OnIsRoomDonorChanging(value);
                 ReportPropertyChanging("IsRoomDonor");
-                _IsRoomDonor = StructuralObject.SetValidValue(value);
+                _IsRoomDonor = StructuralObject.SetValidValue(value, "IsRoomDonor");
                 ReportPropertyChanged("IsRoomDonor");
                 OnIsRoomDonorChanged();
             }
@@ -6814,7 +7660,7 @@ namespace SAMSData
             {
                 OnRoomDetailsChanging(value);
                 ReportPropertyChanging("RoomDetails");
-                _RoomDetails = StructuralObject.SetValidValue(value, true);
+                _RoomDetails = StructuralObject.SetValidValue(value, true, "RoomDetails");
                 ReportPropertyChanged("RoomDetails");
                 OnRoomDetailsChanged();
             }
@@ -6838,7 +7684,7 @@ namespace SAMSData
             {
                 OnAddress1Changing(value);
                 ReportPropertyChanging("Address1");
-                _Address1 = StructuralObject.SetValidValue(value, true);
+                _Address1 = StructuralObject.SetValidValue(value, true, "Address1");
                 ReportPropertyChanged("Address1");
                 OnAddress1Changed();
             }
@@ -6862,7 +7708,7 @@ namespace SAMSData
             {
                 OnAddress2Changing(value);
                 ReportPropertyChanging("Address2");
-                _Address2 = StructuralObject.SetValidValue(value, true);
+                _Address2 = StructuralObject.SetValidValue(value, true, "Address2");
                 ReportPropertyChanged("Address2");
                 OnAddress2Changed();
             }
@@ -6886,7 +7732,7 @@ namespace SAMSData
             {
                 OnAddress3Changing(value);
                 ReportPropertyChanging("Address3");
-                _Address3 = StructuralObject.SetValidValue(value, true);
+                _Address3 = StructuralObject.SetValidValue(value, true, "Address3");
                 ReportPropertyChanged("Address3");
                 OnAddress3Changed();
             }
@@ -6910,7 +7756,7 @@ namespace SAMSData
             {
                 OnPlaceChanging(value);
                 ReportPropertyChanging("Place");
-                _Place = StructuralObject.SetValidValue(value, true);
+                _Place = StructuralObject.SetValidValue(value, true, "Place");
                 ReportPropertyChanged("Place");
                 OnPlaceChanged();
             }
@@ -6934,7 +7780,7 @@ namespace SAMSData
             {
                 OnPincodeChanging(value);
                 ReportPropertyChanging("Pincode");
-                _Pincode = StructuralObject.SetValidValue(value, true);
+                _Pincode = StructuralObject.SetValidValue(value, true, "Pincode");
                 ReportPropertyChanged("Pincode");
                 OnPincodeChanged();
             }
@@ -6958,7 +7804,7 @@ namespace SAMSData
             {
                 OnDistrictChanging(value);
                 ReportPropertyChanging("District");
-                _District = StructuralObject.SetValidValue(value, true);
+                _District = StructuralObject.SetValidValue(value, true, "District");
                 ReportPropertyChanged("District");
                 OnDistrictChanged();
             }
@@ -6982,7 +7828,7 @@ namespace SAMSData
             {
                 OnStateChanging(value);
                 ReportPropertyChanging("State");
-                _State = StructuralObject.SetValidValue(value, true);
+                _State = StructuralObject.SetValidValue(value, true, "State");
                 ReportPropertyChanged("State");
                 OnStateChanged();
             }
@@ -7006,7 +7852,7 @@ namespace SAMSData
             {
                 OnOfficeAddress1Changing(value);
                 ReportPropertyChanging("OfficeAddress1");
-                _OfficeAddress1 = StructuralObject.SetValidValue(value, true);
+                _OfficeAddress1 = StructuralObject.SetValidValue(value, true, "OfficeAddress1");
                 ReportPropertyChanged("OfficeAddress1");
                 OnOfficeAddress1Changed();
             }
@@ -7030,7 +7876,7 @@ namespace SAMSData
             {
                 OnOfficeAddress2Changing(value);
                 ReportPropertyChanging("OfficeAddress2");
-                _OfficeAddress2 = StructuralObject.SetValidValue(value, true);
+                _OfficeAddress2 = StructuralObject.SetValidValue(value, true, "OfficeAddress2");
                 ReportPropertyChanged("OfficeAddress2");
                 OnOfficeAddress2Changed();
             }
@@ -7054,7 +7900,7 @@ namespace SAMSData
             {
                 OnOfficeAddress3Changing(value);
                 ReportPropertyChanging("OfficeAddress3");
-                _OfficeAddress3 = StructuralObject.SetValidValue(value, true);
+                _OfficeAddress3 = StructuralObject.SetValidValue(value, true, "OfficeAddress3");
                 ReportPropertyChanged("OfficeAddress3");
                 OnOfficeAddress3Changed();
             }
@@ -7078,7 +7924,7 @@ namespace SAMSData
             {
                 OnOfficePlaceChanging(value);
                 ReportPropertyChanging("OfficePlace");
-                _OfficePlace = StructuralObject.SetValidValue(value, true);
+                _OfficePlace = StructuralObject.SetValidValue(value, true, "OfficePlace");
                 ReportPropertyChanged("OfficePlace");
                 OnOfficePlaceChanged();
             }
@@ -7102,7 +7948,7 @@ namespace SAMSData
             {
                 OnOfficePincodeChanging(value);
                 ReportPropertyChanging("OfficePincode");
-                _OfficePincode = StructuralObject.SetValidValue(value, true);
+                _OfficePincode = StructuralObject.SetValidValue(value, true, "OfficePincode");
                 ReportPropertyChanged("OfficePincode");
                 OnOfficePincodeChanged();
             }
@@ -7126,7 +7972,7 @@ namespace SAMSData
             {
                 OnOfficeDistrictChanging(value);
                 ReportPropertyChanging("OfficeDistrict");
-                _OfficeDistrict = StructuralObject.SetValidValue(value, true);
+                _OfficeDistrict = StructuralObject.SetValidValue(value, true, "OfficeDistrict");
                 ReportPropertyChanged("OfficeDistrict");
                 OnOfficeDistrictChanged();
             }
@@ -7150,7 +7996,7 @@ namespace SAMSData
             {
                 OnOfficeStateChanging(value);
                 ReportPropertyChanging("OfficeState");
-                _OfficeState = StructuralObject.SetValidValue(value, true);
+                _OfficeState = StructuralObject.SetValidValue(value, true, "OfficeState");
                 ReportPropertyChanged("OfficeState");
                 OnOfficeStateChanged();
             }
@@ -7174,7 +8020,7 @@ namespace SAMSData
             {
                 OnResidentialAddress1Changing(value);
                 ReportPropertyChanging("ResidentialAddress1");
-                _ResidentialAddress1 = StructuralObject.SetValidValue(value, true);
+                _ResidentialAddress1 = StructuralObject.SetValidValue(value, true, "ResidentialAddress1");
                 ReportPropertyChanged("ResidentialAddress1");
                 OnResidentialAddress1Changed();
             }
@@ -7198,7 +8044,7 @@ namespace SAMSData
             {
                 OnResidentialAddress2Changing(value);
                 ReportPropertyChanging("ResidentialAddress2");
-                _ResidentialAddress2 = StructuralObject.SetValidValue(value, true);
+                _ResidentialAddress2 = StructuralObject.SetValidValue(value, true, "ResidentialAddress2");
                 ReportPropertyChanged("ResidentialAddress2");
                 OnResidentialAddress2Changed();
             }
@@ -7222,7 +8068,7 @@ namespace SAMSData
             {
                 OnResidentialAddress3Changing(value);
                 ReportPropertyChanging("ResidentialAddress3");
-                _ResidentialAddress3 = StructuralObject.SetValidValue(value, true);
+                _ResidentialAddress3 = StructuralObject.SetValidValue(value, true, "ResidentialAddress3");
                 ReportPropertyChanged("ResidentialAddress3");
                 OnResidentialAddress3Changed();
             }
@@ -7246,7 +8092,7 @@ namespace SAMSData
             {
                 OnResidentialPlaceChanging(value);
                 ReportPropertyChanging("ResidentialPlace");
-                _ResidentialPlace = StructuralObject.SetValidValue(value, true);
+                _ResidentialPlace = StructuralObject.SetValidValue(value, true, "ResidentialPlace");
                 ReportPropertyChanged("ResidentialPlace");
                 OnResidentialPlaceChanged();
             }
@@ -7270,7 +8116,7 @@ namespace SAMSData
             {
                 OnResidentialPincodeChanging(value);
                 ReportPropertyChanging("ResidentialPincode");
-                _ResidentialPincode = StructuralObject.SetValidValue(value, true);
+                _ResidentialPincode = StructuralObject.SetValidValue(value, true, "ResidentialPincode");
                 ReportPropertyChanged("ResidentialPincode");
                 OnResidentialPincodeChanged();
             }
@@ -7294,7 +8140,7 @@ namespace SAMSData
             {
                 OnResidentialDistrictChanging(value);
                 ReportPropertyChanging("ResidentialDistrict");
-                _ResidentialDistrict = StructuralObject.SetValidValue(value, true);
+                _ResidentialDistrict = StructuralObject.SetValidValue(value, true, "ResidentialDistrict");
                 ReportPropertyChanged("ResidentialDistrict");
                 OnResidentialDistrictChanged();
             }
@@ -7318,7 +8164,7 @@ namespace SAMSData
             {
                 OnResidentialStateChanging(value);
                 ReportPropertyChanging("ResidentialState");
-                _ResidentialState = StructuralObject.SetValidValue(value, true);
+                _ResidentialState = StructuralObject.SetValidValue(value, true, "ResidentialState");
                 ReportPropertyChanged("ResidentialState");
                 OnResidentialStateChanged();
             }
@@ -7342,7 +8188,7 @@ namespace SAMSData
             {
                 OnInterestedGamesChanging(value);
                 ReportPropertyChanging("InterestedGames");
-                _InterestedGames = StructuralObject.SetValidValue(value, true);
+                _InterestedGames = StructuralObject.SetValidValue(value, true, "InterestedGames");
                 ReportPropertyChanged("InterestedGames");
                 OnInterestedGamesChanged();
             }
@@ -7366,7 +8212,7 @@ namespace SAMSData
             {
                 OnOtherClubMemberDetails1Changing(value);
                 ReportPropertyChanging("OtherClubMemberDetails1");
-                _OtherClubMemberDetails1 = StructuralObject.SetValidValue(value, true);
+                _OtherClubMemberDetails1 = StructuralObject.SetValidValue(value, true, "OtherClubMemberDetails1");
                 ReportPropertyChanged("OtherClubMemberDetails1");
                 OnOtherClubMemberDetails1Changed();
             }
@@ -7390,7 +8236,7 @@ namespace SAMSData
             {
                 OnOtherClubMemberDetails2Changing(value);
                 ReportPropertyChanging("OtherClubMemberDetails2");
-                _OtherClubMemberDetails2 = StructuralObject.SetValidValue(value, true);
+                _OtherClubMemberDetails2 = StructuralObject.SetValidValue(value, true, "OtherClubMemberDetails2");
                 ReportPropertyChanged("OtherClubMemberDetails2");
                 OnOtherClubMemberDetails2Changed();
             }
@@ -7414,7 +8260,7 @@ namespace SAMSData
             {
                 OnReference1MemberCodeChanging(value);
                 ReportPropertyChanging("Reference1MemberCode");
-                _Reference1MemberCode = StructuralObject.SetValidValue(value, true);
+                _Reference1MemberCode = StructuralObject.SetValidValue(value, true, "Reference1MemberCode");
                 ReportPropertyChanged("Reference1MemberCode");
                 OnReference1MemberCodeChanged();
             }
@@ -7438,7 +8284,7 @@ namespace SAMSData
             {
                 OnReference2MemberCodeChanging(value);
                 ReportPropertyChanging("Reference2MemberCode");
-                _Reference2MemberCode = StructuralObject.SetValidValue(value, true);
+                _Reference2MemberCode = StructuralObject.SetValidValue(value, true, "Reference2MemberCode");
                 ReportPropertyChanged("Reference2MemberCode");
                 OnReference2MemberCodeChanged();
             }
@@ -7462,7 +8308,7 @@ namespace SAMSData
             {
                 OnReference3MemberCodeChanging(value);
                 ReportPropertyChanging("Reference3MemberCode");
-                _Reference3MemberCode = StructuralObject.SetValidValue(value, true);
+                _Reference3MemberCode = StructuralObject.SetValidValue(value, true, "Reference3MemberCode");
                 ReportPropertyChanged("Reference3MemberCode");
                 OnReference3MemberCodeChanged();
             }
@@ -7486,7 +8332,7 @@ namespace SAMSData
             {
                 OnReference4MemberCodeChanging(value);
                 ReportPropertyChanging("Reference4MemberCode");
-                _Reference4MemberCode = StructuralObject.SetValidValue(value, true);
+                _Reference4MemberCode = StructuralObject.SetValidValue(value, true, "Reference4MemberCode");
                 ReportPropertyChanged("Reference4MemberCode");
                 OnReference4MemberCodeChanged();
             }
@@ -7510,7 +8356,7 @@ namespace SAMSData
             {
                 OnPhotoPathChanging(value);
                 ReportPropertyChanging("PhotoPath");
-                _PhotoPath = StructuralObject.SetValidValue(value, true);
+                _PhotoPath = StructuralObject.SetValidValue(value, true, "PhotoPath");
                 ReportPropertyChanged("PhotoPath");
                 OnPhotoPathChanged();
             }
@@ -7534,7 +8380,7 @@ namespace SAMSData
             {
                 OnReceiptNoChanging(value);
                 ReportPropertyChanging("ReceiptNo");
-                _ReceiptNo = StructuralObject.SetValidValue(value, true);
+                _ReceiptNo = StructuralObject.SetValidValue(value, true, "ReceiptNo");
                 ReportPropertyChanged("ReceiptNo");
                 OnReceiptNoChanged();
             }
@@ -7558,7 +8404,7 @@ namespace SAMSData
             {
                 OnOtherDetails1Changing(value);
                 ReportPropertyChanging("OtherDetails1");
-                _OtherDetails1 = StructuralObject.SetValidValue(value, true);
+                _OtherDetails1 = StructuralObject.SetValidValue(value, true, "OtherDetails1");
                 ReportPropertyChanged("OtherDetails1");
                 OnOtherDetails1Changed();
             }
@@ -7582,7 +8428,7 @@ namespace SAMSData
             {
                 OnOtherDetails2Changing(value);
                 ReportPropertyChanging("OtherDetails2");
-                _OtherDetails2 = StructuralObject.SetValidValue(value, true);
+                _OtherDetails2 = StructuralObject.SetValidValue(value, true, "OtherDetails2");
                 ReportPropertyChanged("OtherDetails2");
                 OnOtherDetails2Changed();
             }
@@ -7606,7 +8452,7 @@ namespace SAMSData
             {
                 OnCreatedByChanging(value);
                 ReportPropertyChanging("CreatedBy");
-                _CreatedBy = StructuralObject.SetValidValue(value, true);
+                _CreatedBy = StructuralObject.SetValidValue(value, true, "CreatedBy");
                 ReportPropertyChanged("CreatedBy");
                 OnCreatedByChanged();
             }
@@ -7630,7 +8476,7 @@ namespace SAMSData
             {
                 OnCreatedOnChanging(value);
                 ReportPropertyChanging("CreatedOn");
-                _CreatedOn = StructuralObject.SetValidValue(value);
+                _CreatedOn = StructuralObject.SetValidValue(value, "CreatedOn");
                 ReportPropertyChanged("CreatedOn");
                 OnCreatedOnChanged();
             }
@@ -7654,7 +8500,7 @@ namespace SAMSData
             {
                 OnUpdatedByChanging(value);
                 ReportPropertyChanging("UpdatedBy");
-                _UpdatedBy = StructuralObject.SetValidValue(value, true);
+                _UpdatedBy = StructuralObject.SetValidValue(value, true, "UpdatedBy");
                 ReportPropertyChanged("UpdatedBy");
                 OnUpdatedByChanged();
             }
@@ -7678,7 +8524,7 @@ namespace SAMSData
             {
                 OnUpdatedOnChanging(value);
                 ReportPropertyChanging("UpdatedOn");
-                _UpdatedOn = StructuralObject.SetValidValue(value);
+                _UpdatedOn = StructuralObject.SetValidValue(value, "UpdatedOn");
                 ReportPropertyChanged("UpdatedOn");
                 OnUpdatedOnChanged();
             }
@@ -7689,7 +8535,6 @@ namespace SAMSData
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -7889,7 +8734,7 @@ namespace SAMSData
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -7908,7 +8753,7 @@ namespace SAMSData
                 {
                     OnMemberJournalIdChanging(value);
                     ReportPropertyChanging("MemberJournalId");
-                    _MemberJournalId = StructuralObject.SetValidValue(value);
+                    _MemberJournalId = StructuralObject.SetValidValue(value, "MemberJournalId");
                     ReportPropertyChanged("MemberJournalId");
                     OnMemberJournalIdChanged();
                 }
@@ -7933,7 +8778,7 @@ namespace SAMSData
             {
                 OnMemberIdChanging(value);
                 ReportPropertyChanging("MemberId");
-                _MemberId = StructuralObject.SetValidValue(value);
+                _MemberId = StructuralObject.SetValidValue(value, "MemberId");
                 ReportPropertyChanged("MemberId");
                 OnMemberIdChanged();
             }
@@ -7957,7 +8802,7 @@ namespace SAMSData
             {
                 OnTransactionDateChanging(value);
                 ReportPropertyChanging("TransactionDate");
-                _TransactionDate = StructuralObject.SetValidValue(value);
+                _TransactionDate = StructuralObject.SetValidValue(value, "TransactionDate");
                 ReportPropertyChanged("TransactionDate");
                 OnTransactionDateChanged();
             }
@@ -7981,7 +8826,7 @@ namespace SAMSData
             {
                 OnTransactionTypeChanging(value);
                 ReportPropertyChanging("TransactionType");
-                _TransactionType = StructuralObject.SetValidValue(value, true);
+                _TransactionType = StructuralObject.SetValidValue(value, true, "TransactionType");
                 ReportPropertyChanged("TransactionType");
                 OnTransactionTypeChanged();
             }
@@ -8005,7 +8850,7 @@ namespace SAMSData
             {
                 OnReferenceIdChanging(value);
                 ReportPropertyChanging("ReferenceId");
-                _ReferenceId = StructuralObject.SetValidValue(value);
+                _ReferenceId = StructuralObject.SetValidValue(value, "ReferenceId");
                 ReportPropertyChanged("ReferenceId");
                 OnReferenceIdChanged();
             }
@@ -8029,7 +8874,7 @@ namespace SAMSData
             {
                 OnReceiptNoChanging(value);
                 ReportPropertyChanging("ReceiptNo");
-                _ReceiptNo = StructuralObject.SetValidValue(value, true);
+                _ReceiptNo = StructuralObject.SetValidValue(value, true, "ReceiptNo");
                 ReportPropertyChanged("ReceiptNo");
                 OnReceiptNoChanged();
             }
@@ -8053,7 +8898,7 @@ namespace SAMSData
             {
                 OnNarriationChanging(value);
                 ReportPropertyChanging("Narriation");
-                _Narriation = StructuralObject.SetValidValue(value, true);
+                _Narriation = StructuralObject.SetValidValue(value, true, "Narriation");
                 ReportPropertyChanged("Narriation");
                 OnNarriationChanged();
             }
@@ -8077,7 +8922,7 @@ namespace SAMSData
             {
                 OnDrAmountChanging(value);
                 ReportPropertyChanging("DrAmount");
-                _DrAmount = StructuralObject.SetValidValue(value);
+                _DrAmount = StructuralObject.SetValidValue(value, "DrAmount");
                 ReportPropertyChanged("DrAmount");
                 OnDrAmountChanged();
             }
@@ -8101,7 +8946,7 @@ namespace SAMSData
             {
                 OnCrAmountChanging(value);
                 ReportPropertyChanging("CrAmount");
-                _CrAmount = StructuralObject.SetValidValue(value);
+                _CrAmount = StructuralObject.SetValidValue(value, "CrAmount");
                 ReportPropertyChanged("CrAmount");
                 OnCrAmountChanged();
             }
@@ -8112,7 +8957,6 @@ namespace SAMSData
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -8180,7 +9024,7 @@ namespace SAMSData
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -8199,7 +9043,7 @@ namespace SAMSData
                 {
                     OnMemberPaymentIdChanging(value);
                     ReportPropertyChanging("MemberPaymentId");
-                    _MemberPaymentId = StructuralObject.SetValidValue(value);
+                    _MemberPaymentId = StructuralObject.SetValidValue(value, "MemberPaymentId");
                     ReportPropertyChanged("MemberPaymentId");
                     OnMemberPaymentIdChanged();
                 }
@@ -8224,7 +9068,7 @@ namespace SAMSData
             {
                 OnMemberIdChanging(value);
                 ReportPropertyChanging("MemberId");
-                _MemberId = StructuralObject.SetValidValue(value);
+                _MemberId = StructuralObject.SetValidValue(value, "MemberId");
                 ReportPropertyChanged("MemberId");
                 OnMemberIdChanged();
             }
@@ -8248,7 +9092,7 @@ namespace SAMSData
             {
                 OnTransactionTypeChanging(value);
                 ReportPropertyChanging("TransactionType");
-                _TransactionType = StructuralObject.SetValidValue(value, true);
+                _TransactionType = StructuralObject.SetValidValue(value, true, "TransactionType");
                 ReportPropertyChanged("TransactionType");
                 OnTransactionTypeChanged();
             }
@@ -8272,7 +9116,7 @@ namespace SAMSData
             {
                 OnTransactionDateChanging(value);
                 ReportPropertyChanging("TransactionDate");
-                _TransactionDate = StructuralObject.SetValidValue(value);
+                _TransactionDate = StructuralObject.SetValidValue(value, "TransactionDate");
                 ReportPropertyChanged("TransactionDate");
                 OnTransactionDateChanged();
             }
@@ -8296,7 +9140,7 @@ namespace SAMSData
             {
                 OnTransactionAmountChanging(value);
                 ReportPropertyChanging("TransactionAmount");
-                _TransactionAmount = StructuralObject.SetValidValue(value);
+                _TransactionAmount = StructuralObject.SetValidValue(value, "TransactionAmount");
                 ReportPropertyChanged("TransactionAmount");
                 OnTransactionAmountChanged();
             }
@@ -8320,7 +9164,7 @@ namespace SAMSData
             {
                 OnReceiptNoChanging(value);
                 ReportPropertyChanging("ReceiptNo");
-                _ReceiptNo = StructuralObject.SetValidValue(value, true);
+                _ReceiptNo = StructuralObject.SetValidValue(value, true, "ReceiptNo");
                 ReportPropertyChanged("ReceiptNo");
                 OnReceiptNoChanged();
             }
@@ -8344,7 +9188,7 @@ namespace SAMSData
             {
                 OnTransactionDetailsChanging(value);
                 ReportPropertyChanging("TransactionDetails");
-                _TransactionDetails = StructuralObject.SetValidValue(value, true);
+                _TransactionDetails = StructuralObject.SetValidValue(value, true, "TransactionDetails");
                 ReportPropertyChanged("TransactionDetails");
                 OnTransactionDetailsChanged();
             }
@@ -8368,7 +9212,7 @@ namespace SAMSData
             {
                 OnEnteredByChanging(value);
                 ReportPropertyChanging("EnteredBy");
-                _EnteredBy = StructuralObject.SetValidValue(value, true);
+                _EnteredBy = StructuralObject.SetValidValue(value, true, "EnteredBy");
                 ReportPropertyChanged("EnteredBy");
                 OnEnteredByChanged();
             }
@@ -8392,7 +9236,7 @@ namespace SAMSData
             {
                 OnCreatedByChanging(value);
                 ReportPropertyChanging("CreatedBy");
-                _CreatedBy = StructuralObject.SetValidValue(value, true);
+                _CreatedBy = StructuralObject.SetValidValue(value, true, "CreatedBy");
                 ReportPropertyChanged("CreatedBy");
                 OnCreatedByChanged();
             }
@@ -8416,7 +9260,7 @@ namespace SAMSData
             {
                 OnCreatedOnChanging(value);
                 ReportPropertyChanging("CreatedOn");
-                _CreatedOn = StructuralObject.SetValidValue(value);
+                _CreatedOn = StructuralObject.SetValidValue(value, "CreatedOn");
                 ReportPropertyChanged("CreatedOn");
                 OnCreatedOnChanged();
             }
@@ -8440,7 +9284,7 @@ namespace SAMSData
             {
                 OnUpdatedByChanging(value);
                 ReportPropertyChanging("UpdatedBy");
-                _UpdatedBy = StructuralObject.SetValidValue(value, true);
+                _UpdatedBy = StructuralObject.SetValidValue(value, true, "UpdatedBy");
                 ReportPropertyChanged("UpdatedBy");
                 OnUpdatedByChanged();
             }
@@ -8464,7 +9308,7 @@ namespace SAMSData
             {
                 OnUpdatedOnChanging(value);
                 ReportPropertyChanging("UpdatedOn");
-                _UpdatedOn = StructuralObject.SetValidValue(value);
+                _UpdatedOn = StructuralObject.SetValidValue(value, "UpdatedOn");
                 ReportPropertyChanged("UpdatedOn");
                 OnUpdatedOnChanged();
             }
@@ -8475,7 +9319,6 @@ namespace SAMSData
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -8543,7 +9386,7 @@ namespace SAMSData
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -8562,7 +9405,7 @@ namespace SAMSData
                 {
                     OnMemershipFeeIdChanging(value);
                     ReportPropertyChanging("MemershipFeeId");
-                    _MemershipFeeId = StructuralObject.SetValidValue(value);
+                    _MemershipFeeId = StructuralObject.SetValidValue(value, "MemershipFeeId");
                     ReportPropertyChanged("MemershipFeeId");
                     OnMemershipFeeIdChanged();
                 }
@@ -8587,7 +9430,7 @@ namespace SAMSData
             {
                 OnMemberIdChanging(value);
                 ReportPropertyChanging("MemberId");
-                _MemberId = StructuralObject.SetValidValue(value);
+                _MemberId = StructuralObject.SetValidValue(value, "MemberId");
                 ReportPropertyChanged("MemberId");
                 OnMemberIdChanged();
             }
@@ -8611,7 +9454,7 @@ namespace SAMSData
             {
                 OnMembershipYearChanging(value);
                 ReportPropertyChanging("MembershipYear");
-                _MembershipYear = StructuralObject.SetValidValue(value, true);
+                _MembershipYear = StructuralObject.SetValidValue(value, true, "MembershipYear");
                 ReportPropertyChanged("MembershipYear");
                 OnMembershipYearChanged();
             }
@@ -8635,7 +9478,7 @@ namespace SAMSData
             {
                 OnMembershipFeeChanging(value);
                 ReportPropertyChanging("MembershipFee");
-                _MembershipFee = StructuralObject.SetValidValue(value);
+                _MembershipFee = StructuralObject.SetValidValue(value, "MembershipFee");
                 ReportPropertyChanged("MembershipFee");
                 OnMembershipFeeChanged();
             }
@@ -8659,7 +9502,7 @@ namespace SAMSData
             {
                 OnPaidDateChanging(value);
                 ReportPropertyChanging("PaidDate");
-                _PaidDate = StructuralObject.SetValidValue(value);
+                _PaidDate = StructuralObject.SetValidValue(value, "PaidDate");
                 ReportPropertyChanged("PaidDate");
                 OnPaidDateChanged();
             }
@@ -8683,7 +9526,7 @@ namespace SAMSData
             {
                 OnPaymentModeChanging(value);
                 ReportPropertyChanging("PaymentMode");
-                _PaymentMode = StructuralObject.SetValidValue(value, true);
+                _PaymentMode = StructuralObject.SetValidValue(value, true, "PaymentMode");
                 ReportPropertyChanged("PaymentMode");
                 OnPaymentModeChanged();
             }
@@ -8707,7 +9550,7 @@ namespace SAMSData
             {
                 OnPaymentDetailsChanging(value);
                 ReportPropertyChanging("PaymentDetails");
-                _PaymentDetails = StructuralObject.SetValidValue(value, true);
+                _PaymentDetails = StructuralObject.SetValidValue(value, true, "PaymentDetails");
                 ReportPropertyChanged("PaymentDetails");
                 OnPaymentDetailsChanged();
             }
@@ -8731,7 +9574,7 @@ namespace SAMSData
             {
                 OnCreatedByChanging(value);
                 ReportPropertyChanging("CreatedBy");
-                _CreatedBy = StructuralObject.SetValidValue(value, true);
+                _CreatedBy = StructuralObject.SetValidValue(value, true, "CreatedBy");
                 ReportPropertyChanged("CreatedBy");
                 OnCreatedByChanged();
             }
@@ -8755,7 +9598,7 @@ namespace SAMSData
             {
                 OnCreatedOnChanging(value);
                 ReportPropertyChanging("CreatedOn");
-                _CreatedOn = StructuralObject.SetValidValue(value);
+                _CreatedOn = StructuralObject.SetValidValue(value, "CreatedOn");
                 ReportPropertyChanged("CreatedOn");
                 OnCreatedOnChanged();
             }
@@ -8779,7 +9622,7 @@ namespace SAMSData
             {
                 OnUpdatedByChanging(value);
                 ReportPropertyChanging("UpdatedBy");
-                _UpdatedBy = StructuralObject.SetValidValue(value, true);
+                _UpdatedBy = StructuralObject.SetValidValue(value, true, "UpdatedBy");
                 ReportPropertyChanged("UpdatedBy");
                 OnUpdatedByChanged();
             }
@@ -8803,7 +9646,7 @@ namespace SAMSData
             {
                 OnUpdatedOnChanging(value);
                 ReportPropertyChanging("UpdatedOn");
-                _UpdatedOn = StructuralObject.SetValidValue(value);
+                _UpdatedOn = StructuralObject.SetValidValue(value, "UpdatedOn");
                 ReportPropertyChanged("UpdatedOn");
                 OnUpdatedOnChanged();
             }
@@ -8827,7 +9670,7 @@ namespace SAMSData
             {
                 OnStartDateChanging(value);
                 ReportPropertyChanging("StartDate");
-                _StartDate = StructuralObject.SetValidValue(value);
+                _StartDate = StructuralObject.SetValidValue(value, "StartDate");
                 ReportPropertyChanged("StartDate");
                 OnStartDateChanged();
             }
@@ -8851,7 +9694,7 @@ namespace SAMSData
             {
                 OnEndtDateChanging(value);
                 ReportPropertyChanging("EndtDate");
-                _EndtDate = StructuralObject.SetValidValue(value);
+                _EndtDate = StructuralObject.SetValidValue(value, "EndtDate");
                 ReportPropertyChanged("EndtDate");
                 OnEndtDateChanged();
             }
@@ -8875,7 +9718,7 @@ namespace SAMSData
             {
                 OnFeeReceiptNoChanging(value);
                 ReportPropertyChanging("FeeReceiptNo");
-                _FeeReceiptNo = StructuralObject.SetValidValue(value);
+                _FeeReceiptNo = StructuralObject.SetValidValue(value, "FeeReceiptNo");
                 ReportPropertyChanged("FeeReceiptNo");
                 OnFeeReceiptNoChanged();
             }
@@ -8899,7 +9742,7 @@ namespace SAMSData
             {
                 OnFeeTypeChanging(value);
                 ReportPropertyChanging("FeeType");
-                _FeeType = StructuralObject.SetValidValue(value);
+                _FeeType = StructuralObject.SetValidValue(value, "FeeType");
                 ReportPropertyChanged("FeeType");
                 OnFeeTypeChanged();
             }
@@ -8923,7 +9766,7 @@ namespace SAMSData
             {
                 OnCommentsChanging(value);
                 ReportPropertyChanging("Comments");
-                _Comments = StructuralObject.SetValidValue(value, true);
+                _Comments = StructuralObject.SetValidValue(value, true, "Comments");
                 ReportPropertyChanged("Comments");
                 OnCommentsChanged();
             }
@@ -8947,7 +9790,7 @@ namespace SAMSData
             {
                 OnFeePrefixChanging(value);
                 ReportPropertyChanging("FeePrefix");
-                _FeePrefix = StructuralObject.SetValidValue(value);
+                _FeePrefix = StructuralObject.SetValidValue(value, "FeePrefix");
                 ReportPropertyChanged("FeePrefix");
                 OnFeePrefixChanged();
             }
@@ -8958,7 +9801,6 @@ namespace SAMSData
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -9026,7 +9868,7 @@ namespace SAMSData
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -9045,7 +9887,7 @@ namespace SAMSData
                 {
                     OnMembershipTypeIdChanging(value);
                     ReportPropertyChanging("MembershipTypeId");
-                    _MembershipTypeId = StructuralObject.SetValidValue(value);
+                    _MembershipTypeId = StructuralObject.SetValidValue(value, "MembershipTypeId");
                     ReportPropertyChanged("MembershipTypeId");
                     OnMembershipTypeIdChanged();
                 }
@@ -9070,7 +9912,7 @@ namespace SAMSData
             {
                 OnMembershipNameChanging(value);
                 ReportPropertyChanging("MembershipName");
-                _MembershipName = StructuralObject.SetValidValue(value, true);
+                _MembershipName = StructuralObject.SetValidValue(value, true, "MembershipName");
                 ReportPropertyChanged("MembershipName");
                 OnMembershipNameChanged();
             }
@@ -9094,7 +9936,7 @@ namespace SAMSData
             {
                 OnMembershipFeeChanging(value);
                 ReportPropertyChanging("MembershipFee");
-                _MembershipFee = StructuralObject.SetValidValue(value);
+                _MembershipFee = StructuralObject.SetValidValue(value, "MembershipFee");
                 ReportPropertyChanged("MembershipFee");
                 OnMembershipFeeChanged();
             }
@@ -9118,7 +9960,7 @@ namespace SAMSData
             {
                 OnMaintenanceFeeChanging(value);
                 ReportPropertyChanging("MaintenanceFee");
-                _MaintenanceFee = StructuralObject.SetValidValue(value);
+                _MaintenanceFee = StructuralObject.SetValidValue(value, "MaintenanceFee");
                 ReportPropertyChanged("MaintenanceFee");
                 OnMaintenanceFeeChanged();
             }
@@ -9142,7 +9984,7 @@ namespace SAMSData
             {
                 OnAllowTransferChanging(value);
                 ReportPropertyChanging("AllowTransfer");
-                _AllowTransfer = StructuralObject.SetValidValue(value);
+                _AllowTransfer = StructuralObject.SetValidValue(value, "AllowTransfer");
                 ReportPropertyChanged("AllowTransfer");
                 OnAllowTransferChanged();
             }
@@ -9166,7 +10008,7 @@ namespace SAMSData
             {
                 OnCommentsChanging(value);
                 ReportPropertyChanging("Comments");
-                _Comments = StructuralObject.SetValidValue(value, true);
+                _Comments = StructuralObject.SetValidValue(value, true, "Comments");
                 ReportPropertyChanged("Comments");
                 OnCommentsChanged();
             }
@@ -9177,7 +10019,6 @@ namespace SAMSData
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -9229,7 +10070,7 @@ namespace SAMSData
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -9248,7 +10089,7 @@ namespace SAMSData
                 {
                     OnMemberVoucherIdChanging(value);
                     ReportPropertyChanging("MemberVoucherId");
-                    _MemberVoucherId = StructuralObject.SetValidValue(value);
+                    _MemberVoucherId = StructuralObject.SetValidValue(value, "MemberVoucherId");
                     ReportPropertyChanged("MemberVoucherId");
                     OnMemberVoucherIdChanged();
                 }
@@ -9273,7 +10114,7 @@ namespace SAMSData
             {
                 OnMemberIdChanging(value);
                 ReportPropertyChanging("MemberId");
-                _MemberId = StructuralObject.SetValidValue(value);
+                _MemberId = StructuralObject.SetValidValue(value, "MemberId");
                 ReportPropertyChanged("MemberId");
                 OnMemberIdChanged();
             }
@@ -9297,7 +10138,7 @@ namespace SAMSData
             {
                 OnVoucherNoChanging(value);
                 ReportPropertyChanging("VoucherNo");
-                _VoucherNo = StructuralObject.SetValidValue(value);
+                _VoucherNo = StructuralObject.SetValidValue(value, "VoucherNo");
                 ReportPropertyChanged("VoucherNo");
                 OnVoucherNoChanged();
             }
@@ -9321,7 +10162,7 @@ namespace SAMSData
             {
                 OnVoucherNoCodeChanging(value);
                 ReportPropertyChanging("VoucherNoCode");
-                _VoucherNoCode = StructuralObject.SetValidValue(value, true);
+                _VoucherNoCode = StructuralObject.SetValidValue(value, true, "VoucherNoCode");
                 ReportPropertyChanged("VoucherNoCode");
                 OnVoucherNoCodeChanged();
             }
@@ -9345,7 +10186,7 @@ namespace SAMSData
             {
                 OnManualVourcherNoChanging(value);
                 ReportPropertyChanging("ManualVourcherNo");
-                _ManualVourcherNo = StructuralObject.SetValidValue(value, true);
+                _ManualVourcherNo = StructuralObject.SetValidValue(value, true, "ManualVourcherNo");
                 ReportPropertyChanged("ManualVourcherNo");
                 OnManualVourcherNoChanged();
             }
@@ -9369,7 +10210,7 @@ namespace SAMSData
             {
                 OnVoucherAmountChanging(value);
                 ReportPropertyChanging("VoucherAmount");
-                _VoucherAmount = StructuralObject.SetValidValue(value);
+                _VoucherAmount = StructuralObject.SetValidValue(value, "VoucherAmount");
                 ReportPropertyChanged("VoucherAmount");
                 OnVoucherAmountChanged();
             }
@@ -9393,7 +10234,7 @@ namespace SAMSData
             {
                 OnTransactionDateChanging(value);
                 ReportPropertyChanging("TransactionDate");
-                _TransactionDate = StructuralObject.SetValidValue(value);
+                _TransactionDate = StructuralObject.SetValidValue(value, "TransactionDate");
                 ReportPropertyChanged("TransactionDate");
                 OnTransactionDateChanged();
             }
@@ -9417,7 +10258,7 @@ namespace SAMSData
             {
                 OnEnteredByChanging(value);
                 ReportPropertyChanging("EnteredBy");
-                _EnteredBy = StructuralObject.SetValidValue(value, true);
+                _EnteredBy = StructuralObject.SetValidValue(value, true, "EnteredBy");
                 ReportPropertyChanged("EnteredBy");
                 OnEnteredByChanged();
             }
@@ -9441,7 +10282,7 @@ namespace SAMSData
             {
                 OnCreatedByChanging(value);
                 ReportPropertyChanging("CreatedBy");
-                _CreatedBy = StructuralObject.SetValidValue(value, true);
+                _CreatedBy = StructuralObject.SetValidValue(value, true, "CreatedBy");
                 ReportPropertyChanged("CreatedBy");
                 OnCreatedByChanged();
             }
@@ -9465,7 +10306,7 @@ namespace SAMSData
             {
                 OnCreatedOnChanging(value);
                 ReportPropertyChanging("CreatedOn");
-                _CreatedOn = StructuralObject.SetValidValue(value);
+                _CreatedOn = StructuralObject.SetValidValue(value, "CreatedOn");
                 ReportPropertyChanged("CreatedOn");
                 OnCreatedOnChanged();
             }
@@ -9489,7 +10330,7 @@ namespace SAMSData
             {
                 OnUpdatedByChanging(value);
                 ReportPropertyChanging("UpdatedBy");
-                _UpdatedBy = StructuralObject.SetValidValue(value, true);
+                _UpdatedBy = StructuralObject.SetValidValue(value, true, "UpdatedBy");
                 ReportPropertyChanged("UpdatedBy");
                 OnUpdatedByChanged();
             }
@@ -9513,7 +10354,7 @@ namespace SAMSData
             {
                 OnUpdatedOnChanging(value);
                 ReportPropertyChanging("UpdatedOn");
-                _UpdatedOn = StructuralObject.SetValidValue(value);
+                _UpdatedOn = StructuralObject.SetValidValue(value, "UpdatedOn");
                 ReportPropertyChanged("UpdatedOn");
                 OnUpdatedOnChanged();
             }
@@ -9524,7 +10365,6 @@ namespace SAMSData
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -9596,7 +10436,7 @@ namespace SAMSData
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -9615,7 +10455,7 @@ namespace SAMSData
                 {
                     OnOBPurchaseDetailsIDChanging(value);
                     ReportPropertyChanging("OBPurchaseDetailsID");
-                    _OBPurchaseDetailsID = StructuralObject.SetValidValue(value);
+                    _OBPurchaseDetailsID = StructuralObject.SetValidValue(value, "OBPurchaseDetailsID");
                     ReportPropertyChanged("OBPurchaseDetailsID");
                     OnOBPurchaseDetailsIDChanged();
                 }
@@ -9640,7 +10480,7 @@ namespace SAMSData
             {
                 OnProductIDChanging(value);
                 ReportPropertyChanging("ProductID");
-                _ProductID = StructuralObject.SetValidValue(value);
+                _ProductID = StructuralObject.SetValidValue(value, "ProductID");
                 ReportPropertyChanged("ProductID");
                 OnProductIDChanged();
             }
@@ -9664,7 +10504,7 @@ namespace SAMSData
             {
                 OnBusinessIDChanging(value);
                 ReportPropertyChanging("BusinessID");
-                _BusinessID = StructuralObject.SetValidValue(value);
+                _BusinessID = StructuralObject.SetValidValue(value, "BusinessID");
                 ReportPropertyChanged("BusinessID");
                 OnBusinessIDChanged();
             }
@@ -9688,7 +10528,7 @@ namespace SAMSData
             {
                 OnPurchasePriceChanging(value);
                 ReportPropertyChanging("PurchasePrice");
-                _PurchasePrice = StructuralObject.SetValidValue(value);
+                _PurchasePrice = StructuralObject.SetValidValue(value, "PurchasePrice");
                 ReportPropertyChanged("PurchasePrice");
                 OnPurchasePriceChanged();
             }
@@ -9712,7 +10552,7 @@ namespace SAMSData
             {
                 OnQuantityChanging(value);
                 ReportPropertyChanging("Quantity");
-                _Quantity = StructuralObject.SetValidValue(value);
+                _Quantity = StructuralObject.SetValidValue(value, "Quantity");
                 ReportPropertyChanged("Quantity");
                 OnQuantityChanged();
             }
@@ -9736,7 +10576,7 @@ namespace SAMSData
             {
                 OnBatchNumberChanging(value);
                 ReportPropertyChanging("BatchNumber");
-                _BatchNumber = StructuralObject.SetValidValue(value, true);
+                _BatchNumber = StructuralObject.SetValidValue(value, true, "BatchNumber");
                 ReportPropertyChanged("BatchNumber");
                 OnBatchNumberChanged();
             }
@@ -9760,7 +10600,7 @@ namespace SAMSData
             {
                 OnSizeChanging(value);
                 ReportPropertyChanging("Size");
-                _Size = StructuralObject.SetValidValue(value, true);
+                _Size = StructuralObject.SetValidValue(value, true, "Size");
                 ReportPropertyChanged("Size");
                 OnSizeChanged();
             }
@@ -9784,7 +10624,7 @@ namespace SAMSData
             {
                 OnMfgDateChanging(value);
                 ReportPropertyChanging("MfgDate");
-                _MfgDate = StructuralObject.SetValidValue(value, true);
+                _MfgDate = StructuralObject.SetValidValue(value, true, "MfgDate");
                 ReportPropertyChanged("MfgDate");
                 OnMfgDateChanged();
             }
@@ -9808,7 +10648,7 @@ namespace SAMSData
             {
                 OnExpDateChanging(value);
                 ReportPropertyChanging("ExpDate");
-                _ExpDate = StructuralObject.SetValidValue(value, true);
+                _ExpDate = StructuralObject.SetValidValue(value, true, "ExpDate");
                 ReportPropertyChanged("ExpDate");
                 OnExpDateChanged();
             }
@@ -9832,7 +10672,7 @@ namespace SAMSData
             {
                 OnTransactionDateChanging(value);
                 ReportPropertyChanging("TransactionDate");
-                _TransactionDate = StructuralObject.SetValidValue(value);
+                _TransactionDate = StructuralObject.SetValidValue(value, "TransactionDate");
                 ReportPropertyChanged("TransactionDate");
                 OnTransactionDateChanged();
             }
@@ -9856,7 +10696,7 @@ namespace SAMSData
             {
                 OnSalePriceChanging(value);
                 ReportPropertyChanging("SalePrice");
-                _SalePrice = StructuralObject.SetValidValue(value);
+                _SalePrice = StructuralObject.SetValidValue(value, "SalePrice");
                 ReportPropertyChanged("SalePrice");
                 OnSalePriceChanged();
             }
@@ -9867,7 +10707,6 @@ namespace SAMSData
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -9975,7 +10814,7 @@ namespace SAMSData
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -9994,7 +10833,7 @@ namespace SAMSData
                 {
                     OnProductIDChanging(value);
                     ReportPropertyChanging("ProductID");
-                    _ProductID = StructuralObject.SetValidValue(value);
+                    _ProductID = StructuralObject.SetValidValue(value, "ProductID");
                     ReportPropertyChanged("ProductID");
                     OnProductIDChanged();
                 }
@@ -10019,7 +10858,7 @@ namespace SAMSData
             {
                 OnProductNameChanging(value);
                 ReportPropertyChanging("ProductName");
-                _ProductName = StructuralObject.SetValidValue(value, false);
+                _ProductName = StructuralObject.SetValidValue(value, false, "ProductName");
                 ReportPropertyChanged("ProductName");
                 OnProductNameChanged();
             }
@@ -10043,7 +10882,7 @@ namespace SAMSData
             {
                 OnDescriptionChanging(value);
                 ReportPropertyChanging("Description");
-                _Description = StructuralObject.SetValidValue(value, true);
+                _Description = StructuralObject.SetValidValue(value, true, "Description");
                 ReportPropertyChanged("Description");
                 OnDescriptionChanged();
             }
@@ -10067,7 +10906,7 @@ namespace SAMSData
             {
                 OnProductGroupIDChanging(value);
                 ReportPropertyChanging("ProductGroupID");
-                _ProductGroupID = StructuralObject.SetValidValue(value);
+                _ProductGroupID = StructuralObject.SetValidValue(value, "ProductGroupID");
                 ReportPropertyChanged("ProductGroupID");
                 OnProductGroupIDChanged();
             }
@@ -10091,7 +10930,7 @@ namespace SAMSData
             {
                 OnSectionIDChanging(value);
                 ReportPropertyChanging("SectionID");
-                _SectionID = StructuralObject.SetValidValue(value);
+                _SectionID = StructuralObject.SetValidValue(value, "SectionID");
                 ReportPropertyChanged("SectionID");
                 OnSectionIDChanged();
             }
@@ -10115,7 +10954,7 @@ namespace SAMSData
             {
                 OnMeasurementIDChanging(value);
                 ReportPropertyChanging("MeasurementID");
-                _MeasurementID = StructuralObject.SetValidValue(value);
+                _MeasurementID = StructuralObject.SetValidValue(value, "MeasurementID");
                 ReportPropertyChanged("MeasurementID");
                 OnMeasurementIDChanged();
             }
@@ -10139,7 +10978,7 @@ namespace SAMSData
             {
                 OnAccessoriesChanging(value);
                 ReportPropertyChanging("Accessories");
-                _Accessories = StructuralObject.SetValidValue(value, true);
+                _Accessories = StructuralObject.SetValidValue(value, true, "Accessories");
                 ReportPropertyChanged("Accessories");
                 OnAccessoriesChanged();
             }
@@ -10163,7 +11002,7 @@ namespace SAMSData
             {
                 OnImagePathChanging(value);
                 ReportPropertyChanging("ImagePath");
-                _ImagePath = StructuralObject.SetValidValue(value, true);
+                _ImagePath = StructuralObject.SetValidValue(value, true, "ImagePath");
                 ReportPropertyChanged("ImagePath");
                 OnImagePathChanged();
             }
@@ -10187,7 +11026,7 @@ namespace SAMSData
             {
                 OnStatusChanging(value);
                 ReportPropertyChanging("Status");
-                _Status = StructuralObject.SetValidValue(value);
+                _Status = StructuralObject.SetValidValue(value, "Status");
                 ReportPropertyChanged("Status");
                 OnStatusChanged();
             }
@@ -10211,7 +11050,7 @@ namespace SAMSData
             {
                 OnProductCodeChanging(value);
                 ReportPropertyChanging("ProductCode");
-                _ProductCode = StructuralObject.SetValidValue(value, true);
+                _ProductCode = StructuralObject.SetValidValue(value, true, "ProductCode");
                 ReportPropertyChanged("ProductCode");
                 OnProductCodeChanged();
             }
@@ -10235,7 +11074,7 @@ namespace SAMSData
             {
                 OnProductTaxChanging(value);
                 ReportPropertyChanging("ProductTax");
-                _ProductTax = StructuralObject.SetValidValue(value);
+                _ProductTax = StructuralObject.SetValidValue(value, "ProductTax");
                 ReportPropertyChanged("ProductTax");
                 OnProductTaxChanged();
             }
@@ -10259,7 +11098,7 @@ namespace SAMSData
             {
                 OnHSNChanging(value);
                 ReportPropertyChanging("HSN");
-                _HSN = StructuralObject.SetValidValue(value, true);
+                _HSN = StructuralObject.SetValidValue(value, true, "HSN");
                 ReportPropertyChanged("HSN");
                 OnHSNChanged();
             }
@@ -10283,7 +11122,7 @@ namespace SAMSData
             {
                 OnIGSTChanging(value);
                 ReportPropertyChanging("IGST");
-                _IGST = StructuralObject.SetValidValue(value);
+                _IGST = StructuralObject.SetValidValue(value, "IGST");
                 ReportPropertyChanged("IGST");
                 OnIGSTChanged();
             }
@@ -10307,7 +11146,7 @@ namespace SAMSData
             {
                 OnCGSTChanging(value);
                 ReportPropertyChanging("CGST");
-                _CGST = StructuralObject.SetValidValue(value);
+                _CGST = StructuralObject.SetValidValue(value, "CGST");
                 ReportPropertyChanged("CGST");
                 OnCGSTChanged();
             }
@@ -10331,7 +11170,7 @@ namespace SAMSData
             {
                 OnSGSTChanging(value);
                 ReportPropertyChanging("SGST");
-                _SGST = StructuralObject.SetValidValue(value);
+                _SGST = StructuralObject.SetValidValue(value, "SGST");
                 ReportPropertyChanged("SGST");
                 OnSGSTChanged();
             }
@@ -10355,7 +11194,7 @@ namespace SAMSData
             {
                 OnPercentageChanging(value);
                 ReportPropertyChanging("Percentage");
-                _Percentage = StructuralObject.SetValidValue(value);
+                _Percentage = StructuralObject.SetValidValue(value, "Percentage");
                 ReportPropertyChanged("Percentage");
                 OnPercentageChanged();
             }
@@ -10379,7 +11218,7 @@ namespace SAMSData
             {
                 OnOtherData1Changing(value);
                 ReportPropertyChanging("OtherData1");
-                _OtherData1 = StructuralObject.SetValidValue(value, true);
+                _OtherData1 = StructuralObject.SetValidValue(value, true, "OtherData1");
                 ReportPropertyChanged("OtherData1");
                 OnOtherData1Changed();
             }
@@ -10403,7 +11242,7 @@ namespace SAMSData
             {
                 OnOtherValue1Changing(value);
                 ReportPropertyChanging("OtherValue1");
-                _OtherValue1 = StructuralObject.SetValidValue(value);
+                _OtherValue1 = StructuralObject.SetValidValue(value, "OtherValue1");
                 ReportPropertyChanged("OtherValue1");
                 OnOtherValue1Changed();
             }
@@ -10414,7 +11253,6 @@ namespace SAMSData
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -10670,7 +11508,7 @@ namespace SAMSData
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -10689,7 +11527,7 @@ namespace SAMSData
                 {
                     OnProductGroupIDChanging(value);
                     ReportPropertyChanging("ProductGroupID");
-                    _ProductGroupID = StructuralObject.SetValidValue(value);
+                    _ProductGroupID = StructuralObject.SetValidValue(value, "ProductGroupID");
                     ReportPropertyChanged("ProductGroupID");
                     OnProductGroupIDChanged();
                 }
@@ -10714,7 +11552,7 @@ namespace SAMSData
             {
                 OnGroupNameChanging(value);
                 ReportPropertyChanging("GroupName");
-                _GroupName = StructuralObject.SetValidValue(value, false);
+                _GroupName = StructuralObject.SetValidValue(value, false, "GroupName");
                 ReportPropertyChanged("GroupName");
                 OnGroupNameChanged();
             }
@@ -10738,7 +11576,7 @@ namespace SAMSData
             {
                 OnDescriptionChanging(value);
                 ReportPropertyChanging("Description");
-                _Description = StructuralObject.SetValidValue(value, true);
+                _Description = StructuralObject.SetValidValue(value, true, "Description");
                 ReportPropertyChanged("Description");
                 OnDescriptionChanged();
             }
@@ -10762,7 +11600,7 @@ namespace SAMSData
             {
                 OnParentIDChanging(value);
                 ReportPropertyChanging("ParentID");
-                _ParentID = StructuralObject.SetValidValue(value);
+                _ParentID = StructuralObject.SetValidValue(value, "ParentID");
                 ReportPropertyChanged("ParentID");
                 OnParentIDChanged();
             }
@@ -10786,7 +11624,7 @@ namespace SAMSData
             {
                 OnSectionIDChanging(value);
                 ReportPropertyChanging("SectionID");
-                _SectionID = StructuralObject.SetValidValue(value);
+                _SectionID = StructuralObject.SetValidValue(value, "SectionID");
                 ReportPropertyChanged("SectionID");
                 OnSectionIDChanged();
             }
@@ -10797,7 +11635,6 @@ namespace SAMSData
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -10891,7 +11728,7 @@ namespace SAMSData
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -10910,7 +11747,7 @@ namespace SAMSData
                 {
                     OnProductTaxMappingIDChanging(value);
                     ReportPropertyChanging("ProductTaxMappingID");
-                    _ProductTaxMappingID = StructuralObject.SetValidValue(value);
+                    _ProductTaxMappingID = StructuralObject.SetValidValue(value, "ProductTaxMappingID");
                     ReportPropertyChanged("ProductTaxMappingID");
                     OnProductTaxMappingIDChanged();
                 }
@@ -10935,7 +11772,7 @@ namespace SAMSData
             {
                 OnProductIDChanging(value);
                 ReportPropertyChanging("ProductID");
-                _ProductID = StructuralObject.SetValidValue(value);
+                _ProductID = StructuralObject.SetValidValue(value, "ProductID");
                 ReportPropertyChanged("ProductID");
                 OnProductIDChanged();
             }
@@ -10959,7 +11796,7 @@ namespace SAMSData
             {
                 OnTaxIDChanging(value);
                 ReportPropertyChanging("TaxID");
-                _TaxID = StructuralObject.SetValidValue(value);
+                _TaxID = StructuralObject.SetValidValue(value, "TaxID");
                 ReportPropertyChanged("TaxID");
                 OnTaxIDChanged();
             }
@@ -10983,7 +11820,7 @@ namespace SAMSData
             {
                 OnStartDateChanging(value);
                 ReportPropertyChanging("StartDate");
-                _StartDate = StructuralObject.SetValidValue(value);
+                _StartDate = StructuralObject.SetValidValue(value, "StartDate");
                 ReportPropertyChanged("StartDate");
                 OnStartDateChanged();
             }
@@ -11007,7 +11844,7 @@ namespace SAMSData
             {
                 OnEndDateChanging(value);
                 ReportPropertyChanging("EndDate");
-                _EndDate = StructuralObject.SetValidValue(value);
+                _EndDate = StructuralObject.SetValidValue(value, "EndDate");
                 ReportPropertyChanged("EndDate");
                 OnEndDateChanged();
             }
@@ -11031,7 +11868,7 @@ namespace SAMSData
             {
                 OnStatusChanging(value);
                 ReportPropertyChanging("Status");
-                _Status = StructuralObject.SetValidValue(value);
+                _Status = StructuralObject.SetValidValue(value, "Status");
                 ReportPropertyChanged("Status");
                 OnStatusChanged();
             }
@@ -11042,7 +11879,6 @@ namespace SAMSData
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -11154,7 +11990,7 @@ namespace SAMSData
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -11173,7 +12009,7 @@ namespace SAMSData
                 {
                     OnPurchaseIDChanging(value);
                     ReportPropertyChanging("PurchaseID");
-                    _PurchaseID = StructuralObject.SetValidValue(value);
+                    _PurchaseID = StructuralObject.SetValidValue(value, "PurchaseID");
                     ReportPropertyChanged("PurchaseID");
                     OnPurchaseIDChanged();
                 }
@@ -11198,7 +12034,7 @@ namespace SAMSData
             {
                 OnBusinessIDChanging(value);
                 ReportPropertyChanging("BusinessID");
-                _BusinessID = StructuralObject.SetValidValue(value);
+                _BusinessID = StructuralObject.SetValidValue(value, "BusinessID");
                 ReportPropertyChanged("BusinessID");
                 OnBusinessIDChanged();
             }
@@ -11222,7 +12058,7 @@ namespace SAMSData
             {
                 OnSectionIDChanging(value);
                 ReportPropertyChanging("SectionID");
-                _SectionID = StructuralObject.SetValidValue(value);
+                _SectionID = StructuralObject.SetValidValue(value, "SectionID");
                 ReportPropertyChanged("SectionID");
                 OnSectionIDChanged();
             }
@@ -11246,7 +12082,7 @@ namespace SAMSData
             {
                 OnTransactionDateChanging(value);
                 ReportPropertyChanging("TransactionDate");
-                _TransactionDate = StructuralObject.SetValidValue(value);
+                _TransactionDate = StructuralObject.SetValidValue(value, "TransactionDate");
                 ReportPropertyChanged("TransactionDate");
                 OnTransactionDateChanged();
             }
@@ -11270,7 +12106,7 @@ namespace SAMSData
             {
                 OnInvoiceNumberChanging(value);
                 ReportPropertyChanging("InvoiceNumber");
-                _InvoiceNumber = StructuralObject.SetValidValue(value, true);
+                _InvoiceNumber = StructuralObject.SetValidValue(value, true, "InvoiceNumber");
                 ReportPropertyChanged("InvoiceNumber");
                 OnInvoiceNumberChanged();
             }
@@ -11294,7 +12130,7 @@ namespace SAMSData
             {
                 OnInvoiceDateChanging(value);
                 ReportPropertyChanging("InvoiceDate");
-                _InvoiceDate = StructuralObject.SetValidValue(value);
+                _InvoiceDate = StructuralObject.SetValidValue(value, "InvoiceDate");
                 ReportPropertyChanged("InvoiceDate");
                 OnInvoiceDateChanged();
             }
@@ -11318,7 +12154,7 @@ namespace SAMSData
             {
                 OnDCNumberChanging(value);
                 ReportPropertyChanging("DCNumber");
-                _DCNumber = StructuralObject.SetValidValue(value, true);
+                _DCNumber = StructuralObject.SetValidValue(value, true, "DCNumber");
                 ReportPropertyChanged("DCNumber");
                 OnDCNumberChanged();
             }
@@ -11342,7 +12178,7 @@ namespace SAMSData
             {
                 OnDCDateChanging(value);
                 ReportPropertyChanging("DCDate");
-                _DCDate = StructuralObject.SetValidValue(value, true);
+                _DCDate = StructuralObject.SetValidValue(value, true, "DCDate");
                 ReportPropertyChanged("DCDate");
                 OnDCDateChanged();
             }
@@ -11366,7 +12202,7 @@ namespace SAMSData
             {
                 OnDCAmountChanging(value);
                 ReportPropertyChanging("DCAmount");
-                _DCAmount = StructuralObject.SetValidValue(value);
+                _DCAmount = StructuralObject.SetValidValue(value, "DCAmount");
                 ReportPropertyChanged("DCAmount");
                 OnDCAmountChanged();
             }
@@ -11390,7 +12226,7 @@ namespace SAMSData
             {
                 OnInvoiceAmountChanging(value);
                 ReportPropertyChanging("InvoiceAmount");
-                _InvoiceAmount = StructuralObject.SetValidValue(value);
+                _InvoiceAmount = StructuralObject.SetValidValue(value, "InvoiceAmount");
                 ReportPropertyChanged("InvoiceAmount");
                 OnInvoiceAmountChanged();
             }
@@ -11414,7 +12250,7 @@ namespace SAMSData
             {
                 OnVendorIDChanging(value);
                 ReportPropertyChanging("VendorID");
-                _VendorID = StructuralObject.SetValidValue(value);
+                _VendorID = StructuralObject.SetValidValue(value, "VendorID");
                 ReportPropertyChanged("VendorID");
                 OnVendorIDChanged();
             }
@@ -11438,7 +12274,7 @@ namespace SAMSData
             {
                 OnVendorNameChanging(value);
                 ReportPropertyChanging("VendorName");
-                _VendorName = StructuralObject.SetValidValue(value, true);
+                _VendorName = StructuralObject.SetValidValue(value, true, "VendorName");
                 ReportPropertyChanged("VendorName");
                 OnVendorNameChanged();
             }
@@ -11462,7 +12298,7 @@ namespace SAMSData
             {
                 OnAddressChanging(value);
                 ReportPropertyChanging("Address");
-                _Address = StructuralObject.SetValidValue(value, true);
+                _Address = StructuralObject.SetValidValue(value, true, "Address");
                 ReportPropertyChanged("Address");
                 OnAddressChanged();
             }
@@ -11486,7 +12322,7 @@ namespace SAMSData
             {
                 OnPlaceChanging(value);
                 ReportPropertyChanging("Place");
-                _Place = StructuralObject.SetValidValue(value, true);
+                _Place = StructuralObject.SetValidValue(value, true, "Place");
                 ReportPropertyChanged("Place");
                 OnPlaceChanged();
             }
@@ -11510,7 +12346,7 @@ namespace SAMSData
             {
                 OnFreightandHamaliChanging(value);
                 ReportPropertyChanging("FreightandHamali");
-                _FreightandHamali = StructuralObject.SetValidValue(value);
+                _FreightandHamali = StructuralObject.SetValidValue(value, "FreightandHamali");
                 ReportPropertyChanged("FreightandHamali");
                 OnFreightandHamaliChanged();
             }
@@ -11534,7 +12370,7 @@ namespace SAMSData
             {
                 OnTaxAmountChanging(value);
                 ReportPropertyChanging("TaxAmount");
-                _TaxAmount = StructuralObject.SetValidValue(value);
+                _TaxAmount = StructuralObject.SetValidValue(value, "TaxAmount");
                 ReportPropertyChanged("TaxAmount");
                 OnTaxAmountChanged();
             }
@@ -11558,7 +12394,7 @@ namespace SAMSData
             {
                 OnOtherCharges1Changing(value);
                 ReportPropertyChanging("OtherCharges1");
-                _OtherCharges1 = StructuralObject.SetValidValue(value);
+                _OtherCharges1 = StructuralObject.SetValidValue(value, "OtherCharges1");
                 ReportPropertyChanged("OtherCharges1");
                 OnOtherCharges1Changed();
             }
@@ -11582,7 +12418,7 @@ namespace SAMSData
             {
                 OnOtherCharges2Changing(value);
                 ReportPropertyChanging("OtherCharges2");
-                _OtherCharges2 = StructuralObject.SetValidValue(value);
+                _OtherCharges2 = StructuralObject.SetValidValue(value, "OtherCharges2");
                 ReportPropertyChanged("OtherCharges2");
                 OnOtherCharges2Changed();
             }
@@ -11606,7 +12442,7 @@ namespace SAMSData
             {
                 OnNetAmountChanging(value);
                 ReportPropertyChanging("NetAmount");
-                _NetAmount = StructuralObject.SetValidValue(value);
+                _NetAmount = StructuralObject.SetValidValue(value, "NetAmount");
                 ReportPropertyChanged("NetAmount");
                 OnNetAmountChanged();
             }
@@ -11630,7 +12466,7 @@ namespace SAMSData
             {
                 OnPurchaseCategoryChanging(value);
                 ReportPropertyChanging("PurchaseCategory");
-                _PurchaseCategory = StructuralObject.SetValidValue(value, true);
+                _PurchaseCategory = StructuralObject.SetValidValue(value, true, "PurchaseCategory");
                 ReportPropertyChanged("PurchaseCategory");
                 OnPurchaseCategoryChanged();
             }
@@ -11654,7 +12490,7 @@ namespace SAMSData
             {
                 OnIGSTValueChanging(value);
                 ReportPropertyChanging("IGSTValue");
-                _IGSTValue = StructuralObject.SetValidValue(value);
+                _IGSTValue = StructuralObject.SetValidValue(value, "IGSTValue");
                 ReportPropertyChanged("IGSTValue");
                 OnIGSTValueChanged();
             }
@@ -11678,7 +12514,7 @@ namespace SAMSData
             {
                 OnCGSTValueChanging(value);
                 ReportPropertyChanging("CGSTValue");
-                _CGSTValue = StructuralObject.SetValidValue(value);
+                _CGSTValue = StructuralObject.SetValidValue(value, "CGSTValue");
                 ReportPropertyChanged("CGSTValue");
                 OnCGSTValueChanged();
             }
@@ -11702,7 +12538,7 @@ namespace SAMSData
             {
                 OnSGSTValueChanging(value);
                 ReportPropertyChanging("SGSTValue");
-                _SGSTValue = StructuralObject.SetValidValue(value);
+                _SGSTValue = StructuralObject.SetValidValue(value, "SGSTValue");
                 ReportPropertyChanged("SGSTValue");
                 OnSGSTValueChanged();
             }
@@ -11726,7 +12562,7 @@ namespace SAMSData
             {
                 OnCESSValueChanging(value);
                 ReportPropertyChanging("CESSValue");
-                _CESSValue = StructuralObject.SetValidValue(value);
+                _CESSValue = StructuralObject.SetValidValue(value, "CESSValue");
                 ReportPropertyChanged("CESSValue");
                 OnCESSValueChanged();
             }
@@ -11750,7 +12586,7 @@ namespace SAMSData
             {
                 OnBillTypeChanging(value);
                 ReportPropertyChanging("BillType");
-                _BillType = StructuralObject.SetValidValue(value);
+                _BillType = StructuralObject.SetValidValue(value, "BillType");
                 ReportPropertyChanged("BillType");
                 OnBillTypeChanged();
             }
@@ -11761,7 +12597,6 @@ namespace SAMSData
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -11933,7 +12768,7 @@ namespace SAMSData
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -11952,7 +12787,7 @@ namespace SAMSData
                 {
                     OnPurchaseDetailsIDChanging(value);
                     ReportPropertyChanging("PurchaseDetailsID");
-                    _PurchaseDetailsID = StructuralObject.SetValidValue(value);
+                    _PurchaseDetailsID = StructuralObject.SetValidValue(value, "PurchaseDetailsID");
                     ReportPropertyChanged("PurchaseDetailsID");
                     OnPurchaseDetailsIDChanged();
                 }
@@ -11977,7 +12812,7 @@ namespace SAMSData
             {
                 OnPurchaseIDChanging(value);
                 ReportPropertyChanging("PurchaseID");
-                _PurchaseID = StructuralObject.SetValidValue(value);
+                _PurchaseID = StructuralObject.SetValidValue(value, "PurchaseID");
                 ReportPropertyChanged("PurchaseID");
                 OnPurchaseIDChanged();
             }
@@ -12001,7 +12836,7 @@ namespace SAMSData
             {
                 OnProductIDChanging(value);
                 ReportPropertyChanging("ProductID");
-                _ProductID = StructuralObject.SetValidValue(value);
+                _ProductID = StructuralObject.SetValidValue(value, "ProductID");
                 ReportPropertyChanged("ProductID");
                 OnProductIDChanged();
             }
@@ -12025,7 +12860,7 @@ namespace SAMSData
             {
                 OnPurchasePriceChanging(value);
                 ReportPropertyChanging("PurchasePrice");
-                _PurchasePrice = StructuralObject.SetValidValue(value);
+                _PurchasePrice = StructuralObject.SetValidValue(value, "PurchasePrice");
                 ReportPropertyChanged("PurchasePrice");
                 OnPurchasePriceChanged();
             }
@@ -12049,7 +12884,7 @@ namespace SAMSData
             {
                 OnQuantityChanging(value);
                 ReportPropertyChanging("Quantity");
-                _Quantity = StructuralObject.SetValidValue(value);
+                _Quantity = StructuralObject.SetValidValue(value, "Quantity");
                 ReportPropertyChanged("Quantity");
                 OnQuantityChanged();
             }
@@ -12073,7 +12908,7 @@ namespace SAMSData
             {
                 OnSizeChanging(value);
                 ReportPropertyChanging("Size");
-                _Size = StructuralObject.SetValidValue(value, true);
+                _Size = StructuralObject.SetValidValue(value, true, "Size");
                 ReportPropertyChanged("Size");
                 OnSizeChanged();
             }
@@ -12097,7 +12932,7 @@ namespace SAMSData
             {
                 OnSerialNumberChanging(value);
                 ReportPropertyChanging("SerialNumber");
-                _SerialNumber = StructuralObject.SetValidValue(value, true);
+                _SerialNumber = StructuralObject.SetValidValue(value, true, "SerialNumber");
                 ReportPropertyChanged("SerialNumber");
                 OnSerialNumberChanged();
             }
@@ -12121,7 +12956,7 @@ namespace SAMSData
             {
                 OnIDNumberChanging(value);
                 ReportPropertyChanging("IDNumber");
-                _IDNumber = StructuralObject.SetValidValue(value, true);
+                _IDNumber = StructuralObject.SetValidValue(value, true, "IDNumber");
                 ReportPropertyChanged("IDNumber");
                 OnIDNumberChanged();
             }
@@ -12145,7 +12980,7 @@ namespace SAMSData
             {
                 OnBatchNumberChanging(value);
                 ReportPropertyChanging("BatchNumber");
-                _BatchNumber = StructuralObject.SetValidValue(value, true);
+                _BatchNumber = StructuralObject.SetValidValue(value, true, "BatchNumber");
                 ReportPropertyChanged("BatchNumber");
                 OnBatchNumberChanged();
             }
@@ -12169,7 +13004,7 @@ namespace SAMSData
             {
                 OnMfgDateChanging(value);
                 ReportPropertyChanging("MfgDate");
-                _MfgDate = StructuralObject.SetValidValue(value, true);
+                _MfgDate = StructuralObject.SetValidValue(value, true, "MfgDate");
                 ReportPropertyChanged("MfgDate");
                 OnMfgDateChanged();
             }
@@ -12193,7 +13028,7 @@ namespace SAMSData
             {
                 OnExpDateChanging(value);
                 ReportPropertyChanging("ExpDate");
-                _ExpDate = StructuralObject.SetValidValue(value, true);
+                _ExpDate = StructuralObject.SetValidValue(value, true, "ExpDate");
                 ReportPropertyChanged("ExpDate");
                 OnExpDateChanged();
             }
@@ -12217,7 +13052,7 @@ namespace SAMSData
             {
                 OnTaxChanging(value);
                 ReportPropertyChanging("Tax");
-                _Tax = StructuralObject.SetValidValue(value);
+                _Tax = StructuralObject.SetValidValue(value, "Tax");
                 ReportPropertyChanged("Tax");
                 OnTaxChanged();
             }
@@ -12241,7 +13076,7 @@ namespace SAMSData
             {
                 OnTaxAmountChanging(value);
                 ReportPropertyChanging("TaxAmount");
-                _TaxAmount = StructuralObject.SetValidValue(value);
+                _TaxAmount = StructuralObject.SetValidValue(value, "TaxAmount");
                 ReportPropertyChanged("TaxAmount");
                 OnTaxAmountChanged();
             }
@@ -12265,7 +13100,7 @@ namespace SAMSData
             {
                 OnSalePriceChanging(value);
                 ReportPropertyChanging("SalePrice");
-                _SalePrice = StructuralObject.SetValidValue(value);
+                _SalePrice = StructuralObject.SetValidValue(value, "SalePrice");
                 ReportPropertyChanged("SalePrice");
                 OnSalePriceChanged();
             }
@@ -12289,7 +13124,7 @@ namespace SAMSData
             {
                 OnBarCodeChanging(value);
                 ReportPropertyChanging("BarCode");
-                _BarCode = StructuralObject.SetValidValue(value, true);
+                _BarCode = StructuralObject.SetValidValue(value, true, "BarCode");
                 ReportPropertyChanged("BarCode");
                 OnBarCodeChanged();
             }
@@ -12313,7 +13148,7 @@ namespace SAMSData
             {
                 OnMRPChanging(value);
                 ReportPropertyChanging("MRP");
-                _MRP = StructuralObject.SetValidValue(value);
+                _MRP = StructuralObject.SetValidValue(value, "MRP");
                 ReportPropertyChanged("MRP");
                 OnMRPChanged();
             }
@@ -12337,7 +13172,7 @@ namespace SAMSData
             {
                 OnIGSTChanging(value);
                 ReportPropertyChanging("IGST");
-                _IGST = StructuralObject.SetValidValue(value);
+                _IGST = StructuralObject.SetValidValue(value, "IGST");
                 ReportPropertyChanged("IGST");
                 OnIGSTChanged();
             }
@@ -12361,7 +13196,7 @@ namespace SAMSData
             {
                 OnCGSTChanging(value);
                 ReportPropertyChanging("CGST");
-                _CGST = StructuralObject.SetValidValue(value);
+                _CGST = StructuralObject.SetValidValue(value, "CGST");
                 ReportPropertyChanged("CGST");
                 OnCGSTChanged();
             }
@@ -12385,7 +13220,7 @@ namespace SAMSData
             {
                 OnSGSTChanging(value);
                 ReportPropertyChanging("SGST");
-                _SGST = StructuralObject.SetValidValue(value);
+                _SGST = StructuralObject.SetValidValue(value, "SGST");
                 ReportPropertyChanged("SGST");
                 OnSGSTChanged();
             }
@@ -12409,7 +13244,7 @@ namespace SAMSData
             {
                 OnIGSTValueChanging(value);
                 ReportPropertyChanging("IGSTValue");
-                _IGSTValue = StructuralObject.SetValidValue(value);
+                _IGSTValue = StructuralObject.SetValidValue(value, "IGSTValue");
                 ReportPropertyChanged("IGSTValue");
                 OnIGSTValueChanged();
             }
@@ -12433,7 +13268,7 @@ namespace SAMSData
             {
                 OnCGSTValueChanging(value);
                 ReportPropertyChanging("CGSTValue");
-                _CGSTValue = StructuralObject.SetValidValue(value);
+                _CGSTValue = StructuralObject.SetValidValue(value, "CGSTValue");
                 ReportPropertyChanged("CGSTValue");
                 OnCGSTValueChanged();
             }
@@ -12457,7 +13292,7 @@ namespace SAMSData
             {
                 OnSGSTValueChanging(value);
                 ReportPropertyChanging("SGSTValue");
-                _SGSTValue = StructuralObject.SetValidValue(value);
+                _SGSTValue = StructuralObject.SetValidValue(value, "SGSTValue");
                 ReportPropertyChanged("SGSTValue");
                 OnSGSTValueChanged();
             }
@@ -12481,7 +13316,7 @@ namespace SAMSData
             {
                 OnCESSChanging(value);
                 ReportPropertyChanging("CESS");
-                _CESS = StructuralObject.SetValidValue(value);
+                _CESS = StructuralObject.SetValidValue(value, "CESS");
                 ReportPropertyChanged("CESS");
                 OnCESSChanged();
             }
@@ -12505,7 +13340,7 @@ namespace SAMSData
             {
                 OnCESSValueChanging(value);
                 ReportPropertyChanging("CESSValue");
-                _CESSValue = StructuralObject.SetValidValue(value);
+                _CESSValue = StructuralObject.SetValidValue(value, "CESSValue");
                 ReportPropertyChanged("CESSValue");
                 OnCESSValueChanged();
             }
@@ -12529,7 +13364,7 @@ namespace SAMSData
             {
                 OnAmountChanging(value);
                 ReportPropertyChanging("Amount");
-                _Amount = StructuralObject.SetValidValue(value);
+                _Amount = StructuralObject.SetValidValue(value, "Amount");
                 ReportPropertyChanged("Amount");
                 OnAmountChanged();
             }
@@ -12540,7 +13375,6 @@ namespace SAMSData
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -12706,7 +13540,7 @@ namespace SAMSData
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -12725,7 +13559,7 @@ namespace SAMSData
                 {
                     OnRoomIdChanging(value);
                     ReportPropertyChanging("RoomId");
-                    _RoomId = StructuralObject.SetValidValue(value);
+                    _RoomId = StructuralObject.SetValidValue(value, "RoomId");
                     ReportPropertyChanged("RoomId");
                     OnRoomIdChanged();
                 }
@@ -12750,7 +13584,7 @@ namespace SAMSData
             {
                 OnRoomNoChanging(value);
                 ReportPropertyChanging("RoomNo");
-                _RoomNo = StructuralObject.SetValidValue(value, true);
+                _RoomNo = StructuralObject.SetValidValue(value, true, "RoomNo");
                 ReportPropertyChanged("RoomNo");
                 OnRoomNoChanged();
             }
@@ -12774,7 +13608,7 @@ namespace SAMSData
             {
                 OnFloorNoChanging(value);
                 ReportPropertyChanging("FloorNo");
-                _FloorNo = StructuralObject.SetValidValue(value, true);
+                _FloorNo = StructuralObject.SetValidValue(value, true, "FloorNo");
                 ReportPropertyChanged("FloorNo");
                 OnFloorNoChanged();
             }
@@ -12798,7 +13632,7 @@ namespace SAMSData
             {
                 OnDetailsChanging(value);
                 ReportPropertyChanging("Details");
-                _Details = StructuralObject.SetValidValue(value, true);
+                _Details = StructuralObject.SetValidValue(value, true, "Details");
                 ReportPropertyChanged("Details");
                 OnDetailsChanged();
             }
@@ -12822,7 +13656,7 @@ namespace SAMSData
             {
                 OnTariffIdChanging(value);
                 ReportPropertyChanging("TariffId");
-                _TariffId = StructuralObject.SetValidValue(value);
+                _TariffId = StructuralObject.SetValidValue(value, "TariffId");
                 ReportPropertyChanged("TariffId");
                 OnTariffIdChanged();
             }
@@ -12846,7 +13680,7 @@ namespace SAMSData
             {
                 OnRoomStatusChanging(value);
                 ReportPropertyChanging("RoomStatus");
-                _RoomStatus = StructuralObject.SetValidValue(value, true);
+                _RoomStatus = StructuralObject.SetValidValue(value, true, "RoomStatus");
                 ReportPropertyChanged("RoomStatus");
                 OnRoomStatusChanged();
             }
@@ -12870,7 +13704,7 @@ namespace SAMSData
             {
                 OnCreatedByChanging(value);
                 ReportPropertyChanging("CreatedBy");
-                _CreatedBy = StructuralObject.SetValidValue(value);
+                _CreatedBy = StructuralObject.SetValidValue(value, "CreatedBy");
                 ReportPropertyChanged("CreatedBy");
                 OnCreatedByChanged();
             }
@@ -12894,7 +13728,7 @@ namespace SAMSData
             {
                 OnCreatedOnChanging(value);
                 ReportPropertyChanging("CreatedOn");
-                _CreatedOn = StructuralObject.SetValidValue(value);
+                _CreatedOn = StructuralObject.SetValidValue(value, "CreatedOn");
                 ReportPropertyChanged("CreatedOn");
                 OnCreatedOnChanged();
             }
@@ -12918,7 +13752,7 @@ namespace SAMSData
             {
                 OnUpdatedByChanging(value);
                 ReportPropertyChanging("UpdatedBy");
-                _UpdatedBy = StructuralObject.SetValidValue(value);
+                _UpdatedBy = StructuralObject.SetValidValue(value, "UpdatedBy");
                 ReportPropertyChanged("UpdatedBy");
                 OnUpdatedByChanged();
             }
@@ -12942,7 +13776,7 @@ namespace SAMSData
             {
                 OnUpdatedOnChanging(value);
                 ReportPropertyChanging("UpdatedOn");
-                _UpdatedOn = StructuralObject.SetValidValue(value);
+                _UpdatedOn = StructuralObject.SetValidValue(value, "UpdatedOn");
                 ReportPropertyChanged("UpdatedOn");
                 OnUpdatedOnChanged();
             }
@@ -12953,7 +13787,6 @@ namespace SAMSData
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -13059,6 +13892,28 @@ namespace SAMSData
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMSModel", "FK_RoomStock_Rooms", "RoomStockTransaction")]
+        public EntityCollection<RoomStockTransaction> RoomStockTransactions
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<RoomStockTransaction>("SAMSModel.FK_RoomStock_Rooms", "RoomStockTransaction");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<RoomStockTransaction>("SAMSModel.FK_RoomStock_Rooms", "RoomStockTransaction", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -13087,7 +13942,7 @@ namespace SAMSData
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -13106,7 +13961,7 @@ namespace SAMSData
                 {
                     OnRoomServiceIdChanging(value);
                     ReportPropertyChanging("RoomServiceId");
-                    _RoomServiceId = StructuralObject.SetValidValue(value);
+                    _RoomServiceId = StructuralObject.SetValidValue(value, "RoomServiceId");
                     ReportPropertyChanged("RoomServiceId");
                     OnRoomServiceIdChanged();
                 }
@@ -13131,7 +13986,7 @@ namespace SAMSData
             {
                 OnBookingIdChanging(value);
                 ReportPropertyChanging("BookingId");
-                _BookingId = StructuralObject.SetValidValue(value);
+                _BookingId = StructuralObject.SetValidValue(value, "BookingId");
                 ReportPropertyChanged("BookingId");
                 OnBookingIdChanged();
             }
@@ -13155,7 +14010,7 @@ namespace SAMSData
             {
                 OnRoomIdChanging(value);
                 ReportPropertyChanging("RoomId");
-                _RoomId = StructuralObject.SetValidValue(value);
+                _RoomId = StructuralObject.SetValidValue(value, "RoomId");
                 ReportPropertyChanged("RoomId");
                 OnRoomIdChanged();
             }
@@ -13179,7 +14034,7 @@ namespace SAMSData
             {
                 OnServiceDateTimeChanging(value);
                 ReportPropertyChanging("ServiceDateTime");
-                _ServiceDateTime = StructuralObject.SetValidValue(value);
+                _ServiceDateTime = StructuralObject.SetValidValue(value, "ServiceDateTime");
                 ReportPropertyChanged("ServiceDateTime");
                 OnServiceDateTimeChanged();
             }
@@ -13203,7 +14058,7 @@ namespace SAMSData
             {
                 OnServiceTypeChanging(value);
                 ReportPropertyChanging("ServiceType");
-                _ServiceType = StructuralObject.SetValidValue(value, true);
+                _ServiceType = StructuralObject.SetValidValue(value, true, "ServiceType");
                 ReportPropertyChanged("ServiceType");
                 OnServiceTypeChanged();
             }
@@ -13227,7 +14082,7 @@ namespace SAMSData
             {
                 OnServiceDetailsChanging(value);
                 ReportPropertyChanging("ServiceDetails");
-                _ServiceDetails = StructuralObject.SetValidValue(value, true);
+                _ServiceDetails = StructuralObject.SetValidValue(value, true, "ServiceDetails");
                 ReportPropertyChanged("ServiceDetails");
                 OnServiceDetailsChanged();
             }
@@ -13251,7 +14106,7 @@ namespace SAMSData
             {
                 OnServiceAmountChanging(value);
                 ReportPropertyChanging("ServiceAmount");
-                _ServiceAmount = StructuralObject.SetValidValue(value);
+                _ServiceAmount = StructuralObject.SetValidValue(value, "ServiceAmount");
                 ReportPropertyChanged("ServiceAmount");
                 OnServiceAmountChanged();
             }
@@ -13275,7 +14130,7 @@ namespace SAMSData
             {
                 OnServiceTaxChanging(value);
                 ReportPropertyChanging("ServiceTax");
-                _ServiceTax = StructuralObject.SetValidValue(value);
+                _ServiceTax = StructuralObject.SetValidValue(value, "ServiceTax");
                 ReportPropertyChanged("ServiceTax");
                 OnServiceTaxChanged();
             }
@@ -13299,7 +14154,7 @@ namespace SAMSData
             {
                 OnNetAmountChanging(value);
                 ReportPropertyChanging("NetAmount");
-                _NetAmount = StructuralObject.SetValidValue(value);
+                _NetAmount = StructuralObject.SetValidValue(value, "NetAmount");
                 ReportPropertyChanged("NetAmount");
                 OnNetAmountChanged();
             }
@@ -13323,7 +14178,7 @@ namespace SAMSData
             {
                 OnCreatedByChanging(value);
                 ReportPropertyChanging("CreatedBy");
-                _CreatedBy = StructuralObject.SetValidValue(value);
+                _CreatedBy = StructuralObject.SetValidValue(value, "CreatedBy");
                 ReportPropertyChanged("CreatedBy");
                 OnCreatedByChanged();
             }
@@ -13347,7 +14202,7 @@ namespace SAMSData
             {
                 OnCreatedOnChanging(value);
                 ReportPropertyChanging("CreatedOn");
-                _CreatedOn = StructuralObject.SetValidValue(value);
+                _CreatedOn = StructuralObject.SetValidValue(value, "CreatedOn");
                 ReportPropertyChanged("CreatedOn");
                 OnCreatedOnChanged();
             }
@@ -13371,7 +14226,7 @@ namespace SAMSData
             {
                 OnUpdatedByChanging(value);
                 ReportPropertyChanging("UpdatedBy");
-                _UpdatedBy = StructuralObject.SetValidValue(value);
+                _UpdatedBy = StructuralObject.SetValidValue(value, "UpdatedBy");
                 ReportPropertyChanged("UpdatedBy");
                 OnUpdatedByChanged();
             }
@@ -13395,7 +14250,7 @@ namespace SAMSData
             {
                 OnUpdatedOnChanging(value);
                 ReportPropertyChanging("UpdatedOn");
-                _UpdatedOn = StructuralObject.SetValidValue(value);
+                _UpdatedOn = StructuralObject.SetValidValue(value, "UpdatedOn");
                 ReportPropertyChanged("UpdatedOn");
                 OnUpdatedOnChanged();
             }
@@ -13406,7 +14261,6 @@ namespace SAMSData
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -13492,6 +14346,1064 @@ namespace SAMSData
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SAMSModel", Name="RoomStockReturn")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class RoomStockReturn : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new RoomStockReturn object.
+        /// </summary>
+        /// <param name="returnId">Initial value of the ReturnId property.</param>
+        /// <param name="roomStockId">Initial value of the RoomStockId property.</param>
+        /// <param name="bookingDetailId">Initial value of the BookingDetailId property.</param>
+        /// <param name="stockItemId">Initial value of the StockItemId property.</param>
+        /// <param name="returnQuantity">Initial value of the ReturnQuantity property.</param>
+        public static RoomStockReturn CreateRoomStockReturn(global::System.Int32 returnId, global::System.Int32 roomStockId, global::System.Int32 bookingDetailId, global::System.Int32 stockItemId, global::System.Double returnQuantity)
+        {
+            RoomStockReturn roomStockReturn = new RoomStockReturn();
+            roomStockReturn.ReturnId = returnId;
+            roomStockReturn.RoomStockId = roomStockId;
+            roomStockReturn.BookingDetailId = bookingDetailId;
+            roomStockReturn.StockItemId = stockItemId;
+            roomStockReturn.ReturnQuantity = returnQuantity;
+            return roomStockReturn;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ReturnId
+        {
+            get
+            {
+                return _ReturnId;
+            }
+            set
+            {
+                if (_ReturnId != value)
+                {
+                    OnReturnIdChanging(value);
+                    ReportPropertyChanging("ReturnId");
+                    _ReturnId = StructuralObject.SetValidValue(value, "ReturnId");
+                    ReportPropertyChanged("ReturnId");
+                    OnReturnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ReturnId;
+        partial void OnReturnIdChanging(global::System.Int32 value);
+        partial void OnReturnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 RoomStockId
+        {
+            get
+            {
+                return _RoomStockId;
+            }
+            set
+            {
+                OnRoomStockIdChanging(value);
+                ReportPropertyChanging("RoomStockId");
+                _RoomStockId = StructuralObject.SetValidValue(value, "RoomStockId");
+                ReportPropertyChanged("RoomStockId");
+                OnRoomStockIdChanged();
+            }
+        }
+        private global::System.Int32 _RoomStockId;
+        partial void OnRoomStockIdChanging(global::System.Int32 value);
+        partial void OnRoomStockIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 BookingDetailId
+        {
+            get
+            {
+                return _BookingDetailId;
+            }
+            set
+            {
+                OnBookingDetailIdChanging(value);
+                ReportPropertyChanging("BookingDetailId");
+                _BookingDetailId = StructuralObject.SetValidValue(value, "BookingDetailId");
+                ReportPropertyChanged("BookingDetailId");
+                OnBookingDetailIdChanged();
+            }
+        }
+        private global::System.Int32 _BookingDetailId;
+        partial void OnBookingDetailIdChanging(global::System.Int32 value);
+        partial void OnBookingDetailIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 StockItemId
+        {
+            get
+            {
+                return _StockItemId;
+            }
+            set
+            {
+                OnStockItemIdChanging(value);
+                ReportPropertyChanging("StockItemId");
+                _StockItemId = StructuralObject.SetValidValue(value, "StockItemId");
+                ReportPropertyChanged("StockItemId");
+                OnStockItemIdChanged();
+            }
+        }
+        private global::System.Int32 _StockItemId;
+        partial void OnStockItemIdChanging(global::System.Int32 value);
+        partial void OnStockItemIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Double ReturnQuantity
+        {
+            get
+            {
+                return _ReturnQuantity;
+            }
+            set
+            {
+                OnReturnQuantityChanging(value);
+                ReportPropertyChanging("ReturnQuantity");
+                _ReturnQuantity = StructuralObject.SetValidValue(value, "ReturnQuantity");
+                ReportPropertyChanged("ReturnQuantity");
+                OnReturnQuantityChanged();
+            }
+        }
+        private global::System.Double _ReturnQuantity;
+        partial void OnReturnQuantityChanging(global::System.Double value);
+        partial void OnReturnQuantityChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> ReturnDate
+        {
+            get
+            {
+                return _ReturnDate;
+            }
+            set
+            {
+                OnReturnDateChanging(value);
+                ReportPropertyChanging("ReturnDate");
+                _ReturnDate = StructuralObject.SetValidValue(value, "ReturnDate");
+                ReportPropertyChanged("ReturnDate");
+                OnReturnDateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _ReturnDate;
+        partial void OnReturnDateChanging(Nullable<global::System.DateTime> value);
+        partial void OnReturnDateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Reason
+        {
+            get
+            {
+                return _Reason;
+            }
+            set
+            {
+                OnReasonChanging(value);
+                ReportPropertyChanging("Reason");
+                _Reason = StructuralObject.SetValidValue(value, true, "Reason");
+                ReportPropertyChanged("Reason");
+                OnReasonChanged();
+            }
+        }
+        private global::System.String _Reason;
+        partial void OnReasonChanging(global::System.String value);
+        partial void OnReasonChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> CreatedBy
+        {
+            get
+            {
+                return _CreatedBy;
+            }
+            set
+            {
+                OnCreatedByChanging(value);
+                ReportPropertyChanging("CreatedBy");
+                _CreatedBy = StructuralObject.SetValidValue(value, "CreatedBy");
+                ReportPropertyChanged("CreatedBy");
+                OnCreatedByChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _CreatedBy;
+        partial void OnCreatedByChanging(Nullable<global::System.Int32> value);
+        partial void OnCreatedByChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> CreatedOn
+        {
+            get
+            {
+                return _CreatedOn;
+            }
+            set
+            {
+                OnCreatedOnChanging(value);
+                ReportPropertyChanging("CreatedOn");
+                _CreatedOn = StructuralObject.SetValidValue(value, "CreatedOn");
+                ReportPropertyChanged("CreatedOn");
+                OnCreatedOnChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _CreatedOn;
+        partial void OnCreatedOnChanging(Nullable<global::System.DateTime> value);
+        partial void OnCreatedOnChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMSModel", "FK_RoomStockReturns_RoomStock", "RoomStockTransaction")]
+        public RoomStockTransaction RoomStockTransaction
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<RoomStockTransaction>("SAMSModel.FK_RoomStockReturns_RoomStock", "RoomStockTransaction").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<RoomStockTransaction>("SAMSModel.FK_RoomStockReturns_RoomStock", "RoomStockTransaction").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<RoomStockTransaction> RoomStockTransactionReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<RoomStockTransaction>("SAMSModel.FK_RoomStockReturns_RoomStock", "RoomStockTransaction");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<RoomStockTransaction>("SAMSModel.FK_RoomStockReturns_RoomStock", "RoomStockTransaction", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SAMSModel", Name="RoomStockTransaction")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class RoomStockTransaction : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new RoomStockTransaction object.
+        /// </summary>
+        /// <param name="roomStockId">Initial value of the RoomStockId property.</param>
+        /// <param name="bookingDetailId">Initial value of the BookingDetailId property.</param>
+        /// <param name="bookingId">Initial value of the BookingId property.</param>
+        /// <param name="roomId">Initial value of the RoomId property.</param>
+        /// <param name="stockItemId">Initial value of the StockItemId property.</param>
+        /// <param name="stockType">Initial value of the StockType property.</param>
+        /// <param name="issuedQuantity">Initial value of the IssuedQuantity property.</param>
+        /// <param name="returnedQuantity">Initial value of the ReturnedQuantity property.</param>
+        public static RoomStockTransaction CreateRoomStockTransaction(global::System.Int32 roomStockId, global::System.Int32 bookingDetailId, global::System.Int32 bookingId, global::System.Int32 roomId, global::System.Int32 stockItemId, global::System.String stockType, global::System.Double issuedQuantity, global::System.Double returnedQuantity)
+        {
+            RoomStockTransaction roomStockTransaction = new RoomStockTransaction();
+            roomStockTransaction.RoomStockId = roomStockId;
+            roomStockTransaction.BookingDetailId = bookingDetailId;
+            roomStockTransaction.BookingId = bookingId;
+            roomStockTransaction.RoomId = roomId;
+            roomStockTransaction.StockItemId = stockItemId;
+            roomStockTransaction.StockType = stockType;
+            roomStockTransaction.IssuedQuantity = issuedQuantity;
+            roomStockTransaction.ReturnedQuantity = returnedQuantity;
+            return roomStockTransaction;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 RoomStockId
+        {
+            get
+            {
+                return _RoomStockId;
+            }
+            set
+            {
+                if (_RoomStockId != value)
+                {
+                    OnRoomStockIdChanging(value);
+                    ReportPropertyChanging("RoomStockId");
+                    _RoomStockId = StructuralObject.SetValidValue(value, "RoomStockId");
+                    ReportPropertyChanged("RoomStockId");
+                    OnRoomStockIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _RoomStockId;
+        partial void OnRoomStockIdChanging(global::System.Int32 value);
+        partial void OnRoomStockIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 BookingDetailId
+        {
+            get
+            {
+                return _BookingDetailId;
+            }
+            set
+            {
+                OnBookingDetailIdChanging(value);
+                ReportPropertyChanging("BookingDetailId");
+                _BookingDetailId = StructuralObject.SetValidValue(value, "BookingDetailId");
+                ReportPropertyChanged("BookingDetailId");
+                OnBookingDetailIdChanged();
+            }
+        }
+        private global::System.Int32 _BookingDetailId;
+        partial void OnBookingDetailIdChanging(global::System.Int32 value);
+        partial void OnBookingDetailIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 BookingId
+        {
+            get
+            {
+                return _BookingId;
+            }
+            set
+            {
+                OnBookingIdChanging(value);
+                ReportPropertyChanging("BookingId");
+                _BookingId = StructuralObject.SetValidValue(value, "BookingId");
+                ReportPropertyChanged("BookingId");
+                OnBookingIdChanged();
+            }
+        }
+        private global::System.Int32 _BookingId;
+        partial void OnBookingIdChanging(global::System.Int32 value);
+        partial void OnBookingIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 RoomId
+        {
+            get
+            {
+                return _RoomId;
+            }
+            set
+            {
+                OnRoomIdChanging(value);
+                ReportPropertyChanging("RoomId");
+                _RoomId = StructuralObject.SetValidValue(value, "RoomId");
+                ReportPropertyChanged("RoomId");
+                OnRoomIdChanged();
+            }
+        }
+        private global::System.Int32 _RoomId;
+        partial void OnRoomIdChanging(global::System.Int32 value);
+        partial void OnRoomIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 StockItemId
+        {
+            get
+            {
+                return _StockItemId;
+            }
+            set
+            {
+                OnStockItemIdChanging(value);
+                ReportPropertyChanging("StockItemId");
+                _StockItemId = StructuralObject.SetValidValue(value, "StockItemId");
+                ReportPropertyChanged("StockItemId");
+                OnStockItemIdChanged();
+            }
+        }
+        private global::System.Int32 _StockItemId;
+        partial void OnStockItemIdChanging(global::System.Int32 value);
+        partial void OnStockItemIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String StockType
+        {
+            get
+            {
+                return _StockType;
+            }
+            set
+            {
+                OnStockTypeChanging(value);
+                ReportPropertyChanging("StockType");
+                _StockType = StructuralObject.SetValidValue(value, false, "StockType");
+                ReportPropertyChanged("StockType");
+                OnStockTypeChanged();
+            }
+        }
+        private global::System.String _StockType;
+        partial void OnStockTypeChanging(global::System.String value);
+        partial void OnStockTypeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Double IssuedQuantity
+        {
+            get
+            {
+                return _IssuedQuantity;
+            }
+            set
+            {
+                OnIssuedQuantityChanging(value);
+                ReportPropertyChanging("IssuedQuantity");
+                _IssuedQuantity = StructuralObject.SetValidValue(value, "IssuedQuantity");
+                ReportPropertyChanged("IssuedQuantity");
+                OnIssuedQuantityChanged();
+            }
+        }
+        private global::System.Double _IssuedQuantity;
+        partial void OnIssuedQuantityChanging(global::System.Double value);
+        partial void OnIssuedQuantityChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Double ReturnedQuantity
+        {
+            get
+            {
+                return _ReturnedQuantity;
+            }
+            set
+            {
+                OnReturnedQuantityChanging(value);
+                ReportPropertyChanging("ReturnedQuantity");
+                _ReturnedQuantity = StructuralObject.SetValidValue(value, "ReturnedQuantity");
+                ReportPropertyChanged("ReturnedQuantity");
+                OnReturnedQuantityChanged();
+            }
+        }
+        private global::System.Double _ReturnedQuantity;
+        partial void OnReturnedQuantityChanging(global::System.Double value);
+        partial void OnReturnedQuantityChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> IssueDate
+        {
+            get
+            {
+                return _IssueDate;
+            }
+            set
+            {
+                OnIssueDateChanging(value);
+                ReportPropertyChanging("IssueDate");
+                _IssueDate = StructuralObject.SetValidValue(value, "IssueDate");
+                ReportPropertyChanged("IssueDate");
+                OnIssueDateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _IssueDate;
+        partial void OnIssueDateChanging(Nullable<global::System.DateTime> value);
+        partial void OnIssueDateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Remarks
+        {
+            get
+            {
+                return _Remarks;
+            }
+            set
+            {
+                OnRemarksChanging(value);
+                ReportPropertyChanging("Remarks");
+                _Remarks = StructuralObject.SetValidValue(value, true, "Remarks");
+                ReportPropertyChanged("Remarks");
+                OnRemarksChanged();
+            }
+        }
+        private global::System.String _Remarks;
+        partial void OnRemarksChanging(global::System.String value);
+        partial void OnRemarksChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> CreatedBy
+        {
+            get
+            {
+                return _CreatedBy;
+            }
+            set
+            {
+                OnCreatedByChanging(value);
+                ReportPropertyChanging("CreatedBy");
+                _CreatedBy = StructuralObject.SetValidValue(value, "CreatedBy");
+                ReportPropertyChanged("CreatedBy");
+                OnCreatedByChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _CreatedBy;
+        partial void OnCreatedByChanging(Nullable<global::System.Int32> value);
+        partial void OnCreatedByChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> CreatedOn
+        {
+            get
+            {
+                return _CreatedOn;
+            }
+            set
+            {
+                OnCreatedOnChanging(value);
+                ReportPropertyChanging("CreatedOn");
+                _CreatedOn = StructuralObject.SetValidValue(value, "CreatedOn");
+                ReportPropertyChanged("CreatedOn");
+                OnCreatedOnChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _CreatedOn;
+        partial void OnCreatedOnChanging(Nullable<global::System.DateTime> value);
+        partial void OnCreatedOnChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMSModel", "FK_RoomStock_BookingDetails", "BookingDetail")]
+        public BookingDetail BookingDetail
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BookingDetail>("SAMSModel.FK_RoomStock_BookingDetails", "BookingDetail").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BookingDetail>("SAMSModel.FK_RoomStock_BookingDetails", "BookingDetail").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<BookingDetail> BookingDetailReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BookingDetail>("SAMSModel.FK_RoomStock_BookingDetails", "BookingDetail");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<BookingDetail>("SAMSModel.FK_RoomStock_BookingDetails", "BookingDetail", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMSModel", "FK_RoomStock_Rooms", "Room")]
+        public Room Room
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Room>("SAMSModel.FK_RoomStock_Rooms", "Room").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Room>("SAMSModel.FK_RoomStock_Rooms", "Room").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Room> RoomReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Room>("SAMSModel.FK_RoomStock_Rooms", "Room");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Room>("SAMSModel.FK_RoomStock_Rooms", "Room", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMSModel", "FK_RoomStockReturns_RoomStock", "RoomStockReturn")]
+        public EntityCollection<RoomStockReturn> RoomStockReturns
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<RoomStockReturn>("SAMSModel.FK_RoomStockReturns_RoomStock", "RoomStockReturn");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<RoomStockReturn>("SAMSModel.FK_RoomStockReturns_RoomStock", "RoomStockReturn", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMSModel", "FK_RoomStock_StockItems", "StockItem")]
+        public StockItem StockItem
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<StockItem>("SAMSModel.FK_RoomStock_StockItems", "StockItem").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<StockItem>("SAMSModel.FK_RoomStock_StockItems", "StockItem").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<StockItem> StockItemReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<StockItem>("SAMSModel.FK_RoomStock_StockItems", "StockItem");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<StockItem>("SAMSModel.FK_RoomStock_StockItems", "StockItem", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SAMSModel", Name="RoomTypeStockConfig")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class RoomTypeStockConfig : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new RoomTypeStockConfig object.
+        /// </summary>
+        /// <param name="roomTypeStockConfigId">Initial value of the RoomTypeStockConfigId property.</param>
+        /// <param name="tariffId">Initial value of the TariffId property.</param>
+        /// <param name="stockItemId">Initial value of the StockItemId property.</param>
+        /// <param name="quantity">Initial value of the Quantity property.</param>
+        public static RoomTypeStockConfig CreateRoomTypeStockConfig(global::System.Int32 roomTypeStockConfigId, global::System.Int32 tariffId, global::System.Int32 stockItemId, global::System.Double quantity)
+        {
+            RoomTypeStockConfig roomTypeStockConfig = new RoomTypeStockConfig();
+            roomTypeStockConfig.RoomTypeStockConfigId = roomTypeStockConfigId;
+            roomTypeStockConfig.TariffId = tariffId;
+            roomTypeStockConfig.StockItemId = stockItemId;
+            roomTypeStockConfig.Quantity = quantity;
+            return roomTypeStockConfig;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 RoomTypeStockConfigId
+        {
+            get
+            {
+                return _RoomTypeStockConfigId;
+            }
+            set
+            {
+                if (_RoomTypeStockConfigId != value)
+                {
+                    OnRoomTypeStockConfigIdChanging(value);
+                    ReportPropertyChanging("RoomTypeStockConfigId");
+                    _RoomTypeStockConfigId = StructuralObject.SetValidValue(value, "RoomTypeStockConfigId");
+                    ReportPropertyChanged("RoomTypeStockConfigId");
+                    OnRoomTypeStockConfigIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _RoomTypeStockConfigId;
+        partial void OnRoomTypeStockConfigIdChanging(global::System.Int32 value);
+        partial void OnRoomTypeStockConfigIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 TariffId
+        {
+            get
+            {
+                return _TariffId;
+            }
+            set
+            {
+                OnTariffIdChanging(value);
+                ReportPropertyChanging("TariffId");
+                _TariffId = StructuralObject.SetValidValue(value, "TariffId");
+                ReportPropertyChanged("TariffId");
+                OnTariffIdChanged();
+            }
+        }
+        private global::System.Int32 _TariffId;
+        partial void OnTariffIdChanging(global::System.Int32 value);
+        partial void OnTariffIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 StockItemId
+        {
+            get
+            {
+                return _StockItemId;
+            }
+            set
+            {
+                OnStockItemIdChanging(value);
+                ReportPropertyChanging("StockItemId");
+                _StockItemId = StructuralObject.SetValidValue(value, "StockItemId");
+                ReportPropertyChanged("StockItemId");
+                OnStockItemIdChanged();
+            }
+        }
+        private global::System.Int32 _StockItemId;
+        partial void OnStockItemIdChanging(global::System.Int32 value);
+        partial void OnStockItemIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Double Quantity
+        {
+            get
+            {
+                return _Quantity;
+            }
+            set
+            {
+                OnQuantityChanging(value);
+                ReportPropertyChanging("Quantity");
+                _Quantity = StructuralObject.SetValidValue(value, "Quantity");
+                ReportPropertyChanged("Quantity");
+                OnQuantityChanged();
+            }
+        }
+        private global::System.Double _Quantity;
+        partial void OnQuantityChanging(global::System.Double value);
+        partial void OnQuantityChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> DailyReplenishQty
+        {
+            get
+            {
+                return _DailyReplenishQty;
+            }
+            set
+            {
+                OnDailyReplenishQtyChanging(value);
+                ReportPropertyChanging("DailyReplenishQty");
+                _DailyReplenishQty = StructuralObject.SetValidValue(value, "DailyReplenishQty");
+                ReportPropertyChanged("DailyReplenishQty");
+                OnDailyReplenishQtyChanged();
+            }
+        }
+        private Nullable<global::System.Double> _DailyReplenishQty;
+        partial void OnDailyReplenishQtyChanging(Nullable<global::System.Double> value);
+        partial void OnDailyReplenishQtyChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> CreatedBy
+        {
+            get
+            {
+                return _CreatedBy;
+            }
+            set
+            {
+                OnCreatedByChanging(value);
+                ReportPropertyChanging("CreatedBy");
+                _CreatedBy = StructuralObject.SetValidValue(value, "CreatedBy");
+                ReportPropertyChanged("CreatedBy");
+                OnCreatedByChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _CreatedBy;
+        partial void OnCreatedByChanging(Nullable<global::System.Int32> value);
+        partial void OnCreatedByChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> CreatedOn
+        {
+            get
+            {
+                return _CreatedOn;
+            }
+            set
+            {
+                OnCreatedOnChanging(value);
+                ReportPropertyChanging("CreatedOn");
+                _CreatedOn = StructuralObject.SetValidValue(value, "CreatedOn");
+                ReportPropertyChanged("CreatedOn");
+                OnCreatedOnChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _CreatedOn;
+        partial void OnCreatedOnChanging(Nullable<global::System.DateTime> value);
+        partial void OnCreatedOnChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMSModel", "FK_RoomTypeStockConfigs_StockItems", "StockItem")]
+        public StockItem StockItem
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<StockItem>("SAMSModel.FK_RoomTypeStockConfigs_StockItems", "StockItem").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<StockItem>("SAMSModel.FK_RoomTypeStockConfigs_StockItems", "StockItem").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<StockItem> StockItemReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<StockItem>("SAMSModel.FK_RoomTypeStockConfigs_StockItems", "StockItem");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<StockItem>("SAMSModel.FK_RoomTypeStockConfigs_StockItems", "StockItem", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMSModel", "FK_RoomTypeStockConfigs_Tariffs", "Tariff")]
+        public Tariff Tariff
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Tariff>("SAMSModel.FK_RoomTypeStockConfigs_Tariffs", "Tariff").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Tariff>("SAMSModel.FK_RoomTypeStockConfigs_Tariffs", "Tariff").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Tariff> TariffReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Tariff>("SAMSModel.FK_RoomTypeStockConfigs_Tariffs", "Tariff");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Tariff>("SAMSModel.FK_RoomTypeStockConfigs_Tariffs", "Tariff", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="SAMSModel", Name="Sale")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -13522,7 +15434,7 @@ namespace SAMSData
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -13541,7 +15453,7 @@ namespace SAMSData
                 {
                     OnSalesIDChanging(value);
                     ReportPropertyChanging("SalesID");
-                    _SalesID = StructuralObject.SetValidValue(value);
+                    _SalesID = StructuralObject.SetValidValue(value, "SalesID");
                     ReportPropertyChanged("SalesID");
                     OnSalesIDChanged();
                 }
@@ -13566,7 +15478,7 @@ namespace SAMSData
             {
                 OnBusinessIDChanging(value);
                 ReportPropertyChanging("BusinessID");
-                _BusinessID = StructuralObject.SetValidValue(value);
+                _BusinessID = StructuralObject.SetValidValue(value, "BusinessID");
                 ReportPropertyChanged("BusinessID");
                 OnBusinessIDChanged();
             }
@@ -13590,7 +15502,7 @@ namespace SAMSData
             {
                 OnSectionIDChanging(value);
                 ReportPropertyChanging("SectionID");
-                _SectionID = StructuralObject.SetValidValue(value);
+                _SectionID = StructuralObject.SetValidValue(value, "SectionID");
                 ReportPropertyChanged("SectionID");
                 OnSectionIDChanged();
             }
@@ -13614,7 +15526,7 @@ namespace SAMSData
             {
                 OnTransactionDateChanging(value);
                 ReportPropertyChanging("TransactionDate");
-                _TransactionDate = StructuralObject.SetValidValue(value);
+                _TransactionDate = StructuralObject.SetValidValue(value, "TransactionDate");
                 ReportPropertyChanged("TransactionDate");
                 OnTransactionDateChanged();
             }
@@ -13638,7 +15550,7 @@ namespace SAMSData
             {
                 OnBillNumberChanging(value);
                 ReportPropertyChanging("BillNumber");
-                _BillNumber = StructuralObject.SetValidValue(value);
+                _BillNumber = StructuralObject.SetValidValue(value, "BillNumber");
                 ReportPropertyChanged("BillNumber");
                 OnBillNumberChanged();
             }
@@ -13662,7 +15574,7 @@ namespace SAMSData
             {
                 OnBillNumberPrefixChanging(value);
                 ReportPropertyChanging("BillNumberPrefix");
-                _BillNumberPrefix = StructuralObject.SetValidValue(value, true);
+                _BillNumberPrefix = StructuralObject.SetValidValue(value, true, "BillNumberPrefix");
                 ReportPropertyChanged("BillNumberPrefix");
                 OnBillNumberPrefixChanged();
             }
@@ -13686,7 +15598,7 @@ namespace SAMSData
             {
                 OnManualBillNumberChanging(value);
                 ReportPropertyChanging("ManualBillNumber");
-                _ManualBillNumber = StructuralObject.SetValidValue(value, true);
+                _ManualBillNumber = StructuralObject.SetValidValue(value, true, "ManualBillNumber");
                 ReportPropertyChanged("ManualBillNumber");
                 OnManualBillNumberChanged();
             }
@@ -13710,7 +15622,7 @@ namespace SAMSData
             {
                 OnCustomerIDChanging(value);
                 ReportPropertyChanging("CustomerID");
-                _CustomerID = StructuralObject.SetValidValue(value);
+                _CustomerID = StructuralObject.SetValidValue(value, "CustomerID");
                 ReportPropertyChanged("CustomerID");
                 OnCustomerIDChanged();
             }
@@ -13734,7 +15646,7 @@ namespace SAMSData
             {
                 OnCustomerNameChanging(value);
                 ReportPropertyChanging("CustomerName");
-                _CustomerName = StructuralObject.SetValidValue(value, true);
+                _CustomerName = StructuralObject.SetValidValue(value, true, "CustomerName");
                 ReportPropertyChanged("CustomerName");
                 OnCustomerNameChanged();
             }
@@ -13758,7 +15670,7 @@ namespace SAMSData
             {
                 OnAddressChanging(value);
                 ReportPropertyChanging("Address");
-                _Address = StructuralObject.SetValidValue(value, true);
+                _Address = StructuralObject.SetValidValue(value, true, "Address");
                 ReportPropertyChanged("Address");
                 OnAddressChanged();
             }
@@ -13782,7 +15694,7 @@ namespace SAMSData
             {
                 OnPlaceChanging(value);
                 ReportPropertyChanging("Place");
-                _Place = StructuralObject.SetValidValue(value, true);
+                _Place = StructuralObject.SetValidValue(value, true, "Place");
                 ReportPropertyChanged("Place");
                 OnPlaceChanged();
             }
@@ -13806,7 +15718,7 @@ namespace SAMSData
             {
                 OnBillAmountChanging(value);
                 ReportPropertyChanging("BillAmount");
-                _BillAmount = StructuralObject.SetValidValue(value);
+                _BillAmount = StructuralObject.SetValidValue(value, "BillAmount");
                 ReportPropertyChanged("BillAmount");
                 OnBillAmountChanged();
             }
@@ -13830,7 +15742,7 @@ namespace SAMSData
             {
                 OnTaxAmountChanging(value);
                 ReportPropertyChanging("TaxAmount");
-                _TaxAmount = StructuralObject.SetValidValue(value);
+                _TaxAmount = StructuralObject.SetValidValue(value, "TaxAmount");
                 ReportPropertyChanged("TaxAmount");
                 OnTaxAmountChanged();
             }
@@ -13854,7 +15766,7 @@ namespace SAMSData
             {
                 OnDiscountChanging(value);
                 ReportPropertyChanging("Discount");
-                _Discount = StructuralObject.SetValidValue(value);
+                _Discount = StructuralObject.SetValidValue(value, "Discount");
                 ReportPropertyChanged("Discount");
                 OnDiscountChanged();
             }
@@ -13878,7 +15790,7 @@ namespace SAMSData
             {
                 OnDiscountAmountChanging(value);
                 ReportPropertyChanging("DiscountAmount");
-                _DiscountAmount = StructuralObject.SetValidValue(value);
+                _DiscountAmount = StructuralObject.SetValidValue(value, "DiscountAmount");
                 ReportPropertyChanged("DiscountAmount");
                 OnDiscountAmountChanged();
             }
@@ -13902,7 +15814,7 @@ namespace SAMSData
             {
                 OnFrieghtandHamaliChanging(value);
                 ReportPropertyChanging("FrieghtandHamali");
-                _FrieghtandHamali = StructuralObject.SetValidValue(value);
+                _FrieghtandHamali = StructuralObject.SetValidValue(value, "FrieghtandHamali");
                 ReportPropertyChanged("FrieghtandHamali");
                 OnFrieghtandHamaliChanged();
             }
@@ -13926,7 +15838,7 @@ namespace SAMSData
             {
                 OnOtherCharges1Changing(value);
                 ReportPropertyChanging("OtherCharges1");
-                _OtherCharges1 = StructuralObject.SetValidValue(value);
+                _OtherCharges1 = StructuralObject.SetValidValue(value, "OtherCharges1");
                 ReportPropertyChanged("OtherCharges1");
                 OnOtherCharges1Changed();
             }
@@ -13950,7 +15862,7 @@ namespace SAMSData
             {
                 OnOtherCharges2Changing(value);
                 ReportPropertyChanging("OtherCharges2");
-                _OtherCharges2 = StructuralObject.SetValidValue(value);
+                _OtherCharges2 = StructuralObject.SetValidValue(value, "OtherCharges2");
                 ReportPropertyChanged("OtherCharges2");
                 OnOtherCharges2Changed();
             }
@@ -13974,7 +15886,7 @@ namespace SAMSData
             {
                 OnNetAmountChanging(value);
                 ReportPropertyChanging("NetAmount");
-                _NetAmount = StructuralObject.SetValidValue(value);
+                _NetAmount = StructuralObject.SetValidValue(value, "NetAmount");
                 ReportPropertyChanged("NetAmount");
                 OnNetAmountChanged();
             }
@@ -13998,7 +15910,7 @@ namespace SAMSData
             {
                 OnSaleCategoryChanging(value);
                 ReportPropertyChanging("SaleCategory");
-                _SaleCategory = StructuralObject.SetValidValue(value, true);
+                _SaleCategory = StructuralObject.SetValidValue(value, true, "SaleCategory");
                 ReportPropertyChanged("SaleCategory");
                 OnSaleCategoryChanged();
             }
@@ -14022,7 +15934,7 @@ namespace SAMSData
             {
                 OnBillTypeChanging(value);
                 ReportPropertyChanging("BillType");
-                _BillType = StructuralObject.SetValidValue(value);
+                _BillType = StructuralObject.SetValidValue(value, "BillType");
                 ReportPropertyChanged("BillType");
                 OnBillTypeChanged();
             }
@@ -14046,7 +15958,7 @@ namespace SAMSData
             {
                 OnPhoneChanging(value);
                 ReportPropertyChanging("Phone");
-                _Phone = StructuralObject.SetValidValue(value, true);
+                _Phone = StructuralObject.SetValidValue(value, true, "Phone");
                 ReportPropertyChanged("Phone");
                 OnPhoneChanged();
             }
@@ -14070,7 +15982,7 @@ namespace SAMSData
             {
                 OnIGSTValueChanging(value);
                 ReportPropertyChanging("IGSTValue");
-                _IGSTValue = StructuralObject.SetValidValue(value);
+                _IGSTValue = StructuralObject.SetValidValue(value, "IGSTValue");
                 ReportPropertyChanged("IGSTValue");
                 OnIGSTValueChanged();
             }
@@ -14094,7 +16006,7 @@ namespace SAMSData
             {
                 OnCGSTValueChanging(value);
                 ReportPropertyChanging("CGSTValue");
-                _CGSTValue = StructuralObject.SetValidValue(value);
+                _CGSTValue = StructuralObject.SetValidValue(value, "CGSTValue");
                 ReportPropertyChanged("CGSTValue");
                 OnCGSTValueChanged();
             }
@@ -14118,7 +16030,7 @@ namespace SAMSData
             {
                 OnSGSTValueChanging(value);
                 ReportPropertyChanging("SGSTValue");
-                _SGSTValue = StructuralObject.SetValidValue(value);
+                _SGSTValue = StructuralObject.SetValidValue(value, "SGSTValue");
                 ReportPropertyChanged("SGSTValue");
                 OnSGSTValueChanged();
             }
@@ -14142,7 +16054,7 @@ namespace SAMSData
             {
                 OnCESSValueChanging(value);
                 ReportPropertyChanging("CESSValue");
-                _CESSValue = StructuralObject.SetValidValue(value);
+                _CESSValue = StructuralObject.SetValidValue(value, "CESSValue");
                 ReportPropertyChanged("CESSValue");
                 OnCESSValueChanged();
             }
@@ -14166,7 +16078,7 @@ namespace SAMSData
             {
                 OnCompanyChanging(value);
                 ReportPropertyChanging("Company");
-                _Company = StructuralObject.SetValidValue(value, true);
+                _Company = StructuralObject.SetValidValue(value, true, "Company");
                 ReportPropertyChanged("Company");
                 OnCompanyChanged();
             }
@@ -14190,7 +16102,7 @@ namespace SAMSData
             {
                 OnkgsChanging(value);
                 ReportPropertyChanging("kgs");
-                _kgs = StructuralObject.SetValidValue(value);
+                _kgs = StructuralObject.SetValidValue(value, "kgs");
                 ReportPropertyChanged("kgs");
                 OnkgsChanged();
             }
@@ -14214,7 +16126,7 @@ namespace SAMSData
             {
                 OnItemcountChanging(value);
                 ReportPropertyChanging("Itemcount");
-                _Itemcount = StructuralObject.SetValidValue(value);
+                _Itemcount = StructuralObject.SetValidValue(value, "Itemcount");
                 ReportPropertyChanged("Itemcount");
                 OnItemcountChanged();
             }
@@ -14238,7 +16150,7 @@ namespace SAMSData
             {
                 OnCostChanging(value);
                 ReportPropertyChanging("Cost");
-                _Cost = StructuralObject.SetValidValue(value);
+                _Cost = StructuralObject.SetValidValue(value, "Cost");
                 ReportPropertyChanged("Cost");
                 OnCostChanged();
             }
@@ -14262,7 +16174,7 @@ namespace SAMSData
             {
                 OnCommentsChanging(value);
                 ReportPropertyChanging("Comments");
-                _Comments = StructuralObject.SetValidValue(value, true);
+                _Comments = StructuralObject.SetValidValue(value, true, "Comments");
                 ReportPropertyChanged("Comments");
                 OnCommentsChanged();
             }
@@ -14286,7 +16198,7 @@ namespace SAMSData
             {
                 OnPaymentDaysChanging(value);
                 ReportPropertyChanging("PaymentDays");
-                _PaymentDays = StructuralObject.SetValidValue(value);
+                _PaymentDays = StructuralObject.SetValidValue(value, "PaymentDays");
                 ReportPropertyChanged("PaymentDays");
                 OnPaymentDaysChanged();
             }
@@ -14310,7 +16222,7 @@ namespace SAMSData
             {
                 OnPaymentDateChanging(value);
                 ReportPropertyChanging("PaymentDate");
-                _PaymentDate = StructuralObject.SetValidValue(value);
+                _PaymentDate = StructuralObject.SetValidValue(value, "PaymentDate");
                 ReportPropertyChanged("PaymentDate");
                 OnPaymentDateChanged();
             }
@@ -14334,7 +16246,7 @@ namespace SAMSData
             {
                 OnOthers1Changing(value);
                 ReportPropertyChanging("Others1");
-                _Others1 = StructuralObject.SetValidValue(value, true);
+                _Others1 = StructuralObject.SetValidValue(value, true, "Others1");
                 ReportPropertyChanged("Others1");
                 OnOthers1Changed();
             }
@@ -14358,7 +16270,7 @@ namespace SAMSData
             {
                 OnOthers2Changing(value);
                 ReportPropertyChanging("Others2");
-                _Others2 = StructuralObject.SetValidValue(value, true);
+                _Others2 = StructuralObject.SetValidValue(value, true, "Others2");
                 ReportPropertyChanged("Others2");
                 OnOthers2Changed();
             }
@@ -14369,7 +16281,6 @@ namespace SAMSData
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -14543,7 +16454,7 @@ namespace SAMSData
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -14562,7 +16473,7 @@ namespace SAMSData
                 {
                     OnSaleDetailsIDChanging(value);
                     ReportPropertyChanging("SaleDetailsID");
-                    _SaleDetailsID = StructuralObject.SetValidValue(value);
+                    _SaleDetailsID = StructuralObject.SetValidValue(value, "SaleDetailsID");
                     ReportPropertyChanged("SaleDetailsID");
                     OnSaleDetailsIDChanged();
                 }
@@ -14587,7 +16498,7 @@ namespace SAMSData
             {
                 OnSaleIDChanging(value);
                 ReportPropertyChanging("SaleID");
-                _SaleID = StructuralObject.SetValidValue(value);
+                _SaleID = StructuralObject.SetValidValue(value, "SaleID");
                 ReportPropertyChanged("SaleID");
                 OnSaleIDChanged();
             }
@@ -14611,7 +16522,7 @@ namespace SAMSData
             {
                 OnProductIDChanging(value);
                 ReportPropertyChanging("ProductID");
-                _ProductID = StructuralObject.SetValidValue(value);
+                _ProductID = StructuralObject.SetValidValue(value, "ProductID");
                 ReportPropertyChanged("ProductID");
                 OnProductIDChanged();
             }
@@ -14635,7 +16546,7 @@ namespace SAMSData
             {
                 OnSalePriceChanging(value);
                 ReportPropertyChanging("SalePrice");
-                _SalePrice = StructuralObject.SetValidValue(value);
+                _SalePrice = StructuralObject.SetValidValue(value, "SalePrice");
                 ReportPropertyChanged("SalePrice");
                 OnSalePriceChanged();
             }
@@ -14659,7 +16570,7 @@ namespace SAMSData
             {
                 OnQuantityChanging(value);
                 ReportPropertyChanging("Quantity");
-                _Quantity = StructuralObject.SetValidValue(value);
+                _Quantity = StructuralObject.SetValidValue(value, "Quantity");
                 ReportPropertyChanged("Quantity");
                 OnQuantityChanged();
             }
@@ -14683,7 +16594,7 @@ namespace SAMSData
             {
                 OnDiscountChanging(value);
                 ReportPropertyChanging("Discount");
-                _Discount = StructuralObject.SetValidValue(value);
+                _Discount = StructuralObject.SetValidValue(value, "Discount");
                 ReportPropertyChanged("Discount");
                 OnDiscountChanged();
             }
@@ -14707,7 +16618,7 @@ namespace SAMSData
             {
                 OnDiscountAmountChanging(value);
                 ReportPropertyChanging("DiscountAmount");
-                _DiscountAmount = StructuralObject.SetValidValue(value);
+                _DiscountAmount = StructuralObject.SetValidValue(value, "DiscountAmount");
                 ReportPropertyChanged("DiscountAmount");
                 OnDiscountAmountChanged();
             }
@@ -14731,7 +16642,7 @@ namespace SAMSData
             {
                 OnNetAmountChanging(value);
                 ReportPropertyChanging("NetAmount");
-                _NetAmount = StructuralObject.SetValidValue(value);
+                _NetAmount = StructuralObject.SetValidValue(value, "NetAmount");
                 ReportPropertyChanged("NetAmount");
                 OnNetAmountChanged();
             }
@@ -14755,7 +16666,7 @@ namespace SAMSData
             {
                 OnSerialNumberChanging(value);
                 ReportPropertyChanging("SerialNumber");
-                _SerialNumber = StructuralObject.SetValidValue(value, true);
+                _SerialNumber = StructuralObject.SetValidValue(value, true, "SerialNumber");
                 ReportPropertyChanged("SerialNumber");
                 OnSerialNumberChanged();
             }
@@ -14779,7 +16690,7 @@ namespace SAMSData
             {
                 OnIDNumberChanging(value);
                 ReportPropertyChanging("IDNumber");
-                _IDNumber = StructuralObject.SetValidValue(value, true);
+                _IDNumber = StructuralObject.SetValidValue(value, true, "IDNumber");
                 ReportPropertyChanged("IDNumber");
                 OnIDNumberChanged();
             }
@@ -14803,7 +16714,7 @@ namespace SAMSData
             {
                 OnBatchNumberChanging(value);
                 ReportPropertyChanging("BatchNumber");
-                _BatchNumber = StructuralObject.SetValidValue(value, true);
+                _BatchNumber = StructuralObject.SetValidValue(value, true, "BatchNumber");
                 ReportPropertyChanged("BatchNumber");
                 OnBatchNumberChanged();
             }
@@ -14827,7 +16738,7 @@ namespace SAMSData
             {
                 OnMfgDateChanging(value);
                 ReportPropertyChanging("MfgDate");
-                _MfgDate = StructuralObject.SetValidValue(value, true);
+                _MfgDate = StructuralObject.SetValidValue(value, true, "MfgDate");
                 ReportPropertyChanged("MfgDate");
                 OnMfgDateChanged();
             }
@@ -14851,7 +16762,7 @@ namespace SAMSData
             {
                 OnExpDateChanging(value);
                 ReportPropertyChanging("ExpDate");
-                _ExpDate = StructuralObject.SetValidValue(value, true);
+                _ExpDate = StructuralObject.SetValidValue(value, true, "ExpDate");
                 ReportPropertyChanged("ExpDate");
                 OnExpDateChanged();
             }
@@ -14875,7 +16786,7 @@ namespace SAMSData
             {
                 OnTaxChanging(value);
                 ReportPropertyChanging("Tax");
-                _Tax = StructuralObject.SetValidValue(value);
+                _Tax = StructuralObject.SetValidValue(value, "Tax");
                 ReportPropertyChanged("Tax");
                 OnTaxChanged();
             }
@@ -14899,7 +16810,7 @@ namespace SAMSData
             {
                 OnTaxAmountChanging(value);
                 ReportPropertyChanging("TaxAmount");
-                _TaxAmount = StructuralObject.SetValidValue(value);
+                _TaxAmount = StructuralObject.SetValidValue(value, "TaxAmount");
                 ReportPropertyChanged("TaxAmount");
                 OnTaxAmountChanged();
             }
@@ -14923,7 +16834,7 @@ namespace SAMSData
             {
                 OnSizeChanging(value);
                 ReportPropertyChanging("Size");
-                _Size = StructuralObject.SetValidValue(value, true);
+                _Size = StructuralObject.SetValidValue(value, true, "Size");
                 ReportPropertyChanged("Size");
                 OnSizeChanged();
             }
@@ -14947,7 +16858,7 @@ namespace SAMSData
             {
                 OnMRPChanging(value);
                 ReportPropertyChanging("MRP");
-                _MRP = StructuralObject.SetValidValue(value);
+                _MRP = StructuralObject.SetValidValue(value, "MRP");
                 ReportPropertyChanged("MRP");
                 OnMRPChanged();
             }
@@ -14971,7 +16882,7 @@ namespace SAMSData
             {
                 OnProductNameChanging(value);
                 ReportPropertyChanging("ProductName");
-                _ProductName = StructuralObject.SetValidValue(value, true);
+                _ProductName = StructuralObject.SetValidValue(value, true, "ProductName");
                 ReportPropertyChanged("ProductName");
                 OnProductNameChanged();
             }
@@ -14995,7 +16906,7 @@ namespace SAMSData
             {
                 OnIGSTChanging(value);
                 ReportPropertyChanging("IGST");
-                _IGST = StructuralObject.SetValidValue(value);
+                _IGST = StructuralObject.SetValidValue(value, "IGST");
                 ReportPropertyChanged("IGST");
                 OnIGSTChanged();
             }
@@ -15019,7 +16930,7 @@ namespace SAMSData
             {
                 OnCGSTChanging(value);
                 ReportPropertyChanging("CGST");
-                _CGST = StructuralObject.SetValidValue(value);
+                _CGST = StructuralObject.SetValidValue(value, "CGST");
                 ReportPropertyChanged("CGST");
                 OnCGSTChanged();
             }
@@ -15043,7 +16954,7 @@ namespace SAMSData
             {
                 OnSGSTChanging(value);
                 ReportPropertyChanging("SGST");
-                _SGST = StructuralObject.SetValidValue(value);
+                _SGST = StructuralObject.SetValidValue(value, "SGST");
                 ReportPropertyChanged("SGST");
                 OnSGSTChanged();
             }
@@ -15067,7 +16978,7 @@ namespace SAMSData
             {
                 OnIGSTValueChanging(value);
                 ReportPropertyChanging("IGSTValue");
-                _IGSTValue = StructuralObject.SetValidValue(value);
+                _IGSTValue = StructuralObject.SetValidValue(value, "IGSTValue");
                 ReportPropertyChanged("IGSTValue");
                 OnIGSTValueChanged();
             }
@@ -15091,7 +17002,7 @@ namespace SAMSData
             {
                 OnCGSTValueChanging(value);
                 ReportPropertyChanging("CGSTValue");
-                _CGSTValue = StructuralObject.SetValidValue(value);
+                _CGSTValue = StructuralObject.SetValidValue(value, "CGSTValue");
                 ReportPropertyChanged("CGSTValue");
                 OnCGSTValueChanged();
             }
@@ -15115,7 +17026,7 @@ namespace SAMSData
             {
                 OnSGSTValueChanging(value);
                 ReportPropertyChanging("SGSTValue");
-                _SGSTValue = StructuralObject.SetValidValue(value);
+                _SGSTValue = StructuralObject.SetValidValue(value, "SGSTValue");
                 ReportPropertyChanged("SGSTValue");
                 OnSGSTValueChanged();
             }
@@ -15139,7 +17050,7 @@ namespace SAMSData
             {
                 OnCESSChanging(value);
                 ReportPropertyChanging("CESS");
-                _CESS = StructuralObject.SetValidValue(value);
+                _CESS = StructuralObject.SetValidValue(value, "CESS");
                 ReportPropertyChanged("CESS");
                 OnCESSChanged();
             }
@@ -15163,7 +17074,7 @@ namespace SAMSData
             {
                 OnCESSValueChanging(value);
                 ReportPropertyChanging("CESSValue");
-                _CESSValue = StructuralObject.SetValidValue(value);
+                _CESSValue = StructuralObject.SetValidValue(value, "CESSValue");
                 ReportPropertyChanged("CESSValue");
                 OnCESSValueChanged();
             }
@@ -15187,7 +17098,7 @@ namespace SAMSData
             {
                 OnAmountChanging(value);
                 ReportPropertyChanging("Amount");
-                _Amount = StructuralObject.SetValidValue(value);
+                _Amount = StructuralObject.SetValidValue(value, "Amount");
                 ReportPropertyChanged("Amount");
                 OnAmountChanged();
             }
@@ -15211,7 +17122,7 @@ namespace SAMSData
             {
                 OnPurchasePriceChanging(value);
                 ReportPropertyChanging("PurchasePrice");
-                _PurchasePrice = StructuralObject.SetValidValue(value);
+                _PurchasePrice = StructuralObject.SetValidValue(value, "PurchasePrice");
                 ReportPropertyChanged("PurchasePrice");
                 OnPurchasePriceChanged();
             }
@@ -15222,7 +17133,6 @@ namespace SAMSData
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -15356,7 +17266,7 @@ namespace SAMSData
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -15375,7 +17285,7 @@ namespace SAMSData
                 {
                     OnSaleDetailTrackingIDChanging(value);
                     ReportPropertyChanging("SaleDetailTrackingID");
-                    _SaleDetailTrackingID = StructuralObject.SetValidValue(value);
+                    _SaleDetailTrackingID = StructuralObject.SetValidValue(value, "SaleDetailTrackingID");
                     ReportPropertyChanged("SaleDetailTrackingID");
                     OnSaleDetailTrackingIDChanged();
                 }
@@ -15400,7 +17310,7 @@ namespace SAMSData
             {
                 OnSaleDetailsIDChanging(value);
                 ReportPropertyChanging("SaleDetailsID");
-                _SaleDetailsID = StructuralObject.SetValidValue(value);
+                _SaleDetailsID = StructuralObject.SetValidValue(value, "SaleDetailsID");
                 ReportPropertyChanged("SaleDetailsID");
                 OnSaleDetailsIDChanged();
             }
@@ -15424,7 +17334,7 @@ namespace SAMSData
             {
                 OnPurchaseDetailsIDChanging(value);
                 ReportPropertyChanging("PurchaseDetailsID");
-                _PurchaseDetailsID = StructuralObject.SetValidValue(value);
+                _PurchaseDetailsID = StructuralObject.SetValidValue(value, "PurchaseDetailsID");
                 ReportPropertyChanged("PurchaseDetailsID");
                 OnPurchaseDetailsIDChanged();
             }
@@ -15448,7 +17358,7 @@ namespace SAMSData
             {
                 OnQuantityChanging(value);
                 ReportPropertyChanging("Quantity");
-                _Quantity = StructuralObject.SetValidValue(value);
+                _Quantity = StructuralObject.SetValidValue(value, "Quantity");
                 ReportPropertyChanged("Quantity");
                 OnQuantityChanged();
             }
@@ -15459,7 +17369,6 @@ namespace SAMSData
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -15569,7 +17478,7 @@ namespace SAMSData
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -15588,7 +17497,7 @@ namespace SAMSData
                 {
                     OnConfigKeyIDChanging(value);
                     ReportPropertyChanging("ConfigKeyID");
-                    _ConfigKeyID = StructuralObject.SetValidValue(value);
+                    _ConfigKeyID = StructuralObject.SetValidValue(value, "ConfigKeyID");
                     ReportPropertyChanged("ConfigKeyID");
                     OnConfigKeyIDChanged();
                 }
@@ -15613,7 +17522,7 @@ namespace SAMSData
             {
                 OnKeyNameChanging(value);
                 ReportPropertyChanging("KeyName");
-                _KeyName = StructuralObject.SetValidValue(value, false);
+                _KeyName = StructuralObject.SetValidValue(value, false, "KeyName");
                 ReportPropertyChanged("KeyName");
                 OnKeyNameChanged();
             }
@@ -15637,7 +17546,7 @@ namespace SAMSData
             {
                 OnKeyValueChanging(value);
                 ReportPropertyChanging("KeyValue");
-                _KeyValue = StructuralObject.SetValidValue(value, false);
+                _KeyValue = StructuralObject.SetValidValue(value, false, "KeyValue");
                 ReportPropertyChanged("KeyValue");
                 OnKeyValueChanged();
             }
@@ -15648,7 +17557,6 @@ namespace SAMSData
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -15680,7 +17588,7 @@ namespace SAMSData
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -15699,7 +17607,7 @@ namespace SAMSData
                 {
                     OnUserIDChanging(value);
                     ReportPropertyChanging("UserID");
-                    _UserID = StructuralObject.SetValidValue(value);
+                    _UserID = StructuralObject.SetValidValue(value, "UserID");
                     ReportPropertyChanged("UserID");
                     OnUserIDChanged();
                 }
@@ -15724,7 +17632,7 @@ namespace SAMSData
             {
                 OnUserNameChanging(value);
                 ReportPropertyChanging("UserName");
-                _UserName = StructuralObject.SetValidValue(value, false);
+                _UserName = StructuralObject.SetValidValue(value, false, "UserName");
                 ReportPropertyChanged("UserName");
                 OnUserNameChanged();
             }
@@ -15748,7 +17656,7 @@ namespace SAMSData
             {
                 OnPasswordChanging(value);
                 ReportPropertyChanging("Password");
-                _Password = StructuralObject.SetValidValue(value, false);
+                _Password = StructuralObject.SetValidValue(value, false, "Password");
                 ReportPropertyChanged("Password");
                 OnPasswordChanged();
             }
@@ -15772,7 +17680,7 @@ namespace SAMSData
             {
                 OnStatusChanging(value);
                 ReportPropertyChanging("Status");
-                _Status = StructuralObject.SetValidValue(value);
+                _Status = StructuralObject.SetValidValue(value, "Status");
                 ReportPropertyChanged("Status");
                 OnStatusChanged();
             }
@@ -15796,7 +17704,7 @@ namespace SAMSData
             {
                 OnUserLevelChanging(value);
                 ReportPropertyChanging("UserLevel");
-                _UserLevel = StructuralObject.SetValidValue(value, true);
+                _UserLevel = StructuralObject.SetValidValue(value, true, "UserLevel");
                 ReportPropertyChanged("UserLevel");
                 OnUserLevelChanged();
             }
@@ -15820,7 +17728,7 @@ namespace SAMSData
             {
                 OnApplicationNameChanging(value);
                 ReportPropertyChanging("ApplicationName");
-                _ApplicationName = StructuralObject.SetValidValue(value, true);
+                _ApplicationName = StructuralObject.SetValidValue(value, true, "ApplicationName");
                 ReportPropertyChanged("ApplicationName");
                 OnApplicationNameChanged();
             }
@@ -15844,7 +17752,7 @@ namespace SAMSData
             {
                 OnRolesChanging(value);
                 ReportPropertyChanging("Roles");
-                _Roles = StructuralObject.SetValidValue(value, true);
+                _Roles = StructuralObject.SetValidValue(value, true, "Roles");
                 ReportPropertyChanged("Roles");
                 OnRolesChanged();
             }
@@ -15855,7 +17763,6 @@ namespace SAMSData
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -15885,7 +17792,7 @@ namespace SAMSData
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -15904,7 +17811,7 @@ namespace SAMSData
                 {
                     OnSectionIDChanging(value);
                     ReportPropertyChanging("SectionID");
-                    _SectionID = StructuralObject.SetValidValue(value);
+                    _SectionID = StructuralObject.SetValidValue(value, "SectionID");
                     ReportPropertyChanged("SectionID");
                     OnSectionIDChanged();
                 }
@@ -15929,7 +17836,7 @@ namespace SAMSData
             {
                 OnSectionNameChanging(value);
                 ReportPropertyChanging("SectionName");
-                _SectionName = StructuralObject.SetValidValue(value, false);
+                _SectionName = StructuralObject.SetValidValue(value, false, "SectionName");
                 ReportPropertyChanged("SectionName");
                 OnSectionNameChanged();
             }
@@ -15953,7 +17860,7 @@ namespace SAMSData
             {
                 OnDescriptionChanging(value);
                 ReportPropertyChanging("Description");
-                _Description = StructuralObject.SetValidValue(value, true);
+                _Description = StructuralObject.SetValidValue(value, true, "Description");
                 ReportPropertyChanged("Description");
                 OnDescriptionChanged();
             }
@@ -15977,7 +17884,7 @@ namespace SAMSData
             {
                 OnStatusChanging(value);
                 ReportPropertyChanging("Status");
-                _Status = StructuralObject.SetValidValue(value);
+                _Status = StructuralObject.SetValidValue(value, "Status");
                 ReportPropertyChanged("Status");
                 OnStatusChanged();
             }
@@ -16001,7 +17908,7 @@ namespace SAMSData
             {
                 OnPriorityChanging(value);
                 ReportPropertyChanging("Priority");
-                _Priority = StructuralObject.SetValidValue(value);
+                _Priority = StructuralObject.SetValidValue(value, "Priority");
                 ReportPropertyChanged("Priority");
                 OnPriorityChanged();
             }
@@ -16025,7 +17932,7 @@ namespace SAMSData
             {
                 OnBillPrefixChanging(value);
                 ReportPropertyChanging("BillPrefix");
-                _BillPrefix = StructuralObject.SetValidValue(value, true);
+                _BillPrefix = StructuralObject.SetValidValue(value, true, "BillPrefix");
                 ReportPropertyChanged("BillPrefix");
                 OnBillPrefixChanged();
             }
@@ -16036,7 +17943,6 @@ namespace SAMSData
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -16176,7 +18082,7 @@ namespace SAMSData
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -16195,7 +18101,7 @@ namespace SAMSData
                 {
                     OnSMSAlertIdChanging(value);
                     ReportPropertyChanging("SMSAlertId");
-                    _SMSAlertId = StructuralObject.SetValidValue(value);
+                    _SMSAlertId = StructuralObject.SetValidValue(value, "SMSAlertId");
                     ReportPropertyChanged("SMSAlertId");
                     OnSMSAlertIdChanged();
                 }
@@ -16220,7 +18126,7 @@ namespace SAMSData
             {
                 OnMemberIdChanging(value);
                 ReportPropertyChanging("MemberId");
-                _MemberId = StructuralObject.SetValidValue(value);
+                _MemberId = StructuralObject.SetValidValue(value, "MemberId");
                 ReportPropertyChanged("MemberId");
                 OnMemberIdChanged();
             }
@@ -16244,7 +18150,7 @@ namespace SAMSData
             {
                 OnAlertTypeChanging(value);
                 ReportPropertyChanging("AlertType");
-                _AlertType = StructuralObject.SetValidValue(value, true);
+                _AlertType = StructuralObject.SetValidValue(value, true, "AlertType");
                 ReportPropertyChanged("AlertType");
                 OnAlertTypeChanged();
             }
@@ -16268,7 +18174,7 @@ namespace SAMSData
             {
                 OnAlertDateChanging(value);
                 ReportPropertyChanging("AlertDate");
-                _AlertDate = StructuralObject.SetValidValue(value);
+                _AlertDate = StructuralObject.SetValidValue(value, "AlertDate");
                 ReportPropertyChanged("AlertDate");
                 OnAlertDateChanged();
             }
@@ -16292,7 +18198,7 @@ namespace SAMSData
             {
                 OnMessageTextChanging(value);
                 ReportPropertyChanging("MessageText");
-                _MessageText = StructuralObject.SetValidValue(value, true);
+                _MessageText = StructuralObject.SetValidValue(value, true, "MessageText");
                 ReportPropertyChanged("MessageText");
                 OnMessageTextChanged();
             }
@@ -16316,7 +18222,7 @@ namespace SAMSData
             {
                 OnAlertStatusChanging(value);
                 ReportPropertyChanging("AlertStatus");
-                _AlertStatus = StructuralObject.SetValidValue(value);
+                _AlertStatus = StructuralObject.SetValidValue(value, "AlertStatus");
                 ReportPropertyChanged("AlertStatus");
                 OnAlertStatusChanged();
             }
@@ -16327,7 +18233,6 @@ namespace SAMSData
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -16395,7 +18300,7 @@ namespace SAMSData
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -16414,7 +18319,7 @@ namespace SAMSData
                 {
                     OnSMSAlertScheduleIdChanging(value);
                     ReportPropertyChanging("SMSAlertScheduleId");
-                    _SMSAlertScheduleId = StructuralObject.SetValidValue(value);
+                    _SMSAlertScheduleId = StructuralObject.SetValidValue(value, "SMSAlertScheduleId");
                     ReportPropertyChanged("SMSAlertScheduleId");
                     OnSMSAlertScheduleIdChanged();
                 }
@@ -16439,7 +18344,7 @@ namespace SAMSData
             {
                 OnAlertScheduleDateChanging(value);
                 ReportPropertyChanging("AlertScheduleDate");
-                _AlertScheduleDate = StructuralObject.SetValidValue(value);
+                _AlertScheduleDate = StructuralObject.SetValidValue(value, "AlertScheduleDate");
                 ReportPropertyChanged("AlertScheduleDate");
                 OnAlertScheduleDateChanged();
             }
@@ -16463,7 +18368,7 @@ namespace SAMSData
             {
                 OnMessageChanging(value);
                 ReportPropertyChanging("Message");
-                _Message = StructuralObject.SetValidValue(value, true);
+                _Message = StructuralObject.SetValidValue(value, true, "Message");
                 ReportPropertyChanged("Message");
                 OnMessageChanged();
             }
@@ -16487,7 +18392,7 @@ namespace SAMSData
             {
                 OnMemberDetailsChanging(value);
                 ReportPropertyChanging("MemberDetails");
-                _MemberDetails = StructuralObject.SetValidValue(value, true);
+                _MemberDetails = StructuralObject.SetValidValue(value, true, "MemberDetails");
                 ReportPropertyChanged("MemberDetails");
                 OnMemberDetailsChanged();
             }
@@ -16511,7 +18416,7 @@ namespace SAMSData
             {
                 OnStatusChanging(value);
                 ReportPropertyChanging("Status");
-                _Status = StructuralObject.SetValidValue(value);
+                _Status = StructuralObject.SetValidValue(value, "Status");
                 ReportPropertyChanged("Status");
                 OnStatusChanged();
             }
@@ -16522,7 +18427,378 @@ namespace SAMSData
 
         #endregion
 
+    }
     
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SAMSModel", Name="StockItem")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class StockItem : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new StockItem object.
+        /// </summary>
+        /// <param name="stockItemId">Initial value of the StockItemId property.</param>
+        /// <param name="itemName">Initial value of the ItemName property.</param>
+        /// <param name="unitOfMeasurement">Initial value of the UnitOfMeasurement property.</param>
+        /// <param name="isActive">Initial value of the IsActive property.</param>
+        public static StockItem CreateStockItem(global::System.Int32 stockItemId, global::System.String itemName, global::System.String unitOfMeasurement, global::System.Boolean isActive)
+        {
+            StockItem stockItem = new StockItem();
+            stockItem.StockItemId = stockItemId;
+            stockItem.ItemName = itemName;
+            stockItem.UnitOfMeasurement = unitOfMeasurement;
+            stockItem.IsActive = isActive;
+            return stockItem;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 StockItemId
+        {
+            get
+            {
+                return _StockItemId;
+            }
+            set
+            {
+                if (_StockItemId != value)
+                {
+                    OnStockItemIdChanging(value);
+                    ReportPropertyChanging("StockItemId");
+                    _StockItemId = StructuralObject.SetValidValue(value, "StockItemId");
+                    ReportPropertyChanged("StockItemId");
+                    OnStockItemIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _StockItemId;
+        partial void OnStockItemIdChanging(global::System.Int32 value);
+        partial void OnStockItemIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String ItemName
+        {
+            get
+            {
+                return _ItemName;
+            }
+            set
+            {
+                OnItemNameChanging(value);
+                ReportPropertyChanging("ItemName");
+                _ItemName = StructuralObject.SetValidValue(value, false, "ItemName");
+                ReportPropertyChanged("ItemName");
+                OnItemNameChanged();
+            }
+        }
+        private global::System.String _ItemName;
+        partial void OnItemNameChanging(global::System.String value);
+        partial void OnItemNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Category
+        {
+            get
+            {
+                return _Category;
+            }
+            set
+            {
+                OnCategoryChanging(value);
+                ReportPropertyChanging("Category");
+                _Category = StructuralObject.SetValidValue(value, true, "Category");
+                ReportPropertyChanged("Category");
+                OnCategoryChanged();
+            }
+        }
+        private global::System.String _Category;
+        partial void OnCategoryChanging(global::System.String value);
+        partial void OnCategoryChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String UnitOfMeasurement
+        {
+            get
+            {
+                return _UnitOfMeasurement;
+            }
+            set
+            {
+                OnUnitOfMeasurementChanging(value);
+                ReportPropertyChanging("UnitOfMeasurement");
+                _UnitOfMeasurement = StructuralObject.SetValidValue(value, false, "UnitOfMeasurement");
+                ReportPropertyChanged("UnitOfMeasurement");
+                OnUnitOfMeasurementChanged();
+            }
+        }
+        private global::System.String _UnitOfMeasurement;
+        partial void OnUnitOfMeasurementChanging(global::System.String value);
+        partial void OnUnitOfMeasurementChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> ReorderLevel
+        {
+            get
+            {
+                return _ReorderLevel;
+            }
+            set
+            {
+                OnReorderLevelChanging(value);
+                ReportPropertyChanging("ReorderLevel");
+                _ReorderLevel = StructuralObject.SetValidValue(value, "ReorderLevel");
+                ReportPropertyChanged("ReorderLevel");
+                OnReorderLevelChanged();
+            }
+        }
+        private Nullable<global::System.Double> _ReorderLevel;
+        partial void OnReorderLevelChanging(Nullable<global::System.Double> value);
+        partial void OnReorderLevelChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Description
+        {
+            get
+            {
+                return _Description;
+            }
+            set
+            {
+                OnDescriptionChanging(value);
+                ReportPropertyChanging("Description");
+                _Description = StructuralObject.SetValidValue(value, true, "Description");
+                ReportPropertyChanged("Description");
+                OnDescriptionChanged();
+            }
+        }
+        private global::System.String _Description;
+        partial void OnDescriptionChanging(global::System.String value);
+        partial void OnDescriptionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsActive
+        {
+            get
+            {
+                return _IsActive;
+            }
+            set
+            {
+                OnIsActiveChanging(value);
+                ReportPropertyChanging("IsActive");
+                _IsActive = StructuralObject.SetValidValue(value, "IsActive");
+                ReportPropertyChanged("IsActive");
+                OnIsActiveChanged();
+            }
+        }
+        private global::System.Boolean _IsActive;
+        partial void OnIsActiveChanging(global::System.Boolean value);
+        partial void OnIsActiveChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> CreatedBy
+        {
+            get
+            {
+                return _CreatedBy;
+            }
+            set
+            {
+                OnCreatedByChanging(value);
+                ReportPropertyChanging("CreatedBy");
+                _CreatedBy = StructuralObject.SetValidValue(value, "CreatedBy");
+                ReportPropertyChanged("CreatedBy");
+                OnCreatedByChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _CreatedBy;
+        partial void OnCreatedByChanging(Nullable<global::System.Int32> value);
+        partial void OnCreatedByChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> CreatedOn
+        {
+            get
+            {
+                return _CreatedOn;
+            }
+            set
+            {
+                OnCreatedOnChanging(value);
+                ReportPropertyChanging("CreatedOn");
+                _CreatedOn = StructuralObject.SetValidValue(value, "CreatedOn");
+                ReportPropertyChanged("CreatedOn");
+                OnCreatedOnChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _CreatedOn;
+        partial void OnCreatedOnChanging(Nullable<global::System.DateTime> value);
+        partial void OnCreatedOnChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> UpdatedBy
+        {
+            get
+            {
+                return _UpdatedBy;
+            }
+            set
+            {
+                OnUpdatedByChanging(value);
+                ReportPropertyChanging("UpdatedBy");
+                _UpdatedBy = StructuralObject.SetValidValue(value, "UpdatedBy");
+                ReportPropertyChanged("UpdatedBy");
+                OnUpdatedByChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _UpdatedBy;
+        partial void OnUpdatedByChanging(Nullable<global::System.Int32> value);
+        partial void OnUpdatedByChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> UpdatedOn
+        {
+            get
+            {
+                return _UpdatedOn;
+            }
+            set
+            {
+                OnUpdatedOnChanging(value);
+                ReportPropertyChanging("UpdatedOn");
+                _UpdatedOn = StructuralObject.SetValidValue(value, "UpdatedOn");
+                ReportPropertyChanged("UpdatedOn");
+                OnUpdatedOnChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _UpdatedOn;
+        partial void OnUpdatedOnChanging(Nullable<global::System.DateTime> value);
+        partial void OnUpdatedOnChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMSModel", "FK_InvPurchDetails_StockItems", "InventoryPurchaseDetail")]
+        public EntityCollection<InventoryPurchaseDetail> InventoryPurchaseDetails
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<InventoryPurchaseDetail>("SAMSModel.FK_InvPurchDetails_StockItems", "InventoryPurchaseDetail");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<InventoryPurchaseDetail>("SAMSModel.FK_InvPurchDetails_StockItems", "InventoryPurchaseDetail", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMSModel", "FK_RoomStock_StockItems", "RoomStockTransaction")]
+        public EntityCollection<RoomStockTransaction> RoomStockTransactions
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<RoomStockTransaction>("SAMSModel.FK_RoomStock_StockItems", "RoomStockTransaction");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<RoomStockTransaction>("SAMSModel.FK_RoomStock_StockItems", "RoomStockTransaction", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMSModel", "FK_RoomTypeStockConfigs_StockItems", "RoomTypeStockConfig")]
+        public EntityCollection<RoomTypeStockConfig> RoomTypeStockConfigs
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<RoomTypeStockConfig>("SAMSModel.FK_RoomTypeStockConfigs_StockItems", "RoomTypeStockConfig");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<RoomTypeStockConfig>("SAMSModel.FK_RoomTypeStockConfigs_StockItems", "RoomTypeStockConfig", value);
+                }
+            }
+        }
+
+        #endregion
+
     }
     
     /// <summary>
@@ -16548,7 +18824,7 @@ namespace SAMSData
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -16567,7 +18843,7 @@ namespace SAMSData
                 {
                     OnTariffIdChanging(value);
                     ReportPropertyChanging("TariffId");
-                    _TariffId = StructuralObject.SetValidValue(value);
+                    _TariffId = StructuralObject.SetValidValue(value, "TariffId");
                     ReportPropertyChanged("TariffId");
                     OnTariffIdChanged();
                 }
@@ -16592,7 +18868,7 @@ namespace SAMSData
             {
                 OnTariffNameChanging(value);
                 ReportPropertyChanging("TariffName");
-                _TariffName = StructuralObject.SetValidValue(value, true);
+                _TariffName = StructuralObject.SetValidValue(value, true, "TariffName");
                 ReportPropertyChanged("TariffName");
                 OnTariffNameChanged();
             }
@@ -16616,7 +18892,7 @@ namespace SAMSData
             {
                 OnTariffTypeChanging(value);
                 ReportPropertyChanging("TariffType");
-                _TariffType = StructuralObject.SetValidValue(value, true);
+                _TariffType = StructuralObject.SetValidValue(value, true, "TariffType");
                 ReportPropertyChanged("TariffType");
                 OnTariffTypeChanged();
             }
@@ -16640,7 +18916,7 @@ namespace SAMSData
             {
                 OnPriceChanging(value);
                 ReportPropertyChanging("Price");
-                _Price = StructuralObject.SetValidValue(value);
+                _Price = StructuralObject.SetValidValue(value, "Price");
                 ReportPropertyChanged("Price");
                 OnPriceChanged();
             }
@@ -16664,7 +18940,7 @@ namespace SAMSData
             {
                 OnTaxChanging(value);
                 ReportPropertyChanging("Tax");
-                _Tax = StructuralObject.SetValidValue(value);
+                _Tax = StructuralObject.SetValidValue(value, "Tax");
                 ReportPropertyChanged("Tax");
                 OnTaxChanged();
             }
@@ -16688,7 +18964,7 @@ namespace SAMSData
             {
                 OnOtherChargesChanging(value);
                 ReportPropertyChanging("OtherCharges");
-                _OtherCharges = StructuralObject.SetValidValue(value);
+                _OtherCharges = StructuralObject.SetValidValue(value, "OtherCharges");
                 ReportPropertyChanged("OtherCharges");
                 OnOtherChargesChanged();
             }
@@ -16712,7 +18988,7 @@ namespace SAMSData
             {
                 OnOtherChargeDetailsChanging(value);
                 ReportPropertyChanging("OtherChargeDetails");
-                _OtherChargeDetails = StructuralObject.SetValidValue(value);
+                _OtherChargeDetails = StructuralObject.SetValidValue(value, "OtherChargeDetails");
                 ReportPropertyChanged("OtherChargeDetails");
                 OnOtherChargeDetailsChanged();
             }
@@ -16736,7 +19012,7 @@ namespace SAMSData
             {
                 OnCreatedByChanging(value);
                 ReportPropertyChanging("CreatedBy");
-                _CreatedBy = StructuralObject.SetValidValue(value);
+                _CreatedBy = StructuralObject.SetValidValue(value, "CreatedBy");
                 ReportPropertyChanged("CreatedBy");
                 OnCreatedByChanged();
             }
@@ -16760,7 +19036,7 @@ namespace SAMSData
             {
                 OnCreatedOnChanging(value);
                 ReportPropertyChanging("CreatedOn");
-                _CreatedOn = StructuralObject.SetValidValue(value);
+                _CreatedOn = StructuralObject.SetValidValue(value, "CreatedOn");
                 ReportPropertyChanged("CreatedOn");
                 OnCreatedOnChanged();
             }
@@ -16784,7 +19060,7 @@ namespace SAMSData
             {
                 OnUpdatedByChanging(value);
                 ReportPropertyChanging("UpdatedBy");
-                _UpdatedBy = StructuralObject.SetValidValue(value);
+                _UpdatedBy = StructuralObject.SetValidValue(value, "UpdatedBy");
                 ReportPropertyChanged("UpdatedBy");
                 OnUpdatedByChanged();
             }
@@ -16808,7 +19084,7 @@ namespace SAMSData
             {
                 OnUpdatedOnChanging(value);
                 ReportPropertyChanging("UpdatedOn");
-                _UpdatedOn = StructuralObject.SetValidValue(value);
+                _UpdatedOn = StructuralObject.SetValidValue(value, "UpdatedOn");
                 ReportPropertyChanged("UpdatedOn");
                 OnUpdatedOnChanged();
             }
@@ -16832,7 +19108,7 @@ namespace SAMSData
             {
                 OnExtraBedPriceChanging(value);
                 ReportPropertyChanging("ExtraBedPrice");
-                _ExtraBedPrice = StructuralObject.SetValidValue(value);
+                _ExtraBedPrice = StructuralObject.SetValidValue(value, "ExtraBedPrice");
                 ReportPropertyChanged("ExtraBedPrice");
                 OnExtraBedPriceChanged();
             }
@@ -16856,7 +19132,7 @@ namespace SAMSData
             {
                 OnPlanPriceChanging(value);
                 ReportPropertyChanging("PlanPrice");
-                _PlanPrice = StructuralObject.SetValidValue(value);
+                _PlanPrice = StructuralObject.SetValidValue(value, "PlanPrice");
                 ReportPropertyChanged("PlanPrice");
                 OnPlanPriceChanged();
             }
@@ -16880,7 +19156,7 @@ namespace SAMSData
             {
                 OnPlanExtraBedPriceChanging(value);
                 ReportPropertyChanging("PlanExtraBedPrice");
-                _PlanExtraBedPrice = StructuralObject.SetValidValue(value);
+                _PlanExtraBedPrice = StructuralObject.SetValidValue(value, "PlanExtraBedPrice");
                 ReportPropertyChanged("PlanExtraBedPrice");
                 OnPlanExtraBedPriceChanged();
             }
@@ -16904,7 +19180,7 @@ namespace SAMSData
             {
                 OnPlanTaxChanging(value);
                 ReportPropertyChanging("PlanTax");
-                _PlanTax = StructuralObject.SetValidValue(value);
+                _PlanTax = StructuralObject.SetValidValue(value, "PlanTax");
                 ReportPropertyChanged("PlanTax");
                 OnPlanTaxChanged();
             }
@@ -16915,7 +19191,6 @@ namespace SAMSData
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -16936,6 +19211,28 @@ namespace SAMSData
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Room>("SAMSModel.FK_Rooms_Tariffs", "Room", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SAMSModel", "FK_RoomTypeStockConfigs_Tariffs", "RoomTypeStockConfig")]
+        public EntityCollection<RoomTypeStockConfig> RoomTypeStockConfigs
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<RoomTypeStockConfig>("SAMSModel.FK_RoomTypeStockConfigs_Tariffs", "RoomTypeStockConfig");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<RoomTypeStockConfig>("SAMSModel.FK_RoomTypeStockConfigs_Tariffs", "RoomTypeStockConfig", value);
                 }
             }
         }
@@ -16967,7 +19264,7 @@ namespace SAMSData
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -16986,7 +19283,7 @@ namespace SAMSData
                 {
                     OnTaxIDChanging(value);
                     ReportPropertyChanging("TaxID");
-                    _TaxID = StructuralObject.SetValidValue(value);
+                    _TaxID = StructuralObject.SetValidValue(value, "TaxID");
                     ReportPropertyChanged("TaxID");
                     OnTaxIDChanged();
                 }
@@ -17011,7 +19308,7 @@ namespace SAMSData
             {
                 OnPriorityChanging(value);
                 ReportPropertyChanging("Priority");
-                _Priority = StructuralObject.SetValidValue(value);
+                _Priority = StructuralObject.SetValidValue(value, "Priority");
                 ReportPropertyChanged("Priority");
                 OnPriorityChanged();
             }
@@ -17035,7 +19332,7 @@ namespace SAMSData
             {
                 OnStatusChanging(value);
                 ReportPropertyChanging("Status");
-                _Status = StructuralObject.SetValidValue(value);
+                _Status = StructuralObject.SetValidValue(value, "Status");
                 ReportPropertyChanged("Status");
                 OnStatusChanged();
             }
@@ -17059,7 +19356,7 @@ namespace SAMSData
             {
                 OnTaxValueChanging(value);
                 ReportPropertyChanging("TaxValue");
-                _TaxValue = StructuralObject.SetValidValue(value);
+                _TaxValue = StructuralObject.SetValidValue(value, "TaxValue");
                 ReportPropertyChanged("TaxValue");
                 OnTaxValueChanged();
             }
@@ -17070,7 +19367,6 @@ namespace SAMSData
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -17122,7 +19418,7 @@ namespace SAMSData
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -17141,7 +19437,7 @@ namespace SAMSData
                 {
                     OnTempKeyIDChanging(value);
                     ReportPropertyChanging("TempKeyID");
-                    _TempKeyID = StructuralObject.SetValidValue(value);
+                    _TempKeyID = StructuralObject.SetValidValue(value, "TempKeyID");
                     ReportPropertyChanged("TempKeyID");
                     OnTempKeyIDChanged();
                 }
@@ -17166,7 +19462,7 @@ namespace SAMSData
             {
                 OnTempDataKeyChanging(value);
                 ReportPropertyChanging("TempDataKey");
-                _TempDataKey = StructuralObject.SetValidValue(value, true);
+                _TempDataKey = StructuralObject.SetValidValue(value, true, "TempDataKey");
                 ReportPropertyChanged("TempDataKey");
                 OnTempDataKeyChanged();
             }
@@ -17190,7 +19486,7 @@ namespace SAMSData
             {
                 OnTempDataValue1Changing(value);
                 ReportPropertyChanging("TempDataValue1");
-                _TempDataValue1 = StructuralObject.SetValidValue(value, true);
+                _TempDataValue1 = StructuralObject.SetValidValue(value, true, "TempDataValue1");
                 ReportPropertyChanged("TempDataValue1");
                 OnTempDataValue1Changed();
             }
@@ -17201,7 +19497,6 @@ namespace SAMSData
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -17231,7 +19526,7 @@ namespace SAMSData
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -17250,7 +19545,7 @@ namespace SAMSData
                 {
                     OnVoucherIDChanging(value);
                     ReportPropertyChanging("VoucherID");
-                    _VoucherID = StructuralObject.SetValidValue(value);
+                    _VoucherID = StructuralObject.SetValidValue(value, "VoucherID");
                     ReportPropertyChanged("VoucherID");
                     OnVoucherIDChanged();
                 }
@@ -17275,7 +19570,7 @@ namespace SAMSData
             {
                 OnVoucherTypeChanging(value);
                 ReportPropertyChanging("VoucherType");
-                _VoucherType = StructuralObject.SetValidValue(value);
+                _VoucherType = StructuralObject.SetValidValue(value, "VoucherType");
                 ReportPropertyChanged("VoucherType");
                 OnVoucherTypeChanged();
             }
@@ -17299,7 +19594,7 @@ namespace SAMSData
             {
                 OnVoucherNoChanging(value);
                 ReportPropertyChanging("VoucherNo");
-                _VoucherNo = StructuralObject.SetValidValue(value);
+                _VoucherNo = StructuralObject.SetValidValue(value, "VoucherNo");
                 ReportPropertyChanged("VoucherNo");
                 OnVoucherNoChanged();
             }
@@ -17323,7 +19618,7 @@ namespace SAMSData
             {
                 OnManualVoucherNoChanging(value);
                 ReportPropertyChanging("ManualVoucherNo");
-                _ManualVoucherNo = StructuralObject.SetValidValue(value, true);
+                _ManualVoucherNo = StructuralObject.SetValidValue(value, true, "ManualVoucherNo");
                 ReportPropertyChanged("ManualVoucherNo");
                 OnManualVoucherNoChanged();
             }
@@ -17347,7 +19642,7 @@ namespace SAMSData
             {
                 OnVoucherDateChanging(value);
                 ReportPropertyChanging("VoucherDate");
-                _VoucherDate = StructuralObject.SetValidValue(value);
+                _VoucherDate = StructuralObject.SetValidValue(value, "VoucherDate");
                 ReportPropertyChanged("VoucherDate");
                 OnVoucherDateChanged();
             }
@@ -17371,7 +19666,7 @@ namespace SAMSData
             {
                 OnFromLedgerChanging(value);
                 ReportPropertyChanging("FromLedger");
-                _FromLedger = StructuralObject.SetValidValue(value);
+                _FromLedger = StructuralObject.SetValidValue(value, "FromLedger");
                 ReportPropertyChanged("FromLedger");
                 OnFromLedgerChanged();
             }
@@ -17395,7 +19690,7 @@ namespace SAMSData
             {
                 OnToLedgerChanging(value);
                 ReportPropertyChanging("ToLedger");
-                _ToLedger = StructuralObject.SetValidValue(value);
+                _ToLedger = StructuralObject.SetValidValue(value, "ToLedger");
                 ReportPropertyChanged("ToLedger");
                 OnToLedgerChanged();
             }
@@ -17419,7 +19714,7 @@ namespace SAMSData
             {
                 OnAmountChanging(value);
                 ReportPropertyChanging("Amount");
-                _Amount = StructuralObject.SetValidValue(value);
+                _Amount = StructuralObject.SetValidValue(value, "Amount");
                 ReportPropertyChanged("Amount");
                 OnAmountChanged();
             }
@@ -17443,7 +19738,7 @@ namespace SAMSData
             {
                 OnChqNoChanging(value);
                 ReportPropertyChanging("ChqNo");
-                _ChqNo = StructuralObject.SetValidValue(value, true);
+                _ChqNo = StructuralObject.SetValidValue(value, true, "ChqNo");
                 ReportPropertyChanged("ChqNo");
                 OnChqNoChanged();
             }
@@ -17467,7 +19762,7 @@ namespace SAMSData
             {
                 OnNarrationChanging(value);
                 ReportPropertyChanging("Narration");
-                _Narration = StructuralObject.SetValidValue(value, true);
+                _Narration = StructuralObject.SetValidValue(value, true, "Narration");
                 ReportPropertyChanged("Narration");
                 OnNarrationChanged();
             }
@@ -17491,7 +19786,7 @@ namespace SAMSData
             {
                 OnBusinessIDChanging(value);
                 ReportPropertyChanging("BusinessID");
-                _BusinessID = StructuralObject.SetValidValue(value);
+                _BusinessID = StructuralObject.SetValidValue(value, "BusinessID");
                 ReportPropertyChanged("BusinessID");
                 OnBusinessIDChanged();
             }
@@ -17502,7 +19797,6 @@ namespace SAMSData
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -17584,8 +19878,855 @@ namespace SAMSData
         #endregion
 
     }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SAMSModel", Name="vw_LowStockItems")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class vw_LowStockItems : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new vw_LowStockItems object.
+        /// </summary>
+        /// <param name="stockItemId">Initial value of the StockItemId property.</param>
+        /// <param name="itemName">Initial value of the ItemName property.</param>
+        /// <param name="unit">Initial value of the Unit property.</param>
+        /// <param name="totalPurchased">Initial value of the TotalPurchased property.</param>
+        /// <param name="totalIssued">Initial value of the TotalIssued property.</param>
+        /// <param name="totalReturned">Initial value of the TotalReturned property.</param>
+        /// <param name="availableStock">Initial value of the AvailableStock property.</param>
+        public static vw_LowStockItems Createvw_LowStockItems(global::System.Int32 stockItemId, global::System.String itemName, global::System.String unit, global::System.Double totalPurchased, global::System.Double totalIssued, global::System.Double totalReturned, global::System.Double availableStock)
+        {
+            vw_LowStockItems vw_LowStockItems = new vw_LowStockItems();
+            vw_LowStockItems.StockItemId = stockItemId;
+            vw_LowStockItems.ItemName = itemName;
+            vw_LowStockItems.Unit = unit;
+            vw_LowStockItems.TotalPurchased = totalPurchased;
+            vw_LowStockItems.TotalIssued = totalIssued;
+            vw_LowStockItems.TotalReturned = totalReturned;
+            vw_LowStockItems.AvailableStock = availableStock;
+            return vw_LowStockItems;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 StockItemId
+        {
+            get
+            {
+                return _StockItemId;
+            }
+            set
+            {
+                if (_StockItemId != value)
+                {
+                    OnStockItemIdChanging(value);
+                    ReportPropertyChanging("StockItemId");
+                    _StockItemId = StructuralObject.SetValidValue(value, "StockItemId");
+                    ReportPropertyChanged("StockItemId");
+                    OnStockItemIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _StockItemId;
+        partial void OnStockItemIdChanging(global::System.Int32 value);
+        partial void OnStockItemIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String ItemName
+        {
+            get
+            {
+                return _ItemName;
+            }
+            set
+            {
+                if (_ItemName != value)
+                {
+                    OnItemNameChanging(value);
+                    ReportPropertyChanging("ItemName");
+                    _ItemName = StructuralObject.SetValidValue(value, false, "ItemName");
+                    ReportPropertyChanged("ItemName");
+                    OnItemNameChanged();
+                }
+            }
+        }
+        private global::System.String _ItemName;
+        partial void OnItemNameChanging(global::System.String value);
+        partial void OnItemNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Category
+        {
+            get
+            {
+                return _Category;
+            }
+            set
+            {
+                OnCategoryChanging(value);
+                ReportPropertyChanging("Category");
+                _Category = StructuralObject.SetValidValue(value, true, "Category");
+                ReportPropertyChanged("Category");
+                OnCategoryChanged();
+            }
+        }
+        private global::System.String _Category;
+        partial void OnCategoryChanging(global::System.String value);
+        partial void OnCategoryChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Unit
+        {
+            get
+            {
+                return _Unit;
+            }
+            set
+            {
+                if (_Unit != value)
+                {
+                    OnUnitChanging(value);
+                    ReportPropertyChanging("Unit");
+                    _Unit = StructuralObject.SetValidValue(value, false, "Unit");
+                    ReportPropertyChanged("Unit");
+                    OnUnitChanged();
+                }
+            }
+        }
+        private global::System.String _Unit;
+        partial void OnUnitChanging(global::System.String value);
+        partial void OnUnitChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> ReorderLevel
+        {
+            get
+            {
+                return _ReorderLevel;
+            }
+            set
+            {
+                OnReorderLevelChanging(value);
+                ReportPropertyChanging("ReorderLevel");
+                _ReorderLevel = StructuralObject.SetValidValue(value, "ReorderLevel");
+                ReportPropertyChanged("ReorderLevel");
+                OnReorderLevelChanged();
+            }
+        }
+        private Nullable<global::System.Double> _ReorderLevel;
+        partial void OnReorderLevelChanging(Nullable<global::System.Double> value);
+        partial void OnReorderLevelChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Double TotalPurchased
+        {
+            get
+            {
+                return _TotalPurchased;
+            }
+            set
+            {
+                if (_TotalPurchased != value)
+                {
+                    OnTotalPurchasedChanging(value);
+                    ReportPropertyChanging("TotalPurchased");
+                    _TotalPurchased = StructuralObject.SetValidValue(value, "TotalPurchased");
+                    ReportPropertyChanged("TotalPurchased");
+                    OnTotalPurchasedChanged();
+                }
+            }
+        }
+        private global::System.Double _TotalPurchased;
+        partial void OnTotalPurchasedChanging(global::System.Double value);
+        partial void OnTotalPurchasedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Double TotalIssued
+        {
+            get
+            {
+                return _TotalIssued;
+            }
+            set
+            {
+                if (_TotalIssued != value)
+                {
+                    OnTotalIssuedChanging(value);
+                    ReportPropertyChanging("TotalIssued");
+                    _TotalIssued = StructuralObject.SetValidValue(value, "TotalIssued");
+                    ReportPropertyChanged("TotalIssued");
+                    OnTotalIssuedChanged();
+                }
+            }
+        }
+        private global::System.Double _TotalIssued;
+        partial void OnTotalIssuedChanging(global::System.Double value);
+        partial void OnTotalIssuedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Double TotalReturned
+        {
+            get
+            {
+                return _TotalReturned;
+            }
+            set
+            {
+                if (_TotalReturned != value)
+                {
+                    OnTotalReturnedChanging(value);
+                    ReportPropertyChanging("TotalReturned");
+                    _TotalReturned = StructuralObject.SetValidValue(value, "TotalReturned");
+                    ReportPropertyChanged("TotalReturned");
+                    OnTotalReturnedChanged();
+                }
+            }
+        }
+        private global::System.Double _TotalReturned;
+        partial void OnTotalReturnedChanging(global::System.Double value);
+        partial void OnTotalReturnedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Double AvailableStock
+        {
+            get
+            {
+                return _AvailableStock;
+            }
+            set
+            {
+                if (_AvailableStock != value)
+                {
+                    OnAvailableStockChanging(value);
+                    ReportPropertyChanging("AvailableStock");
+                    _AvailableStock = StructuralObject.SetValidValue(value, "AvailableStock");
+                    ReportPropertyChanged("AvailableStock");
+                    OnAvailableStockChanged();
+                }
+            }
+        }
+        private global::System.Double _AvailableStock;
+        partial void OnAvailableStockChanging(global::System.Double value);
+        partial void OnAvailableStockChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> LastPurchaseId
+        {
+            get
+            {
+                return _LastPurchaseId;
+            }
+            set
+            {
+                OnLastPurchaseIdChanging(value);
+                ReportPropertyChanging("LastPurchaseId");
+                _LastPurchaseId = StructuralObject.SetValidValue(value, "LastPurchaseId");
+                ReportPropertyChanged("LastPurchaseId");
+                OnLastPurchaseIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _LastPurchaseId;
+        partial void OnLastPurchaseIdChanging(Nullable<global::System.Int32> value);
+        partial void OnLastPurchaseIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> LastPurchaseDate
+        {
+            get
+            {
+                return _LastPurchaseDate;
+            }
+            set
+            {
+                OnLastPurchaseDateChanging(value);
+                ReportPropertyChanging("LastPurchaseDate");
+                _LastPurchaseDate = StructuralObject.SetValidValue(value, "LastPurchaseDate");
+                ReportPropertyChanged("LastPurchaseDate");
+                OnLastPurchaseDateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _LastPurchaseDate;
+        partial void OnLastPurchaseDateChanging(Nullable<global::System.DateTime> value);
+        partial void OnLastPurchaseDateChanged();
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SAMSModel", Name="vw_StockAvailability")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class vw_StockAvailability : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new vw_StockAvailability object.
+        /// </summary>
+        /// <param name="stockItemId">Initial value of the StockItemId property.</param>
+        /// <param name="itemName">Initial value of the ItemName property.</param>
+        /// <param name="unit">Initial value of the Unit property.</param>
+        /// <param name="totalPurchased">Initial value of the TotalPurchased property.</param>
+        /// <param name="totalIssued">Initial value of the TotalIssued property.</param>
+        /// <param name="totalReturned">Initial value of the TotalReturned property.</param>
+        /// <param name="availableStock">Initial value of the AvailableStock property.</param>
+        public static vw_StockAvailability Createvw_StockAvailability(global::System.Int32 stockItemId, global::System.String itemName, global::System.String unit, global::System.Double totalPurchased, global::System.Double totalIssued, global::System.Double totalReturned, global::System.Double availableStock)
+        {
+            vw_StockAvailability vw_StockAvailability = new vw_StockAvailability();
+            vw_StockAvailability.StockItemId = stockItemId;
+            vw_StockAvailability.ItemName = itemName;
+            vw_StockAvailability.Unit = unit;
+            vw_StockAvailability.TotalPurchased = totalPurchased;
+            vw_StockAvailability.TotalIssued = totalIssued;
+            vw_StockAvailability.TotalReturned = totalReturned;
+            vw_StockAvailability.AvailableStock = availableStock;
+            return vw_StockAvailability;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 StockItemId
+        {
+            get
+            {
+                return _StockItemId;
+            }
+            set
+            {
+                if (_StockItemId != value)
+                {
+                    OnStockItemIdChanging(value);
+                    ReportPropertyChanging("StockItemId");
+                    _StockItemId = StructuralObject.SetValidValue(value, "StockItemId");
+                    ReportPropertyChanged("StockItemId");
+                    OnStockItemIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _StockItemId;
+        partial void OnStockItemIdChanging(global::System.Int32 value);
+        partial void OnStockItemIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String ItemName
+        {
+            get
+            {
+                return _ItemName;
+            }
+            set
+            {
+                if (_ItemName != value)
+                {
+                    OnItemNameChanging(value);
+                    ReportPropertyChanging("ItemName");
+                    _ItemName = StructuralObject.SetValidValue(value, false, "ItemName");
+                    ReportPropertyChanged("ItemName");
+                    OnItemNameChanged();
+                }
+            }
+        }
+        private global::System.String _ItemName;
+        partial void OnItemNameChanging(global::System.String value);
+        partial void OnItemNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Category
+        {
+            get
+            {
+                return _Category;
+            }
+            set
+            {
+                OnCategoryChanging(value);
+                ReportPropertyChanging("Category");
+                _Category = StructuralObject.SetValidValue(value, true, "Category");
+                ReportPropertyChanged("Category");
+                OnCategoryChanged();
+            }
+        }
+        private global::System.String _Category;
+        partial void OnCategoryChanging(global::System.String value);
+        partial void OnCategoryChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Unit
+        {
+            get
+            {
+                return _Unit;
+            }
+            set
+            {
+                if (_Unit != value)
+                {
+                    OnUnitChanging(value);
+                    ReportPropertyChanging("Unit");
+                    _Unit = StructuralObject.SetValidValue(value, false, "Unit");
+                    ReportPropertyChanged("Unit");
+                    OnUnitChanged();
+                }
+            }
+        }
+        private global::System.String _Unit;
+        partial void OnUnitChanging(global::System.String value);
+        partial void OnUnitChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> ReorderLevel
+        {
+            get
+            {
+                return _ReorderLevel;
+            }
+            set
+            {
+                OnReorderLevelChanging(value);
+                ReportPropertyChanging("ReorderLevel");
+                _ReorderLevel = StructuralObject.SetValidValue(value, "ReorderLevel");
+                ReportPropertyChanged("ReorderLevel");
+                OnReorderLevelChanged();
+            }
+        }
+        private Nullable<global::System.Double> _ReorderLevel;
+        partial void OnReorderLevelChanging(Nullable<global::System.Double> value);
+        partial void OnReorderLevelChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Double TotalPurchased
+        {
+            get
+            {
+                return _TotalPurchased;
+            }
+            set
+            {
+                if (_TotalPurchased != value)
+                {
+                    OnTotalPurchasedChanging(value);
+                    ReportPropertyChanging("TotalPurchased");
+                    _TotalPurchased = StructuralObject.SetValidValue(value, "TotalPurchased");
+                    ReportPropertyChanged("TotalPurchased");
+                    OnTotalPurchasedChanged();
+                }
+            }
+        }
+        private global::System.Double _TotalPurchased;
+        partial void OnTotalPurchasedChanging(global::System.Double value);
+        partial void OnTotalPurchasedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Double TotalIssued
+        {
+            get
+            {
+                return _TotalIssued;
+            }
+            set
+            {
+                if (_TotalIssued != value)
+                {
+                    OnTotalIssuedChanging(value);
+                    ReportPropertyChanging("TotalIssued");
+                    _TotalIssued = StructuralObject.SetValidValue(value, "TotalIssued");
+                    ReportPropertyChanged("TotalIssued");
+                    OnTotalIssuedChanged();
+                }
+            }
+        }
+        private global::System.Double _TotalIssued;
+        partial void OnTotalIssuedChanging(global::System.Double value);
+        partial void OnTotalIssuedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Double TotalReturned
+        {
+            get
+            {
+                return _TotalReturned;
+            }
+            set
+            {
+                if (_TotalReturned != value)
+                {
+                    OnTotalReturnedChanging(value);
+                    ReportPropertyChanging("TotalReturned");
+                    _TotalReturned = StructuralObject.SetValidValue(value, "TotalReturned");
+                    ReportPropertyChanged("TotalReturned");
+                    OnTotalReturnedChanged();
+                }
+            }
+        }
+        private global::System.Double _TotalReturned;
+        partial void OnTotalReturnedChanging(global::System.Double value);
+        partial void OnTotalReturnedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Double AvailableStock
+        {
+            get
+            {
+                return _AvailableStock;
+            }
+            set
+            {
+                if (_AvailableStock != value)
+                {
+                    OnAvailableStockChanging(value);
+                    ReportPropertyChanging("AvailableStock");
+                    _AvailableStock = StructuralObject.SetValidValue(value, "AvailableStock");
+                    ReportPropertyChanged("AvailableStock");
+                    OnAvailableStockChanged();
+                }
+            }
+        }
+        private global::System.Double _AvailableStock;
+        partial void OnAvailableStockChanging(global::System.Double value);
+        partial void OnAvailableStockChanged();
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SAMSModel", Name="vw_StockMovement")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class vw_StockMovement : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new vw_StockMovement object.
+        /// </summary>
+        /// <param name="itemName">Initial value of the ItemName property.</param>
+        /// <param name="transactionType">Initial value of the TransactionType property.</param>
+        /// <param name="inQty">Initial value of the InQty property.</param>
+        /// <param name="outQty">Initial value of the OutQty property.</param>
+        /// <param name="reference">Initial value of the Reference property.</param>
+        public static vw_StockMovement Createvw_StockMovement(global::System.String itemName, global::System.String transactionType, global::System.Double inQty, global::System.Double outQty, global::System.String reference)
+        {
+            vw_StockMovement vw_StockMovement = new vw_StockMovement();
+            vw_StockMovement.ItemName = itemName;
+            vw_StockMovement.TransactionType = transactionType;
+            vw_StockMovement.InQty = inQty;
+            vw_StockMovement.OutQty = outQty;
+            vw_StockMovement.Reference = reference;
+            return vw_StockMovement;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> TransactionDate
+        {
+            get
+            {
+                return _TransactionDate;
+            }
+            set
+            {
+                OnTransactionDateChanging(value);
+                ReportPropertyChanging("TransactionDate");
+                _TransactionDate = StructuralObject.SetValidValue(value, "TransactionDate");
+                ReportPropertyChanged("TransactionDate");
+                OnTransactionDateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _TransactionDate;
+        partial void OnTransactionDateChanging(Nullable<global::System.DateTime> value);
+        partial void OnTransactionDateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String ItemName
+        {
+            get
+            {
+                return _ItemName;
+            }
+            set
+            {
+                if (_ItemName != value)
+                {
+                    OnItemNameChanging(value);
+                    ReportPropertyChanging("ItemName");
+                    _ItemName = StructuralObject.SetValidValue(value, false, "ItemName");
+                    ReportPropertyChanged("ItemName");
+                    OnItemNameChanged();
+                }
+            }
+        }
+        private global::System.String _ItemName;
+        partial void OnItemNameChanging(global::System.String value);
+        partial void OnItemNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Category
+        {
+            get
+            {
+                return _Category;
+            }
+            set
+            {
+                OnCategoryChanging(value);
+                ReportPropertyChanging("Category");
+                _Category = StructuralObject.SetValidValue(value, true, "Category");
+                ReportPropertyChanged("Category");
+                OnCategoryChanged();
+            }
+        }
+        private global::System.String _Category;
+        partial void OnCategoryChanging(global::System.String value);
+        partial void OnCategoryChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String TransactionType
+        {
+            get
+            {
+                return _TransactionType;
+            }
+            set
+            {
+                if (_TransactionType != value)
+                {
+                    OnTransactionTypeChanging(value);
+                    ReportPropertyChanging("TransactionType");
+                    _TransactionType = StructuralObject.SetValidValue(value, false, "TransactionType");
+                    ReportPropertyChanged("TransactionType");
+                    OnTransactionTypeChanged();
+                }
+            }
+        }
+        private global::System.String _TransactionType;
+        partial void OnTransactionTypeChanging(global::System.String value);
+        partial void OnTransactionTypeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String RoomNo
+        {
+            get
+            {
+                return _RoomNo;
+            }
+            set
+            {
+                OnRoomNoChanging(value);
+                ReportPropertyChanging("RoomNo");
+                _RoomNo = StructuralObject.SetValidValue(value, true, "RoomNo");
+                ReportPropertyChanged("RoomNo");
+                OnRoomNoChanged();
+            }
+        }
+        private global::System.String _RoomNo;
+        partial void OnRoomNoChanging(global::System.String value);
+        partial void OnRoomNoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Double InQty
+        {
+            get
+            {
+                return _InQty;
+            }
+            set
+            {
+                if (_InQty != value)
+                {
+                    OnInQtyChanging(value);
+                    ReportPropertyChanging("InQty");
+                    _InQty = StructuralObject.SetValidValue(value, "InQty");
+                    ReportPropertyChanged("InQty");
+                    OnInQtyChanged();
+                }
+            }
+        }
+        private global::System.Double _InQty;
+        partial void OnInQtyChanging(global::System.Double value);
+        partial void OnInQtyChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Double OutQty
+        {
+            get
+            {
+                return _OutQty;
+            }
+            set
+            {
+                if (_OutQty != value)
+                {
+                    OnOutQtyChanging(value);
+                    ReportPropertyChanging("OutQty");
+                    _OutQty = StructuralObject.SetValidValue(value, "OutQty");
+                    ReportPropertyChanged("OutQty");
+                    OnOutQtyChanged();
+                }
+            }
+        }
+        private global::System.Double _OutQty;
+        partial void OnOutQtyChanging(global::System.Double value);
+        partial void OnOutQtyChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Reference
+        {
+            get
+            {
+                return _Reference;
+            }
+            set
+            {
+                if (_Reference != value)
+                {
+                    OnReferenceChanging(value);
+                    ReportPropertyChanging("Reference");
+                    _Reference = StructuralObject.SetValidValue(value, false, "Reference");
+                    ReportPropertyChanged("Reference");
+                    OnReferenceChanged();
+                }
+            }
+        }
+        private global::System.String _Reference;
+        partial void OnReferenceChanging(global::System.String value);
+        partial void OnReferenceChanged();
+
+        #endregion
+
+    }
 
     #endregion
 
-    
 }
