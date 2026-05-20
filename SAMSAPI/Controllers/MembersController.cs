@@ -1,17 +1,18 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using SAMSAPI.Manager;
+using SAMSAPI.Models.Dashboard;
+using SAMSAPI.Models.Membership;
+using SAMSData;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web.Http;
-using SAMSAPI.Manager;
-using SAMSData;
-using System.Web.Http.Cors;
-using Newtonsoft.Json.Linq;
-using System.IO;
-using Newtonsoft.Json;
 using System.Web;
-using SAMSAPI.Models.Dashboard;
+using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.UI.WebControls;
 
 namespace SAMSAPI.Controllers
@@ -74,7 +75,15 @@ namespace SAMSAPI.Controllers
             var list = new SAMSManager().GetMembershipTypes();
             return list;
         }
-      
+
+        [HttpGet]
+        [ActionName("FeeTypes")]
+        public IEnumerable<FeeType> GetFeeTypes()
+        {
+            var list = new SAMSManager().GetFeeTypes();
+            return list;
+        }
+
         [HttpPost]
         [ActionName("SaveMember")]
         public Member SaveRoom(Member member)
@@ -94,7 +103,7 @@ namespace SAMSAPI.Controllers
         [HttpPost]
         [ActionName("SaveMemberFee")]
         public MembershipFeeTransaction SaveMemberFee(MembershipFeeTransaction memberFee)
-        {
+        {            
             var _member = new SAMSManager().SaveMemberFee(memberFee);
             return _member;            
         }
@@ -116,7 +125,7 @@ namespace SAMSAPI.Controllers
         }
 
         [HttpGet]
-        [ActionName("MemberFeeList1")]
+        [ActionName("GetMemberFees")]
         public IEnumerable<MembershipFeeTransaction> GetMemberFees1(DateTime fromDate, DateTime toDate)
         {
             var list = new SAMSManager().GetMemberFees(fromDate, toDate); 
@@ -169,9 +178,9 @@ namespace SAMSAPI.Controllers
 
         [HttpGet]
         [ActionName("SportsFeeMembers")]
-        public List<MembeFeeStatus> GetSportsFeeMembers()
+        public List<MembeFeeStatus> GetSportsFeeMembers(int feeTypeId)
         {
-            var list = new SAMSManager().GetSportsMembersFeeStatus();
+            var list = new SAMSManager().GetSportsMembersFeeStatus(feeTypeId);
             return list;
         }
 

@@ -32,7 +32,7 @@ namespace SAMSAPI.Manager
 
     public class MembeFeeStatus
     {
-        public Member Member { get; set; }
+        public Member Member { get; set; }        
         public int DueFromYear { get; set; }
         public int DueToYear { get; set; }
         public int CurrentYear { get; set; }
@@ -40,6 +40,7 @@ namespace SAMSAPI.Manager
         public string FeeDueStatus { get; set; }
         public float DueAmount { get; set; }
         public int FeeType { get; set; }
+        public int Age { get; set; }
         public List<FeeStaus> FeeStatusList { get; set; }
     }
 
@@ -86,6 +87,21 @@ namespace SAMSAPI.Manager
     {
         public int StartYear { get; set; }
         public int EndYear { get; set; }
+    }
+
+    public class MemberFeeDueDetailsDto
+    {
+        public DateTime? PaidFromDate { get; set; }
+
+        public DateTime? PaidToDate { get; set; }
+
+        public DateTime? DueFromDate { get; set; }
+
+        public DateTime? DueToDate { get; set; }
+
+        public int FeeTypeId { get; set; }
+
+        public Member Member{ get; set; }
     }
 
     public class RoomView : Room

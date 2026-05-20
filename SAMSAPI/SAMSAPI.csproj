@@ -23,6 +23,8 @@
     <Use64BitIISExpress />
     <UseGlobalApplicationHostFile />
     <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -54,6 +56,7 @@
     <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Web.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.7\lib\net45\System.Web.Cors.dll</HintPath>
     </Reference>
@@ -171,12 +174,14 @@
     <Compile Include="Controllers\SaleEntryController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\WhatsAppController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Bookings\booking.cs" />
     <Compile Include="Models\Dashboard\DashboardModel.cs" />
     <Compile Include="Models\Inventory\InventoryModels.cs" />
+    <Compile Include="Models\Membership\MembershipModels.cs" />
     <Compile Include="Models\Role\Role.cs" />
     <Compile Include="Models\User\UserDBHandler.cs" />
     <Compile Include="Models\User\UserModel.cs" />
@@ -186,11 +191,17 @@
     <Compile Include="SamsManager\SAMSSecurity.cs" />
     <Compile Include="SamsManager\SMSService.cs" />
     <Compile Include="SamsManager\UIObjects.cs" />
+    <Compile Include="WhatsApp\Models\WhatsAppModels.cs" />
+    <Compile Include="WhatsApp\Service\WhatsAppSAMSIntegration.cs" />
+    <Compile Include="WhatsApp\Service\WhatsAppService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Config\qrCode.jpeg" />
+    <Content Include="Content\Config\qrCode.jpg" />
+    <Content Include="Content\Config\qrCode.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -207,6 +218,7 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\HelpPageApiModel.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <Content Include="Content\Config\whatsapp-templates.json" />
     <None Include="Properties\PublishProfiles\cosmobvrmapi - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\cosmobvrmapi - Web Deploy1.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -231,6 +243,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="WhatsApp\WHATSAPP_MODULE_GUIDE.md" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_GlobalResources\AppMessages.resx">

@@ -1,5 +1,8 @@
 ﻿using SAMSAPI.Models.Bookings;
 using SAMSAPI.Models.Dashboard;
+using SAMSAPI.Models.Membership;
+using SAMSAPI.WhatsApp.Models;
+using SAMSAPI.WhatsApp.Service;
 using SAMSData;
 using System;
 using System.Collections.Generic;
@@ -9,6 +12,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Security.Policy;
 using System.Text;
+using System.Web.Http.ModelBinding;
 
 namespace SAMSAPI.Manager
 {
@@ -16,7 +20,9 @@ namespace SAMSAPI.Manager
     {
 
         SAMSData.SAMSEntities se = new SAMSData.SAMSEntities();
-
+        bool IsEnabledWhatsAppNotification = Convert.ToBoolean(ConfigurationManager.AppSettings["EnableWhatsAppNotification"]);
+        string countryCode = ConfigurationManager.AppSettings["WhatsApp_CountryCode"];
+        string testWhatsAppPhone = ConfigurationManager.AppSettings["WhatsApp_TestPhone"];
         public SAMSManager()
         {
         }
@@ -33,6 +39,26 @@ namespace SAMSAPI.Manager
             return msList;
         }
 
+
+        public List<FeeType> GetFeeTypes()
+        {
+            List<FeeType> feeTypes = new List<FeeType>
+                        {
+                            new FeeType { FeeTypeId = 1, FeeTypeName = "Membership" },
+                            new FeeType { FeeTypeId = 2, FeeTypeName = "Sports(All Games)" },
+                            new FeeType { FeeTypeId = 3, FeeTypeName = "Locker" },
+                            new FeeType { FeeTypeId = 4, FeeTypeName = "Gym" },                           
+                            new FeeType { FeeTypeId = 5, FeeTypeName = "Swimming Pool" },
+                            new FeeType { FeeTypeId = 6, FeeTypeName = "Shuttle" },                           
+                            new FeeType { FeeTypeId = 7, FeeTypeName = "Tennis" },                           
+                            new FeeType { FeeTypeId = 8, FeeTypeName = "Billiards" },
+                            new FeeType { FeeTypeId = 9 , FeeTypeName = "Development" },
+
+                        };
+
+            return feeTypes;
+        }
+
         public MembershipType GetMembershipType(int id)
         {
             MembershipType mem = (from c in se.MembershipTypes
@@ -46,15 +72,15 @@ namespace SAMSAPI.Manager
         {
             IQueryable<MembershipFeeTransaction> feeList = from c in se.MembershipFeeTransactions
                                                            select c;
-            return feeList.ToList();
+            return feeList.ToList();         
         }
 
         public List<MembershipFeeTransaction> GetMemberFees(DateTime fromDate, DateTime toDate)
         {
             IQueryable<MembershipFeeTransaction> feeList = from c in se.MembershipFeeTransactions
                                                            where c.PaidDate >= fromDate && c.PaidDate <= toDate
-                                                           select c;
-            return feeList.ToList();
+                                                           select c ;
+            return feeList.OrderByDescending(x=>x.MemershipFeeId).ToList();
         }
 
         public List<MembershipFeeTransaction> GetMemberFees(int memberId)
@@ -126,7 +152,7 @@ namespace SAMSAPI.Manager
                 membersList = from c in se.Members
                               select c;
             }
-
+         
             return membersList.ToList(); ;
         }
 
@@ -227,6 +253,7 @@ namespace SAMSAPI.Manager
                 selMember.Reference3MemberCode = nMember.Reference3MemberCode;
                 selMember.Reference4MemberCode = nMember.Reference4MemberCode;
                 selMember.OtherDetails1 = nMember.OtherDetails1;
+                selMember.OtherDetails2 = nMember.OtherDetails2;
                 se.SaveChanges();
             }
 
@@ -241,10 +268,29 @@ namespace SAMSAPI.Manager
             return data.ToList();
         }
 
+
+        //public List<MembershipFeeTransaction> GetSportsFeeTransactions(int memberId)
+        //{
+        //    var data = from s in se.MembershipFeeTransactions
+        //               where s.MemberId == memberId && s.FeeType >1 && s.FeeType<8
+        //        select s;
+        //    return data.ToList();
+        //}
         public List<MembershipFeeTransaction> GetSportsFeeTransactions(int memberId)
         {
+            var excludedFeeTypes = new List<int?> { 1, 3, 8 };
+
+            var data = se.MembershipFeeTransactions
+                .Where(s => s.MemberId == memberId
+                         && !excludedFeeTypes.Contains(s.FeeType))
+                .ToList();
+
+            return data;
+        }
+        public List<MembershipFeeTransaction> GetSportsFeeTransactions(int memberId, int feeTypeId)
+        {
             var data = from s in se.MembershipFeeTransactions
-                       where s.MemberId == memberId && s.FeeType == 2
+                       where s.MemberId == memberId && s.FeeType == feeTypeId
                        select s;
             return data.ToList();
         }
@@ -256,6 +302,107 @@ namespace SAMSAPI.Manager
                        select s;
             return data.ToList();
         }
+
+        public void SendPaymentNotification(PaymentNotificationRequest request)
+        {
+            if (IsEnabledWhatsAppNotification)
+            {
+                var whatsAppService = new WhatsAppService();
+                if (request.FeeTransactionId > 0)
+                {
+                    MembershipFeeTransaction mFee = se.MembershipFeeTransactions.FirstOrDefault(r => r.MemershipFeeId == request.FeeTransactionId);
+                    Member m = GetMember((int)mFee.MemberId);
+
+                    WhatsAppPaymentContext ctx = new WhatsAppPaymentContext();
+                    ctx.FeeType = GetFeeType((int)mFee.FeeType);
+                    ctx.MemberCode = m.MemberCode;
+                    ctx.MemberName = m.FirstName + " " + m.LastName;
+                    ctx.PhoneNumber = FormatWithCountryCodeOnlyDigits(m.Phone, countryCode);
+                    ctx.Amount = mFee.MembershipFee.ToString();
+                    ctx.PaymentMode = mFee.PaymentMode;
+                    ctx.ReceiptNo = mFee.PaymentDetails;
+                    ctx.Language = GetMemberPreferredLanguage(m.OtherDetails2);
+                    ctx.MembershipYear = GetMembershipYear( mFee);
+                    ctx.TemplateKey = "1";
+                    ctx.Period = GetPeriodType(mFee.FeeReceiptNo);
+                   // whatsAppService.SendPaymentTemplateAsync(ctx);
+                    whatsAppService.SendTextMessageAsync(ctx);
+                }
+                else
+                {
+                    Member m = GetMember((int)request.MemberId);
+                    if (request.FeeType == 1)
+                    {
+                        MembeFeeStatus feeStatus = GetMemberFeeDetails(m);
+                        WhatsAppPaymentContext ctx = new WhatsAppPaymentContext();
+                        ctx.FeeType = GetFeeType((int)request.FeeType);
+                        ctx.MemberCode = m.MemberCode;
+                        ctx.MemberName = m.FirstName + " " + m.LastName;
+                        ctx.PhoneNumber = FormatWithCountryCodeOnlyDigits(m.Phone, countryCode);
+                        ctx.Amount = feeStatus.DueAmount.ToString();
+                        //  ctx.PaymentMode = mFee.PaymentMode;
+                        //ctx.ReceiptNo = mFee.PaymentDetails;
+                        ctx.Language = GetMemberPreferredLanguage(m.OtherDetails2);
+                        ctx.MembershipYear = feeStatus.DueFromYear + "-" + feeStatus.DueToYear;
+                        ctx.TemplateKey = "2";
+                        whatsAppService.SendTextMessageAsync(ctx);
+                        whatsAppService.SendMessageWithQrAsync(ctx.PhoneNumber);
+
+                    }
+
+                }
+            }
+
+        }
+        private string GetPeriodType(int? type)
+        {
+            switch (type)
+            {
+                case 2:
+                    return "Monthly";
+                default:
+                    return "Annual";              
+            }
+        }
+        public  string FormatWithCountryCodeOnlyDigits(string phoneNumber, string countryCode)
+        {
+            if (!string.IsNullOrWhiteSpace(testWhatsAppPhone))
+            {
+                return testWhatsAppPhone;
+            }
+            if (string.IsNullOrWhiteSpace(phoneNumber)) return phoneNumber;
+            if (string.IsNullOrWhiteSpace(countryCode)) return phoneNumber;
+
+            // 1. Clean inputs: Extract ONLY digits from both the phone number and country code
+            string cleanPhone = new string(phoneNumber.Where(char.IsDigit).ToArray());
+            string numericCountryCode = new string(countryCode.Where(char.IsDigit).ToArray());
+
+            if (string.IsNullOrEmpty(cleanPhone) || string.IsNullOrEmpty(numericCountryCode))
+                return phoneNumber;
+
+            // 2. If it already starts with the numeric country code, return it
+            if (cleanPhone.StartsWith(numericCountryCode))
+            {
+                return cleanPhone;
+            }
+
+            // 3. Remove leading '0' (commonly used in local dialing, e.g., 09876543210 -> 9876543210)
+            if (cleanPhone.StartsWith("0"))
+            {
+                cleanPhone = cleanPhone.Substring(1);
+            }
+
+            // 4. Check one more time in case the number was something like "0919876543210"
+            if (cleanPhone.StartsWith(numericCountryCode))
+            {
+                return cleanPhone;
+            }
+
+            // 5. Prepend the numeric country code
+            return numericCountryCode + cleanPhone;
+        }
+
+
         public MembershipFeeTransaction SaveMemberFee(MembershipFeeTransaction mFee)
         {
             if (mFee.MemershipFeeId == 0)
@@ -263,9 +410,33 @@ namespace SAMSAPI.Manager
                 try
                 {
 
-                    mFee.MembershipYear = Convert.ToDateTime(mFee.StartDate).Year.ToString() + "-" + Convert.ToDateTime(mFee.EndtDate).Year.ToString();
+                    //if (mFee.FeeReceiptNo == 2)
+                    //    mFee.MembershipYear = mFee.StartDate.ToString() + "-" + mFee.EndtDate.ToString();
+                    //else
+                        mFee.MembershipYear = Convert.ToDateTime(mFee.StartDate).Year.ToString() + "-" + Convert.ToDateTime(mFee.EndtDate).Year.ToString();
+                    
                     se.MembershipFeeTransactions.AddObject(mFee);
                     se.SaveChanges();
+
+                    if (IsEnabledWhatsAppNotification)
+                    {
+                        Member m = GetMember((int)mFee.MemberId);
+                        var whatsAppService = new WhatsAppService();
+                        WhatsAppPaymentContext ctx = new WhatsAppPaymentContext();
+                        ctx.FeeType = GetFeeType((int)mFee.FeeType);
+                        ctx.MemberCode = m.MemberCode;
+                        ctx.MemberName = m.FirstName + " " + m.LastName;
+                        ctx.PhoneNumber = FormatWithCountryCodeOnlyDigits(m.Phone, countryCode);
+                        ctx.Amount = mFee.MembershipFee.ToString();
+                        ctx.PaymentMode = mFee.PaymentMode;
+                        ctx.ReceiptNo = mFee.PaymentDetails;
+                        ctx.Language = GetMemberPreferredLanguage(m.OtherDetails2);
+                        ctx.MembershipYear = GetMembershipYear(mFee);
+                        ctx.TemplateKey = "1";
+                        ctx.Period = GetPeriodType(mFee.FeeReceiptNo);
+                        //  whatsAppService.SendPaymentTemplateAsync(ctx);
+                        whatsAppService.SendTextMessageAsync(ctx);
+                    }
                 } catch (Exception ex)
                 {
 
@@ -296,27 +467,78 @@ namespace SAMSAPI.Manager
             return mFee;
         }
 
-        public string DeleteMemberFee(MembershipFeeTransaction fee)
+
+        private string GetMembershipYear(MembershipFeeTransaction member)
         {
-            string message = "";
-            try
+            if (member.FeeReceiptNo == 2)
             {
-                if (fee.MemershipFeeId != 0)
-                {
-                    var item = se.MembershipFeeTransactions.Where(x => x.MemershipFeeId == fee.MemershipFeeId).FirstOrDefault();
+                string startDate = Convert.ToDateTime(member.StartDate)
+                                    .ToString("dd-MMM-yyyy");
 
-                    se.MembershipFeeTransactions.DeleteObject(item);
-                    se.SaveChanges();
-                    message = "Success";
-                }
+                string endDate = Convert.ToDateTime(member.EndtDate)
+                                  .ToString("dd-MMM-yyyy");
 
+                return $"{startDate} to {endDate}";
             }
-            catch (Exception ex)
-            {
-                message = ex.Message;
-            }
-            return message;
+
+            return member.MembershipYear;
         }
+        private string GetMemberPreferredLanguage(string language)
+        {
+            if (string.IsNullOrEmpty(language))
+                return "en";
+            else
+                return language;
+        }
+
+        private string GetFeeType(int type)
+        {
+            switch (type)
+            {
+                case 1:
+                    return "Membership";
+                case 2:
+                    return "Sports(All Games)";
+                case 3:
+                    return "Locker";
+                case 4:
+                    return "Gym";
+                case 5:
+                    return "Swimming Pool";
+                case 6:
+                    return "Shuttle";
+                case 7:
+                    return "Tennis";
+                case 8:
+                    return "Billiards";
+                case 9:
+                    return "Development";
+                default:
+                    return "Unknown";
+            }
+        }
+
+        public string DeleteMemberFee(MembershipFeeTransaction fee)
+                {
+                    string message = "";
+                    try
+                    {
+                        if (fee.MemershipFeeId != 0)
+                        {
+                            var item = se.MembershipFeeTransactions.Where(x => x.MemershipFeeId == fee.MemershipFeeId).FirstOrDefault();
+
+                            se.MembershipFeeTransactions.DeleteObject(item);
+                            se.SaveChanges();
+                            message = "Success";
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        message = ex.Message;
+                    }
+                    return message;
+                }
 
         public List<MembeFeeDueSummary> GetMembersFeeSummary()
         {
@@ -437,7 +659,26 @@ namespace SAMSAPI.Manager
                 }
             }
         }
+        private int GetAge(DateTime? dateOfBirth)
+        {
+            if (!dateOfBirth.HasValue || dateOfBirth.Value == DateTime.MinValue)
+                return 0;
 
+            var today = DateTime.Today;
+
+            if (dateOfBirth > today)
+                throw new ArgumentException("Date of birth cannot be in the future.");
+
+            int age = today.Year - dateOfBirth.Value.Year;
+
+            // If birthday hasn't occurred yet this year, subtract 1
+            if (dateOfBirth.Value.Date > today.AddYears(-age))
+            {
+                age--;
+            }
+
+            return age;
+        }
         public MembeFeeStatus GetMemberFeeDetails(Member member)
         {
             MembeFeeStatus membeFeeStatus = new MembeFeeStatus();
@@ -465,7 +706,13 @@ namespace SAMSAPI.Manager
                 {
                     currentYear = currenDate.Year;
                 }
-
+                try
+                {
+                    membeFeeStatus.Age = GetAge(Convert.ToDateTime(member.DOB));
+                }
+                catch (Exception ex)
+                {
+                }
 
                 if (member.DOJ != null)
                 {
@@ -556,14 +803,14 @@ namespace SAMSAPI.Manager
         }
 
 
-        public List<MembeFeeStatus> GetSportsMembersFeeStatus()
+        public List<MembeFeeStatus> GetSportsMembersFeeStatus(int feeTypeId)
         {
             List<MembeFeeStatus> memberFeeList = new List<MembeFeeStatus>();
-            var memberList = GetSportsMembers(2);
+            var memberList = GetSportsMembers(feeTypeId);
 
             foreach (var member in memberList)
             {
-                var data = GetSportstMemberFeeDetailsNew(member);
+                var data = GetSportstMemberFeeDetailsNew(member, feeTypeId);
                 if (data != null)
                     memberFeeList.Add(data);
             }
@@ -689,7 +936,7 @@ namespace SAMSAPI.Manager
             }
         }
 
-        public MembershipFeeTransaction GetMemberSportsDetailsNew(Member member)
+        public MembershipFeeTransaction GetMemberSportsDetailsNew(Member member, int feeTypeId)
         {
             DateTime currenDate = DateTime.Now;
             int currentYear;
@@ -705,8 +952,8 @@ namespace SAMSAPI.Manager
 
             int configStartYear = currentYear - 1;
             string feeYear = configStartYear.ToString() + "-" + currentYear.ToString();
-            List<MembershipFeeTransaction> feeList = GetSportsFeeTransactions(member.MemberId);
-
+            List<MembershipFeeTransaction> feeList = GetSportsFeeTransactions(member.MemberId, feeTypeId);
+        
             var item = feeList.Where(x => x.MembershipYear == feeYear).FirstOrDefault();
             if (item != null)
             {
@@ -717,6 +964,49 @@ namespace SAMSAPI.Manager
             {
                 return null;
             }
+        }
+
+        public MemberFeeDueDetailsDto GetMemberPaidDetails(
+    Member member,
+    int feeTypeId)
+        {
+            DateTime currentDate = DateTime.Now;
+
+            List<MembershipFeeTransaction> feeList =
+                GetSportsFeeTransactions(member.MemberId, feeTypeId)
+                .OrderBy(x => x.StartDate)
+                .ToList();
+
+            var dto = new MemberFeeDueDetailsDto();
+
+            if (feeList.Any())
+            {
+                // Paid period
+                dto.PaidFromDate = feeList.First().StartDate;
+
+                dto.PaidToDate = feeList.Last().EndtDate;
+
+                // Current active transaction
+                dto.Member = member;
+
+               dto.FeeTypeId= feeTypeId;
+
+                // Due period starts from last paid end date
+                dto.DueFromDate = feeList.Last().EndtDate;
+
+                // Due till current date/year
+                dto.DueToDate = currentDate;
+            }
+            else
+            {
+                //dto.IsFeePaid = false;
+
+                dto.DueFromDate = currentDate;
+
+                dto.DueToDate = currentDate;
+            }
+
+            return dto;
         }
 
         public MembershipFeeTransaction GetMemberLockerDetails(Member member, string year)
@@ -752,21 +1042,23 @@ namespace SAMSAPI.Manager
 
         }
 
-        public MembeFeeStatus GetSportstMemberFeeDetailsNew(Member member)
+        public MembeFeeStatus GetSportstMemberFeeDetailsNew(Member member, int feeTypeId)
         {
             MembeFeeStatus memberFeeStatus = new MembeFeeStatus();
 
             var feeStatusList = new List<FeeStaus>();
-            var feeDetails = GetMemberSportsDetailsNew(member);
+            var feeDetails = GetMemberSportsDetailsNew(member, feeTypeId);
             if (feeDetails != null)
             {
+
+                // return feeDetails;
                 FeeStaus feeStatus = new FeeStaus();
                 feeStatus.Year = feeDetails.MembershipYear;
                 feeStatus.Status = " Paid " + feeDetails.MembershipFee + "/- (" + feeDetails.Comments + ")";
 
                 feeStatusList.Add(feeStatus);
                 memberFeeStatus.Member = member;
-                memberFeeStatus.FeeType = 2;
+                memberFeeStatus.FeeType = feeTypeId;
                 memberFeeStatus.FeeStatusList = feeStatusList;
                 return memberFeeStatus;
             }
@@ -1010,6 +1302,7 @@ namespace SAMSAPI.Manager
         public List<Booking> GetBookingsList(DateTime fromDate, DateTime toDate, string status = "")
         {
             IQueryable<Booking> bookingsList;
+            toDate = toDate.AddDays(1);
 
             if (status == null || status == "")
             {

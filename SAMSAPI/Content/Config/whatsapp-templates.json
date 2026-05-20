@@ -1,0 +1,125 @@
+{
+  "_comment": "WhatsApp Message Templates Configuration for SAMS Club Management System",
+  "_version": "1.0.0",
+  "_updated": "2026-03-26",
+  "_instructions": {
+    "placeholders": "Use {MemberName}, {MemberCode}, {Amount}, {FeeType}, {PaidDate}, {ReceiptNo}, {DueYear}, {DueAmount}, {DueDate}, {ClubName}, {SportName}, {PaymentMode}",
+    "language_codes": "en = English, te = Telugu",
+    "message_types": "payment_success, payment_reminder, sports_fee_success, sports_fee_reminder, membership_renewal, welcome"
+  },
+
+  "club": {
+    "name": "Cosmopolitan Club",
+    "name_telugu": "కాస్మోపాలిటన్ క్లబ్"
+  },
+
+  "templates": {
+
+    "membership_fee_success": {
+      "en": {
+        "subject": "Membership Fee Payment Confirmation",
+        "body": "Dear {MemberName},\n\n*Your Annual Maintenance Fee has been successfully received.* \n\n📋 *Payment Details:*\n• Member Code  : {MemberCode}\n• Period              : {PaidDate}\n• Amount Received : ₹{Amount}/-\n• Receipt No : {ReceiptNo}\n\nThank you for your timely payment.\n\nFor any assistance, please contact the Club Office Cell Numbers : 83329 23377, 83339 23377, 97057 44477.\n\nThis is an automated confirmation from Cosmopolitan Club."
+      },
+      "te": {
+        "subject": "సభ్యత్వ రుసుము చెల్లింపు నిర్ధారణ",
+        "body": "ప్రియమైన {MemberName} గారికి,\n\n*మీరు చెల్లించిన వార్షిక నిర్వహణ రుసుము (Annual Maintenance Fee) విజయవంతంగా అందింది.*\n\n📋 *చెల్లింపు వివరాలు:*\n• సభ్యత్వం సంఖ్య       : {MemberCode}\n• కాలం                 : {PaidDate}\n• అందిన మొత్తం : ₹{Amount}/-\n• రసీదు సంఖ్య  : {ReceiptNo}\n\nమీరు సమయానికి చెల్లించినందుకు ధన్యవాదాలు. \n\nఏదైనా సహాయం కోసం దయచేసి క్లబ్ కార్యాలయాన్ని సంప్రదించండి.\n\nఇది కాస్మోపాలిటన్ క్లబ్ నుండి పంపబడిన ఆటోమేటెడ్ సందేశం."
+      }
+    },
+
+    "membership_fee_reminder": {
+      "en": {
+        "subject": "Membership Fee Payment Reminder",
+        "body": "Dear {MemberName},\n\nThis is a friendly reminder that your Annual Maintenance Fee is due.\n\n⚠️ *Due Details:*\n• Member Code  : {MemberCode}\n• Due Period     : {DueYear}\n• Due Amount  : ₹{DueAmount}/-\n\nKindly pay your Annual Maintenance Fee at the earliest to continue enjoying club facilities without interruption.\n\n*For your convenience, you can now pay the due amount Online to the below account or via UPI to the attached QR code.* \n\n*ACCOUNT DETAILS:* \nNAME : THE COSMOPOLITAN CLUB\nACCOUNT NO : 8481201000069\nBANK :\tCANARA BANK\nBRANCH : BHIMAVARAM, J.P.ROAD.\nIFSC : CNRB0008481 \n\nFor assistance, please contact the Club Office Cell Numbers:83329 23377, 83339 23377, 97057 44477 .\n\nThis is an automated reminder from *{ClubName}*."
+      },
+      "te": {
+        "subject": "సభ్యత్వ రుసుము చెల్లింపు రిమైండర్",
+        "body": "ప్రియమైన {MemberName} గారికి,\n\nక్లబ్ సదుపాయాలు పొందడానికి క్లబ్ మెయింటెనెన్స్ రుసుములు చెలించవలెను..\n\n⚠️ *మెయింటెనెన్స్ రుసుములు వివరాలు::*\n• సభ్యత్వం సంఖ్య      : {MemberCode}\n• ఆర్థిక సంవత్సరం    : {DueYear}\n• మొత్తం  : ₹{DueAmount}/-\n\nఏదైనా సహాయం కోసం దయచేసి క్లబ్ కార్యాలయాన్ని సంప్రదించండి.\n\nఇది కాస్మోపాలిటన్ క్లబ్ నుండి పంపబడిన ఆటోమేటెడ్ సందేశం."
+      }
+    },
+
+    "sports_fee_success": {
+      "en": {
+        "subject": "Sports Fee Payment Confirmation",
+        "body": "Dear {MemberName},\n\nYour Annual Sports Fee (All Games Fee) has been successfully received.\n\n🏆 *Payment Details:*\n• Member Code  : {MemberCode}\n• Period         : {PaidDate}\n• Amount Received  : ₹{Amount}/-\n• Receipt No : {ReceiptNo}\n\nThank you for your payment.\n\nFor any assistance, Please Contact the Club Office Cell Numbers : 83329 23377, 83339 23377, 97057 44477 \n\nThis is an automated confirmation from Cosmopolitan Club."
+      },
+      "te": {
+        "subject": "స్పోర్ట్స్ రుసుము చెల్లింపు నిర్ధారణ",
+        "body": "ప్రియమైన {MemberName} గారికి,\n\nమీరు చెల్లించిన వార్షిక క్రీడల రుసుము (All Games Fee) విజయవంతంగా అందింది.\n\n🏆 *చెల్లింపు వివరాలు:*\n• సభ్యత్వం సంఖ్య         : {MemberCode}\n• ఆర్థిక సంవత్సరం   : {PaidDate}\n• అందిన మొత్తం : ₹{Amount}/-\n• రసీదు సంఖ్య  : {ReceiptNo}\n\nమీరు సమయానికి చెల్లించినందుకు ధన్యవాదాలు. \n\nఏదైనా సహాయం కోసం దయచేసి క్లబ్ కార్యాలయాన్ని సంప్రదించండి.\n\nఇది కాస్మోపాలిటన్ క్లబ్ నుండి పంపబడిన ఆటోమేటెడ్ సందేశం."
+      }
+    },
+
+    "generic_fee_success": {
+      "en": {
+        "subject": "Sports Fee Payment Confirmation",
+        "body": "Dear {MemberName},\n\nYour  {Period} {FeeType} Fee  has been successfully received.\n\n🏆 *Payment Details:*\n• Member Code  : {MemberCode}\n• Period         : {PaidDate}\n• Amount Received  : ₹{Amount}/-\n• Receipt No : {ReceiptNo}\n\nThank you for your payment.\n\nFor any assistance, Please Contact the Club Office Cell Numbers : 83329 23377, 83339 23377, 97057 44477 \n\nThis is an automated confirmation from Cosmopolitan Club."
+      },
+      "te": {
+        "subject": "స్పోర్ట్స్ రుసుము చెల్లింపు నిర్ధారణ",
+        "body": "ప్రియమైన {MemberName} గారికి,\n\nమీరు చెల్లించిన {Period} {FeeType} రుసుము  విజయవంతంగా అందింది.\n\n🏆 *చెల్లింపు వివరాలు:*\n• సభ్యత్వం సంఖ్య         : {MemberCode}\n• కాలపరిమితి : {PaidDate}\n• అందిన మొత్తం : ₹{Amount}/-\n• రసీదు సంఖ్య  : {ReceiptNo}\n\nమీరు సమయానికి చెల్లించినందుకు ధన్యవాదాలు. \n\nఏదైనా సహాయం కోసం దయచేసి క్లబ్ కార్యాలయాన్ని సంప్రదించండి.\n\nఇది కాస్మోపాలిటన్ క్లబ్ నుండి పంపబడిన ఆటోమేటెడ్ సందేశం."
+      }
+    },
+    "locker_fee_success": {
+      "en": {
+        "subject": "Locker Fee Payment Confirmation",
+        "body": "Dear {MemberName},\n\nYour Annual Locker Fee has been successfully received.\n\n🏆 *Payment Details:*\n• Member Code  : {MemberCode}\n• Period         : {PaidDate}\n• Amount Received  : ₹{Amount}/-\n• Receipt No : ₹{ReceiptNo}\n\nThank you for your payment.\n\nFor any assistance, Please Contact the Club Office Cell Numbers : 83329 23377, 83339 23377, 97057 44477 \n\nThis is an automated confirmation from Cosmopolitan Club."
+      },
+      "te": {
+        "subject": "స్పోర్ట్స్ రుసుము చెల్లింపు నిర్ధారణ",
+        "body": "ప్రియమైన {MemberName} గారికి,\n\nమీరు చెల్లించిన వార్షిక లాకర్ రుసుము (Annual Locker Fee) విజయవంతంగా అందింది.\n\n🏆 *చెల్లింపు వివరాలు:*\n• సభ్యత్వం సంఖ్య       : {MemberCode}\n• ఆర్థిక సంవత్సరం       : {PaidDate}\n• అందిన మొత్తం : ₹{Amount}/-\n• రసీదు సంఖ్య  : ₹{ReceiptNo}\n\nమీరు సమయానికి చెల్లించినందుకు ధన్యవాదాలు. \n\nఏదైనా సహాయం కోసం దయచేసి క్లబ్ కార్యాలయాన్ని సంప్రదించండి.\n\nఇది కాస్మోపాలిటన్ క్లబ్ నుండి పంపబడిన ఆటోమేటెడ్ సందేశం."
+      }
+    },
+
+    "sports_fee_reminder": {
+      "en": {
+        "subject": "Sports Fee Payment Reminder",
+        "body": "Dear {MemberName},\n\nThis is a *reminder* that your Sports Fee payment is pending.\n\n⚠️ *Due Details:*\n• Member Code  : {MemberCode}\n• Sport               : {SportName}\n• Due Period     : {DueYear}\n• Due Amount  : ₹{DueAmount}/-\n• Due Date        : {DueDate}\n\nPlease clear your sports fee to continue participating in sports activities at *{ClubName}*.\n\nFor queries, contact us at the club office.\n\n_This is an automated reminder from *{ClubName}*._"
+      },
+      "te": {
+        "subject": "స్పోర్ట్స్ రుసుము చెల్లింపు రిమైండర్",
+        "body": "ప్రియమైన {MemberName} గారికి,\n\nమీ స్పోర్ట్స్ రుసుము చెల్లింపు పెండింగ్‌లో ఉందని *గుర్తు చేస్తున్నాము*.\n\n⚠️ *బాకీ వివరాలు:*\n• సభ్య కోడ్       : {MemberCode}\n• క్రీడ               : {SportName}\n• బాకీ కాలం     : {DueYear}\n• బాకీ మొత్తం  : ₹{DueAmount}/-\n• చివరి తేదీ      : {DueDate}\n\n*{ClubName}* లో క్రీడా కార్యకలాపాలలో పాల్గొనడం కొనసాగించడానికి మీ స్పోర్ట్స్ రుసుము చెల్లించండి.\n\nసందేహాల కోసం క్లబ్ కార్యాలయాన్ని సంప్రదించండి.\n\n_ఇది *{ClubName}* నుండి స్వయంచాలక రిమైండర్._"
+      }
+    },
+
+    "general_fee_success": {
+      "en": {
+        "subject": "Fee Payment Confirmation",
+        "body": "Dear {MemberName},\n\nYour *{FeeType}* payment has been successfully received.\n\n✅ *Payment Details:*\n• Member Code  : {MemberCode}\n• Fee Type         : {FeeType}\n• Amount Paid  : ₹{Amount}/-\n• Receipt No      : {ReceiptNo}\n• Date                : {PaidDate}\n• Mode              : {PaymentMode}\n\nThank you!\n*{ClubName}*\n\n_This is an automated message. Please do not reply._"
+      },
+      "te": {
+        "subject": "రుసుము చెల్లింపు నిర్ధారణ",
+        "body": "ప్రియమైన {MemberName} గారికి,\n\nమీ *{FeeType}* చెల్లింపు విజయవంతంగా స్వీకరించబడింది.\n\n✅ *చెల్లింపు వివరాలు:*\n• సభ్య కోడ్          : {MemberCode}\n• రుసుము రకం   : {FeeType}\n• చెల్లించిన మొత్తం : ₹{Amount}/-\n• రసీదు నంబర్     : {ReceiptNo}\n• తేదీ                   : {PaidDate}\n• చెల్లింపు విధానం : {PaymentMode}\n\nధన్యవాదాలు!\n*{ClubName}*\n\n_ఇది స్వయంచాలక సందేశం. దయచేసి జవాబు ఇవ్వకండి._"
+      }
+    },
+
+    "bulk_reminder": {
+      "en": {
+        "subject": "Payment Reminder",
+        "body": "Dear {MemberName},\n\nThis is a reminder from *{ClubName}*.\n\nYour *{FeeType}* of ₹{DueAmount}/- for the period *{DueYear}* is pending.\n\nKindly make the payment at the earliest.\n\nFor queries, please contact the club office.\n\n_This is an automated message._"
+      },
+      "te": {
+        "subject": "చెల్లింపు రిమైండర్",
+        "body": "ప్రియమైన {MemberName} గారికి,\n\n*{ClubName}* నుండి రిమైండర్.\n\n*{DueYear}* కాలానికి మీ *{FeeType}* ₹{DueAmount}/- పెండింగ్‌లో ఉంది.\n\nవీలైనంత త్వరగా చెల్లింపు చేయగలరు.\n\nసందేహాల కోసం క్లబ్ కార్యాలయాన్ని సంప్రదించండి.\n\n_ఇది స్వయంచాలక సందేశం._"
+      }
+    },
+
+    "welcome_member": {
+      "en": {
+        "subject": "Welcome to the Club",
+        "body": "Dear {MemberName},\n\n🎉 *Welcome to {ClubName}!*\n\nYour membership has been successfully registered.\n\n🪪 *Membership Details:*\n• Member Code      : {MemberCode}\n• Membership Type : {FeeType}\n• Valid From           : {PaidDate}\n\nWe are delighted to have you as a member. Please visit the club office to collect your membership card.\n\nEnjoy all the facilities and privileges of being a member!\n\n_Team {ClubName}_"
+      },
+      "te": {
+        "subject": "క్లబ్‌కు స్వాగతం",
+        "body": "ప్రియమైన {MemberName} గారికి,\n\n🎉 *{ClubName}కు స్వాగతం!*\n\nమీ సభ్యత్వం విజయవంతంగా నమోదు చేయబడింది.\n\n🪪 *సభ్యత్వ వివరాలు:*\n• సభ్య కోడ్             : {MemberCode}\n• సభ్యత్వ రకం     : {FeeType}\n• చెల్లుబాటు తేదీ  : {PaidDate}\n\nమీరు సభ్యుడిగా చేరినందుకు చాలా సంతోషంగా ఉన్నాము. మీ సభ్యత్వ కార్డు తీసుకోవడానికి క్లబ్ కార్యాలయాన్ని సందర్శించండి.\n\nసభ్యుడిగా అన్ని సదుపాయాలు మరియు ప్రత్యేకాధికారాలను ఆస్వాదించండి!\n\n_టీమ్ {ClubName}_"
+      }
+    }
+  },
+
+  "settings": {
+    "default_language": "en",
+    "send_both_languages": true,
+    "language_separator": "\n\n─────────────────\n\n",
+    "retry_on_failure": true,
+    "max_retries": 3,
+    "retry_delay_seconds": 5
+  }
+}
