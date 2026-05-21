@@ -27,6 +27,12 @@ namespace SAMSAPI.Manager
         {
         }
 
+        private int GetConfigInt(string key, int defaultValue)
+        {
+            int value;
+            return int.TryParse(ConfigurationManager.AppSettings[key], out value) ? value : defaultValue;
+        }
+
 
         #region Member
 
@@ -354,6 +360,26 @@ namespace SAMSAPI.Manager
             }
 
         }
+
+        public void SendBirthdayNotification(MemberNotificationRequest request)
+        {
+            if (!IsEnabledWhatsAppNotification)
+                return;
+
+            var member = GetMember(request.MemberId);
+            if (member == null)
+                return;
+
+            var whatsAppService = new WhatsAppService();
+            WhatsAppPaymentContext ctx = new WhatsAppPaymentContext();
+            ctx.MemberCode = member.MemberCode;
+            ctx.MemberName = member.FirstName + " " + member.LastName;
+            ctx.PhoneNumber = FormatWithCountryCodeOnlyDigits(member.Phone, countryCode);
+            ctx.Language = GetMemberPreferredLanguage(member.OtherDetails2);
+            ctx.ClubName = ConfigurationManager.AppSettings["WhatsApp_ClubName"] ?? "Cosmopolitan Club";
+            ctx.TemplateKey = "3";
+            whatsAppService.SendTextMessageAsync(ctx);
+        }
         private string GetPeriodType(int? type)
         {
             switch (type)
@@ -653,7 +679,7 @@ namespace SAMSAPI.Manager
             {
                 var mFee = GetMemberFeeDetails(member);
 
-                if (mFee.FeeDueStatus == "Pending")
+                if (mFee.FeeDueStatus == "Pending" && !mFee.IsSeniorCitizenEligible)
                 {
                     SaveAlert(mFee);
                 }
@@ -679,6 +705,33 @@ namespace SAMSAPI.Manager
 
             return age;
         }
+
+        private string GetSeniorCitizenStatus(MembeFeeStatus feeStatus, int ageLimit, int dueCutoffYear)
+        {
+            if (feeStatus.Age <= ageLimit)
+                return "Not Eligible";
+
+            if (feeStatus.FeeDueStatus == "Pending" && feeStatus.DueFromYear <= dueCutoffYear)
+                return "Not Eligible";
+
+            return "Eligible";
+        }
+
+        private void ApplySeniorCitizenFeeOverride(MembeFeeStatus feeStatus, int ageLimit, int dueCutoffYear)
+        {
+            feeStatus.SeniorCitizenDueCutoffYear = dueCutoffYear;
+            feeStatus.SeniorCitizenStatus = GetSeniorCitizenStatus(feeStatus, ageLimit, dueCutoffYear);
+            feeStatus.IsSeniorCitizenEligible = feeStatus.SeniorCitizenStatus == "Eligible";
+
+            if (!feeStatus.IsSeniorCitizenEligible)
+                return;
+
+            feeStatus.FeeDueStatus = "Cleared";
+            feeStatus.DueFromYear = 0;
+            feeStatus.DueToYear = 0;
+            feeStatus.DueAmount = 0;
+        }
+
         public MembeFeeStatus GetMemberFeeDetails(Member member)
         {
             MembeFeeStatus membeFeeStatus = new MembeFeeStatus();
@@ -690,6 +743,8 @@ namespace SAMSAPI.Manager
             float fee = Convert.ToInt32(ConfigurationManager.AppSettings["AnnualMaintenanceFee"]);
             int configNewStartYear = Convert.ToInt32(ConfigurationManager.AppSettings["NewFeeStartYear"]);
             float newFee = Convert.ToInt32(ConfigurationManager.AppSettings["AnnualMaintenanceFeeNew"]);
+            int seniorCitizenAge = GetConfigInt("SeniorCitizenAge", 70);
+            int seniorCitizenDueCutoffYear = GetConfigInt("SeniorCitizenDueCutoffYear", 2024);
             if (member != null)
             {
                 int feeStartYear = 0;
@@ -731,6 +786,10 @@ namespace SAMSAPI.Manager
 
                 var feeStatusList = new List<FeeStaus>();
                 feeStartYear = configStartYear;
+                if (dojYear > configStartYear)
+                {
+                    feeStartYear = dojYear;
+                }
 
 
                 for (int year = feeStartYear; year < currentYear; year++)
@@ -758,13 +817,7 @@ namespace SAMSAPI.Manager
 
                 if (dojYear > feeStartYear)
                 {
-                    // feeStartYear = dojYear + 1;
                     feeStartYear = dojYear;
-
-                    //if (feeStartYear == currentYear)
-                    //{
-                    //    feeStartYear = dojYear - 1;
-                    //}
                 }
 
                 if (feeList.Count > 0)
@@ -795,6 +848,7 @@ namespace SAMSAPI.Manager
 
                 membeFeeStatus.CurrentYear = currentYear;
                 membeFeeStatus.CurrentYearDue = newFee;
+                ApplySeniorCitizenFeeOverride(membeFeeStatus, seniorCitizenAge, seniorCitizenDueCutoffYear);
                 membeFeeStatus.Member = member;
                 membeFeeStatus.FeeStatusList = feeStatusList;
             }
@@ -806,6 +860,21 @@ namespace SAMSAPI.Manager
         public List<MembeFeeStatus> GetSportsMembersFeeStatus(int feeTypeId)
         {
             List<MembeFeeStatus> memberFeeList = new List<MembeFeeStatus>();
+
+            if (feeTypeId == 3)
+            {
+                var memberList1 = GetLockerMembers();
+                var memberList2 = memberList1.OrderBy(x => Convert.ToInt32(x.Address3));
+                foreach (var member in memberList2)
+                {
+                    var data = GetLockerDetails(member);
+                    if (data != null)
+                        memberFeeList.Add(data);
+                }
+
+                return memberFeeList;
+            }
+
             var memberList = GetSportsMembers(feeTypeId);
 
             foreach (var member in memberList)
@@ -815,16 +884,6 @@ namespace SAMSAPI.Manager
                     memberFeeList.Add(data);
             }
 
-
-
-            var memberList1 = GetLockerMembers();
-            var memberList2 = memberList1.OrderBy(x => Convert.ToInt32(x.Address3));
-            foreach (var member in memberList2)
-            {
-                var data = GetLockerDetails(member);
-                if (data != null)
-                    memberFeeList.Add(data);
-            }
             return memberFeeList;
         }
 

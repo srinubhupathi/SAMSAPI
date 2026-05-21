@@ -96,6 +96,8 @@ namespace SAMSAPI.WhatsApp.Service
             }
             else if (ctx.TemplateKey == "2")
                 ctx.TemplateKey = "membership_fee_reminder";
+            else if (ctx.TemplateKey == "3")
+                ctx.TemplateKey = "birthday_notification";
 
             var placeHolders = new Dictionary<string, string>
                     {
@@ -107,7 +109,8 @@ namespace SAMSAPI.WhatsApp.Service
                         { "Amount",    ctx.Amount ?? "" },
                         { "ReceiptNo",    ctx.ReceiptNo?? "" },
                         { "DueAmount",    ctx.Amount?? "" },
-                        { "Period",    ctx.Period?? "" }
+                        { "Period",    ctx.Period?? "" },
+                        { "ClubName",    ctx.ClubName?? "" }
                     };
             var phone =  ctx.PhoneNumber;
            

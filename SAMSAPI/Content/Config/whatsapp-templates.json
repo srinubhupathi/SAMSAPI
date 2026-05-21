@@ -111,6 +111,17 @@
         "subject": "క్లబ్‌కు స్వాగతం",
         "body": "ప్రియమైన {MemberName} గారికి,\n\n🎉 *{ClubName}కు స్వాగతం!*\n\nమీ సభ్యత్వం విజయవంతంగా నమోదు చేయబడింది.\n\n🪪 *సభ్యత్వ వివరాలు:*\n• సభ్య కోడ్             : {MemberCode}\n• సభ్యత్వ రకం     : {FeeType}\n• చెల్లుబాటు తేదీ  : {PaidDate}\n\nమీరు సభ్యుడిగా చేరినందుకు చాలా సంతోషంగా ఉన్నాము. మీ సభ్యత్వ కార్డు తీసుకోవడానికి క్లబ్ కార్యాలయాన్ని సందర్శించండి.\n\nసభ్యుడిగా అన్ని సదుపాయాలు మరియు ప్రత్యేకాధికారాలను ఆస్వాదించండి!\n\n_టీమ్ {ClubName}_"
       }
+    },
+
+    "birthday_notification": {
+      "en": {
+        "subject": "Birthday Wishes",
+        "body": "Happy birthday wishes to Sri {MemberName}. 💐💐\n\nSecretary, Cosmopolitan Club."
+      },
+      "te": {
+        "subject": "Birthday Wishes",
+        "body": "శ్రీ {MemberName} గారికి పుట్టినరోజు శుభాకాంక్షలు. 💐💐 \n\n సెక్రటరీ, కాస్మోపాలిటన్ క్లబ్."
+      }
     }
   },
 

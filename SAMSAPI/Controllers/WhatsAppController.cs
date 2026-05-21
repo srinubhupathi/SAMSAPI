@@ -79,6 +79,20 @@ namespace SAMSAPI.Controllers
         //  2.  SEND PAYMENT REMINDER  (single member)
         // ═══════════════════════════════════════════════════════════
 
+        [HttpPost]
+        [ActionName("SendBirthdayNotification")]
+        public WhatsAppApiResponse SendBirthdayNotification([FromBody] MemberNotificationRequest request)
+        {
+            if (request == null)
+                return BadRequest("Request body is empty.");
+
+            if (request.MemberId <= 0)
+                return BadRequest("MemberId is required.");
+
+            _mgr.SendBirthdayNotification(request);
+            return Success("Ok");
+        }
+
         /// <summary>
         /// POST api/WhatsApp/SendPaymentReminder
         ///

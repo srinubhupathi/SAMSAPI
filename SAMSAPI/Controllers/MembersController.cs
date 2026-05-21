@@ -178,7 +178,7 @@ namespace SAMSAPI.Controllers
 
         [HttpGet]
         [ActionName("SportsFeeMembers")]
-        public List<MembeFeeStatus> GetSportsFeeMembers(int feeTypeId)
+        public List<MembeFeeStatus> GetSportsFeeMembers(int feeTypeId = 3)
         {
             var list = new SAMSManager().GetSportsMembersFeeStatus(feeTypeId);
             return list;

@@ -40,7 +40,8 @@ namespace SAMSAPI.WhatsApp.Models
         sports_fee_reminder,
         general_fee_success,
         bulk_reminder,
-        welcome_member
+        welcome_member,
+        birthday_notification
     }
 
     // ─────────────────────────────────────────────────────────────
@@ -169,6 +170,11 @@ namespace SAMSAPI.WhatsApp.Models
         public int FeeType { get; set; }
         public int NotificationType { get; set; }
      
+    }
+
+    public class MemberNotificationRequest
+    {
+        public int MemberId { get; set; }
     }
 
     /// <summary>

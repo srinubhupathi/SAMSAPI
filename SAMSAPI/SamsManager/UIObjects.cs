@@ -41,6 +41,9 @@ namespace SAMSAPI.Manager
         public float DueAmount { get; set; }
         public int FeeType { get; set; }
         public int Age { get; set; }
+        public bool IsSeniorCitizenEligible { get; set; }
+        public string SeniorCitizenStatus { get; set; }
+        public int SeniorCitizenDueCutoffYear { get; set; }
         public List<FeeStaus> FeeStatusList { get; set; }
     }
 
